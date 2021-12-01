@@ -161,7 +161,8 @@ export class PropertySearchlistComponent extends SearchlistComponentAbstract<
         switch (menuItem.id) {
 
           case OperationEnum.propertyAddBasket:
-            localStorage.setItem("propertyIds", JSON.stringify(selection.ids)); 
+            
+          localStorage.setItem("propertyIds", JSON.stringify(selection.ids)); 
             var propertyME = JSON.parse(localStorage.getItem("contactIds"));
             this.propertyService.addBasket(propertyME);
             break;
