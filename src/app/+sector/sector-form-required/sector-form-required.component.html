@@ -1,0 +1,105 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.name || error.locations"
+    >
+      <span>{{ 'label_sector'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_name_as_a_word'|translate }}"
+                formControlName="name"
+              />
+              <mat-error>{{ error.name|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_locations'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-autocomplete
+              floatLabel="never"
+              uid="sector-form-required-location"
+              [entities]="AUTOCOMPLETE_ENTITIES_LOCATION"
+              limit="10"
+              [placeholder]="'label_add_location'|translate"
+              [isDisplayedSelectionText]="false"
+              [isDisabled]="isLoading === true"
+              [error]="error.locations_polygons"
+              (changeSelection)="onChangeSelectionLocation($event)"
+            ></app-shared-autocomplete>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key"></div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="let location of model.locations; let i = index;"
+                  (removed)="onClickRemoveLocation(i)"
+                >
+                  <span>{{ location|location }}</span>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="(feature$|async).polygons"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_polygons' | translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <app-map
+              uid="map-sector"
+              [mapSettings]="mapSettings"
+              [polygonSettings]="polygonSettings"
+              [polygons]="polygons"
+              (changePolygons)="onChangePolygons($event)"
+            ></app-map>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,70 @@
+@import "../variables";
+
+.rf__panel {
+  background: $color-01;
+  color: $color-02;
+  margin-bottom: 20px;
+}
+
+.rf__panel-header {
+  background: $color-16;
+  color: $color-02;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+  height: 40px;
+  padding: 5px 10px;
+  border-left: solid 6px $color-19;
+  transition: color 300ms ease-out, border-left 300ms ease-out;
+}
+
+.rf__panel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: $color-16;
+  border-top: solid 1px $color-31;
+  height: 40px;
+}
+
+.rf__panel-header--has-badge,
+.rf__panel-header--has-input {
+  justify-content: space-between;
+}
+
+.rf__panel-header--has-error {
+  border-left-color: $color-17;
+  color: $color-17;
+}
+
+.rf__panel-header--has-warning {
+  border-left-color: $color-27;
+  color: $color-27;
+}
+
+.rf__panel-subheader {
+  color: $color-19;
+  font-weight: bold;
+  font-size: 13px;
+  height: 54px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.rf__panel-body .rf__panel-subheader:first-child {
+  margin-top: -12px;
+}
+
+.rf__panel-body {
+  padding: 20px;
+  background: $color-01;
+}
+
+.rf__panel-section {
+  padding: 0 15px;
+}

@@ -1,0 +1,75 @@
+/**
+ * TODO[later]: Should be moved into mailbox's components so it can be lazy loaded... To be rewritten when redesigning the mailbox module.
+ */
+
+.mailbox {
+
+  .form-inner {
+    .prop-name {
+      color: #323641;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 19px;
+    }
+
+    .prop-type {
+      color: #83879A;
+      font-size: 12px;
+      line-height: 19px;
+      padding-left: 10px;
+    }
+
+    .inner-prop {
+      position: relative;
+      display: inline-block;
+
+      & + * {
+        position: static !important;
+        display: inline-block;
+
+        input {
+          width: 100%;
+
+          & + * {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+    .autocomplete-row {
+      margin: 0;
+      padding: 5px 0;
+      cursor: pointer;
+
+      .prop-img {
+        img {
+          border-radius: 5px;
+          height: 47px;
+          width: auto;
+        }
+      }
+    }
+
+    .ngui-auto-complete {
+      ul {
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-color: #DEDFE4;
+
+        li {
+          background: white !important;
+
+          &:hover, &[selected], &.active, &.current {
+            background: white !important;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+}

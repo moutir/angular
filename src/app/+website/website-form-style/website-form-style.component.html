@@ -1,0 +1,422 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.styleSiteBgColour || error.styleBlockBgColour || error.stylePrimaryBgColour ||
+        error.stylePrimaryBgFlatColour || error.styleSecondaryBgColour || error.styleFooterBgColour || error.stylePrimaryFontColour ||
+        error.styleSecondaryFontColour || error.styleHeaderFooterFontColour || error.styleDetailsTitleBgColour ||
+        error.styleDetailsTitleBgShadowColour || error.styleDetailsAmenitiesFontColour || error.styleDetailsTopBarColour"
+    >
+      <span>{{ 'label_colour'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_background'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.stylePrimaryBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('stylePrimaryBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="stylePrimaryBgColour"
+              />
+              <mat-error>{{ error.stylePrimaryBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_secondary'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleSecondaryBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleSecondaryBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleSecondaryBgColour"
+              />
+              <mat-error>{{ error.styleSecondaryBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_site'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleSiteBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleSiteBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleSiteBgColour"
+              />
+              <mat-error>{{ error.styleSiteBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary_flat'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.stylePrimaryBgFlatColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('stylePrimaryBgFlatColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="stylePrimaryBgFlatColour"
+              />
+              <mat-error>{{ error.stylePrimaryBgFlatColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_block'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleBlockBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleBlockBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleBlockBgColour"
+              />
+              <mat-error>{{ error.styleBlockBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_footer'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleFooterBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleFooterBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleFooterBgColour"
+              />
+              <mat-error>{{ error.styleFooterBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_title'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleDetailsTitleBgColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleDetailsTitleBgColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleDetailsTitleBgColour"
+              />
+              <mat-error>{{ error.styleDetailsTitleBgColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_title_shadow'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              popupPosition="left"
+              [color]="model.styleDetailsTitleBgShadowColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleDetailsTitleBgShadowColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleDetailsTitleBgShadowColour"
+              />
+              <mat-error>{{ error.styleDetailsTitleBgShadowColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_top_bar'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              [color]="model.styleDetailsTopBarColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleDetailsTopBarColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleDetailsTopBarColour"
+              />
+              <mat-error>{{ error.styleDetailsTopBarColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_font'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              [color]="model.stylePrimaryFontColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('stylePrimaryFontColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="stylePrimaryFontColour"
+              />
+              <mat-error>{{ error.stylePrimaryFontColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_secondary'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              [color]="model.styleSecondaryFontColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleSecondaryFontColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleSecondaryFontColour"
+              />
+              <mat-error>{{ error.styleSecondaryFontColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_header_footer_font'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              [color]="model.styleHeaderFooterFontColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleHeaderFooterFontColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleHeaderFooterFontColour"
+              />
+              <mat-error>{{ error.styleHeaderFooterFontColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_amenities'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-color-picker
+              class="color-picker-block"
+              [color]="model.styleDetailsAmenitiesFontColour"
+              [isDisabled]="isLoading || isDisabled || model.isInternal === false"
+              (pick)="onPickColor('styleDetailsAmenitiesFontColour', $event)"
+            ></app-shared-color-picker>
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--color"
+            >
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_color'|translate }}"
+                formControlName="styleDetailsAmenitiesFontColour"
+              />
+              <mat-error>{{ error.styleDetailsAmenitiesFontColour|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

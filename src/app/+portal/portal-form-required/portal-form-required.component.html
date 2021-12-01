@@ -1,0 +1,431 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.portalId || error.label || error.languageCode || error.publicationSites || error.agencyWebsiteId"
+    >
+      <span>{{ 'label_gateway'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_gateway'|translate }}"
+                formControlName="portalId"
+              >
+                <mat-option
+                  *ngFor="let option of options.portalList"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.portalId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label'|translate }}"
+                formControlName="label"
+              />
+              <mat-error>{{ error.label|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_language'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_gateway_language'|translate }}"
+                formControlName="languageCode"
+              >
+                <mat-option
+                  *ngFor="let option of options.portalLanguage"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.languageCode|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_status'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-slide-toggle
+              formControlName="isActivePortal"
+            >
+            <span class="toggle-label">
+              {{ (model.isActivePortal ? 'label_active' : 'label_inactive')|translate }}
+            </span>
+            </mat-slide-toggle>
+            <mat-error>{{ error.isActivePortal|translate }}</mat-error>
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="featurePortal.agencyWebsiteGatewayIds.indexOf(model.portalId) === -1"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_gateway_publication'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="({{ 'placeholder_french_gateway_only'|translate }}) {{ 'feedback_listing_publications_format'|translate }}"
+                formControlName="publicationSites"
+              />
+              <mat-error>{{ error.publicationSites|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="featurePortal.agencyWebsiteGatewayIds.indexOf(model.portalId) > -1"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_portal_agency_website'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'placeholder_portal_agency_website'|translate }}"
+                formControlName="agencyWebsiteId"
+              >
+                <mat-option value="">{{ 'label_none'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.agencyWebsiteList"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.agencyWebsiteId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.agencyName || error.portalAgencyId ||
+        error.agencyPhoneSales || error.agencyPhoneRentals || error.agencyEmailSales || error.agencyEmailRentals"
+    >
+      <span>{{ 'label_agency'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency_name'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_agency_name'|translate }}"
+                formControlName="agencyName"
+              />
+              <mat-error>{{ error.agencyName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_gateway_agency_id'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_gateway_info'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_gateway_agency_id'|translate }}"
+                formControlName="portalAgencyId"
+              />
+              <mat-error>{{ error.portalAgencyId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_communication'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_phone_sales'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_phone_sales'|translate }}"
+                formControlName="agencyPhoneSales"
+              />
+              <mat-error>{{ error.agencyPhoneSales|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_phone_rentals'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_phone_rentals'|translate }}"
+                formControlName="agencyPhoneRentals"
+              />
+              <mat-error>{{ error.agencyPhoneRentals|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_email_sales'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_separate_emails_comma'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_email_sales'|translate }}"
+                formControlName="agencyEmailSales"
+              />
+              <mat-error>{{ error.agencyEmailSales|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_email_rentals'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_separate_emails_comma'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_email_rentals'|translate }}"
+                formControlName="agencyEmailRentals"
+              />
+              <mat-error>{{ error.agencyEmailRentals|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.ftpHost || error.ftpPort || error.ftpLogin || error.ftpPassword"
+    >
+      <span>{{ 'label_ftp'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_settings'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_ftp_host'|translate }}</span>
+            <mat-icon
+              *ngIf="model.isWithCredentials === true"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_gateway_info'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_ftp_host'|translate }}"
+                formControlName="ftpHost"
+              />
+              <mat-error>{{ error.ftpHost|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_ftp_port'|translate }}</span>
+            <mat-icon
+              *ngIf="model.isWithCredentials === true"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_gateway_info'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_ftp_port'|translate }}"
+                formControlName="ftpPort"
+              />
+              <mat-error>{{ error.ftpPort|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_ftp_login'|translate }}</span>
+            <mat-icon
+              *ngIf="model.isWithCredentials === true"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_gateway_info'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_ftp_login'|translate }}"
+                formControlName="ftpLogin"
+              />
+              <mat-error>{{ error.ftpLogin|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_ftp_password'|translate }}</span>
+            <mat-icon
+              *ngIf="model.isWithCredentials === true"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_gateway_info'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_ftp_password'|translate }}"
+                formControlName="ftpPassword"
+              />
+              <mat-error>{{ error.ftpPassword|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_ftp_active'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-ftp-active"
+              formControlName="ftpIsActive"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,21 @@
+@import "../../../styles/variables";
+
+.toggle-label {
+  font-weight: 500;
+  text-transform: lowercase;
+  color: $color-29;
+  margin-right: 5px;
+}
+
+.slide-toggle.mat-checked .toggle-label {
+  color: $color-27;
+}
+
+.rf__table-cell--contract-commission-operator {
+  padding-right: 0;
+}
+
+.rf__panel--contract-price .rf__keyvalue-cell--value,
+.rf__panel--contract-fees .rf__keyvalue-cell--value {
+  align-items: center;
+}

@@ -1,0 +1,25 @@
+@import "../variables";
+
+.rf__star-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rf__star {
+  color: $color-21;
+  user-select: none;
+  transition: color 300ms ease-out;
+}
+
+.rf__star--on {
+  color: $color-20;
+}
+
+.rf__star-list--editable {
+  cursor: pointer;
+}
+
+.rf__star-list--editable:hover > .mat-icon {
+  color: $color-19;
+}

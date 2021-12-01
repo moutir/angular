@@ -1,0 +1,42 @@
+<div class="rf__table-cell rf__email-template-cell--label">
+  <span class="rf__email-template-cell-title">{{ 'title'|translate }}</span>
+  <span class="rf__table-txt">
+    <span *ngIf="emailTemplate.label">{{ emailTemplate.label }}</span>
+    <span *ngIf="!emailTemplate.label" class="placeholder-text">
+      {{ 'label_content_not_available_lang'|translate: { lang: currentLanguageLabel } }}
+    </span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__email-template-cell--creator">
+  <span class="rf__email-template-cell-title">{{ 'label_creator'|translate }}</span>
+  <div class="rf__table-cell-box">
+    <ng-container *ngIf="isPlaceholder === true">
+      <app-shared-contact-link
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+      <app-shared-contact-link
+        [contact]="emailTemplate.createContact"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+    </ng-container>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-template-cell--shared">
+  <span class="rf__email-template-cell-title">{{ 'label_shared'|translate }}</span>
+  <span
+    class="rf__table-txt"
+    [ngClass]="emailTemplate.isShared ? 'rf__email-template-status--shared' : 'rf__email-template-status--not-shared'"
+  >
+    <ng-container
+      *ngIf="isPlaceholder === false"
+    >{{ (emailTemplate.isShared ? 'label_yes' : 'label_no')|translate }}</ng-container>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__spacer"></div>

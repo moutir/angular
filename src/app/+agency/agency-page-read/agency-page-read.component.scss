@@ -1,0 +1,76 @@
+@import "../../../styles/variables";
+
+.agency--contract, .agency--contract-placeholder {
+  display: flex;
+  min-height: 40px;
+}
+
+.agency--contract:nth-child(even), .agency--contract-placeholder:nth-child(even) {
+  background-color: $color-01;
+}
+
+.agency--contract:nth-child(odd), .agency--contract-placeholder:nth-child(odd) {
+  background-color: $color-18;
+}
+
+.agency--contract-checkbox-block, .agency--contract-checkbox-block-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.agency--contract-checkbox-placeholder {
+  color: $color-28;
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.agency--contract-checkbox-active, .agency--contract-checkbox-inactive {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.agency--contract-checkbox-active {
+  color: $color-27;
+}
+
+.agency--contract-checkbox-inactive {
+  color: $color-30;
+}
+
+.agency--contract-checkbox-active::before {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  z-index: -1;
+  left: 22px;
+  top: 5px;
+}
+
+.agency--contract-value {
+  flex: 1;
+  display: flex;
+  min-height: 40px;
+  padding: 10px 10px 10px 0;
+  align-items: center;
+}
+
+.agency--contract-value-placeholder {
+  flex: 1;
+  display: flex;
+}
+
+.agency--contract-value-placeholder span {
+  width: 30%;
+  height: 16px;
+  background-color: $color-22;
+  display: inline-block;
+  margin: 5px;
+  min-width: 140px;
+}

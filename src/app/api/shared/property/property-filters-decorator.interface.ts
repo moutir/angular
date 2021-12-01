@@ -1,0 +1,29 @@
+export interface PropertyFiltersDecoratorInterface {
+  property?: string[];
+  contact?: string;
+  direct_transaction?: string;
+  main_category?: string[];
+  price?: string[];
+  bedrooms?: string[];
+  rooms?: string[];
+  living_area?: string[];
+  land_area?: string[];
+  position?: string[];
+  view?: string[];
+  publication_status?: string;
+  publication?: string[];
+  visibility?: string;
+  broker?: string[];
+  status?: string[];
+  is_promotion?: string;
+  agency_id?: string;
+  sell_foreigner?: string;
+  promotion?: string[];
+  ranking?: string[];
+  custom_attribute?: string[];
+  spaces?: string[];
+  sectors?: string[];
+  ids?: string[];
+  type?: string;
+  polygons?: string;
+}

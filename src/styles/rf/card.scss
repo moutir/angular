@@ -1,0 +1,177 @@
+@import "../variables";
+
+.rf__card {
+  border: none;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.rf__card--placeholder .rf__card-image,
+.rf__card--placeholder .rf__card-body {
+  pointer-events: none;
+}
+
+.rf__card--placeholder .rf__card-text {
+  width: 100%;
+  height: 14px;
+  margin: 3px 0;
+  background: $color-22;
+  color: $color-22;
+}
+
+.rf__card--placeholder .rf__star {
+  color: $color-22;
+}
+
+.rf__card-body {
+  overflow: hidden;
+}
+
+.rf__card-image {
+  cursor: pointer;
+  background-color: $color-31;
+  padding-right: 0;
+  width: 95px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  min-width: 75px;
+}
+
+.rf__card-image-label {
+  color: $color-01;
+  background: $color-23;
+  font-size: 9px;
+  padding: 0 2px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  line-height: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rf__card-image .mat-icon {
+  color: $color-21;
+}
+
+.rf__card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  line-height: 15px;
+  color: $color-29;
+}
+
+.rf__card-text strong {
+  font-size: 10px;
+  color: $color-29;
+}
+
+.rf__card-text i {
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.rf__card-row,
+.rf__card-remove {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rf__card-remove {
+  color: $color-39;
+  cursor: pointer;
+  height: 100%;
+  padding: 3px;
+  transition: background-color 300ms ease-out;
+}
+
+.rf__card-remove:hover {
+  background-color: $color-39;
+  color: $color-01;
+}
+
+.rf__card-row .rf__star {
+  margin-left: -1px;
+}
+
+.rf__card-row .rf__card-text span {
+  line-height: 11px;
+}
+
+.rf__card-star {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: -2px;
+}
+
+.rf__card-star .mat-icon {
+  font-size: 18px;
+  width: 16px;
+  height: 20px;
+}
+
+.rf__card-vip {
+  display: flex;
+  margin-left: 8px;
+}
+
+.rf__card-image .rf__thumbnail:not(.rf__async-image--failure) .mat-icon {
+  display: none;
+}
+
+.rf__card-thumbnail-overlay {
+  background: $color-23;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.rf__card-thumbnail-overlay .mat-icon {
+  color: $color-01;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.rf__card-image:hover .rf__card-thumbnail-overlay {
+  opacity: 1;
+}
+
+.rf__card-list {
+  width: 100%;
+}
+
+.rf__card-list-item {
+  margin-bottom: 5px;
+  width: 100%;
+  display: block;
+  transition: background-color 300ms ease-out;
+}
+
+.rf__card-list-item:not(:hover):nth-child(even) {
+  background-color: $color-18;
+}
+
+.rf__card-list-item:hover {
+  background-color: $color-25;
+}

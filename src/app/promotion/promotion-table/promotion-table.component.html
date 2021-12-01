@@ -1,0 +1,54 @@
+<div class="rf__table">
+
+  <app-promotion-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    [isUsingActions]="isUsingActions"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-promotion-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-promotion-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let promotion of models; trackBy: trackById;"
+      [promotion]="promotion"
+      [feature]="feature"
+      [modelsSelectable]="modelsSelectable"
+      [class.rf__table-row--disabled]="promotion.isBlacklisted === true"
+      [matTooltipDisabled]="promotion.isBlacklisted === false"
+      matTooltip="{{ 'label_blacklisted_promotion'|translate }}"
+      matTooltipPosition="above"
+      [isSelected]="selection.ids.indexOf(promotion.id) > -1"
+      [isUsingActions]="isUsingActions"
+      [isLoading]="loadingModelIds.indexOf(promotion.id) > -1"
+      [permissions]="permissions"
+      (contextmenu)="onContextMenu($event, promotion)"
+      (changeSelection)="onChangeSelectionModel($event, promotion)"
+      (click)="onClickModel(promotion)"
+    ></app-promotion-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-promotion-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isUsingActions]="isUsingActions"
+      [isSelected]="selection.isSelectedAll === true"
+      [permissions]="permissions"
+      [feature]="feature"
+    ></app-promotion-table-row>
+
+  </ng-container>
+</div>

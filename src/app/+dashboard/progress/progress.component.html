@@ -1,0 +1,49 @@
+<div class="tab_content__head">
+  <div class="panel__title">{{ 'label_progress'|translate }}</div>
+</div>
+<div class="tab_content__body" *ngIf="summary">
+  <div class="card__flex">
+    <div class="card card--progress">
+      <div class="card__title">{{ 'label_current_progress'|translate }}</div>
+      <div class="progress">
+        <div class="progress__line" [style.width]="getProgressPercentage()">
+          <span class="progress__value">{{getProgressPercentage()}}</span>
+        </div>
+      </div>
+      <div class="card__bottom">
+        <div class="card__bottom__left">
+          <div class="card__title">
+            <span *ngIf="roleId === 2 && !multipleBrokers">{{ 'label_my_production'|translate }}</span>
+            <span *ngIf="roleId === 2 && multipleBrokers">{{ 'label_production'|translate }}</span>
+            <span *ngIf="roleId === 3">{{ 'label_office_production'|translate }}</span>
+          </div>
+          <div class="card__text card__text--primary">CHF {{getProduction()}}</div>
+        </div>
+        <div class="card__bottom__right">
+          <div class="card__title">
+            <span *ngIf="roleId === 2 && !multipleBrokers">{{ 'label_my_target'|translate }}</span>
+            <span *ngIf="roleId === 2 && multipleBrokers">{{ 'label_production_target'|translate }}</span>
+            <span *ngIf="roleId === 3">{{ 'label_office_target'|translate }}</span>
+          </div>
+          <div class="card__text">CHF {{getTarget()}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card--round">
+      <div class="pie-wrapper progress-75 style-2">
+        <div class="label">
+          <span class="cur">{{dayCount}}</span>
+          <div class="smaller">
+            {{ 'label_days_left'|translate }}
+          </div>
+        </div>
+        <div class="pie">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px" viewBox="0 0 168 168" style="enable-background:new 0 0 168 168;" xml:space="preserve">
+              <path id="XMLID_1_" [attr.stroke-dashoffset]="dayProgress" class="days_progress" d="M84,6c43.1,0,78,34.9,78,78s-34.9,78-78,78S6,127.1,6,84S40.9,6,84,6"/>
+          </svg>
+        </div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+  </div>
+</div>

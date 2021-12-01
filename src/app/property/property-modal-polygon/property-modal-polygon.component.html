@@ -1,0 +1,32 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_search_by_polygons"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <app-map
+        uid="map-property-modal-polygon"
+        [mapSettings]="mapSettings"
+        [polygonSettings]="polygonSettings"
+        [polygons]="polygons"
+        (changePolygons)="onChangePolygons($event)"
+      ></app-map>
+
+    </div>
+
+    <app-shared-modal-footer
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

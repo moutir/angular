@@ -1,0 +1,192 @@
+<div class="row" *ngIf="email">
+  <div class="col-sm-9 back-btn-wrapper">
+    <button [class.disabled]="isLoading" class="btn back-btn"
+            (click)="onClickBack()"><span
+      class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {{ 'inbox_back_to_list'|translate}}
+    </button>
+    <button [class.disabled]="isLoading || message_loading" class="btn back-btn"
+            (click)="onClickMarkUnread()" title="{{ 'label_mark_email_as_unseen'|translate}}">{{
+      'label_mark_email_as_unseen'|translate}}
+    </button>
+
+    <i [class.disabled]="isLoading || message_loading" class="fa fa-reply actions"
+       (click)="onClickReply()"
+       title="{{ 'label_reply'|translate}}"></i>
+    <i [class.disabled]="isLoading || message_loading" class="fa fa-reply-all actions"
+       (click)="onClickReplyAll()" title="{{ 'label_reply_all'|translate}}"></i>
+    <i [class.disabled]="isLoading || message_loading" class="fa fa-trash actions"
+       (click)="onClickDelete()"
+       title="{{ 'label_delete_email'|translate}}"></i>
+  </div>
+  <div class="col-sm-3 text-right pagination-wrapper">
+    <app-pagination
+      *ngIf="emailData"
+      [totalPages]='false'
+      [currentPage]="emailId"
+      [prev]="emailData.prev"
+      [class.disabled]="isLoading"
+      [next]="emailData.next"
+      (notify_thread)='onChangePage($event)'
+    ></app-pagination>
+  </div>
+</div>
+<div
+  *ngIf="isLoading"
+  class="rf__spinner--fullpage"
+>
+  <mat-spinner
+    color="accent"
+    diameter="64"
+  ></mat-spinner>
+</div>
+<div *ngIf="!isLoading" class="row">
+  <div class="panel-group">
+    <div class="panel open panel-default">
+      <div class="panel-heading">
+        <div class="row header">
+          <div class="col-sm-5" [attr.data-tooltip]="email.subject">
+            <div class="email-title">
+              <strong>{{email.subject}}</strong>
+            </div>
+
+          </div>
+          <div class="col-sm-3">
+            <div class="categories-output"
+                 *ngIf="(email.properties && email.properties.length > 0) || (email.promotions && email.promotions.length > 0) || (contactConnected && contactConnected.length > 0)"
+            >
+              <div class="btn cat property" *ngFor="let property of email.properties">
+                {{property.reference ? property.reference : property.name}} <i class="fa fa-times" aria-hidden="true"
+                                                                               (click)="onClickUnlinkProperty($event, email, property)"></i>
+              </div>
+              <div class="btn cat promotion" *ngFor="let promotion of email.promotions">
+                {{promotion.name ? promotion.name : promotion.value}} <i class="fa fa-times" aria-hidden="true"
+                                                                         (click)="onClickUnlinkPromotion($event, email, promotion)"></i>
+              </div>
+              <div class="btn cat contact" *ngFor="let contact of contactConnected">
+                {{contact.contact_firstname}} {{contact.contact_lastname}} <i class="fa fa-times" aria-hidden="true"
+                                                                              (click)="onClickUnlinkContact($event, email, contact)"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 text-right properties">
+
+            <button
+              *ngIf="!email.editMode"
+              [class.disabled]="isLoading || message_loading"
+              class="btn btn-violet open-edit"
+              (click)="onClickEdit()"
+            >
+              {{ 'inbox_connect_to'|translate }}
+            </button>
+            <app-connect-to-email
+              *ngIf="email && email.editMode"
+              [email]="email"
+              [connected]="contactConnected"
+              [currentEmailId]="email.id"
+              (notify)="onLink()"
+            ></app-connect-to-email>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div id="{{i}}" class="one-message" (click)="onClickEmailChild(child)"
+             [hidden]="!emailThreads || emailThreads.length === 0 "
+             *ngFor="let child of emailThreads;  let i = index; ">
+          <div class="row contacts-info">
+            <div class="col-lg-10 col-md-9 names">
+              <div class="rf__avatar rf__avatar--sm" *ngIf="!child.sender.avatar">
+                <span *ngIf="child.sender.name || child.sender.email" class="initials">{{ (child.sender.name ? child.sender.name : child.sender.email) | initials }}</span>
+              </div>
+              <div *ngIf="child.sender.avatar" class="rf__avatar rf__avatar--sm"><img src="{{child.sender.avatar}}" alt=""></div>
+              <div class="recipents-info">
+                <div class="sender">
+                  <strong class="padding-b15">{{child.sender.name}}</strong>
+                  <span *ngIf="child.sender.name && child.sender.name !== ''"><{{child.sender.email}}></span>
+                  <span *ngIf="!child.sender.name || child.sender.name === ''">{{child.sender.email}}</span>
+                </div>
+                <div class="recipient">
+                  <strong *ngIf="child.contacts && child.to && child.to.length > 0">{{'label_email_to' |
+                    translate}}:</strong>
+                  <span [class.hidden]="e.recipient_type !== 'to' || e.from_imap === '0'"
+                        *ngFor="let e of child.to,let i = index">
+                      {{i !== 0 ? ', ' : ''}}
+                     <span *ngIf="e.contact_lastname"> {{e.contact_firstname}} {{e.contact_lastname}}</span>
+                      <span [hidden]="e.contact_lastname"> {{e.email}}</span>
+                  </span>
+                </div>
+                <div class="recipient">
+                  <strong *ngIf="child.contacts && child.cc && child.cc.length > 0">{{'label_email_cc' |
+                    translate}}:</strong>
+                  <span [class.hidden]="e.recipient_type !== 'cc' || e.from_imap === '0'"
+                        *ngFor="let e of child.cc,let i = index">
+                      {{i !== 0 ? ', ' : ''}}
+                     <span *ngIf="e.contact_lastname"> {{e.contact_firstname}} {{e.contact_lastname}}</span>
+                      <span [hidden]="e.contact_lastname"> {{e.email}}</span>
+                  </span>
+                </div>
+                <div class="recipient">
+                  <strong *ngIf="child.contacts && child.bcc && child.bcc.length > 0">{{'label_email_bcc' |
+                    translate}}:</strong>
+                  <span [class.hidden]="e.recipient_type !== 'bcc' || e.from_imap === '0'"
+                        *ngFor="let e of child.bcc,let i = index">
+                      {{i !== 0 ? ', ' : ''}}
+                     <span *ngIf="e.contact_lastname"> {{e.contact_firstname}} {{e.contact_lastname}}</span>
+                      <span [hidden]="e.contact_lastname"> {{e.email}}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-3 text-right time">
+              {{ child.timestamp | smartTimestamp }}
+            </div>
+          </div>
+          <div
+            *ngIf="child.isLoading"
+            class="rf__spinner--fullpage"
+          >
+            <mat-spinner
+              color="accent"
+              diameter="64"
+            ></mat-spinner>
+          </div>
+          <div class="row" *ngIf="child.showHide && child.text">
+            <div class="col-sm-12">
+              <p [innerHTML]="child.text | safeHtml"></p>
+            </div>
+            <div *ngIf="child.attachments_list && child.attachments_list.length > 0" class="col-sm-12">
+              <h4><i class="fa fa-paperclip"></i></h4>
+              <div class="attachments" *ngFor="let item of child.attachments_list">
+                <i class="fa fa-file-pdf-o" *ngIf="item.mime_type === 'application/pdf'"></i>
+                <i class="fa fa-image"
+                   *ngIf="item.mime_type === 'image/png' || item.mime_type === 'image/gif' || item.mime_type === 'image/jpeg'"></i>
+                <i class="fa fa-file-audio-o" *ngIf="item.mime_type === 'audio/aac'"></i>
+                <i class="fa fa-file-video-o" *ngIf="item.mime_type === 'video/x-msvideo'"></i>
+                <span>{{item.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="message_not_loaded" class="row">
+            <div class="col-sm-12 message">
+              <h4>{{ "label_email_not_loaded" | translate}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!isLoading" class="row">
+  <div class="col-sm-9">
+  </div>
+  <div class="col-sm-3 text-right pagination-wrapper">
+    <app-pagination
+      *ngIf="emailData"
+      [totalPages]='false'
+      [prev]="emailData.prev"
+      [next]="emailData.next"
+      [currentPage]="emailId"
+      [class.disabled]="isLoading"
+      (notify_thread)='onChangePage($event)'
+    ></app-pagination>
+  </div>
+</div>

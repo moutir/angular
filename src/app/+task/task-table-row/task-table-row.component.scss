@@ -1,0 +1,12 @@
+@import "../../../styles/variables";
+
+.properties, .promotions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rf__task-cell--permission .mat-icon {
+  font-size: 16px;
+  height: 24px;
+}

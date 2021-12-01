@@ -1,0 +1,38 @@
+<div class="rf__table-cell rf__website-article-cell--title">
+  <div class="rf__table-txt">
+    <span>{{ websiteArticle.title }}</span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__website-article-cell--url">
+  <div class="rf__table-txt">
+    <span class="rf__table-cell-label">{{ 'label_website_url'|translate }}</span>
+    <span>{{ websiteArticle.websiteUrl }}</span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__website-article-cell--date">
+  <div class="rf__table-txt">
+    <span class="rf__table-cell-label">{{ 'label_creation_date'|translate }}</span>
+    <span
+      *ngIf="isPlaceholder === false && websiteArticle.creationDate !== null"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ websiteArticle.creationDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ websiteArticle.creationDate|smartDate }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__website-article-cell--publish">
+  <div class="rf__table-txt">
+    <span class="rf__table-cell-label">{{ 'label_published'|translate }}</span>
+    <app-shared-yes-no [isYes]="websiteArticle.isPublished === true"></app-shared-yes-no>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__spacer"></div>

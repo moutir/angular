@@ -1,0 +1,44 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+
+</div>
+
+<div class="rf__table-cell rf__matching-cell--property">
+  <div mat-sort-header="property_reference">{{ 'label_property'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--status">
+  <div mat-sort-header="status">{{ 'label_status'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--date">
+  <div mat-sort-header="match_date">{{ 'label_date_of_match'|translate }}</div>
+  <div mat-sort-header="process_date">{{ 'label_date_of_process'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--contact">
+  <div mat-sort-header="contact_name">{{ 'label_contact_name'|translate }}</div>
+</div>
+
+
+<div class="rf__table-cell rf__matching-cell--duration">
+  <div>{{ 'label_contact_delay'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions-label"></div>

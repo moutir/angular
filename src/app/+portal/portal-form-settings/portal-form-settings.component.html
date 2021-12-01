@@ -1,0 +1,110 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.maxPictures"
+    >
+      <span>{{ 'label_listing'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_max_pictures'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                type="number"
+                min="0"
+                autocomplete="off"
+                placeholder="{{ 'label_gateway_max_pictures'|translate }}"
+                formControlName="maxPictures"
+              />
+              <mat-error>{{ error.maxPictures|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_top_listing'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-is-top-listing"
+              formControlName="topListing"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_expense'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_monthly_charge'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                type="number"
+                min="0"
+                autocomplete="off"
+                placeholder="{{ 'label_gateway_monthly_charge'|translate }}"
+                formControlName="marketingMonthly"
+              />
+              <mat-error>{{ error.marketingMonthly|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_marketing_price'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                type="number"
+                min="0"
+                autocomplete="off"
+                placeholder="{{ 'label_gateway_marketing_price'|translate }}"
+                formControlName="marketingPrice"
+              />
+              <mat-error>{{ error.marketingPrice|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_enable_marketing'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-marketing-enable"
+              formControlName="isActiveMarketingExpense"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

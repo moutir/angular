@@ -1,0 +1,60 @@
+<div class="cart_chart_flex properties">
+  <div class="cart_chart">
+    <app-bar-leads [categories]="barCategories" [legend]="false"
+                   [data]="barData"></app-bar-leads>
+  </div>
+  <div class="cart_chart">
+    <app-doughnut-chart [allDataChart]="doughnutData" [seriesName]="seriesName"
+                        [chartLegendTitleLeft]="labelStars"
+                        [chartLegendTitleRight]="labelAmount"
+                        [amounts]="buyersAmount">
+      <div class="amount_currency">
+        {{ 'label_mandates'|translate }}
+      </div>
+    </app-doughnut-chart>
+  </div>
+</div>
+<div class="mandates-prop" *ngIf="buyers">
+  <div class="mandates-prop__item">
+    <div class="mandates-prop__inner">
+      <div class="mandates-prop__photo">
+        <i class="mandates-prop__icon"></i>
+      </div>
+      <div class="mandates-prop__info">
+        <div class="mandates-prop__title">
+          {{ 'label_mandates_to_be_renewed'|translate }}
+        </div>
+        <div class="mandates-prop__count">{{buyers.mandates_to_be_renewed}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="mandates-prop__item">
+    <div class="mandates-prop__inner">
+      <div class="mandates-prop__photo">
+        <i class="mandates-prop__icon"></i>
+      </div>
+      <div class="mandates-prop__info">
+        <div class="mandates-prop__title">
+          {{ 'label_owners'|translate }} 3*,
+          {{ 'label_not_contacted'|translate }}
+          > 30 {{ 'label_days'|translate }}
+        </div>
+        <div class="mandates-prop__count">{{buyers.owners_five_30}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="mandates-prop__item">
+    <div class="mandates-prop__inner">
+      <div class="mandates-prop__photo">
+        <i class="mandates-prop__icon"></i>
+      </div>
+      <div class="mandates-prop__info">
+        <div class="mandates-prop__title">
+          {{ 'label_days_on_market_average'|translate }}(DOM)
+        </div>
+        <div class="mandates-prop__count">{{buyers.days_on_market_average}} days
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

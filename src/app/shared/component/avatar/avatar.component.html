@@ -1,0 +1,33 @@
+<div
+  class="rf__avatar rf__avatar--has-uploader"
+  [class.rf__avatar--has-image]="contact.photoURL !== ''"
+>
+
+  <mat-icon class="rf__avatar-placeholder">person</mat-icon>
+
+  <div
+    *ngIf="contact.photoURL"
+    class="rf__avatar-image"
+    appAsyncImage="{{ contact.photoURL }}"
+  ></div>
+
+  <app-shared-upload
+    *ngIf="contact.photoURL === ''"
+    class="rf__avatar-uploader"
+    [uid]="uid"
+    [strategy]="uploadStrategy"
+    (uploadComplete)="onUploadComplete($event)"
+  ></app-shared-upload>
+
+</div>
+
+<button
+  *ngIf="contact.photoURL !== ''"
+  mat-icon-button
+  matTooltip="{{ 'label_remove'|translate }}"
+  matTooltipPosition="above"
+  class="rf__button-icon rf__button-icon--gray rf__button-icon--small rf__avatar-remove"
+  (click)="onClickRemove()"
+>
+  <mat-icon>close</mat-icon>
+</button>

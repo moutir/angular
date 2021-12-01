@@ -1,0 +1,558 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel rf__panel--contract-price">
+
+    <div
+      class="rf__panel-header rf__panel-header--has-input"
+      [class.rf__panel-header--has-error]="error.askingPrice || error.negotiatedPrice || error.negotiatedPricePercentage ||
+        error.depositAmount || error.depositAmountPercentage"
+    >
+      <span>{{ 'label_price'|translate }}</span>
+      <mat-slide-toggle
+        class="slide-toggle"
+        formControlName="isActivePricePercentage"
+      >
+        <span class="toggle-label">{{ 'label_percentage'|translate }}</span>
+      </mat-slide-toggle>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_price_asking'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            {{ (model.askingPrice|formatNumber) || '-' }} {{ model.currencyLabel }}
+            <input type="hidden" formControlName="askingPrice"/>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <div>
+              <div>{{ 'label_price_negotiated'|translate }}</div>
+              <div class="rf__keyvalue-subtext">
+                <ng-container *ngIf="model.isActivePricePercentage">{{ model.currencyLabel }} {{ (model.negotiatedPrice || 0)|formatNumber }}</ng-container>
+                <ng-container *ngIf="!model.isActivePricePercentage">{{ model.negotiatedPricePercentage || 0 }}%</ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="!model.isActivePricePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_price_negotiated'|translate }}"
+                formControlName="negotiatedPrice"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ error.negotiatedPrice|translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="model.isActivePricePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                min="0"
+                max="100"
+                autocomplete="off"
+                placeholder="{{ 'label_price_negotiated'|translate }}"
+                formControlName="negotiatedPricePercentage"
+              />
+              <span matSuffix class="rf__form-field-suffix">%</span>
+              <mat-error>{{ error.negotiatedPricePercentage|translate: { min: 0, max: 100 } }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <div>
+              <div>{{ 'label_deposit_amount'|translate }}</div>
+              <div class="rf__keyvalue-subtext">
+                <ng-container *ngIf="model.isActivePricePercentage">{{ (model.depositAmount || 0)|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                <ng-container *ngIf="!model.isActivePricePercentage">{{ model.depositAmountPercentage || 0 }}%</ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="!model.isActivePricePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_deposit_amount'|translate }}"
+                formControlName="depositAmount"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ error.depositAmount|translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="model.isActivePricePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                min="0"
+                max="100"
+                autocomplete="off"
+                placeholder="{{ 'label_deposit_amount'|translate }}"
+                formControlName="depositAmountPercentage"
+              />
+              <span matSuffix class="rf__form-field-suffix">%</span>
+              <mat-error>{{ error.depositAmountPercentage|translate: { min: 0, max: 100 } }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel rf__panel--contract-fees">
+
+    <div
+      class="rf__panel-header rf__panel-header--has-input"
+      [class.rf__panel-header--has-error]="error.agencyFee || error.agencyFeePercentage || error.agencyFeeVatExcluded"
+    >
+      <span>{{ 'label_fees'|translate }}</span>
+      <mat-slide-toggle
+        class="slide-toggle"
+        formControlName="isActiveAgencyFeePercentage"
+      >
+        <span class="toggle-label">{{ 'label_percentage'|translate }}</span>
+      </mat-slide-toggle>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <div>
+              <div>{{ 'label_our_fees'|translate }}</div>
+              <div class="rf__keyvalue-subtext">
+                <ng-container *ngIf="model.isActiveAgencyFeePercentage">{{ (model.agencyFee || 0)|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                <ng-container *ngIf="!model.isActiveAgencyFeePercentage">{{ model.agencyFeePercentage || 0 }}%</ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="!model.isActiveAgencyFeePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_our_fees'|translate }}"
+                formControlName="agencyFee"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ error.agencyFee|translate }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+              *ngIf="model.isActiveAgencyFeePercentage"
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                min="0"
+                max="100"
+                autocomplete="off"
+                placeholder="{{ 'label_our_fees'|translate }}"
+                formControlName="agencyFeePercentage"
+              />
+              <span matSuffix class="rf__form-field-suffix">%</span>
+              <mat-error>{{ error.agencyFeePercentage|translate: { min: 0, max: 100 } }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <div>
+              <div>{{ 'label_invoice_amount'|translate }}</div>
+              <div
+                class="rf__keyvalue-subtext"
+              >{{ 'label_vat_excluded_value'|translate: { value: ((model.agencyVat||0) + '%') } }}</div>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value rf__keyvalue-cell--value-highlight">
+            <span>{{ model.agencyFeeVatExcluded|formatNumber }} {{ model.currencyLabel }}</span>
+          </div>
+
+          <input type="hidden" formControlName="agencyFeeVatExcluded"/>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.contractCommissions || error.totalCommission"
+    >
+      <span>{{ 'label_commissions'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div
+        class="rf__table rf__table--contract-commission"
+        formArrayName="contractCommissions"
+      >
+
+        <div class="rf__table-row rf__table-row--header">
+          <div class="rf__table-cell rf__table-cell--contract-commission-operator"></div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-type">{{ 'label_single_type'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-contact">{{ 'entity_contact_singular'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-amount">
+            <div>{{ 'label_invoice_amount'|translate }}</div>
+            <div>{{ 'label_vat_excluded_value'|translate: { value: ((model.agencyVat||0) + '%') } }}</div>
+          </div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-invoice">{{ 'label_invoice'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-comment">{{ 'label_comment_singular'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--actions">
+
+            <button
+              mat-icon-button
+              matTooltip="{{ 'tooltip_add_commission'|translate }}"
+              matTooltipPosition="left"
+              [disabled]="isLoading === true"
+              (click)="onClickFormArrayAdd('contractCommissions')"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+        <div
+          *ngFor="let i of getFormArray('contractCommissions').indexes;"
+          class="rf__table-row"
+          [class.rf__table-row--removed]="model.contractCommissions[i].isRemoved === true"
+          [class.rf__table-row--gradient]="!!model.contractCommissions[i].parentContractCommissionId === false"
+          [class.rf__table-row--no-bg]="!!model.contractCommissions[i].parentContractCommissionId === true"
+          [formGroup]="getFormArray('contractCommissions').control.controls[i]"
+        >
+          <div class="rf__table-cell rf__table-cell--contract-commission-operator">
+            <mat-icon *ngIf="model.contractCommissions[i].parentContractCommissionId">remove_circle</mat-icon>
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-commission-type">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_single_type'|translate }}"
+                formControlName="typeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.commissionType"
+                  [value]="option.value"
+                >
+                  {{ option.text|translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ getFormArrayError('contractCommissions', i, 'typeId')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-commission-contact">
+
+            <app-shared-autocomplete
+              class="mat-form-field"
+              floatLabel="never"
+              [uid]="'contract-form-deal-contact-' + i"
+              [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+              limit="10"
+              [placeholder]="'entity_contact_singular'|translate"
+              [isDisplayedSelectionText]="true"
+              [isDisabled]="isLoading === true"
+              [selectionId]="model.contractCommissions[i].contact.id"
+              [selectionText]="model.contractCommissions[i].contact.getFullName()"
+              [error]="getFormArrayError('contractCommissions', i, 'contact')"
+              (changeSelection)="onChangeSelectionContact($event, i)"
+            ></app-shared-autocomplete>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-commission-amount">
+
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_invoice_amount'|translate }}"
+                formControlName="amount"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ getFormArrayError('contractCommissions', i, 'amount')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-commission-invoice">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_invoice'|translate }}"
+                formControlName="invoice"
+              />
+              <mat-error>{{ getFormArrayError('contractCommissions', i, 'invoice')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-commission-comment">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_comment_singular'|translate }}"
+                formControlName="comment"
+              />
+              <mat-error>{{ getFormArrayError('contractCommissions', i, 'comment')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--actions">
+
+            <button
+              *ngIf="model.contractCommissions[i].isRemoved === false && !!model.contractCommissions[i].parentContractCommissionId === false"
+              mat-icon-button
+              matTooltip="{{ 'tooltip_add_deduction'|translate }}"
+              matTooltipPosition="left"
+              (click)="onClickFormArrayAdd('contractCommissions', model.contractCommissions[i].id)"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+
+            <button
+              *ngIf="!!model.contractCommissions[i].isRemoved === false"
+              mat-icon-button
+              matTooltip="{{ (!!model.contractCommissions[i].parentContractCommissionId === false ? 'tooltip_remove_commission' : 'tooltip_remove_deduction')|translate }}"
+              matTooltipPosition="left"
+              (click)="onClickFormArrayToggle('contractCommissions', i, true)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button
+              *ngIf="!!model.contractCommissions[i].isRemoved == true"
+              mat-icon-button
+              matTooltip="{{ 'tooltip_undo'|translate }}"
+              matTooltipPosition="left"
+              (click)="onClickFormArrayToggle('contractCommissions', i, false)"
+            >
+              <mat-icon>undo</mat-icon>
+            </button>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.contractCommissions.length > 0"
+          class="rf__table-row"
+        >
+          <div class="rf__table-cell rf__table-cell--contract-commission-operator"></div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-type"></div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-contact"></div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-amount total">
+            {{ model.totalCommission|formatNumber }} {{ model.currencyLabel }}
+          </div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-invoice"></div>
+          <div class="rf__table-cell rf__table-cell--contract-commission-comment"></div>
+          <div class="rf__table-cell rf__table-cell--actions"></div>
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="model.contractCommissions.length === 0"
+        class="rf__table-information rf__table-information--empty rf__table-information--center"
+      >{{ 'message_no_commission_added_yet'|translate }}</div>
+
+      <mat-error
+        *ngIf="error.contractCommissions && error.contractCommissions !== 'form_error_is_invalid'"
+        class="rf__table-information rf__table-information--error"
+      >{{ error.contractCommissions|translate }}</mat-error>
+
+      <mat-error
+        *ngIf="error.totalCommission && error.totalCommission !== 'form_error_is_invalid'"
+        class="rf__table-information rf__table-information--error"
+      >{{ error.totalCommission|translate }}</mat-error>
+
+    </div>
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.fundAmountPersonal || error.fundAmountMortgage ||
+        error.fundConditionPrecedentDate || error.fundAcceptDate"
+    >
+      <span>{{ 'label_funding'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_personal_contribution'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_personal_contribution'|translate }}"
+                formControlName="fundAmountPersonal"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ error.fundAmountPersonal|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_mortgage_amount'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+              class="mat-form-field--with-suffix"
+            >
+              <input
+                matInput
+                type="number"
+                autocomplete="off"
+                placeholder="{{ 'label_mortgage_amount'|translate }}"
+                formControlName="fundAmountMortgage"
+              />
+              <span matSuffix class="rf__form-field-suffix">{{ model.currencyLabel }}</span>
+              <mat-error>{{ error.fundAmountMortgage|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_condition_precedent'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="fundConditionPrecedentDate"
+                [matDatepicker]="pickerFundConditionPrecedentDate"
+                autocomplete="off"
+                placeholder="{{ 'label_condition_precedent'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFundConditionPrecedentDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFundConditionPrecedentDate></mat-datepicker>
+              <mat-error>{{ error.fundConditionPrecedentDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date_accepted'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="fundAcceptDate"
+                [matDatepicker]="pickerFundAcceptDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date_accepted'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerFundAcceptDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerFundAcceptDate></mat-datepicker>
+              <mat-error>{{ error.fundAcceptDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

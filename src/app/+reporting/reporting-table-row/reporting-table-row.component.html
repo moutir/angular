@@ -1,0 +1,235 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__reporting-cell--property">
+  <div class="property-info">
+
+    <div class="rf__table-thumbnail">
+      <mat-icon>photo_camera</mat-icon>
+      <div
+        *ngIf="reporting.property.photoSmallURL"
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+        appAsyncImage="{{ reporting.property.photoSmallURL }}"
+      >
+        <mat-icon>broken_image</mat-icon>
+      </div>
+      <div
+        *ngIf="reporting.property.photoLargeURL"
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--large"
+        appAsyncImage="{{ reporting.property.photoLargeURL }}"
+      >
+        <mat-icon>broken_image</mat-icon>
+      </div>
+      <div
+        *ngIf="isPlaceholder === false"
+        class="rf__table-thumbnail-overlay"
+      >
+        <mat-icon>photo_camera</mat-icon>
+      </div>
+    </div>
+
+    <div
+      *ngIf="reporting.property.reference"
+      class="rf__table-txt property__reference"
+    >{{ reporting.property.reference }}</div>
+
+    <div
+      *ngIf="reporting.property.labelPrice"
+      class="property__price"
+    >
+      <span class="rf__table-txt">{{ reporting.property.labelPrice }}</span>
+    </div>
+
+    <div class="rf__table-txt property__title">
+      <span>{{ reporting.property.labelSubcategory }}</span> -
+      <span>{{ reporting.property.location.street }}, {{ reporting.property.location.label }}</span></div>
+  </div>
+
+  <app-shared-card-property
+    class="rf__card--property"
+    [property]="reporting.property"
+  ></app-shared-card-property>
+</div>
+
+<div class="rf__table-cell rf__reporting-cell--contacts">
+  <div class="rf__table-cell-box contacts">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        *ngFor="let i of 2|forLoop"
+        [isPlaceholder]="true"
+        [layout]="'owner'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <ng-container *ngFor="let i of 2|forLoop">
+
+        <app-shared-contact-link
+          *ngIf="reporting.recipients[i]"
+          [contact]="reporting.recipients[i]"
+          [layout]="'owner'"
+        ></app-shared-contact-link>
+
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__reporting-cell--generation-date">
+    <span class="rf__table-txt">
+      <div
+        class="rf__info"
+        *ngIf="reporting.createDate"
+      >
+      <mat-icon
+        matTooltip="{{ 'label_generation_date'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >refresh</mat-icon>
+      <span
+        matTooltip="{{ reporting.createDate|datetime }}"
+        matTooltipPosition="left"
+      >{{ reporting.createDate|date }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__reporting-cell--date-range">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="reporting.fromDate"
+    >
+      <mat-icon
+        matTooltip="{{ 'label_date_from'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >date_range</mat-icon>
+      <span>{{ reporting.fromDate|date }}</span>
+    </div>
+  </span>
+
+  <span
+    class="rf__table-txt"
+    *ngIf="reporting.toDate"
+  >
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'date_to'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >date_range</mat-icon>
+      <span>{{ reporting.toDate|date }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__reporting-cell--frequency">
+  <mat-icon
+    matTooltip="{{ 'label_scheduler_frequency'|translate }}"
+    matTooltipPosition="left"
+    class="rf__info-icon"
+  >timeline</mat-icon>
+  <span class="rf__table-txt">{{ reporting.frequency }}</span>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions">
+
+  <div
+    *ngIf="reporting.processStatus === 'accepted' || reporting.processStatus === 'rejected'"
+    class="process-status"
+  >
+
+    <button
+      *ngIf="isPlaceholder === true || reporting.previewUrl"
+      mat-icon-button
+      matTooltip="{{ 'label_process_download_pregen_report'|translate }}"
+      matTooltipPosition="left"
+      (click)="onClickButtonDownload($event)"
+      >
+      <mat-icon>picture_as_pdf</mat-icon>
+    </button>
+
+    <div>
+      <div
+        class="rf__table-txt rf__reporting-status--{{reporting.processStatus}}"
+      >{{'report_status_' + reporting.processStatus|translate}}</div>
+      <div
+        *ngIf="reporting.processDate"
+        class="rf__table-txt process-date"
+        matTooltip="{{ reporting.processDate|datetime }}"
+        matTooltipPosition="above"
+      >
+        <span>{{reporting.processDate|date}}</span>
+        <mat-icon
+          class="rf__info-icon"
+        >date_range</mat-icon>
+      </div>
+      <app-shared-contact-link
+        *ngIf="reporting.processUser.fullName"
+        [contact]="reporting.processUser"
+      ></app-shared-contact-link>
+    </div>
+  </div>
+
+  <div
+    *ngIf="isPlaceholder === true || reporting.processStatus === 'pending'"
+  >
+    <button
+      *ngIf="isPlaceholder === true || reporting.previewUrl"
+      mat-icon-button
+      matTooltip="{{ 'label_process_download_pregen_report'|translate }}"
+      matTooltipPosition="left"
+      (click)="onClickButtonDownload($event)"
+      >
+      <mat-icon>picture_as_pdf</mat-icon>
+    </button>
+
+    <button
+      *ngIf="isPlaceholder === true || permissions.indexOf(PERMISSION_REPORTING_MANAGER) > -1 ||
+        reporting.ownerBrokerId === authentication.contactId || reporting.senderContactId === authentication.contactId ||
+        reporting.property?.broker?.id === authentication.contactId"
+      mat-icon-button
+      matTooltip="{{ 'label_process_send_report_singular'|translate }}"
+      matTooltipPosition="left"
+      (click)="onClickButtonAccept($event)"
+      >
+      <mat-icon>check_circle</mat-icon>
+    </button>
+
+    <button
+      *ngIf="isPlaceholder === true || permissions.indexOf(PERMISSION_REPORTING_MANAGER) > -1 ||
+        reporting.ownerBrokerId === authentication.contactId || reporting.senderContactId === authentication.contactId ||
+        reporting.property?.broker?.id === authentication.contactId"
+      mat-icon-button
+      matTooltip="{{ 'label_process_refuse_report_singular'|translate }}"
+      matTooltipPosition="left"
+      (click)="onClickButtonReject($event)"
+      >
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+</div>

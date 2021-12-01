@@ -1,0 +1,103 @@
+<div
+  class="rf__card rf__card--property"
+  [class.rf__card--placeholder]="isPlaceholder === true"
+>
+
+  <div class="rf__card-image">
+    <mat-icon>photo_camera</mat-icon>
+    <div
+      *ngIf="property.photoSmallURL"
+      class="rf__thumbnail"
+      appAsyncImage="{{ property.photoSmallURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__card-thumbnail-overlay"
+      [matTooltipDisabled]="property.isAllowedPreview === true"
+      matTooltip="{{ 'label_property_no_visibility' | translate }}"
+      matTooltipPosition="left"
+      (click)="onClickThumbnail($event)"
+    >
+      <mat-icon>info</mat-icon>
+    </div>
+  </div>
+
+  <div class="rf__card-body">
+
+    <div class="rf__card-text rf__card-text--title">
+      <span
+        *ngIf="property.reference"
+        class="reference"
+      >{{ property.reference }}</span>
+      <span
+        *ngIf="property.location.street"
+        class="address"
+      >{{ property.location.street }}</span>
+      <span
+        *ngIf="property.location.label"
+        class="location"
+      >{{ property.location.label }}</span>
+      <span
+        *ngIf="property.labelSubcategory"
+        class="subcategory"
+      >{{ property.labelSubcategory }}</span>
+      <span
+        *ngIf="property.labelPrice"
+        class="price"
+      >{{ property.labelPrice }}</span>
+    </div>
+
+    <div class="rf__card-text rf__card-text--description">
+      <span *ngIf="property.rooms"><strong>{{ property.rooms }}</strong> {{ 'label_specific_rooms'|translate }}</span>
+      <span *ngIf="property.bedrooms"><strong>{{ property.bedrooms }}</strong> {{ 'label_rooms'|translate }}</span>
+      <span *ngIf="property.bathrooms"><strong>{{ property.bathrooms }}</strong> {{ 'label_bathrooms'|translate }}</span>
+      <span *ngIf="property.areaLiving">{{ 'label_living_area'|translate }} <strong>{{ property.areaLiving }} {{ property.areaUnit|areaUnit }}</strong></span>
+      <span *ngIf="property.areaWeighted">{{ 'label_weighted_area'|translate }} <strong>{{ property.areaWeighted }} {{ property.areaUnit|areaUnit }}</strong></span>
+      <span *ngIf="property.areaLand">{{ 'label_land_area'|translate }} <strong>{{ property.areaLand }} {{ property.areaUnit|areaUnit }}</strong></span>
+    </div>
+
+    <div class="rf__card-row">
+
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === true"
+        [layout]="'broker'"
+        [isPlaceholder]="true"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === false && (property.broker?.fullName || property.broker?.initials)"
+        [contact]="property.broker"
+        [layout]="'broker'"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+
+      <div class="rf__card-star">
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="property.ranking > 0"
+        >star</mat-icon>
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="property.ranking > 1"
+        >star</mat-icon>
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="property.ranking > 2"
+        >star</mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="isDeletable === true"
+    class="rf__card-remove"
+    (click)="onClickDelete($event)"
+  >
+    <mat-icon>close</mat-icon>
+  </div>
+
+</div>

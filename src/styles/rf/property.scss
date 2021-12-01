@@ -1,0 +1,99 @@
+@import "../variables";
+
+.rf__property-status--10, // Active
+.rf__property-status--92, // New
+.rf__property-status--254, // Project opened
+.rf__property-status--17, // Project
+.rf__property-status--20, // Contract expired
+.rf__property-status--21 // Contract terminated
+{
+  color: $color-11;
+}
+
+.rf__property-status--9 // In process
+{
+  color: $color-26;
+}
+
+.rf__property-status--11, // Reserved
+.rf__property-status--401, // Reserved, deposit paid
+.rf__property-status--12, // Owner reserved
+.rf__property-status--404 // Option
+{
+  color: $color-17;
+}
+
+.rf__property-status--18, // Rented
+.rf__property-status--19, // Rented by competitor
+.rf__property-status--13, // Sold
+.rf__property-status--15, // Sold by competitor
+.rf__property-status--14, // Sold by owner
+.rf__property-status--246 // Suspended
+{
+  color: $color-09;
+}
+
+.rf__card.rf__card--property .contact-link.contact-link--icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.rf__card.rf__card--property .contact-link.contact-link--icon .contact-link__initials {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  line-height: 17px;
+  letter-spacing: 0;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--property .rf__property-cell--price .rf__table-txt {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+  }
+
+  .rf__property-cell--photo,
+  .rf__property-cell--ranking {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .rf__searchlist--property .rf__property-cell--reference,
+  .rf__property-cell--category {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+
+  .rf__searchlist--property .rf__property-cell--price {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+}
+
+@media (min-width: 1150px) {
+
+  .rf__searchlist--property.rf__property-cell--reference,
+  .rf__searchlist--property .rf__property-cell--price,
+  .rf__property-cell--category {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .rf__property-cell--dimensions,
+  .rf__property-cell--date {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+}

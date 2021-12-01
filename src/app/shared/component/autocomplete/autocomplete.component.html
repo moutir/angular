@@ -1,0 +1,57 @@
+<mat-form-field floatLabel="{{ floatLabel }}">
+  <input
+    matInput
+    type="text"
+    [placeholder]="placeholder"
+    [formControl]="formControl"
+    [matAutocomplete]="autocomplete"
+    (change)="onChange()"
+  >
+  <mat-hint class="rf__form-error">{{ error | translate }}</mat-hint>
+
+  <mat-spinner
+    *ngIf="isLoading"
+    color="primary"
+    diameter="16"
+  ></mat-spinner>
+
+  <mat-autocomplete
+    #autocomplete="matAutocomplete"
+    [panelWidth]="'auto'"
+    [displayWith]="displayWith.bind(this)"
+    (optionSelected)="onOptionSelected($event)"
+  >
+    <div class="rf__autocomplete">
+      <mat-optgroup
+        *ngFor="let suggestion of suggestions"
+        [label]="'label_autocomplete_' + suggestion.entity | translate"
+      >
+        <mat-option
+          *ngFor="let option of suggestion.options"
+          [value]="{ entity: suggestion.entity, id: option.value, text: option.text }"
+        >
+          {{ option.text }}
+        </mat-option>
+        <mat-option
+          *ngIf="suggestion.options.length === 0"
+          class="rf__autocomplete-noresults"
+        >{{ 'label_no_results_found'|translate }}</mat-option>
+      </mat-optgroup>
+    </div>
+
+  </mat-autocomplete>
+
+  <div
+    *ngIf="suffix !== null"
+    matSuffix
+    class="rf__autocomplete-suffix"
+    matTooltip="{{ suffix.tooltip|translate }}"
+    matTooltipPosition="above"
+    [class.rf__autocomplete-suffix--is-clickable]="suffix.isClickable"
+    (click)="onClickSuffix($event)"
+  >
+    <span *ngIf="suffix.counter !== null">{{ suffix.counter }}</span>
+    <mat-icon *ngIf="suffix.icon !== null">{{ suffix.icon }}</mat-icon>
+  </div>
+
+</mat-form-field>

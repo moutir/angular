@@ -1,0 +1,63 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_GENERAL] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_GENERAL] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_GENERAL] } }}"
+        >
+          <span>{{ 'label_email_format'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_GENERAL] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-emailing-form-general
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          [availableLanguageIds]="availableLanguageIds$|async"
+          [availableLanguages]="availableLanguages$|async"
+          [feature]="runtimeFeature$|async"
+          [permissions]="runtimePermissions$|async"
+          [agencyPreference]="runtimeAgencyPreference$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-emailing-form-general>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
+
+<app-emailing-modal-preview
+  [isVisible]="(preview$|async).isOpen === true"
+  [preview]="preview$|async"
+  (submitModal)="onSubmitModalPreview()"
+></app-emailing-modal-preview>
+
+<app-emailing-modal-summary
+  [isVisible]="(summaries$|async).length > 0"
+  [summaries]="summaries$|async"
+  [languages]="availableLanguages$|async"
+  (submitModal)="onSubmitModalSummary()"
+></app-emailing-modal-summary>

@@ -1,0 +1,26 @@
+<div class="rf__table-cell rf__website-cell--icon">
+  <div
+    class="website-link"
+    (click)="onClickUrlButton($event)"
+  >
+    <mat-icon >launch</mat-icon>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__website-cell--url">
+  <div class="rf__table-txt">{{ website.url }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--spacer"></div>
+
+<div class="rf__table-cell rf__table-cell--center rf__website-cell--yes-no">
+  <app-shared-yes-no [isYes]="website.isInternal"></app-shared-yes-no>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__website-cell--yes-no">
+  <app-shared-yes-no [isYes]="website.isActiveFisher"></app-shared-yes-no>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__website-cell--yes-no">
+  <app-shared-yes-no [isYes]="website.isActive"></app-shared-yes-no>
+</div>

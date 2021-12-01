@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+.rf__table-row--header .rf__table-cell {
+  text-align: right;
+}
+
+.mat-form-field--with-suffix {
+  text-align: right;
+}
+
+.rf__table-cell:not(.rf__table-cell--contact) {
+  min-width: 140px;
+  max-width: 140px;
+}
+
+.rf__table-cell--contact {
+  min-width: 180px;
+}
+
+.rf__table-cell .mat-form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: scroll;
+}

@@ -1,0 +1,328 @@
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <div class="rf__panel">
+    <div class="rf__panel-header">
+      <span>{{ 'label_'+ reportType +'_data_to_display'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__form-fieldgroup rf__grid">
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasInformation.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_informations'|translate }}"
+              formControlName="informations"
+            >
+              <mat-option
+                *ngFor="let option of options.hasInformation"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.informations|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasBroker.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_broker'|translate }}"
+              formControlName="broker"
+            >
+              <mat-option
+                *ngFor="let option of options.hasBroker"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.broker|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasPrice.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_price_evolution'|translate }}"
+              formControlName="price"
+            >
+              <mat-option
+                *ngFor="let option of options.hasPrice"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.price|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasOffer.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_offers'|translate }}"
+              formControlName="offers"
+            >
+              <mat-option
+                *ngFor="let option of options.hasOffer"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.offers|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasLead.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_leads'|translate }}"
+              formControlName="leads"
+            >
+              <mat-option
+                *ngFor="let option of options.hasLead"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.leads|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasTimeEvolution.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_time'|translate }}"
+              formControlName="time"
+            >
+              <mat-option
+                *ngFor="let option of options.hasTimeEvolution"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.time|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasProposition.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_sending'|translate }}"
+              formControlName="sending"
+            >
+              <mat-option
+                *ngFor="let option of options.hasProposition"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.sending|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasPastVisit.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_past_visits'|translate }}"
+              formControlName="pastVisits"
+            >
+              <mat-option
+                *ngFor="let option of options.hasPastVisit"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.pastVisits|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasPlannedVisit.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_next_visits'|translate }}"
+              formControlName="nextVisits"
+            >
+              <mat-option
+                *ngFor="let option of options.hasPlannedVisit"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.nextVisits|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasPastVisit.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_communications'|translate }}"
+              formControlName="communications"
+            >
+              <mat-option
+                *ngFor="let option of options.hasPastVisit"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.communications|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasMarketingExpense.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_marketing_expenses'|translate }}"
+              formControlName="marketingExpenses"
+            >
+              <mat-option
+                *ngFor="let option of options.hasMarketingExpense"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.marketingExpenses|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.hasSummary.length > 0">
+            <mat-select
+              placeholder="{{ 'label_'+ reportType +'_report_summary'|translate }}"
+              formControlName="summary"
+            >
+              <mat-option
+                *ngFor="let option of options.hasSummary"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.summary|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__form-field--checkbox rf__grid-cell">
+          <mat-checkbox
+            class="mat-checkbox--multiline mat-checkbox--text-normal"
+            formControlName="isHideIntermediaryTask"
+          >{{ 'label_hide_intermediary_task'|translate }}</mat-checkbox>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Scheduler panel -->
+  <div
+    *ngIf="action === actionSchedule"
+    class="rf__panel"
+  >
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.startDate || error.endDate"
+    >
+      <span>{{ 'label_report_scheduling'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__form-fieldgroup rf__grid">
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="startDate"
+              [matDatepicker]="pickerDateFrom"
+              autocomplete="off"
+              placeholder="{{ 'label_start_on'|translate }}"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerDateFrom"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerDateFrom></mat-datepicker>
+            <mat-error>{{ error.startDate|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="endDate"
+              [matDatepicker]="pickerDateTo"
+              autocomplete="off"
+              placeholder="{{ 'label_ends_on'|translate }}"
+            >
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerDateTo"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #pickerDateTo></mat-datepicker>
+            <mat-error>{{ error.endDate|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.frequency.length > 0">
+            <mat-select
+              placeholder="{{ 'label_occurs'|translate }}"
+              formControlName="frequency"
+            >
+              <mat-option
+                *ngFor="let option of options.frequency"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.frequency|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__form-field rf__grid-cell rf__grid-cell--6 rf__grid-cell--md-4">
+          <mat-form-field *ngIf="options.dateRange.length > 0">
+            <mat-select
+              placeholder="{{ 'label_date_range'|translate }}"
+              formControlName="dateRange"
+            >
+              <mat-option
+                *ngFor="let option of options.dateRange"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.dateRange|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="action === actionSchedule"
+    class="rf__form-field rf__form-field--checkbox rf__grid-cell"
+  >
+    <mat-checkbox
+      class="mat-checkbox--multiline mat-checkbox--text-normal"
+      formControlName="isAppliedToOthers"
+    >{{ 'label_apply_scheduler_options'|translate }}</mat-checkbox>
+  </div>
+
+</form>

@@ -1,0 +1,38 @@
+<app-shared-page-header
+  [header]="header"
+></app-shared-page-header>
+
+<div class="rf__tab-body">
+
+  <div class="dashboard-widgets">
+
+    <app-dashboard-widget-todolist
+      class="dashboard-widget dashboard-widget-todolist-float"
+      [feature]="runtimeFeature$|async"
+      [permissions]="runtimePermissions$|async"
+      [authentication]="runtimeAuthentication$|async"
+      [countState]="countState"
+    ></app-dashboard-widget-todolist>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_my_dashboard'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="dashboard">
+        <app-brokers></app-brokers>
+        <app-profile></app-profile>
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
+
+  <app-dashboard-widget-suggestion
+    *ngIf="(runtimeFeature$|async).suggestion === true"
+  ></app-dashboard-widget-suggestion>
+
+</div>

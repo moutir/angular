@@ -1,0 +1,32 @@
+<div
+  class="rf__wysiwyg"
+  [ngClass]="toolbarClassList"
+  [class.has-error]="error"
+  [class.rf__wysiwyg--has-min-height]="!!minHeight"
+>
+  <angular-editor
+    #wysiwyg
+    class="rf__wysiwyg-editor"
+    [id]="id"
+    [(ngModel)]="value"
+    [config]="editorConfig"
+    (focus)="onFocus()"
+    (copy)="onCopy()"
+    (paste)="onPaste($event)"
+  ></angular-editor>
+
+  <div
+    *ngIf="showCustomButtons === true"
+    class="rf__wysiwyg-buttons"
+  >
+    <button
+      *ngFor="let button of customButtons"
+      class="rf__wysiwyg-button"
+      matTooltip="{{ button.tooltip|translate }}"
+      matTooltipPosition="left"
+      (click)="onClickButtonPlaceholder(button.placeholder)"
+    >{{ button.text|translate }}</button>
+  </div>
+
+  <div class="mat-error">{{ error|translate }}</div>
+</div>

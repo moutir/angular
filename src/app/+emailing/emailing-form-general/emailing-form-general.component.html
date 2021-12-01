@@ -1,0 +1,873 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.recipients || error.recipientsCC || error.senderId"
+    >
+      <span>{{ 'entity_contact_plural'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_sender'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_on_behalf'|translate }}</span>
+            <mat-icon
+              *ngIf="feature.sendEmailOnBehalf === true"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'disclaimer_send_email_on_behalf_accounts_list'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            *ngIf="feature.sendEmailOnBehalf === false"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+          >
+            <div>
+              <span>{{ model.sender.firstName }} {{ model.sender.lastName }}</span>
+              <span *ngIf="model.sender.getMainEmailAddress()"> - {{ model.sender.getMainEmailAddress() }}</span>
+            </div>
+          </div>
+
+          <div
+            *ngIf="feature.sendEmailOnBehalf === true"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+          >
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_contact_broker'|translate }}"
+                formControlName="senderId"
+              >
+                <ng-container *ngFor="let optionGroup of options.sender">
+                  <mat-optgroup
+                    *ngIf="optionGroup.options.length > 0"
+                    label="{{ optionGroup.label|translate }}"
+                  >
+                    <mat-option
+                      *ngFor="let option of optionGroup.options"
+                      [value]="option.value"
+                    >
+                      {{ option.text }}
+                    </mat-option>
+                  </mat-optgroup>
+                </ng-container>
+              </mat-select>
+              <mat-error>{{ error.senderId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_recipients'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'label_email_to'|translate }}</span>
+              <span *ngIf="model.recipients.length > 0" class="rf__keyvalue-key-count">({{ model.recipients.length }})</span>
+            </div>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_only_email_contacts'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__keyvalue-autocomplete-chiplist">
+
+              <app-shared-autocomplete
+                uid="emailing-form-general-recipient"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+                [placeholder]="'label_search_for_contacts'|translate"
+                [error]="error.recipients"
+                [isDisabled]="isDisabled || isLoading"
+                (changeSelection)="onChangeSelectionContact($event, 'recipients')"
+              ></app-shared-autocomplete>
+
+              <mat-chip-list
+                *ngIf="model.recipients.length > 0"
+                class="rf__chip-list"
+              >
+                <mat-chip
+                  *ngFor="let recipient of model.recipients; let i = index;"
+                  class="rf__chip"
+                  title="{{ recipient.getMainEmailAddress() }}"
+                  (removed)="onClickRemoveRecipient(i)"
+                >
+                  <div class="rf__chip-text">
+                    {{ recipient.fullName }}
+                    <span *ngIf="recipient.getMainEmailAddress()"> - {{ recipient.getMainEmailAddress() }}</span>
+                  </div>
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.emailContentId || hasContentErrors()"
+    >
+      <span>{{ 'label_content'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_predefined_content'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_predefined_content'|translate }}"
+                formControlName="emailContentId"
+              >
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.emailContent"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_language_default_lang'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_emailing_default_lang'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                formControlName="defaultLanguageId"
+              >
+                <mat-option
+                  *ngFor="let option of options.language"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_redaction'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_email_tags_message_full'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-tab-group
+              [selectedIndex]="availableLanguageIds.indexOf(model.contactLanguages[0])"
+            >
+
+              <ng-container *ngFor="let language of availableLanguageIds; let i = index">
+
+                <mat-tab
+                  [disabled]="model.contactLanguages.indexOf(language) === -1"
+                >
+
+                  <ng-template mat-tab-label>
+                    <div
+                      class="rf__tab-label"
+                      [class.has-error]="tabErrorCount[getContentTabUid(language)] > 0"
+                      [matTooltip]="model.contactLanguages.indexOf(language) === -1 ?
+                        ('tooltip_email_recipient_language_invalid'|translate: { lang: availableLanguages[language] || '' }) : ''"
+                      matTooltipPosition="above"
+                    >
+                      <app-shared-svg-icon class="icon" icon="flag-{{ language }}"></app-shared-svg-icon>
+                      <span>{{ availableLanguages[language] || '' }}</span>
+                    </div>
+                  </ng-template>
+
+                  <div class="rf__tab-body rf__tab-body--email-content">
+
+                    <app-emailing-form-content
+                      [isLoading]="isLoading"
+                      [model]="model"
+                      [options]="options"
+                      [error]="error"
+                      [language]="language"
+                      (changeForm)="onChangeContentForm($event)"
+                      (errorForm)="onErrorContentForm($event)"
+                      (pristineForm)="onPristineContentForm($event)"
+                    ></app-emailing-form-content>
+
+                  </div>
+
+                </mat-tab>
+
+              </ng-container>
+
+            </mat-tab-group>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.properties || error.promotions || error.brochureBrokerId"
+    >
+      <span>{{ 'label_attachments'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_brochures'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'label_objects'|translate }}</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <app-shared-autocomplete
+              uid="emailing-form-attachment-property-promotion"
+              limit="10"
+              floatLabel="never"
+              [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY_PROMOTION"
+              [placeholder]="'autocomplete_add_property_promotion'|translate"
+              [error]="error.properties || error.promotions"
+              [isDisabled]="isDisabled || isLoading"
+              (changeSelection)="onChangeSelectionObject($event)"
+            ></app-shared-autocomplete>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.properties.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'entity_property_plural'|translate }}</span>
+              <span class="rf__keyvalue-key-count">({{ model.properties.length }})</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__card-list">
+              <ng-container *ngFor="let property of model.properties; let i = index;">
+                <app-shared-card-property
+                  *ngIf="property.id"
+                  class="rf__card-list-item"
+                  [property]="property"
+                  [isDeletable]="true"
+                  [isPlaceholder]="property.isLoading === true"
+                  (clickDelete)="onClickRemoveProperty(i)"
+                ></app-shared-card-property>
+              </ng-container>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.promotions.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'entity_promotion_plural'|translate }}</span>
+              <span class="rf__keyvalue-key-count">({{ model.promotions.length }})</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__card-list">
+              <ng-container *ngFor="let promotion of model.promotions; let i = index;">
+                <app-shared-card-promotion
+                  *ngIf="promotion.id"
+                  class="rf__card-list-item"
+                  [promotion]="promotion"
+                  [isDeletable]="true"
+                  [isPlaceholder]="promotion.isLoading === true"
+                  (clickDelete)="onClickRemovePromotion(i)"
+                ></app-shared-card-promotion>
+              </ng-container>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.properties.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_brochure_format'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_brochure_format'|translate }}"
+                formControlName="emailBrochureTypeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.emailBrochureTypeId"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_branding'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_branding'|translate }}"
+                formControlName="emailBrochurePrivacyId"
+              >
+                <mat-option
+                  *ngFor="let option of options.emailBrochurePrivacyId"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="agencyPreference[AGENCY_PREFERENCE_BROCHURE_EMAIL_BROKER] === 'allow' && model.properties.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_contact_broker'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_emailing_brochure_broker'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_automatic_selection'|translate }}"
+                formControlName="brochureBrokerId"
+              >
+                <mat-option [value]="null">{{ 'label_automatic_selection'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.brokerId"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.brochureBrokerId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="hasAttachments === true"
+        class="rf__panel-subheader"
+      >{{ 'label_files'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          *ngIf="options.documents.agency.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_from_my_agency'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="formGroup.get(getDocumentFormControlName(ENTITY_AGENCY, options.documents.agency[0].label))"
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_files'|translate }}"
+                formControlName="{{ getDocumentFormControlName(ENTITY_AGENCY, options.documents.agency[0].label) }}"
+              >
+                <mat-option
+                  *ngFor="let option of options.documents.agency[0].options"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngFor="let document of options.documents.contact|keyvalue"
+          class="rf__keyvalue-row"
+        >
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+              <div>
+                <div>{{ 'label_from_recipient'|translate }}</div>
+                <div class="rf__keyvalue-subtext">{{ document.value.label }}</div>
+              </div>
+            </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="formGroup.get(getDocumentFormControlName(ENTITY_CONTACT, document.key))"
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_files'|translate }}"
+                formControlName="{{ getDocumentFormControlName(ENTITY_CONTACT, document.key) }}"
+              >
+                <mat-option
+                  *ngFor="let option of document.value.options"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngFor="let document of options.documents.property|keyvalue"
+          class="rf__keyvalue-row"
+        >
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+              <div>
+                <div>{{ 'label_from_property'|translate }}</div>
+                <div class="rf__keyvalue-subtext">{{ document.value.label }}</div>
+              </div>
+            </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="formGroup.get(getDocumentFormControlName(ENTITY_PROPERTY, document.key))"
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ (document.value.options.length === 0? 'label_documents_not_available' : 'label_files')|translate }}"
+                formControlName="{{ getDocumentFormControlName(ENTITY_PROPERTY, document.key) }}"
+              >
+                <mat-option
+                  *ngFor="let option of document.value.options"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngFor="let document of options.documents.promotion|keyvalue"
+          class="rf__keyvalue-row"
+        >
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+              <div>
+                <div>{{ 'label_from_promotion'|translate }}</div>
+                <div class="rf__keyvalue-subtext">{{ document.value.label }}</div>
+              </div>
+            </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              *ngIf="formGroup.get(getDocumentFormControlName(ENTITY_PROMOTION, document.key))"
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_files'|translate }}"
+                formControlName="{{ getDocumentFormControlName(ENTITY_PROMOTION, document.key) }}"
+              >
+                <mat-option
+                  *ngFor="let option of document.value.options"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.reminderContact || error.reminderDate || error.reminderTime"
+    >
+      <span>{{ 'label_options'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_content'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_layout'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'message_matching_email_with_promotion_hint'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_layout'|translate }}"
+                formControlName="emailTemplateId"
+              >
+                <mat-option
+                  *ngFor="let option of options.emailTemplate"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_hide_prices'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_hide_prices_of_properties_and_developments'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <span>
+              <mat-radio-group formControlName="isPriceHidden">
+                <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <ng-container *ngIf="model.isManageLeadByEmail === true && permissions.indexOf(PERMISSION_LEAD_WRITE) > -1">
+
+        <div class="rf__panel-subheader">{{ 'label_leads_manager'|translate }}</div>
+
+        <div class="rf__panel-section">
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_close_the_lead'|translate }}</div>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+              <span>
+                <mat-radio-group formControlName="isLeadClosed">
+                  <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                  <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+                </mat-radio-group>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <div class="rf__panel-subheader">{{ 'label_send_summary'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_to_self'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_copy_to_sender'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <span>
+              <mat-radio-group formControlName="isCopiedToSender">
+                <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_to_agents'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_copy_to_related_brokers'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <span>
+              <mat-radio-group formControlName="isCopiedToBrokers">
+                <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_reminder'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_add_followup_task'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <span>
+              <mat-radio-group formControlName="isReminderAdded">
+                <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </span>
+          </div>
+
+        </div>
+
+        <ng-container *ngIf="model.isReminderAdded === true">
+
+          <div
+            *ngIf="((permissions.indexOf(PERMISSION_TASK_READ) > -1 && permissions.indexOf(PERMISSION_TASK_WRITE) > -1) ||
+            (permissions.indexOf(PERMISSION_TASK_READ) > -1 && permissions.indexOf(PERMISSION_TASK_MANAGER) > -1))"
+            class="rf__keyvalue-row"
+          >
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+              <span>{{ 'label_reminder_contact'|translate }}</span>
+              <mat-icon
+                class="rf__keyvalue-icon"
+                matTooltip="{{ 'label_only_email_contacts'|translate }}"
+                matTooltipPosition="above"
+              >info</mat-icon>
+            </div>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+              <app-shared-autocomplete
+                class="mat-form-field"
+                uid="emailing-form-options-reminder-contact"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+                [placeholder]="'label_reminder_contact'|translate"
+                [error]="error.reminderContact"
+                [isDisabled]="isDisabled || isLoading"
+                [isDisplayedSelectionText]="true"
+                [selectionId]="model.reminderContact?.id"
+                [selectionText]="model.reminderContact?.fullName ?
+                  [model.reminderContact?.fullName, model.reminderContact?.emails[0]?.emailId].join(' - ') :
+                  model.reminderContact?.emails[0]?.emailId"
+                (changeSelection)="onChangeSelectionReminderContact($event)"
+                (changeQuery)="onChangeQueryReminderContact($event)"
+              ></app-shared-autocomplete>
+
+            </div>
+
+          </div>
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_reminder_date'|translate }}</div>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+              <div class="rf__form-datetime">
+
+                <mat-form-field
+                  class="rf__form-datetime-date"
+                  floatLabel="never"
+                >
+                  <input
+                    matInput
+                    formControlName="reminderDate"
+                    [matDatepicker]="pickerReminderDate"
+                    autocomplete="off"
+                    placeholder="{{ 'label_date'|translate }}"
+                  >
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="pickerReminderDate"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #pickerReminderDate></mat-datepicker>
+                  <mat-error>{{ (error.reminderDate || error.reminderTime)|translate }}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field
+                  class="rf__form-datetime-time"
+                  floatLabel="never"
+                >
+                  <input
+                    placeholder="hh:mm"
+                    matInput
+                    appInputTime
+                    autocomplete="off"
+                    formControlName="reminderTime"
+                  />
+                </mat-form-field>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

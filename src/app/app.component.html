@@ -1,0 +1,111 @@
+<div>
+
+  <app-layout-header
+    *ngIf="isReady"
+    [permissions]="runtimePermissions$|async"
+    [isActiveSearch]="(headerSearch$|async).isActive"
+    [isDisabledSearch]="(sideNav$|async).uid !== ''"
+    (click)="onClickHeader()"
+    (clickSearch)="onClickButtonHeaderSearch()"
+    (changeQuery)="onChangeHeaderSearchQuery($event)"
+  ></app-layout-header>
+
+  <app-layout-navigation
+    *ngIf="isReady"
+    [feature]="runtimeFeature$|async"
+    [permissions]="runtimePermissions$|async"
+    [options]="runtimeOptions$|async"
+    [hasAnimation]="hasAnimation"
+    [isFolded]="isFolded"
+    (fold)="onFold($event)"
+  ></app-layout-navigation>
+
+  <div
+    *ngIf="!isReady"
+    class="rf__spinner--fullpage"
+  >
+
+    <mat-spinner
+      color="accent"
+      diameter="64"
+    ></mat-spinner>
+
+  </div>
+
+  <router-outlet *ngIf="isReady"></router-outlet>
+
+  <app-shared-notification
+    [notification]="notification$|async"
+  ></app-shared-notification>
+
+  <app-shared-modal-confirm></app-shared-modal-confirm>
+
+  <app-shared-contextual
+    [isVisible]="(runtimeContextual$|async).uid !== ''"
+    (clickOverlay)="onClickContextualOverlay()"
+  ></app-shared-contextual>
+
+  <app-shared-preview-contact
+    *ngIf="(runtimeContextual$|async).uid === 'preview-contact'"
+    [contact]="previewContact$|async"
+    [brokerTypeIds]="(runtimeContactTypeByGroup$|async).broker"
+    [appContextual]="runtimeContextual$|async"
+  ></app-shared-preview-contact>
+
+  <app-shared-preview-restriction
+    *ngIf="(runtimeContextual$|async).uid === 'preview-restriction'"
+    [restriction]="previewRestriction$|async"
+    [appContextual]="runtimeContextual$|async"
+  ></app-shared-preview-restriction>
+
+  <app-shared-preview-promotion
+    *ngIf="(runtimeContextual$|async).uid === 'preview-promotion'"
+    [promotion]="promotionPreviewPromotion$|async"
+    [appContextual]="runtimeContextual$|async"
+  ></app-shared-preview-promotion>
+
+  <app-shared-preview-property
+    *ngIf="(runtimeContextual$|async).uid === 'preview-property'"
+    [property]="propertyPreviewProperty$|async"
+    [appContextual]="runtimeContextual$|async"
+  ></app-shared-preview-property>
+
+  <app-shared-preview-image
+    *ngIf="(runtimeContextual$|async).uid === 'preview-image'"
+    [appContextual]="runtimeContextual$|async"
+    [url]="(runtimePreviewImage$|async).url"
+  ></app-shared-preview-image>
+
+  <app-shared-menu
+    *ngIf="(runtimeContextual$|async).uid === 'user-menu'"
+    [appContextual]="runtimeContextual$|async"
+    [menu]="userMenu$|async"
+    (clickMenuItem)="onClickMenuItemUser($event)"
+  ></app-shared-menu>
+
+  <app-shared-upload-status-bar
+    [uploads]="uploads$|async"
+    [isFolded]="isUploadStatusFolded$|async"
+  ></app-shared-upload-status-bar>
+
+  <app-layout-sidenav-user-switch
+    [isVisible]="(sideNav$|async).uid === 'user-switch'"
+    [isLoading]="(sideNav$|async).isLoading"
+    (close)="onCloseSidenav()"
+  ></app-layout-sidenav-user-switch>
+
+  <app-layout-sidenav-search
+    [permissions]="runtimePermissions$|async"
+    [isVisible]="(sideNav$|async).uid === 'search'"
+    [isLoading]="(sideNav$|async).isLoading"
+    [search]="headerSearch$|async"
+    [results]="headerSearchResults$|async"
+    (close)="onCloseSidenav()"
+  ></app-layout-sidenav-search>
+
+  <app-gallery-modal
+    [isVisible]="(gallery$|async).isVisible"
+    [gallery]="gallery$|async"
+  ></app-gallery-modal>
+
+</div>

@@ -1,0 +1,108 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 650px;
+  color: $color-38;
+}
+
+.container-recipient {
+  box-shadow: 0 1px 3px $color-13;
+  border-radius: 3px;
+  margin-top: 10px;
+  position: relative;
+  line-height: 15px;
+}
+
+.recipient:hover {
+  background: $color-25;
+}
+
+.recipient {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  transition: background 300ms ease-out;
+}
+
+.email-status {
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.email-status .mat-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 280px;
+  margin: auto 80px;
+}
+
+.text-summary {
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  padding: 10px 0 20px;
+  width: 100%;
+}
+
+.container-summary-icon {
+  width: 80px;
+  text-align: center;
+  position: relative;
+}
+
+.icon-main {
+  font-size: 75px;
+  color: $color-19;
+  height: 65px;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.icon-sub {
+  background-color: $color-01;
+  position: absolute;
+  top: 36px;
+  right: -2px;
+  font-size: 31px;
+  border-radius: 50%;
+  width: 31px;
+  height: 30px;
+}
+
+.status-success {
+  color: $color-15;
+}
+
+.status-error {
+  color: $color-17;
+}
+
+.recipient-subinfo {
+  color: $color-30;
+  line-height: 16px;
+}
+
+.recipient-subinfo .rf__info-icon {
+  color: inherit;
+  line-height: 17px;
+  font-size: 12px;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .container-summary {
+    margin: auto 140px;
+  }
+}

@@ -1,0 +1,39 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="{{ 'label_restriction_name'|translate }}"
+      formControlName="name"
+    >
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.module.length > 0">
+    <mat-select
+      placeholder="{{ 'label_module'|translate }}"
+      formControlName="module"
+    >
+      <mat-option
+        *ngFor="let option of options.module"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+</form>

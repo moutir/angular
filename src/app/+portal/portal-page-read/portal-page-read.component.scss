@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.no-feed-preview {
+  font-style: italic;
+  text-align: center;
+}
+
+.feed-preview {
+  overflow-wrap: break-word;
+}
+
+.button-show-password:hover {
+  color: $color-27;
+}

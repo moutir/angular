@@ -1,0 +1,82 @@
+@import "../../../../styles/variables";
+
+.menu {
+  width: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px 0;
+  user-select: none;
+  z-index: 1;
+  background: $color-01;
+  position: relative;
+}
+
+.menu_item {
+  background: $color-01;
+  transition: background 300ms ease-out;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px;
+}
+
+.menu_item--disabled {
+  cursor: not-allowed;
+  background: $color-22;
+  color: $color-09;
+}
+
+.menu_item--hover {
+  background: $color-25;
+}
+
+.menu_label {
+  width: 100%;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 14px;
+  flex-shrink: 0;
+  color: $color-19;
+}
+
+.menu_item--hover .icon {
+  color: $color-27;
+}
+
+app-shared-menu {
+  position: fixed;
+  left: 100%;
+  top: 100%;
+  box-shadow: $color-13 0 0 5px;
+  z-index: $zindex-max;
+  display: block;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .menu {
+    max-width: 250px;
+  }
+
+  app-shared-menu {
+    max-height: 275px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+}

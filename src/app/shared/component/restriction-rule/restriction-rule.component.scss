@@ -1,0 +1,16 @@
+@import "../../../../styles/variables";
+
+.restriction-rule-sentence {
+  line-height: 24px;
+  padding-left: 15px;
+}
+
+.restriction-rule-sentence--module {
+  font-weight: bold;
+  padding-left: 0;
+}
+
+.restriction-rule-highlight {
+  padding: 0 2px;
+  color: $color-27;
+}

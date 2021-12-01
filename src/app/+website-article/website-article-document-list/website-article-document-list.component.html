@@ -1,0 +1,42 @@
+<div class="rf__document-list rf__document-list--website-article">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_photos'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div
+        *ngIf="documents.length > 0"
+        class="warning-message"
+      >
+        <span class="warning-message-label">{{ 'label_warning_word'|translate }}: </span>
+        <span>{{ 'label_panel_modifications_stored_immediately'|translate }}</span>
+      </div>
+
+      <app-document-manager
+        [documents]="documents"
+        [isLoading]="isLoading$|async"
+        [isReadOnly]="isReadOnly"
+        [isSortable]="isSortable"
+        [placeholderCount]="placeholderCount"
+        [strategy]="documentManagerStrategy"
+        (changeDocuments)="onChangeDocuments($event)"
+        (removeDocument)="onRemoveDocument($event)"
+        (changeInput)="onChangeDocumentInput($event)"
+      ></app-document-manager>
+
+      <app-shared-upload
+        [uid]="uid"
+        [strategy]="uploadStrategy"
+        [isDisabled]="isDisabled"
+        (uploadComplete)="onUploadComplete($event)"
+      ></app-shared-upload>
+
+    </div>
+
+  </div>
+
+</div>

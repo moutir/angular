@@ -1,0 +1,31 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__keyvalue-cell">
+
+    <mat-form-field floatLabel="never">
+      <input
+        matInput
+        autocomplete="off"
+        placeholder="{{ 'label_subject'|translate }}"
+        [formControlName]="getFormControlName('subject')"
+      />
+      <mat-error>{{ error[getFormControlName('subject')]|translate }}</mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div class="rf__keyvalue-cell rf__keyvalue-cell--message">
+
+    <app-shared-wysiwyg
+      [id]="getFormControlName('message')"
+      [error]="error[getFormControlName('message')]"
+      [value]="formGroup.get(getFormControlName('message')).value"
+      (changeValue)="onChangeWysiwyg($event)"
+      placeholder="{{ 'label_message'|translate }}"
+      minHeight="400px"
+    ></app-shared-wysiwyg>
+    <input type="hidden" [formControlName]="getFormControlName('message')" />
+
+  </div>
+
+</form>

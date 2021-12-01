@@ -1,0 +1,358 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span *ngIf="type === TYPE_SALE_PER_MONTH">{{ 'label_sale_month_broker'|translate }}</span>
+      <span *ngIf="type === TYPE_RENTAL_PER_MONTH">{{ 'label_rental_month_broker'|translate }}</span>
+      <span *ngIf="type === TYPE_SALE_PER_YEAR">{{ 'label_sale_year_broker'|translate }}</span>
+      <span *ngIf="type === TYPE_RENTAL_PER_YEAR">{{ 'label_rental_year_broker'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+          <span
+            *ngIf="type === TYPE_SALE_PER_YEAR || type === TYPE_RENTAL_PER_YEAR"
+          >{{ 'label_year'|translate }}</span>
+          <span
+            *ngIf="type === TYPE_SALE_PER_MONTH || type === TYPE_RENTAL_PER_MONTH"
+          >{{ 'label_year_month'|translate }}</span>
+        </div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+          <app-month-year-picker
+            *ngIf="type === TYPE_SALE_PER_MONTH || type === TYPE_RENTAL_PER_MONTH"
+            placeholder="label_year_month_format"
+            [formGroup]="formGroup"
+            [formControlName]="getFormControlName('date')"
+            [error]="error[getFormControlName('date')]|translate"
+          ></app-month-year-picker>
+
+          <app-year-picker
+            *ngIf="type === TYPE_SALE_PER_YEAR || type === TYPE_RENTAL_PER_YEAR"
+            placeholder="label_year"
+            [formGroup]="formGroup"
+            [formControlName]="getFormControlName('date')"
+            [error]="error[getFormControlName('date')]|translate"
+          ></app-year-picker>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill"></div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+          <div class="table-container">
+
+            <div class="rf__table">
+
+              <div class="rf__table-row rf__table-row--header">
+
+                <div class="rf__table-cell rf__table-cell--contact"></div>
+
+                <ng-container *ngIf="type === TYPE_SALE_PER_YEAR || type === TYPE_RENTAL_PER_YEAR">
+                  <div class="rf__table-cell">{{ 'label_production_target'|translate }}</div>
+                </ng-container>
+
+                <ng-container *ngIf="type === TYPE_SALE_PER_MONTH || type === TYPE_RENTAL_PER_MONTH">
+                  <div class="rf__table-cell">{{ 'label_production'|translate }}</div>
+                  <div class="rf__table-cell">{{ 'label_commissions'|translate }}</div>
+                  <div class="rf__table-cell">{{ 'label_deals'|translate }}</div>
+                  <div class="rf__table-cell">{{ 'label_production_salary'|translate }}</div>
+                  <div class="rf__table-cell">{{ 'label_production_expenses'|translate }}</div>
+                </ng-container>
+
+                <div class="rf__table-cell rf__spacer"></div>
+
+              </div>
+
+              <ng-container *ngIf="isLoading === true">
+
+                <div
+                  *ngFor="let i of 10|forLoop"
+                  class="rf__table-row rf__table-row--placeholder"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--contact">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  <ng-container *ngIf="type === TYPE_SALE_PER_YEAR || type === TYPE_RENTAL_PER_YEAR">
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="type === TYPE_SALE_PER_MONTH || type === TYPE_RENTAL_PER_MONTH">
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  <div class="rf__table-cell">
+                    <div class="rf__table-txt"></div>
+                  </div>
+
+                  </ng-container>
+
+                  <div class="rf__table-cell rf__spacer"></div>
+
+                </div>
+
+              </ng-container>
+
+              <div
+                *ngFor="let i of getFormArray('contacts').indexes;"
+                class="rf__table-row"
+                [formGroup]="getFormArray('contacts').control.controls[i]"
+              >
+
+                <div class="rf__table-cell rf__table-cell--contact">
+                  <div class="rf__table-txt">
+                    <app-shared-contact-link [contact]="model.contacts[i].contact"></app-shared-contact-link>
+                  </div>
+                </div>
+
+                <div class="rf__table-cell">
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_YEAR"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="targetSales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'targetSales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_YEAR"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="targetRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'targetRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="productionSales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'productionSales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="productionRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'productionRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <ng-container *ngIf="type === TYPE_SALE_PER_MONTH || type === TYPE_RENTAL_PER_MONTH">
+
+                <div class="rf__table-cell">
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="commissionSales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'commissionSales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="commissionRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'commissionRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="rf__table-cell">
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="dealSales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'dealSales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="dealRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'dealRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="rf__table-cell">
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="salarySales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'salarySales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="salaryRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'salaryRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="rf__table-cell">
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_SALE_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="expenseSales"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'expenseSales')|translate }}</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="type === TYPE_RENTAL_PER_MONTH"
+                    floatLabel="never"
+                    class="mat-form-field--with-suffix"
+                  >
+                    <input
+                      matInput
+                      type="number"
+                      autocomplete="off"
+                      formControlName="expenseRental"
+                    />
+                    <span matSuffix class="rf__form-field-suffix">{{ runtimeSettings.currency }}</span>
+                    <mat-error>{{ getFormArrayError('contacts', i, 'expenseRental')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                </ng-container>
+
+                <div class="rf__table-cell rf__spacer"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

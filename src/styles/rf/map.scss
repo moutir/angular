@@ -1,0 +1,17 @@
+.rf__map {
+  width: 100%;
+  height: 100%;
+}
+
+app-map {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.rf__map--map-sector,
+.rf__map--contact-search-map,
+.rf__map--map-property-modal-polygon {
+  height: 400px;
+}

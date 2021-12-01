@@ -1,0 +1,104 @@
+@import "../../../styles/variables";
+
+.rf__report-cell--property,
+.rf__report-cell--promotion {
+  padding: 2px 0;
+}
+
+.rf__table-cell.rf__report-cell--broker {
+  position: absolute;
+  top: auto;
+  bottom: 2px;
+  z-index: 10;
+}
+
+.rf__card--property,
+.rf__card--promotion {
+  display: none;
+}
+
+.property-info,
+.promotion-info {
+  position: relative;
+}
+
+.property__price {
+  width: 100%;
+  height: 26px;
+  top: 160px;
+  left: 0;
+}
+
+.property__reference,
+.property__price span,
+.property__title,
+.promotion__reference,
+.promotion__price span,
+.promotion__title {
+  padding: 2px 10px;
+}
+
+.property-info .property__reference,
+.promotion-info .promotion__reference {
+  top: -28px;
+}
+
+.property-info .property__price,
+.promotion-info .promotion__price {
+  top: 124px;
+}
+
+.property-info .property__price:after,
+.promotion-info .promotion__price:after {
+  margin-top: -20px;
+}
+
+.rf__table-thumbnail {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 3px;
+}
+
+.rf__report-cell--schedule .rf__info {
+  justify-content: center;
+  height: 40px;
+}
+
+.rf__report-cell--schedule .mat-icon {
+  font-size: 19px;
+}
+
+.rf__report-cell--proposition .rf__table-txt,
+.rf__report-cell--visit-plan .rf__table-txt,
+.rf__report-cell--visit-done .rf__table-txt {
+  text-align: center;
+}
+
+.rf__table-cell.rf__report-cell--schedule {
+  position: absolute;
+  top: 180px;
+  right: 0;
+}
+
+.rf__report-cell--status .rf__info .rf__table-txt {
+  min-width: 16px;
+  width: 20px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .property-info,
+  .promotion-info {
+    display: none;
+  }
+
+  .rf__card--property,
+  .rf__card--promotion {
+    display: block;
+  }
+
+  .rf__table-cell.rf__report-cell--broker,
+  .rf__table-cell.rf__report-cell--schedule {
+    position: static;
+  }
+}

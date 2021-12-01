@@ -1,0 +1,9 @@
+<div class="rf__star-list">
+
+  <mat-icon
+    *ngFor="let i of total|forLoop"
+    class="rf__star"
+    [class.rf__star--on]="current >= i+1"
+  >star</mat-icon>
+
+</div>

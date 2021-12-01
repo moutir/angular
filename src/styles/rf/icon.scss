@@ -1,0 +1,14 @@
+@import "../variables";
+
+.rf__icon {
+  cursor: pointer;
+}
+
+.rf__icon--link {
+  color: $color-19;
+}
+
+.rf__icon--link:hover,
+.rf__icon--link:active {
+  color: $color-27;
+}

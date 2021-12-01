@@ -1,0 +1,80 @@
+@import "../../../styles/variables";
+
+.rf__map-polygons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.rf__map-polygon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 240px;
+  padding: 0 12px 0 15px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  background: $color-18;
+  transition: background 300ms ease-out;
+  color: $color-02;
+  margin: 4px 4px 0 0;
+}
+
+.rf__map-polygon .rf__map-polygon-label {
+  white-space: nowrap;
+  padding: 0 6px;
+}
+
+.rf__map-polygon .mat-icon {
+  color: $color-17;
+  flex-shrink: 0;
+}
+
+.rf__map-polygon:hover {
+  color: $color-01;
+  background: $color-17;
+  cursor: pointer;
+}
+
+.rf__map-polygon:hover .mat-icon {
+  color: inherit;
+}
+
+.rf__map-polygon--add .mat-icon {
+  color: $color-15;
+}
+
+.rf__map-polygon--add:hover {
+  background: $color-15;
+}
+
+.rf__map-polygon--disabled {
+  pointer-events: none;
+  color: $color-30;
+}
+
+.rf__map-polygon--disabled .mat-icon {
+  color: $color-30;
+}
+
+.rf__map-polygon-color {
+  width: 8px;
+  height: 8px;
+  background: $color-02;
+  flex-shrink: 0;
+}
+
+.rf__map-polygon:hover .rf__map-polygon-color {
+  color: $color-01;
+}
+
+.rf__map-polygon--disabled .rf__map-polygon-color {
+  background: $color-30;
+}
+
+.rf__map-polygon-count {
+  white-space: nowrap;
+  font-size: 9px;
+}

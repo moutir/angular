@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+
+.agency-image-container {
+  position: relative;
+}
+
+.thumbnail-image--transparent {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.thumbnail-image--transparent.rf__async-image--success {
+  min-height: auto;
+}

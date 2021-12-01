@@ -1,0 +1,34 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 130px;
+}
+
+.rf__searchlist-form--advanced.has-field-custom-attribute .rf__searchlist-form-body {
+  height: 175px;
+}
+
+@media (min-width: 600px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 130px;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__searchlist-form--advanced.has-field-custom-attribute .rf__searchlist-form-body {
+    height: 130px;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 63px;
+  }
+
+  .rf__searchlist-form:not(.has-field-custom-attribute) .rf__searchlist-form-toggle {
+    display: none;
+  }
+}

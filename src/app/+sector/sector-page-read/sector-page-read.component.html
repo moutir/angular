@@ -1,0 +1,146 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_INFORMATION) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_sector'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.name }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_locations'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div *ngIf="model.locations.length === 0 && (isLoading$|async) === true">...</div>
+                  <ul
+                    *ngIf="model.locations.length > 0"
+                    class="rf__list"
+                  >
+                    <li
+                      *ngFor="let location of model.locations"
+                      class="rf__list-line"
+                    >{{ location|location }}</li>
+                  </ul>
+                  <div
+                    *ngIf="model.locations.length === 0 && (isLoading$|async) === false"
+                  >
+                    <span>{{ 'sector_no_locations_added_yet'|translate }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(feature$|async).polygon"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_polygons' | translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <app-map
+                    uid="map-sector"
+                    [mapSettings]="mapSettings"
+                    [polygonSettings]="polygonSettings"
+                    [polygons]="polygons"
+                  ></app-map>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+          [updateContact]="model.updateContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROPERTY_SALE) > -1"
+      label="{{ 'label_for_sale'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_properties'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-property-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_PROPERTY_SALE)"
+              [isUsingActions]="false"
+            ></app-property-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROPERTY_RENT) > -1"
+      label="{{ 'label_rentals'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_properties'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-property-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_PROPERTY_RENT)"
+              [isUsingActions]="false"
+            ></app-property-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

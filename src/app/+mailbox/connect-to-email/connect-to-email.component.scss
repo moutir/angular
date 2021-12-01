@@ -1,0 +1,141 @@
+.input-group-btn {
+  vertical-align: top;
+  .btn {
+    color: white;
+    border: none;
+    height: 34px;
+    width: 124px;
+  }
+  .property {
+    background-color: #536ADA !important;
+    background: #536ADA !important;
+  }
+  .promotion {
+    background-color: #DA5375 !important;
+    background: #DA5375 !important;
+  }
+  .contact {
+    background-color: #49BF86 !important;
+    background: #49BF86 !important;
+  }
+}
+
+.properties-selection {
+  input {
+    padding-right: 30px;
+    border: none !important;
+    cursor: text;
+  }
+
+  p {
+    background: #ffffff;
+    color: #000000;
+    margin: 0;
+  }
+  .form-inner {
+    background: white;
+    border: rgba(123, 127, 137, 0.3) 1px solid !important;
+    position: relative;
+    display: inline-block;
+    border-radius: 3px;
+    z-index: 99;
+  }
+  .autocomplete-wrapper {
+    padding: 10px;
+    position: absolute;
+    background-color: white;
+    color: #000000;
+    border: rgba(123, 127, 137, 0.4) 1px solid !important;
+    z-index: 999999;
+    cursor: pointer;
+    height: 265px;
+    overflow: auto;
+  }
+  .prop-name {
+    font-size: 0.9vw;
+  }
+  .autocomplete-wrapper.search {
+    background-color: #dddddd;
+  }
+  .auto-inner-wrapper {
+    overflow: hidden;
+  }
+  .show-more {
+    display: block;
+    width: 100%;
+    line-height: 35px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #323641;
+    text-align: center;
+    background-color: #F3F5F9;
+    border-radius: 3px;
+    border: 1px solid #DEDFE4;
+  }
+}
+
+span.close-prop {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 35px;
+  height: 100%;
+  &:hover {
+    cursor: pointer
+  }
+  i {
+    line-height: 34px;
+    font-size: 16px;
+    color: #7B7F89;
+  }
+}
+
+span.save-prop {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  width: 35px;
+  height: 100%;
+  &:hover {
+    cursor: pointer
+  }
+  i {
+    line-height: 34px;
+    font-size: 16px;
+    color: green;
+  }
+}
+
+.inner-prop {
+  .cat {
+    background: #F3F3F3;
+    color: #999;
+    float: left;
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 3px;
+    border: 1px solid #DDD;
+    margin: 1px 5px 1px 0;
+    i {
+      color: #83879A;
+    }
+  }
+}
+
+.show {
+  overflow-y: scroll !important;
+  max-height: 700px;
+}
+
+.none {
+  display: none !important;
+}
+
+.dropdown-menu {
+  min-width: 112px;
+  li {
+    cursor: pointer;
+  }
+}
+
+

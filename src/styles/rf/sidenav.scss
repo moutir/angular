@@ -1,0 +1,58 @@
+@import "../variables";
+
+.rf__sidenav {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  height: 100%;
+  padding-top: ($layout-header-height - 1);
+  z-index: ($zindex-max - 3);
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.rf__sidenav--is-active {
+  left: 0;
+}
+
+.rf__sidenav--is-visible {
+  opacity: 1;
+}
+
+.rf__sidenav-header {
+  background-color: $color-19;
+  color: $color-01;
+  font-size: 14px;
+  padding: 8px 15px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rf__sidenav-noresults {
+  color: $color-02;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf__sidenav-list-item {
+  transition: background 300ms ease-out;
+  background: transparent;
+}
+
+.rf__sidenav-list-item:not(.rf__sidenav-list-item--placeholder) {
+  cursor: pointer;
+}
+
+.rf__sidenav-list-item:not(.rf__sidenav-list-item--placeholder):hover {
+  background: $color-25;
+}
+
+.rf__sidenav-list-item--placeholder:nth-child(even),
+.rf__sidenav-list-item:not(:hover):nth-child(even) {
+  background: $color-18;
+}

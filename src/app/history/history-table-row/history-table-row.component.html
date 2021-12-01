@@ -1,0 +1,43 @@
+<div class="rf__table-cell rf__history-cell--date">
+  <span class="rf__table-txt">{{ history.labelDate }}</span>
+  <span class="rf__table-txt">{{ history.labelTime }}</span>
+</div>
+
+<div class="rf__table-cell rf__history-cell--action">
+  <div class="rf__table-txt">
+    <div class="rf__table-cell-box">
+      <span [innerHTML]="history.comment"></span>
+      <mat-icon
+        *ngIf="history.labelPreviousValues"
+        matTooltip="{{ history.labelPreviousValues }}"
+        matTooltipPosition="right"
+        class="rf__info-icon"
+      >history</mat-icon>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="history.broker"
+  class="rf__table-cell rf__history-cell--done-by"
+>
+  <div>
+    <app-shared-contact-link
+      [contact]="history.broker"
+      [layout]="'broker'"
+      [hasTooltip]="history.broker.type === contactTypeColleague"
+      [hasLabel]="isPlaceholder || history.broker.type === contactTypeColleague"
+      [isPlaceholder]="isPlaceholder"
+    ></app-shared-contact-link>
+    <div
+      *ngIf="isPlaceholder === true || history.broker.companyLogoUrl"
+      class="rf__table-thumbnail"
+    >
+      <div
+        *ngIf="history.broker.companyLogoUrl"
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+        appAsyncImage="{{ history.broker.companyLogoUrl }}"
+      ></div>
+    </div>
+  </div>
+</div>

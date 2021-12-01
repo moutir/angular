@@ -1,0 +1,115 @@
+<div
+  class="rf__card rf__card--promotion"
+  [class.rf__card--placeholder]="isPlaceholder === true"
+>
+
+  <div class="rf__card-image">
+    <mat-icon>photo_camera</mat-icon>
+    <div
+      *ngIf="promotion.photoSmallURL"
+      class="rf__thumbnail"
+      appAsyncImage="{{ promotion.photoSmallURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__card-thumbnail-overlay"
+      (click)="onClickThumbnail($event)"
+    >
+      <mat-icon>info</mat-icon>
+    </div>
+  </div>
+
+  <div class="rf__card-body">
+
+    <div class="rf__card-text rf__card-text--title">
+      <span class="reference">{{ promotion.name || promotion.reference }}</span>
+      <span
+        *ngIf="promotion.address1 || promotion.address2 || promotion.address3"
+        class="address"
+      >{{ promotion.address1 || promotion.address2 || promotion.address3 }}</span>
+      <span
+        *ngIf="promotion.location?.label"
+        class="location"
+      >{{ promotion.location.label }}</span>
+      <span
+        *ngIf="promotion.propertyPriceFrom"
+        class="price"
+      >{{ promotion.propertyPriceFrom }}</span>
+    </div>
+
+    <div class="rf__card-text rf__card-text--description">
+      <ng-container *ngIf="promotion.broker?.id">
+        <span *ngIf="promotion.propertyReservedCount">{{ 'reserved_promotion_properties'|translate }} <strong>{{ promotion.propertyReservedCount }}</strong></span>
+        <span *ngIf="promotion.propertySoldCount">{{ 'sold_promotion_properties'|translate }} <strong>{{ promotion.propertySoldCount }}</strong></span>
+        <span *ngIf="promotion.propertyTotalCount">{{ 'total_promotion_properties'|translate }} <strong>{{ promotion.propertyTotalCount }}</strong></span>
+      </ng-container>
+      <span *ngIf="promotion.propertyBedroomsFrom || promotion.propertyBedroomsTo">
+        {{ 'label_rooms'|translate }}
+        <ng-container *ngIf="promotion.propertyBedroomsFrom">{{ 'label_from'|translate }} <strong>{{ promotion.propertyBedroomsFrom }} </strong> </ng-container>
+        <ng-container *ngIf="promotion.propertyBedroomsTo">{{ 'label_to'|translate }} <strong>{{ promotion.propertyBedroomsTo }}</strong> </ng-container>
+      </span>
+      <span *ngIf="promotion.propertyAreaLivingFrom || promotion.propertyAreaLivingTo">
+        {{ 'label_living_area'|translate }}
+        <ng-container *ngIf="promotion.propertyAreaLivingFrom">{{ 'label_from'|translate }} <strong>{{ promotion.propertyAreaLivingFrom }} {{ promotion.areaUnit|areaUnit }}</strong> </ng-container>
+        <ng-container *ngIf="promotion.propertyAreaLivingTo">{{ 'label_to'|translate }} <strong>{{ promotion.propertyAreaLivingTo }} {{ promotion.areaUnit|areaUnit }}</strong> </ng-container>
+      </span>
+      <ng-container *ngIf="isPlaceholder === false && !promotion.broker?.id">
+        <div class="sale-status">
+          <span class="rf__info">
+            <mat-icon
+              matTooltip="{{ 'reserved_promotion_properties'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >assignment_returned</mat-icon>
+            <span>{{ promotion.propertyReservedCount }}</span>
+          </span>
+
+          <span class="rf__info">
+            <mat-icon
+              matTooltip="{{ 'sold_promotion_properties'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >assignment_turned_in</mat-icon>
+            <span>{{ promotion.propertySoldCount }}</span>
+          </span>
+          <span class="rf__info">
+            <mat-icon
+              matTooltip="{{ 'total_promotion_properties'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >apps</mat-icon>
+            <span>{{ promotion.propertyTotalCount }}</span>
+          </span>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="rf__card-row">
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === true"
+        [layout]="'broker'"
+        [isPlaceholder]="true"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === false && (promotion.broker?.fullName || promotion.broker?.initials)"
+        [contact]="promotion.broker"
+        [layout]="'broker'"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="isDeletable === true"
+    class="rf__card-remove"
+    (click)="onClickDelete($event)"
+  >
+    <mat-icon>close</mat-icon>
+  </div>
+
+</div>

@@ -1,0 +1,534 @@
+<form [formGroup]="formGroup" class="rf__form">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.agencyId || error.login || error.password || error.passwordConfirm || error.accountTypeId ||
+      error.expiryDate || error.notes || error.firstName || error.lastName || error.permissions || error.accountSwitches"
+    >
+      <span>{{ 'label_account'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div
+        *ngIf="layout === 'account'"
+        class="rf__panel-subheader"
+      >{{ 'label_profile'|translate }}</div>
+
+      <div
+        *ngIf="layout === 'account'"
+        class="rf__panel-section"
+      >
+
+        <div
+
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_agency'|translate }}"
+                formControlName="agencyId"
+              >
+                <mat-option
+                  *ngFor="let option of options.agency"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.agencyId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_firstname'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_firstname'|translate }}"
+                formControlName="firstName"
+              />
+              <mat-error>{{ error.firstName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_lastname'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_lastname'|translate }}"
+                formControlName="lastName"
+              />
+              <mat-error>{{ error.lastName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_credentials'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_login'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'input_placeholder_login'|translate }}"
+                formControlName="login"
+              />
+              <mat-error>{{ error.login | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_password'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                appInputPassword
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_password'|translate }}"
+                formControlName="password"
+              />
+              <button mat-icon-button matSuffix>
+                <mat-icon>visibility_off</mat-icon>
+              </button>
+              <mat-error>
+                {{
+                error.password === 'form_error_minlength' ?
+                  ('form_error_minlength_count'|translate: { count: 8 }) : error.password|translate
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_confirm_new_password'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                appInputPassword
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_confirm_new_password'|translate }}"
+                formControlName="passwordConfirm"
+              />
+              <button mat-icon-button matSuffix>
+                <mat-icon>visibility_off</mat-icon>
+              </button>
+              <mat-error>
+                {{
+                error.passwordConfirm === 'form_error_minlength' ?
+                  ('form_error_minlength_count'|translate: { count: 8 }) : error.passwordConfirm|translate
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="layout === 'account'"
+        class="rf__panel-subheader"
+      >{{ 'label_administration'|translate }}</div>
+
+      <div
+        *ngIf="layout === 'account'"
+        class="rf__panel-section"
+      >
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_active'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              formControlName="isActive"
+            >{{ 'label_active'|translate }}</mat-checkbox>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_expiry_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="expiryDate"
+                [matDatepicker]="pickerExpiryDate"
+                autocomplete="off"
+                placeholder="{{ 'label_expiry_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerExpiryDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerExpiryDate></mat-datepicker>
+              <mat-error>{{ error.expiryDate|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_notes'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+              <textarea
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_notes'|translate }}"
+                formControlName="notes"
+              ></textarea>
+              <mat-error>{{ error.notes | translate }}steak</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_switch_account'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="account-switch">
+
+              <div
+                class="rf__table rf__table--account-switch"
+                formArrayName="accountSwitches"
+              >
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell">{{ 'label_can_switch_to'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_add_switchaccount'|translate }}"
+                      matTooltipPosition="left"
+                      [disabled]="isLoading === true"
+                      (click)="onClickFormArrayAdd('accountSwitches')"
+                    >
+                      <mat-icon>add</mat-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div
+                  *ngFor="let i of getFormArray('accountSwitches').indexes;"
+                  class="rf__table-row"
+                  [class.rf__table-row--removed]="model.accountSwitches[i].isRemoved === true"
+                  [formGroup]="getFormArray('accountSwitches').control.controls[i]"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--account-switch-account">
+
+                    <app-shared-autocomplete
+                      class="mat-form-field"
+                      floatLabel="never"
+                      [uid]="'account-form-required-switchaccount-' + i"
+                      [entities]="AUTOCOMPLETE_ENTITIES_ACCOUNT"
+                      limit="10"
+                      [placeholder]="'input_placeholder_login'|translate"
+                      [isDisplayedSelectionText]="true"
+                      [isDisabled]="isLoading === true"
+                      [selectionId]="model.accountSwitches[i].id"
+                      [selectionText]="model.accountSwitches[i].account.login"
+                      [error]="getFormArrayError('accountSwitches', i, 'account')"
+                      (changeSelection)="onChangeSelectionAccount($event, i)"
+                    ></app-shared-autocomplete>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      *ngIf="!!model.accountSwitches[i].isRemoved === false"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_remove_switchaccount'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle('accountSwitches', i, true)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button
+                      *ngIf="!!model.accountSwitches[i].isRemoved == true"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_undo'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle('accountSwitches', i, false)"
+                    >
+                      <mat-icon>undo</mat-icon>
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.accountSwitches.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_switchaccount_added_yet'|translate }}</div>
+
+              <mat-error
+                *ngIf="error.accountSwitches && error.accountSwitches !== 'form_error_is_invalid'"
+                class="rf__table-information rf__table-information--error"
+              >{{ error.accountSwitches|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="rf__panel-subheader"
+      >{{ 'label_privileges'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_account_type'|translate }}</span>
+            <mat-icon
+              *ngIf="layout === 'user'"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_only_agency_admin_can_update'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_account_type'|translate }}"
+                formControlName="accountTypeId"
+                (selectionChange)="onSelectAccountTypeId($event)"
+              >
+                <mat-option
+                  *ngFor="let option of options.accountType"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.accountTypeId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="layout === 'account'"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <app-shared-account-privileges
+              [permissions]="permissions"
+              [model]="model"
+              [feature]="feature"
+              [featureAccount]="featureAccount"
+              [isEditable]="true"
+              [isLoading]="isLoading"
+              (changePrivileges)="onChangePrivileges($event)"
+            ></app-shared-account-privileges>
+
+            <input type="hidden" formControlName="privileges" />
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.languageId"
+    >
+      <span>{{ 'label_preferences'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_interface'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_language'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_preferred_language'|translate }}"
+                formControlName="languageId"
+              >
+                <mat-option
+                  *ngFor="let option of options.language"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.languageId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_services'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_service_switch_account'|translate }}</span>
+            <mat-icon
+              *ngIf="layout !== 'user'"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+            matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+            matTooltipPosition="above"
+          >
+            <mat-checkbox
+              formControlName="isAllowedSwitching"
+            >{{ 'label_allow_switching_to_this_account'|translate }}</mat-checkbox>
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="layout !== 'user' || permissions.indexOf(PERMISSION_AGENDA_READ) > -1"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_service_google_agenda'|translate }}</span>
+            <mat-icon
+              *ngIf="layout !== 'user'"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+            matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+            matTooltipPosition="above"
+          >
+            <mat-checkbox
+              formControlName="isEnabledGoogleAgenda"
+            >{{ 'label_synchronize_google_agenda'|translate }}</mat-checkbox>
+          </div>
+
+        </div>
+
+        <div
+          class="rf__keyvalue-row"
+          *ngIf="feature && feature.sendEmailOnBehalf"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_contract_option_33'|translate }}</span>
+            <mat-icon
+              *ngIf="layout !== 'user'"
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+            matTooltip="{{ 'tooltip_account_modify_data_self_only'|translate }}"
+            matTooltipPosition="above"
+          >
+            <mat-checkbox
+              formControlName="isEnabledSendEmailOnBehalf"
+            >{{ 'label_collaboration_allow_send_on_behalf'|translate }}</mat-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

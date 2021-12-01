@@ -1,0 +1,319 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__property-cell--photo">
+  <div class="rf__table-thumbnail">
+
+    <mat-icon>photo_camera</mat-icon>
+
+    <div
+      *ngIf="property.photoSmallURL"
+      class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+      appAsyncImage="{{ property.photoSmallURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="property.photoLargeURL"
+      class="rf__table-thumbnail-image rf__table-thumbnail-image--large"
+      appAsyncImage="{{ property.photoLargeURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__table-thumbnail-overlay"
+      (click)="onClickThumbnail($event)"
+    >
+      <mat-icon>photo_camera</mat-icon>
+    </div>
+
+  </div>
+</div>
+
+<div class="rf__table-cell rf__property-cell--reference">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        *ngIf="property.notes"
+        matTooltip="{{ property.notes }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >warning</mat-icon>
+      <span class="rf__info-label">{{ property.reference }}</span>
+    </div>
+  </span>
+  <span class="rf__table-txt">
+    <span class="rf__property-status--{{ property.statusId }}">{{ property.labelStatus }}</span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__property-cell--category">
+  <span class="rf__table-txt">
+    {{ property.labelSubcategory }}
+  </span>
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        *ngIf="property.location.street"
+        matTooltip="{{ property.location.street }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >info</mat-icon>
+      <span class="rf__info-label">{{ property.location.label }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__property-cell--price">
+  <span class="rf__table-txt">
+    <span>{{ property.labelPrice }}</span>
+    <span
+      *ngIf="property.priceFrequencyId && featurePrice.frequency[property.priceFrequencyId]"
+    > / {{ featurePrice.frequency[property.priceFrequencyId]|frequencyUnit }}</span>
+  </span>
+  <span
+    *ngIf="property.type === TYPE_SELL && feature.mortgage === true && property.labelMortgage !== ''"
+    class="rf__table-txt rf__table-txt--mortgage"
+  >
+    <div
+      *ngIf="property.isSharedRestricted === true"
+      class="rf__info"
+    >
+      <mat-icon class="rf__info-icon">subdirectory_arrow_right</mat-icon>
+      <span class="rf__info-label">{{ property.labelMortgage }}</span>
+    </div>
+    <div
+      *ngIf="isPlaceholder === false && property.isSharedRestricted === false && isUsingActions === true"
+      class="rf__info rf__info--link"
+      (click)="onClickButtonMortgage($event)"
+    >
+      <mat-icon class="rf__info-icon">subdirectory_arrow_right</mat-icon>
+      <span class="rf__info-label">{{ property.labelMortgage }}</span>
+    </div>
+    <div
+      *ngIf="isPlaceholder === false && isUsingActions === false"
+      class="rf__info"
+    >
+      <span class="rf__info-label">{{ property.labelMortgage }}</span>
+    </div>
+  </span>
+  <span
+    *ngIf="property.type === TYPE_RENT || isPlaceholder === true"
+    class="rf__table-txt"
+  >
+    <span>{{ property.labelPriceCharges }}</span>
+    <ng-container *ngIf="property.labelPriceCharges">
+      <span *ngIf="property.isPriceChargesIncluded === true"> ({{ 'label_included'|translate|lowercase }})</span>
+      <span *ngIf="property.isPriceChargesIncluded === false"> ({{ 'label_excluded'|translate|lowercase }})</span>
+    </ng-container>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__property-cell--dimensions">
+  <div>
+    <div>
+
+      <div class="rf__info">
+        <mat-icon
+          matTooltip="{{ 'label_table_header_rooms'|translate }}"
+          matTooltipPosition="left"
+          class="rf__info-icon"
+        >home</mat-icon>
+        <span class="rf__table-txt">{{ property.rooms || '-' }}</span>
+      </div>
+
+      <div class="rf__info">
+        <mat-icon
+          matTooltip="{{ 'label_table_header_bedrooms'|translate }}"
+          matTooltipPosition="left"
+          class="rf__info-icon"
+        >airline_seat_individual_suite</mat-icon>
+        <span class="rf__table-txt">{{ property.bedrooms || '-' }}</span>
+      </div>
+
+    </div>
+    <div>
+
+      <div class="rf__info">
+        <mat-icon
+          matTooltip="{{ 'label_habitable_area'|translate }}"
+          matTooltipPosition="left"
+          class="rf__info-icon"
+        >crop_free</mat-icon>
+        <span class="rf__table-txt">
+          {{ property.areaLiving || '-' }} <ng-container *ngIf="property.areaLiving">{{ property.areaUnit|areaUnit }}</ng-container>
+        </span>
+      </div>
+
+      <div class="rf__info">
+        <mat-icon
+          matTooltip="{{ 'label_land_size'|translate }}"
+          matTooltipPosition="left"
+          class="rf__info-icon"
+        >filter_hdr</mat-icon>
+        <span class="rf__table-txt">
+          {{ property.areaLand || '-' }} <ng-container *ngIf="property.areaLand">{{ property.areaUnit|areaUnit }}</ng-container>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__property-cell--contacts">
+  <div class="rf__table-cell-box contacts">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        *ngFor="let i of 2|forLoop"
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <app-shared-contact-link
+        *ngFor="let contact of contacts.slice(0, contactMax)"
+        [contact]="contact"
+        [layout]="contact.type"
+        [hasWarning]="contact.hasWarning === true"
+      ></app-shared-contact-link>
+
+      <app-shared-more-icon [count]="contacts.length" [max]="contactMax" [hasMarginBottom]="true"></app-shared-more-icon>
+
+    </ng-container>
+  </div>
+</div>
+
+<div
+  class="rf__table-cell rf__property-cell--ranking"
+  [class.rf__property-cell--ranking-locked]="property.isSharedRestricted === true || isUsingActions === false"
+>
+
+  <div (click)="onClickButtonRank($event, 1)">
+
+    <mat-icon
+      class="rf__star"
+      [class.rf__star--on]="property.ranking > 0"
+    >star</mat-icon>
+
+    <div (click)="onClickButtonRank($event, 2)">
+
+      <mat-icon
+        class="rf__star"
+        [class.rf__star--on]="property.ranking > 1"
+      >star</mat-icon>
+
+      <div (click)="onClickButtonRank($event, 3)">
+
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="property.ranking > 2"
+        >star</mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__property-cell--date">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="property.createContactId"
+    >
+      <mat-icon
+        matTooltip="{{ property.createDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span>{{ property.createDate|smartDate }}</span>
+    </div>
+  </span>
+
+  <span
+    class="rf__table-txt"
+    *ngIf="property.updateContactId"
+  >
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ property.updateDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >edit</mat-icon>
+      <span>{{ property.updateDate|smartDate }}</span>
+    </div>
+  </span>
+
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions"
+>
+
+  <button
+    mat-icon-button
+    matTooltip="{{ 'title_match_agency_contacts'|translate }}"
+    matTooltipPosition="left"
+    (click)="onClickButtonMatchingAgency($event)"
+  >
+    <mat-icon>people</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    matTooltip="{{ 'title_match_partner_contacts'|translate }}"
+    matTooltipPosition="left"
+    (click)="onClickButtonMatchingMls($event)"
+  >
+    <mat-icon>people_outline</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    matTooltip="{{ 'title_download_pdf_brochure'|translate }}"
+    matTooltipPosition="left"
+    [disabled]="property.isSharedRestricted === true"
+    (click)="onClickButtonBrochure($event)"
+  >
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+
+  <button
+    *ngIf="feature.history === true"
+    mat-icon-button
+    matTooltip="{{ 'title_property_history'|translate }}"
+    matTooltipPosition="left"
+    [disabled]="property.isSharedRestricted === true"
+    (click)="onClickButtonHistory($event)"
+  >
+    <mat-icon>event_note</mat-icon>
+  </button>
+</div>

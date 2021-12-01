@@ -1,0 +1,49 @@
+@import "../variables";
+
+.rf__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.rf__grid-cell {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+@for $i from 0 through $grid-columns {
+
+  .rf__grid-cell--#{$i} {
+    width: #{$i / $grid-columns * 100%};
+  }
+}
+
+@media (min-width: $tablet-breakpoint) {
+
+  @for $i from 0 through $grid-columns {
+
+    .rf__grid-cell--md-#{$i} {
+      width: #{$i / $grid-columns * 100%};
+    }
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+
+  @for $i from 0 through $grid-columns {
+
+    .rf__grid-cell--lg-#{$i} {
+      width: #{$i / $grid-columns * 100%};
+    }
+  }
+}
+
+@media (min-width: $desktop-xl-breakpoint) {
+
+  @for $i from 0 through $grid-columns {
+
+    .rf__grid-cell--xl-#{$i} {
+      width: #{$i / $grid-columns * 100%};
+    }
+  }
+}

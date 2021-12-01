@@ -1,0 +1,109 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="formGroup.invalid"
+    >{{ 'label_content'|translate }}</div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_title'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_title'|translate }}"
+                [formControlName]="getFormControlName('title')"
+              />
+              <mat-error>{{ error[getFormControlName('title')]|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_description'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="container-description">
+
+              <app-shared-wysiwyg
+                [id]="getFormControlName('description')"
+                [error]="error[getFormControlName('description')]"
+                [value]="formGroup.get(getFormControlName('description')).value"
+                [showCustomButtons]="false"
+                [toolbarButtons]="['bold', 'italic', 'underline', 'insertUnorderedList', 'insertOrderedList', 'link', 'unlink', 'insertImage']"
+                (changeValue)="onChangeWysiwyg($event)"
+                placeholder="{{ 'label_description'|translate }}"
+              ></app-shared-wysiwyg>
+              <input type="hidden" [formControlName]="getFormControlName('description')" />
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_website_seo_description'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_website_seo_description'|translate }}"
+                [formControlName]="getFormControlName('seoDescription')"
+              />
+              <mat-error>{{ error[getFormControlName('seoDescription')]|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_website_seo_keywords'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_website_seo_keywords'|translate }}"
+                [formControlName]="getFormControlName('seoKeyword')"
+              />
+              <mat-error>{{ error[getFormControlName('seoKeyword')]|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

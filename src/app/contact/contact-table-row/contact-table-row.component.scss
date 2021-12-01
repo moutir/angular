@@ -1,0 +1,39 @@
+@import "../../../styles/variables";
+
+.rf__contact-cell--ranking {
+  white-space: nowrap;
+}
+
+.rf__contact-cell--ranking-blacklisted .mat-icon,
+.rf__contact-cell--ranking-blacklisted div {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.rf__contact-cell--ranking div {
+  cursor: pointer;
+  display: flex;
+}
+
+.rf__contact-cell--ranking div:hover > .mat-icon {
+  color: $color-19;
+}
+
+.rf__contact-cell--name-confidential {
+  transition: background 500ms ease-out;
+  cursor: copy;
+}
+
+.rf__contact-cell--name-confidential:hover {
+  background: $color-25;
+}
+
+.rf__contact-cell--search {
+  color: $color-19;
+}
+
+.rf__contact-cell--search:hover,
+.rf__contact-cell--search:hover .mat-icon.rf__info-icon {
+  color: $color-27;
+}

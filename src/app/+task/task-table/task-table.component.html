@@ -1,0 +1,42 @@
+<div class="rf__table">
+
+  <app-task-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-task-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-task-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let task of models; trackBy: trackById;"
+      [task]="task"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(task.id) > -1"
+      (contextmenu)="onContextMenu($event, task)"
+      (changeSelection)="onChangeSelectionModel($event, task)"
+      (click)="onClickModel(task)"
+    ></app-task-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-task-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isSelected]="selection.isSelectedAll === true"
+    ></app-task-table-row>
+
+  </ng-container>
+</div>

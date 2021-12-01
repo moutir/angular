@@ -1,0 +1,30 @@
+<app-shared-page-header
+  [header]="header"
+></app-shared-page-header>
+
+<div class="rf__page-body">
+
+  <div class="mailbox form-box-display" id="inbox">
+    <div class="row no-bottom-padding">
+      <div class="container">
+        <div class="container" id="inbox-module">
+          <div class="row">
+            <div class="col-sm-12">
+              <div
+                *ngIf="isLoading"
+                class="rf__spinner--fullpage"
+              >
+                <mat-spinner
+                  color="accent"
+                  diameter="64"
+                ></mat-spinner>
+              </div>
+              <router-outlet *ngIf="!isLoading"></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

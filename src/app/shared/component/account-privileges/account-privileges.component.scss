@@ -1,0 +1,33 @@
+@import "../../../../styles/variables";
+
+.privilege-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 150px;
+}
+
+.privilege-checkbox--active {
+  color: $color-27;
+}
+
+.privilege-checkbox--inactive {
+  color: $color-30;
+}
+
+.rf__table-cell {
+  height: 50px;
+}
+
+.rf__table-cell--editable {
+  cursor: pointer;
+}
+
+.rf__table-cell--editable:hover {
+  opacity: 0.9;
+}
+
+.rf__table-cell--disabled {
+  cursor: not-allowed;
+  opacity: 0.25;
+}

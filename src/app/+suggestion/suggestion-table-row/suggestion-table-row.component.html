@@ -1,0 +1,79 @@
+<div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--vote">
+  <span class="rf__table-txt">
+    <span *ngIf="suggestion.voteId" class="suggestion-my-vote">{{ ('suggestion_vote_' + suggestion.voteId)|translate }}</span>
+    <span *ngIf="suggestion.voteId === null" class="rf__badge">{{ 'label_new'|translate }}</span>
+  </span>
+</div>
+
+<div
+  class="rf__table-cell rf__suggestion-cell--title"
+  [class.suggestion-new]="suggestion.voteId === null"
+>
+  <span class="rf__table-txt">
+    {{ suggestion.contents[0] ? suggestion.contents[0].title : '' }}
+  </span>
+</div>
+
+<div class="rf__table-cell rf__suggestion-cell--tags">
+  <mat-chip-list>
+    <mat-chip *ngFor="let tag of suggestion.tags">{{ tag.name|translate }}</mat-chip>
+  </mat-chip-list>
+</div>
+
+<div class="rf__table-cell rf__suggestion-cell--counts">
+
+  <span class="rf__table-txt">
+    <div class="rf__info">{{ 'label_suggestion_vote_count'|translate:{ count: suggestion.voteCount } }}</div>
+  </span>
+
+  <span class="rf__table-txt">
+    <div class="rf__info">{{ 'label_suggestion_score_count'|translate:{ count: suggestion.score } }}</div>
+  </span>
+
+</div>
+
+<div
+  class="rf__table-cell rf__suggestion-cell--popularity rf__table-cell--center"
+>
+  <app-shared-progress-icon
+    [percentage]="suggestion.getPopularityPercentage()"
+  ></app-shared-progress-icon>
+</div>
+
+<div class="rf__table-cell rf__suggestion-cell--status">
+  <span class="rf__table-txt">
+    {{ ('suggestion_status_' + suggestion.statusId)|translate }}
+  </span>
+</div>
+
+<div class="rf__table-cell rf__suggestion-cell--date">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="suggestion.createDate"
+    >
+      <mat-icon
+        matTooltip="{{ suggestion.createDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span>{{ suggestion.createDate|smartDate }}</span>
+    </div>
+  </span>
+
+  <span
+    class="rf__table-txt"
+    *ngIf="suggestion.updateDate"
+  >
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ suggestion.updateDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >edit</mat-icon>
+      <span>{{ suggestion.updateDate|smartDate }}</span>
+    </div>
+  </span>
+
+</div>

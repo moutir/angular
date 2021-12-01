@@ -1,0 +1,25 @@
+@import "../variables";
+
+.rf__process-cell {
+  float: left;
+}
+
+.rf__process-cell--label {
+  clear: both;
+}
+
+.rf__searchlist.rf__searchlist--process .rf__table-row {
+  height: auto;
+  padding-bottom: 0;
+}
+
+.rf__searchlist.rf__searchlist--process--without-agency .rf__table-cell.rf__process-cell--agency {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__process-cell {
+    float: none;
+  }
+}

@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+iframe {
+  width: 100%;
+  height: 600px;
+}
+
+.lead-parser-intro {
+  margin-top: 15px;
+}
+
+.auto-assign-explanation {
+  display: none;
+}
+
+.validate-button {
+  margin-top: 10px;
+  background-color: $color-24;
+  color: $color-01;
+}
+
+.rf__keyvalue-cell--multiline {
+  flex-direction: column;
+}

@@ -1,0 +1,13 @@
+@import "../variables";
+
+.rf__reporting-status--pending {
+  color: $color-26;
+}
+
+.rf__reporting-status--accepted {
+  color: $color-11;
+}
+
+.rf__reporting-status--rejected {
+  color: $color-17;
+}

@@ -1,0 +1,20 @@
+@import "../../../styles/variables";
+
+.rf__keyvalue-cell--value {
+  position: relative;
+  overflow: visible;
+}
+
+.color-picker-block {
+  position: absolute;
+  left: 16px;
+  bottom: 25px;
+  z-index: 2;
+}
+
+.checkbox-warning {
+  color: $color-39;
+  padding-left: 10px;
+  font-size: 12px;
+  line-height: 15px;
+}

@@ -1,0 +1,20 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="mls-form-search-partner"
+    [entities]="AUTOCOMPLETE_ENTITIES_MLS"
+    [placeholder]="'autocomplete_mls_partner'|translate"
+    (changeSelection)="onChangeSelectionPartner($event)"
+  ></app-shared-autocomplete>
+
+</form>

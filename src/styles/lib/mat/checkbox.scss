@@ -1,0 +1,27 @@
+@import "../../variables";
+
+// Adds breaks to the mat-checkboxes with long labels
+.mat-checkbox--multiline .mat-checkbox-layout {
+  white-space: normal;
+}
+
+// Put the checkbox in the first line
+.mat-checkbox--multiline .mat-checkbox-inner-container {
+  margin-top: 3px;
+}
+
+.mat-checkbox--multiline .mat-checkbox-layout .mat-checkbox-label {
+  line-height: 20px;
+}
+
+.mat-checkbox-disabled:not(.mat-checkbox-checked) .mat-checkbox-frame {
+  border-color: $color-28;
+}
+
+.mat-checkbox--text-normal .mat-checkbox-layout .mat-checkbox-label {
+  font-weight: 400;
+}
+
+.mat-checkbox--text-medium .mat-checkbox-layout .mat-checkbox-label {
+  font-weight: 500;
+}

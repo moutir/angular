@@ -1,0 +1,155 @@
+<div class="rf__table-cell rf__contract-cell--reference">
+  <div class="rf__table-txt">
+    <div class="rf__info">
+      <span class="rf__info-label">{{ contract.reference }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__contract-cell--step">
+  <div
+    class="rf__table-txt rf__contract-step rf__contract-step--{{ contract.stepId }}"
+  >{{ contract.labelStep }}</div>
+</div>
+
+<div class="rf__table-cell rf__contract-cell--agency">
+
+  <div class="rf__table-txt">
+
+    <div
+      *ngIf="contract.agency.name"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ 'label_agency'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >domain</mat-icon>
+      <span class="rf__info-label">{{ contract.agency.name }}</span>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__contract-cell--broker">
+
+  <div class="rf__table-cell-box">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false && broker && broker.contact">
+
+      <app-shared-contact-link
+        [contact]="broker.contact"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__contract-cell--seller">
+
+  <div
+    *ngIf="isPlaceholder === true || seller"
+    class="rf__table-txt"
+  >
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        [isPlaceholder]="true"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false && seller && seller.contact">
+
+      <app-shared-contact-link
+        tooltip="label_seller"
+        [contact]="seller.contact"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__contract-cell--buyer">
+
+  <div
+    *ngIf="isPlaceholder === true || buyer"
+    class="rf__table-txt"
+  >
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        [isPlaceholder]="true"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false && buyer && buyer.contact">
+
+      <app-shared-contact-link
+        tooltip="label_buyer"
+        [contact]="buyer.contact"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__contract-cell--signed-price">
+
+  <div class="rf__table-txt">
+
+    <div
+      *ngIf="contract.negotiatedPrice"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ 'label_signed_price'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >attach_money</mat-icon>
+      <span class="rf__info-label">{{ contract.negotiatedPrice|formatNumber }} {{ contract.currencyLabel }}</span>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__contract-cell--property">
+
+  <div class="rf__table-txt">
+
+    <div
+      *ngIf="contract.property.reference"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ 'entity_property_singular'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >home_work</mat-icon>
+      <span class="rf__info-label">{{ contract.property.reference }}</span>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,48 @@
+<div class="rf__table">
+
+  <app-suggestion-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-suggestion-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-suggestion-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let suggestion of models; trackBy: trackById;"
+      [suggestion]="suggestion"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(suggestion.id) > -1"
+      [isLoading]="loadingModelIds.indexOf(suggestion.id) > -1"
+      (contextmenu)="onContextMenu($event, suggestion)"
+      (changeSelection)="onChangeSelectionModel($event, suggestion)"
+      (click)="onClickModel(suggestion)"
+    ></app-suggestion-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-suggestion-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isSelected]="selection.isSelectedAll === true"
+    ></app-suggestion-table-row>
+
+  </ng-container>
+</div>
+
+<div
+  *ngIf="models !== null && models.length === 0"
+  class="rf__table-noresults"
+>{{ 'label_no_results_found'|translate }}</div>

@@ -1,0 +1,72 @@
+<div
+  class="rf__modal rf__modal-contact-transfer-activity"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="title_contact_transfer_activity"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+        <form [formGroup]="formGroup" *ngIf="contact">
+          <div
+            class="description"
+            [innerHtml]="'contact_transfer_activity_description_top'|translate: {
+              user: ('<span class=\'text\'>' + contact.fullName + '</span>')
+            }"
+          ></div>
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_contact_transfer_to_user'|translate }}"
+              formControlName="brokerId"
+            >
+              <mat-option
+                *ngFor="let option of options.broker"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="formGroup.get('brokerId').hasError('required')"
+            >{{ 'label_field_required'|translate }}</mat-error>
+          </mat-form-field>
+          <div *ngIf="transferActivity.isAllowedArchive === true" class="container-checkbox">
+            <mat-checkbox
+              class="mat-checkbox--multiline mat-checkbox--text-normal"
+              formControlName="isActiveArchive"
+            >
+              <span [innerHtml]="'label_contact_transfer_activity_checkbox'|translate: { user: '<span class=\'text\'>' + contact.fullName + '</span>' }"></span>
+            </mat-checkbox>
+          </div>
+          <div class="container-checkbox disclaimer">
+            <mat-checkbox
+              class="mat-checkbox--multiline mat-checkbox--text-normal"
+              formControlName="isAgreed"
+            >
+              <span
+                innerHtml="{{ 'contact_transfer_activity_description_bottom'|translate: {
+                  transfer: '<span class=\'text\'>' + ('label_transfer'|translate) + '</span>',
+                  user: '<span class=\'text\'>' + contact.fullName + '</span>'} }}"
+              ></span>
+            </mat-checkbox>
+          </div>
+          <input type="hidden" formControlName="contactId" />
+          <input type="hidden" formControlName="isAllowedArchive" />
+        </form>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_transfer"
+      [isDisabledValid]="!formGroup.valid"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>
+

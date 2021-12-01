@@ -1,0 +1,460 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form [formGroup]="formGroup">
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="contact-form-search-contact"
+    [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+    [placeholder]="'label_property_autosuggest_contact'|translate"
+    [filterIsArchived]="model.isArchive01 === '1'"
+    (changeSelection)="onChangeSelectionContact($event)"
+    (changeQuery)="onChangeQueryContact($event)"
+  ></app-shared-autocomplete>
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="contact-form-search-property-location"
+    [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY_LOCATION"
+    [placeholder]="'autocomplete_contact_property_location'|translate"
+    (changeSelection)="onChangeSelectionPropertyLocation($event)"
+    (changeQuery)="onChangeQueryPropertyLocation($event)"
+  ></app-shared-autocomplete>
+
+  <mat-form-field *ngIf="isLoading === true || options.typeIds.length > 0">
+    <mat-select
+      multiple
+      placeholder="{{ 'label_contact_type'|translate }}"
+      formControlName="typeIds"
+    >
+
+      <ng-container *ngFor="let option of options.typeIds">
+
+        <mat-option [value]="option.value">{{ option.text }}</mat-option>
+        <mat-option
+          *ngFor="let suboption of option.options"
+          [value]="suboption.value"
+          class="mat-option--indent"
+        >
+          {{ suboption.text }}
+        </mat-option>
+
+      </ng-container>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.languageId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_language'|translate }}"
+      formControlName="languageId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.languageId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.isDirectClient01.length > 0">
+    <mat-select
+      placeholder="{{ 'label_contact_client_direct'|translate }}"
+      formControlName="isDirectClient01"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.isDirectClient01"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.brokerIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_broker_in_charge'|translate }}"
+      multiple
+      formControlName="brokerIds"
+    >
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+        <mat-option
+          *ngFor="let option of options.brokerIds"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+        <mat-optgroup
+          *ngFor="let optionGroup of options.brokerByAgency"
+          label="{{ optionGroup.label }}"
+        >
+          <mat-option
+            *ngFor="let option of optionGroup.options"
+            [value]="option.value"
+          >
+            {{ option.text }}
+          </mat-option>
+        </mat-optgroup>
+      </ng-container>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.searchManagerIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_contact_search_mgr'|translate }}"
+      multiple
+      formControlName="searchManagerIds"
+    >
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+        <mat-option
+          *ngFor="let option of options.searchManagerIds"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </ng-container>
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+        <mat-optgroup
+          *ngFor="let optionGroup of options.searchManagerByAgency"
+          label="{{ optionGroup.label }}"
+        >
+          <mat-option
+            *ngFor="let option of optionGroup.options"
+            [value]="option.value"
+          >
+            {{ option.text }}
+          </mat-option>
+        </mat-optgroup>
+      </ng-container>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.visibilityId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_visibility'|translate }}"
+      formControlName="visibilityId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.visibilityId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.originIds.length > 0">
+    <mat-select
+      multiple
+      placeholder="{{ 'label_origin'|translate }}"
+      formControlName="originIds"
+    >
+
+      <ng-container *ngFor="let option of options.originIds">
+
+        <mat-option [value]="option.value">{{ option.text }}</mat-option>
+        <mat-option
+          *ngFor="let suboption of option.options"
+          [value]="suboption.value"
+          class="mat-option--indent"
+        >
+          {{ suboption.text }}
+        </mat-option>
+
+      </ng-container>
+
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.transactionId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_transaction'|translate }}"
+      formControlName="transactionId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.transactionId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.categoryIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_category'|translate }}"
+      multiple
+      formControlName="categoryIds"
+    >
+      <mat-option
+        *ngFor="let option of options.categoryIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.prices.length > 0">
+    <mat-select
+      placeholder="{{ 'label_budget'|translate }}"
+      multiple
+      formControlName="prices"
+    >
+      <ng-container *ngFor="let optionGroup of options.prices">
+
+        <ng-container *ngIf="optionGroup.label === ''">
+          <mat-option
+            *ngFor="let option of optionGroup.options"
+            [value]="option.value"
+          >
+            {{ option.text }}
+          </mat-option>
+        </ng-container>
+
+        <ng-container *ngIf="optionGroup.label !== ''">
+          <mat-optgroup
+            label="{{ optionGroup.label|translate }}"
+          >
+            <mat-option
+              *ngFor="let option of optionGroup.options"
+              [value]="option.value"
+            >
+              {{ option.text }}
+            </mat-option>
+          </mat-optgroup>
+        </ng-container>
+
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.bedrooms.length > 0">
+    <mat-select
+      placeholder="{{ 'label_rooms_min'|translate }}"
+      formControlName="bedrooms"
+    >
+      <mat-option
+        *ngFor="let option of options.bedrooms"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.rooms.length > 0">
+    <mat-select
+      placeholder="{{ 'label_specific_rooms_min'|translate }}"
+      formControlName="rooms"
+    >
+      <mat-option
+        *ngFor="let option of options.rooms"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.area.length > 0">
+    <mat-select
+      placeholder="{{ 'label_area'|translate }}"
+      multiple
+      formControlName="area"
+    >
+      <mat-option
+        *ngFor="let option of options.area"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.positionIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_position'|translate }}"
+      multiple
+      formControlName="positionIds"
+    >
+      <mat-option
+        *ngFor="let option of options.positionIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.viewIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_view'|translate }}"
+      multiple
+      formControlName="viewIds"
+    >
+      <mat-option
+        *ngFor="let option of options.viewIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.isVip01.length > 0">
+    <mat-select
+      placeholder="{{ 'label_vip'|translate }}"
+      formControlName="isVip01"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.isVip01"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.lastContactId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_last_contact'|translate }}"
+      formControlName="lastContactId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.lastContactId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.searchTypeId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_property_type'|translate }}"
+      formControlName="searchTypeId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.searchTypeId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.rankingIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_ranking'|translate }}"
+      multiple
+      formControlName="rankingIds"
+    >
+      <mat-option
+        *ngFor="let option of options.rankingIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.searchConditionId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_search_special_condition'|translate }}"
+      formControlName="searchConditionId"
+    >
+      <mat-option
+        *ngFor="let option of options.searchConditionId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.contactConditionIds.length > 0">
+    <mat-select
+      multiple
+      placeholder="{{ 'label_contact_special_condition'|translate }}"
+      formControlName="contactConditionIds"
+    >
+      <mat-option
+        *ngFor="let option of options.contactConditionIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.customAttributeIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_custom_attribute'|translate }}"
+      multiple
+      formControlName="customAttributeIds"
+    >
+      <ng-container *ngFor="let optionGroup of options.customAttributeIds">
+
+        <ng-container *ngIf="optionGroup.label === ''">
+          <mat-option
+            *ngFor="let option of optionGroup.options"
+            [value]="option.value"
+          >
+            {{ option.text }}
+          </mat-option>
+        </ng-container>
+
+        <ng-container *ngIf="optionGroup.label !== ''">
+          <mat-optgroup
+            label="{{ optionGroup.label|translate }}"
+          >
+            <mat-option
+              *ngFor="let option of optionGroup.options"
+              [value]="option.value"
+            >
+              {{ option.text }}
+            </mat-option>
+          </mat-optgroup>
+        </ng-container>
+
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+  <input type="hidden" formControlName="mode" />
+  <input type="hidden" formControlName="contactId" />
+  <input type="hidden" formControlName="propertyIds" />
+  <input type="hidden" formControlName="locationIds" />
+  <input type="hidden" formControlName="contactTextSearch" />
+  <input type="hidden" formControlName="propertyTextSearch" />
+
+</form>

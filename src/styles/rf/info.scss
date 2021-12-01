@@ -1,0 +1,54 @@
+@import "../variables";
+
+.rf__info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rf__info-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.rf__info-icon,
+.rf__info-icon.mat-icon {
+  font-size: 14px;
+  width: 16px;
+  height: 15px;
+  color: $color-19;
+  cursor: default;
+  margin-right: 1px;
+}
+
+.rf__info-icon.mat-icon.rf__info-icon--person {
+  margin-right: 0;
+  color: inherit;
+}
+
+.rf__info--link {
+  cursor: pointer;
+  color: $color-19;
+}
+
+.rf__info--link:hover {
+  color: $color-27;
+  cursor: pointer;
+}
+
+.rf__info--link .rf__info-icon,
+.rf__info--link .rf__info-icon.mat-icon {
+  color: inherit;
+}
+
+.rf__info-label-icon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}

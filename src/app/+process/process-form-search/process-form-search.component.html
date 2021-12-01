@@ -1,0 +1,56 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field *ngIf="isLoading === true || options.processTypeIds.length > 0">
+    <mat-select
+      placeholder="{{ 'process_type'|translate }}"
+      formControlName="typeId"
+    >
+      <mat-option
+        *ngFor="let option of options.processTypeIds"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.processStatusIds.length > 0">
+    <mat-select
+      placeholder="{{ 'process_status'|translate }}"
+      formControlName="statusId"
+    >
+      <mat-option
+        *ngFor="let option of options.processStatusIds"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <app-shared-autocomplete
+    *ngIf="isDisplayedAgency"
+    class="mat-form-field"
+    uid="process-form-search-agency"
+    [entities]="AUTOCOMPLETE_ENTITIES_AGENCY"
+    [placeholder]="'label_agency'|translate"
+    (changeSelection)="onChangeSelectionAgency($event)"
+  ></app-shared-autocomplete>
+  <input type="hidden" formControlName="agencyId" />
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+</form>

@@ -1,0 +1,33 @@
+export const enum TrackingActionEnum {
+  userSignIn = 'user-sign-in', // user signed in
+  userSwitch = 'user-switch', // user switch clicked
+  navigationChange = 'navigation-change', // menu navigation clicked (+ first page after signing in)
+  navigationFold = 'menu-fold', // menu navigation folded
+  navigationUnfold = 'menu-unfold', // menu navigation unfolded
+  propertyView = 'property-view', // property viewed (clicked in the list)
+  propertyEdit = 'property-edit', // property edited (once clicked save + server responded success)
+  propertyRowStar = 'property-row-star', // property row star clicked
+  propertyRowMatching = 'property-row-matching', // property row matching button clicked
+  propertyRowMlsMatching = 'property-row-mls-matching', // property row matching button clicked
+  propertyRowBrochure = 'property-row-brochure', // property row brochure button clicked
+  propertyRowHistory = 'property-row-history', // property row history button clicked
+  propertyRowMortgage = 'property-row-mortgage', // property row mortgage button clicked
+  propertyValuation = 'property-valuation', // property row mortgage button clicked
+  contactRowStar = 'contact-row-star', // contact row star clicked
+  contactRowMatching = 'contact-row-matching', // contact row matching button clicked
+  contactRowHistory = 'contact-row-history', // contact row history button clicked
+  contactView = 'contact-view', // contact viewed (clicked in the list)
+  contactViewSearches = 'contact-view-searches', // contact viewed searches tab (clicked in the list)
+  promotionRowBrochure = 'promotion-row-brochure', // promotion row brochure button clicked
+  promotionRowHistory = 'promotion-row-history', // promotion row history button clicked
+  promotionView = 'promotion-view', // promotion viewed (clicked in the list)
+  leadRowEmail = 'lead-row-email', // lead row email button clicked
+  leadRowStatus = 'lead-row-status', // lead row status button clicked
+  leadView = 'lead-view', // lead viewed (clicked in the list)
+  taskView = 'task-view', // task viewed (clicked in the list)
+  matchingView = 'matching-view', // matching viewed (clicked in the list)
+  reportRowEmail = 'report-row-email', // report row email button clicked
+  marketingExpenseView = 'marketing-expense-view', // marketing expense viewed (clicked in the list)
+  portalView = 'portal-view', // portal viewed (clicked in the list)
+  emailSentView = 'email-sent-view', // sent email viewed (clicked in the list),
+}

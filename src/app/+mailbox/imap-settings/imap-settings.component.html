@@ -1,0 +1,111 @@
+<div class="row back-row">
+  <div class="col-sm-9">
+    <button class="btn back-btn" *ngIf="imapId" (click)="onClickBack()">
+      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> {{ 'inbox_back_to_list'|translate}}
+    </button>
+  </div>
+</div>
+<div
+  *ngIf="isLoading"
+  class="rf__spinner--fullpage"
+>
+  <mat-spinner
+    color="accent"
+    diameter="64"
+  ></mat-spinner>
+</div>
+<form (ngSubmit)="onSubmit(settingsForm)" #settingsForm="ngForm" *ngIf="!isLoading">
+  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+  <h1 class="">{{ 'label_inbox_connect_email'|translate }}</h1>
+  <p>{{ 'inbox_imap_settings_header'|translate }}</p>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="email" class="hidden">{{ 'label_email_id'|translate}}</label>
+        <input class="form-control" id="email" autocomplete="new-name"
+               placeholder="{{'inbox_enter_email'|translate}}"
+               #myEmail="ngModel"
+               (focusout)="onFocusOutEmail()"
+               required
+               [(ngModel)]="model.email" name="email">
+        <div [hidden]="myEmail.valid || myEmail.pristine"
+             class="alert alert-danger">
+          {{ 'inbox_email_required'|translate}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-12">
+        <label for="password" class="hidden">{{ 'label_password'|translate}}</label>
+        <input type="password" class="form-control" id="password" autocomplete="new-password"
+               placeholder="{{'inbox_enter_password'|translate}}"
+               #myPassword="ngModel"
+               required
+               [(ngModel)]="model.password" name="password">
+        <div [hidden]="myPassword.valid || myPassword.pristine"
+             class="alert alert-danger">
+          {{ 'inbox_password_required'|translate}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-8">
+        <label for="imap-server" class="hidden">{{ 'inbox_imap_server'|translate}}</label>
+        <input type="text" class="form-control" id="imap-server"
+               minlength="4"
+               placeholder="{{'inbox_enter_imap_server'|translate}}"
+               #myServer="ngModel"
+               required
+               [(ngModel)]="model.imapServer" name="imap-server">
+        <div [hidden]="myServer.valid || myServer.pristine"
+             class="alert alert-danger">
+          {{'inbox_imap_server_required'|translate}}
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <label for="imap-port" class="hidden">{{ 'inbox_imap_port'|translate}}</label>
+        <input type="text" class="form-control" id="imap-port"
+               placeholder="{{ 'inbox_imap_port'|translate }}"
+               pattern="[0-9]*?"
+               name="imap-port"
+               #myPort="ngModel"
+               required
+               [(ngModel)]="model.imapPort">
+        <div [hidden]="myPort.valid || myPort.pristine"
+             class="alert alert-danger">
+          {{ 'inbox_imap_port_required'|translate }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="error-message text-danger col-xs-12">{{errorMessage}}</div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-xs-8">
+        <input type="checkbox" id="store_password" [(ngModel)]="model.store_password" name="store_password"><span
+        class=" padding-l05">{{'label_save_password'|translate}}</span>
+      </div>
+      <div class="col-xs-4">
+        <input type="checkbox" id="no_ssl" [(ngModel)]="model.no_ssl" name="no_ssl"><span
+        class=" padding-l05">{{'label_no_ssl'|translate}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <input class="hidden" type="checkbox" id="novalidate_cert" [(ngModel)]="model.novalidate_cert"
+             name="novalidate_cert">
+
+      <button type="submit" class="btn btn-connect col-xs-10" [disabled]="!settingsForm.form.valid">{{'label_connect' |
+        translate}}
+      </button>
+    </div>
+  </div>
+</form>

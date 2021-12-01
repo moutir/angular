@@ -1,0 +1,175 @@
+<div class="rf__panel">
+
+  <div class="rf__panel-header">
+    <span>{{ 'label_my_todo_list'|translate }}</span>
+  </div>
+
+  <div class="rf__panel-body">
+
+    <div class="todolist">
+
+      <a
+        *ngIf="permissions.indexOf(MATCHING_READ) > -1"
+        class="todolist-link todolist-global-matching"
+        [routerLink]="['/matching-group']"
+        [queryParams]="{ matchingGroupEntity: 'by-contact', matchingGroupType: 'all', contactSearchBrokerId: authentication.contactId }"
+      >
+        <div class="todolist__block">
+          <mat-icon>search</mat-icon>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_matching'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+      <a
+        *ngIf="feature.lead === true"
+        class="todolist-link"
+        [routerLink]="['/leads']"
+        [queryParams]="{ brokerId: authentication.contactId, statusIds: '209,210' }"
+      >
+        <div
+          *ngIf="countState === null"
+          class="todolist__block"
+        >
+          <div class="rf__spinner">
+            <mat-spinner
+              color="accent"
+              diameter="24"
+            ></mat-spinner>
+          </div>
+        </div>
+        <div
+          *ngIf="countState !== null"
+          class="todolist__block"
+          [class.todolist__block--count-0]="countState.leadToAnswerCount === 0"
+        >
+          <div>{{ countState.leadToAnswerCount }}</div>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_lead'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+      <a
+        *ngIf="permissions.indexOf(CONTACT_READ) > -1"
+        class="todolist-link"
+        href="/contact/active/contact?mode=contact&typeIds=12,1,2,3&brokerIds={{ authentication.contactId }}&isArchive01=0&lastContactId=3"
+      >
+        <div
+          *ngIf="countState === null"
+          class="todolist__block"
+        >
+          <div class="rf__spinner">
+            <mat-spinner
+              color="accent"
+              diameter="24"
+            ></mat-spinner>
+          </div>
+        </div>
+        <div
+          *ngIf="countState !== null"
+          class="todolist__block"
+          [class.todolist__block--count-0]="countState.contactToFollowUpCount === 0"
+        >
+          <div>{{ countState.contactToFollowUpCount }}</div>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_contact_to_follow_up'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+      <a
+        *ngIf="permissions.indexOf(CONTACT_READ) > -1"
+        class="todolist-link"
+        href="/contact/active/contact?mode=contact&brokerIds={{ authentication.contactId }}&isArchive01=0&contactConditionIds=email_invalid"
+      >
+        <div
+          *ngIf="countState === null"
+          class="todolist__block"
+        >
+          <div class="rf__spinner">
+            <mat-spinner
+              color="accent"
+              diameter="24"
+            ></mat-spinner>
+          </div>
+        </div>
+        <div
+          *ngIf="countState !== null"
+          class="todolist__block"
+          [class.todolist__block--count-0]="countState.contactInvalidEmailCount === 0"
+        >
+          <div>{{ countState.contactInvalidEmailCount }}</div>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_contact_invalid_email'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+      <a
+        *ngIf="permissions.indexOf(CONTACT_READ) > -1"
+        class="todolist-link"
+        href="/contact/active/contact?mode=contact&typeIds=2,3&brokerIds={{ authentication.contactId }}&isArchive01=0&searchConditionId=2"
+      >
+        <div
+          *ngIf="countState === null"
+          class="todolist__block"
+        >
+          <div class="rf__spinner">
+            <mat-spinner
+              color="accent"
+              diameter="24"
+            ></mat-spinner>
+          </div>
+        </div>
+        <div
+          *ngIf="countState !== null"
+          class="todolist__block"
+          [class.todolist__block--count-0]="countState.contactNoSearchCount === 0"
+        >
+          <div>{{ countState.contactNoSearchCount }}</div>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_contact_no_search'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+      <a
+        *ngIf="permissions.indexOf(REPORTING_READ) > -1"
+        class="todolist-link"
+        [routerLink]="['/reporting']"
+        [queryParams]="{ reportType: 'owner', processStatusIds: 'pending' }"
+      >
+        <div
+          *ngIf="countState === null"
+          class="todolist__block"
+        >
+          <div class="rf__spinner">
+            <mat-spinner
+              color="accent"
+              diameter="24"
+            ></mat-spinner>
+          </div>
+        </div>
+        <div
+          *ngIf="countState !== null"
+          class="todolist__block"
+          [class.todolist__block--count-0]="countState.reportValidationCount === 0"
+        >
+          <div>{{ countState.reportValidationCount }}</div>
+        </div>
+        <div class="todolist__block--legend">
+          {{ 'label_dashboard_todo_report_validation'|translate }}
+        </div>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+    </div>
+
+  </div>
+</div>

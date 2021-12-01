@@ -1,0 +1,30 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="label_confirm"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <div class="rf__modal-confirm-warning">!</div>
+      <div class="rf__modal-confirm-title">{{ 'label_matching_you_are_going_to'|translate }}...</div>
+      <div class="rf__modal-confirm-message">
+        <ul>
+          <li class="rf__matching-confirmation"
+            *ngFor="let confirmation of confirmations"
+            [innerHTML]="confirmation.label|translate: { matchingCount: confirmation.matchingCount, contactCount: confirmation.contactCount }"></li>
+        </ul>
+      </div>
+    </div>
+
+    <app-shared-modal-footer
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

@@ -1,0 +1,162 @@
+@import "../variables";
+
+.rf__button-wrapper {
+  display: inline-block;
+}
+
+.rf__button.mat-flat-button,
+.rf__button.mat-raised-button,
+.rf__button.mat-button {
+  font-size: 12px;
+  height: 32px;
+  line-height: 32px;
+  flex-shrink: 0;
+  padding: 0 8px;
+  max-width: 100%;
+}
+
+.rf__button.mat-raised-button:not([disabled]),
+.rf__button-icon.mat-raised-button:not([disabled]) {
+  background: $color-19;
+  color: $color-01;
+}
+
+.rf__button.mat-flat-button.rf__button--with-icon-right,
+.rf__button.mat-raised-button.rf__button--with-icon-right,
+.rf__button.mat-button.rf__button--with-icon-right {
+  padding-left: 12px;
+}
+
+.rf__button.mat-flat-button.rf__button--with-icon-left,
+.rf__button.mat-raised-button.rf__button--with-icon-left,
+.rf__button.mat-button.rf__button--with-icon-left {
+  padding-right: 12px;
+  padding-left: 4px;
+}
+
+.rf__button--with-icon-left .mat-icon,
+.rf__button--with-icon-right .mat-icon {
+  width: 28px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 18px;
+}
+
+.rf__button-icon.mat-button,
+.rf__button-icon.mat-raised-button {
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.rf__button-icon.mat-raised-button .mat-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 30px;
+  font-size: 18px;
+}
+
+.rf__button-icon.mat-button[disabled] {
+  background-color: $color-22;
+}
+
+.rf__button.rf__button--secondary:not([disabled]),
+.rf__button-icon.rf__button-icon--secondary:not([disabled]) {
+  color: $color-19;
+  background: $color-01;
+  transition: background 400ms ease-out;
+}
+
+.rf__button--secondary:not([disabled]) .mat-button-focus-overlay,
+.rf__button-icon--secondary:not([disabled]) .mat-button-focus-overlay {
+  display: none;
+}
+
+.rf__button-icon.rf__button-icon--secondary.mat-button:not([disabled]):hover {
+  background: $color-01;
+  color: $color-27;
+}
+
+.rf__button-icon.mat-raised-button:not([disabled]):hover,
+.rf__button.mat-flat-button:not([disabled]):hover,
+.rf__button.mat-raised-button:not([disabled]):hover,
+.rf__button.mat-button:not([disabled]):hover,
+.rf__button-icon.mat-button:not([disabled]):hover {
+  background: $color-27;
+  color: $color-01;
+}
+
+.rf__button.mat-button.rf__button--secondary:not([disabled]):hover,
+.rf__button-icon.mat-raised-button.rf__button--secondary:not([disabled]):hover {
+  background: $color-01;
+  color: $color-27;
+}
+
+.rf__button.rf__button--default:not([disabled]),
+.rf__button-icon.rf__button-icon--default:not([disabled]) {
+  color: $color-01;
+  background: $color-19;
+}
+
+.rf__button.rf__button--green:not([disabled]),
+.rf__button-icon.rf__button-icon--green:not([disabled]) {
+  color: $color-01;
+  background: $color-15;
+}
+
+.rf__button.rf__button--red:not([disabled]),
+.rf__button-icon.rf__button-icon--red:not([disabled]) {
+  color: $color-01;
+  background: $color-17;
+}
+
+.rf__button.rf__button--gray:not([disabled]),
+.rf__button-icon.rf__button-icon--gray:not([disabled]) {
+  color: $color-23;
+  background: $color-31;
+}
+
+.rf__button-icon.rf__button-icon--red-icon:not([disabled]) {
+  color: $color-17;
+}
+
+.rf__button-icon.rf__button-icon--small {
+  min-width: 22px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+}
+
+.rf__button-icon.rf__button-icon--small .mat-icon {
+  width: 22px;
+  height: 22px;
+  line-height: 21px;
+  font-size: 15px;
+}
+
+.rf__button .mat-spinner,
+.rf__button-icon .mat-spinner,
+.rf__button--loading .mat-icon {
+  display: none;
+}
+
+.rf__button--loading .mat-spinner {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.rf__button--with-icon-left.rf__button--loading .mat-spinner {
+  margin: 0 6px;
+}
+
+.rf__button--loading .mat-spinner circle {
+  stroke: $color-01;
+}
+
+.rf__button-icon.rf__button-icon--default:not([disabled]) .mat-icon {
+  color: inherit;
+}

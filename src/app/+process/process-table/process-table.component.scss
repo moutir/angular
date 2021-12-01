@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+app-process-table-row {
+  padding: 5px 0;
+  height: 80px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  app-process-table-row {
+    padding: 0;
+    height: 60px;
+  }
+}

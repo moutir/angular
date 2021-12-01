@@ -1,0 +1,267 @@
+@import "../variables";
+
+.rf__report-cell--schedule {
+  min-width: 40px;
+  max-width: 40px;
+  width: 40px;
+  padding: 0;
+  text-align: center;
+}
+
+.rf__report-cell--schedule .mat-icon {
+  color: $color-24;
+}
+
+.rf__searchlist-form--report.rf__searchlist-form--owner .report-form-field--property,
+.rf__searchlist-form--report.rf__searchlist-form--owner .report-form-field--property-type,
+.rf__searchlist-form--report.rf__searchlist-form--owner .report-form-field--schedule-type {
+  display: inline-block;
+}
+
+.rf__searchlist--report .rf__report-cell--property,
+.rf__searchlist--report .rf__report-cell--promotion,
+.rf__searchlist--report .rf__report-cell--schedule,
+.rf__searchlist--report .rf__report-cell--proposition,
+.rf__searchlist--report .rf__report-cell--visit-plan,
+.rf__searchlist--report .rf__report-cell--visit-done,
+.rf__searchlist--report-developer .rf__report-cell--status,
+.rf__searchlist--report .rf__report-cell--proposition .label-owner,
+.rf__searchlist--report .rf__report-cell--proposition .label-buyer,
+.rf__searchlist--report .rf__report-cell--proposition .label-tenant {
+  display: none;
+}
+
+.rf__searchlist--report-owner .rf__report-cell--schedule {
+  display: table-cell;
+}
+
+.rf__searchlist--report-owner .rf__report-cell--property,
+.rf__searchlist--report-developer .rf__report-cell--promotion {
+  display: block;
+}
+
+.rf__searchlist--report-owner .rf__report-cell--proposition .label-owner,
+.rf__searchlist--report-buyer .rf__report-cell--proposition .label-buyer,
+.rf__searchlist--report-tenant .rf__report-cell--proposition .label-tenant,
+.rf__searchlist--report-intermediary .rf__report-cell--proposition .label-tenant {
+  display: flex;
+}
+
+.rf__searchlist--report .rf__table-row--placeholder .property__title,
+.rf__searchlist--report .rf__table-row--placeholder .promotion__title {
+  margin: 2px 10px;
+}
+
+.rf__table-row--placeholder .rf__report-cell--proposition .rf__table-txt,
+.rf__table-row--placeholder .rf__report-cell--visit-plan .rf__table-txt,
+.rf__table-row--placeholder .rf__report-cell--visit-done .rf__table-txt {
+  width: 30px;
+  min-width: auto;
+  margin: auto auto;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--report .rf__table-cell--actions {
+    width: 100%;
+  }
+
+  .rf__searchlist--report .rf__report-cell--status,
+  .rf__searchlist--report-owner .rf__report-cell--broker,
+  .rf__searchlist--report-developer .rf__report-cell--broker,
+  .rf__searchlist--report.rf__searchlist--report-developer .rf__report-cell--client {
+    display: none;
+  }
+
+  .rf__searchlist--report:not(.rf__searchlist--report-owner) .rf__report-cell--client,
+  .rf__searchlist--report-buyer .rf__report-cell--proposition,
+  .rf__searchlist--report-tenant .rf__report-cell--proposition,
+  .rf__searchlist--report-intermediary .rf__report-cell--proposition {
+    display: table-cell;
+  }
+
+  .rf__searchlist--report-owner .rf__report-cell--property,
+  .rf__searchlist--report-developer .rf__report-cell--promotion {
+    padding: 2px 0;
+  }
+
+  .rf__report-cell--property {
+    min-width: 350px;
+    max-width: 350px;
+    width: 350px;
+  }
+
+  .rf__report-cell--promotion {
+    min-width: 400px;
+    max-width: 400px;
+    width: 400px;
+  }
+
+  .rf__report-cell--client {
+    min-width: 190px;
+    max-width: 190px;
+    width: 190px;
+  }
+
+  .rf__report-cell--broker {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__searchlist--report .rf__report-cell--proposition,
+  .rf__searchlist--report:not(.rf__searchlist--report-owner) .rf__report-cell--visit-plan,
+  .rf__searchlist--report:not(.rf__searchlist--report-owner) .rf__report-cell--visit-done {
+    min-width: 170px;
+    max-width: 170px;
+    width: 170px;
+  }
+
+  .rf__searchlist--report-owner .rf__report-cell--proposition {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+
+  .rf__searchlist--report .rf__report-cell--visit-plan,
+  .rf__searchlist--report .rf__report-cell--visit-done {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+}
+
+@media (min-width: 1080px) {
+
+  .rf__report-cell--promotion {
+    min-width: 450px;
+    max-width: 450px;
+    width: 450px;
+  }
+}
+
+@media (min-width: 1170px) {
+
+  .rf__report-cell--promotion {
+    min-width: 500px;
+    max-width: 500px;
+    width: 500px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__report-cell--promotion {
+    min-width: 400px;
+    max-width: 400px;
+    width: 400px;
+  }
+
+  .rf__searchlist--report-owner .rf__report-cell--broker,
+  .rf__searchlist--report-developer .rf__report-cell--broker,
+  .rf__searchlist--report-buyer .rf__report-cell--visit-plan,
+  .rf__searchlist--report-tenant .rf__report-cell--visit-plan,
+  .rf__searchlist--report-intermediary .rf__report-cell--visit-plan {
+    display: table-cell;
+  }
+
+  .rf__searchlist-form--report:not(.rf__searchlist-form--owner) .report-form-field {
+    width: 23%;
+  }
+}
+
+@media (min-width: 1230px) {
+
+  .rf__report-cell--promotion {
+    min-width: 450px;
+    max-width: 450px;
+    width: 450px;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .rf__report-cell--promotion {
+    min-width: 500px;
+    max-width: 500px;
+    width: 500px;
+  }
+}
+
+@media (min-width: 1350px) {
+
+  .rf__report-cell--promotion {
+    min-width: 550px;
+    max-width: 550px;
+    width: 550px;
+  }
+
+  .rf__searchlist--report:not(.rf__searchlist--report-developer) .rf__report-cell--proposition,
+  .rf__searchlist--report-buyer .rf__report-cell--visit-done,
+  .rf__searchlist--report-tenant .rf__report-cell--visit-done,
+  .rf__searchlist--report-intermediary .rf__report-cell--visit-done {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__report-cell--promotion {
+    min-width: 600px;
+    max-width: 600px;
+    width: 600px;
+  }
+}
+
+@media (min-width: 1450px) {
+
+  .rf__report-cell--promotion {
+    min-width: 650px;
+    max-width: 650px;
+    width: 650px;
+  }
+}
+
+@media (min-width: 1500px) {
+
+  .rf__report-cell--promotion {
+    min-width: 700px;
+    max-width: 700px;
+    width: 700px;
+  }
+
+  .rf__searchlist--report-owner .rf__report-cell--visit-plan {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .rf__report-cell--promotion {
+    min-width: 800px;
+    max-width: 800px;
+    width: 800px;
+  }
+}
+
+@media (min-width: 1640px) {
+
+  .rf__report-cell--property {
+    min-width: 450px;
+    max-width: 450px;
+    width: 450px;
+  }
+
+  .rf__searchlist--report-owner .rf__report-cell--visit-done {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1800px) {
+
+  .rf__report-cell--property {
+    min-width: 620px;
+    max-width: 620px;
+    width: 620px;
+  }
+}

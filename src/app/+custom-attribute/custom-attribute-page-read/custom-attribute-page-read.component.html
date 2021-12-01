@@ -1,0 +1,192 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_INFORMATION) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_custom_attribute'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.name }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_usable_in'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div *ngIf="model.usable.length === 0 && (isLoading$|async) === true">...</div>
+                  <mat-chip-list *ngIf="model.usable.length > 0">
+                    <mat-chip *ngFor="let restriction of model.usable">
+                      <span>{{ ('entity_' + restriction + '_singular')|translate }}</span>
+                    </mat-chip>
+                  </mat-chip-list>
+                  <div *ngIf="model.usable.length === 0 && (isLoading$|async) === false">
+                    <span>{{ 'custom_attribute_no_values_added_yet'|translate }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_values'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div *ngIf="model.values.length === 0 && (isLoading$|async) === true">...</div>
+                  <ul
+                    *ngIf="model.values.length > 0"
+                    class="rf__list"
+                  >
+                    <li
+                      *ngFor="let value of model.values"
+                      class="rf__list-line"
+                    >{{ value.label }}</li>
+                  </ul>
+                  <div *ngIf="model.values.length === 0 && (isLoading$|async) === false">
+                    <span>{{ 'custom_attribute_no_values_added_yet'|translate }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+          [updateContact]="model.updateContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROPERTY_SALE) > -1"
+      label="{{ 'label_for_sale'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_properties'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-property-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_PROPERTY_SALE)"
+              [isUsingActions]="false"
+              [listType]="LIST_TYPE_SELL"
+            ></app-property-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROPERTY_RENT) > -1"
+      label="{{ 'label_rentals'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_properties'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-property-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_PROPERTY_RENT)"
+              [isUsingActions]="false"
+              [listType]="LIST_TYPE_RENT"
+            ></app-property-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROMOTION) > -1"
+      label="{{ 'entity_promotion_plural'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_promotions'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-promotion-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_PROMOTION)"
+              [isUsingActions]="false"
+            ></app-promotion-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_CONTACT) > -1"
+      label="{{ 'entity_contact_plural'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>{{ 'label_list_contacts'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-contact-searchlist
+              [uid]="getSearchlistUid(PAGE_TAB_CONTACT)"
+              [isUsingActions]="false"
+            ></app-contact-searchlist>
+
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

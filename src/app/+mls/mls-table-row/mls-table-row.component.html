@@ -1,0 +1,42 @@
+<div class="rf__table-cell rf__mls-cell--partner">
+
+  <div class="rf__table-cell-box">
+    <div class="rf__table-thumbnail">
+      <div
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+        appAsyncImage="{{ mls.partnerAgency.logo?.photoSmallURL }}"
+      ></div>
+    </div>
+    <div>
+      <div class="rf__table-txt">{{ mls.partnerAgency.name }}</div>
+      <div
+        *ngIf="mls.partnerAgency.isActive === false"
+        class="rf__table-txt inactive"
+      >{{ 'inactive_agency_on_realforce'|translate }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__mls-cell--status">
+  <span class="rf__table-txt rf__mls-status--{{ mls.statusId }}">{{ ('label_mls_status_' + mls.statusId)|translate }}</span>
+</div>
+
+<div class="rf__table-cell rf__mls-cell--start">
+  <div class="rf__table-txt">{{ mls.startByAgency.name || '-' }}</div>
+  <div
+    *ngIf="mls.startDate || mls.invitationDate"
+    class="text-muted"
+    matTooltip="{{ (mls.startDate || mls.invitationDate)|datetime }}"
+    matTooltipPosition="left"
+  >{{ (mls.startDate || mls.invitationDate)|smartDate }}</div>
+</div>
+
+<div class="rf__table-cell rf__mls-cell--end">
+  <div class="rf__table-txt">{{ mls.endByAgency.name || '-' }}</div>
+  <div
+    *ngIf="mls.endDate"
+    class="text-muted"
+    matTooltip="{{ mls.endDate|datetime }}"
+    matTooltipPosition="left"
+  >{{ mls.endDate|smartDate }}</div>
+</div>

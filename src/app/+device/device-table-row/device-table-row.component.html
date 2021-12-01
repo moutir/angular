@@ -1,0 +1,94 @@
+<div class="rf__table-cell rf__device-cell--device-id">
+  <span class="rf__table-txt">
+     {{ device.deviceId }}
+  </span>
+</div>
+
+<div class="rf__table-cell rf__device-cell--user">
+  <span class="rf__device-cell--cell-title">
+    {{ 'label_user'|translate }}
+  </span>
+  <span class="rf__table-txt">
+     {{ device.user }}
+  </span>
+</div>
+
+<div class="rf__table-cell rf__device-cell--last-login">
+  <span class="rf__device-cell--cell-title">
+    {{ 'label_last_login_date'|translate }}
+  </span>
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+    >
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ device.lastLogin|datetime }}"
+        matTooltipPosition="left"
+      >access_time</mat-icon>
+      <span class="rf__info-label">
+        {{ device.lastLogin | smartDate }}
+      </span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__device-cell--blacklister">
+  <div class="rf__device-cell--blacklister-divider">
+    <span class="rf__device-cell--cell-title">
+      {{ 'label_blacklister_name'|translate }}
+    </span>
+    <span class="rf__table-txt">
+      {{ device.blacklister }}
+    </span>
+  </div>
+  <div class="rf__device-cell--blacklister-divider">
+    <span class="rf__device-cell--cell-title">
+      {{ 'label_blacklist_date'|translate }}
+    </span>
+    <span class="rf__table-txt">
+      <div
+        *ngIf="isPlaceholder === false"
+        class="rf__info"
+      >
+        <mat-icon
+          class="rf__info-icon"
+          matTooltip="{{ device.blacklistDate|datetime }}"
+          matTooltipPosition="left"
+        >alarm_off</mat-icon>
+        <span class="rf__info-label">
+          {{ device.blacklistDate | smartDate }}
+        </span>
+      </div>
+      </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__device-cell--reset-date">
+
+  <ng-container *ngIf="device.resetDate">
+    <span class="rf__device-cell--cell-title">
+      {{ 'label_blacklister_name'|translate }}
+    </span>
+    <span class="rf__table-txt">
+      {{ device.resetDate | smartDate }}
+    </span>
+  </ng-container>
+
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions rf__device-cell--actions">
+  <span
+    class="rf__button-wrapper"
+    matTooltip="{{ 'label_blacklist'|translate }}"
+    matTooltipPosition="left"
+  >
+    <button
+      (click)="onClickBlacklist()"
+      mat-icon-button
+    >
+      <mat-icon>not_interested</mat-icon>
+    </button>
+  </span>
+</div>

@@ -1,0 +1,79 @@
+@import "../../../../styles/variables";
+
+.rf__spinner {
+  width: 200px;
+  height: 200px;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+}
+
+.list-row-icon {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  color: $color-27;
+}
+
+.mat-divider {
+  margin: 5px 0;
+}
+
+.preview-contact {
+  padding: 15px;
+  min-width: 250px;
+  max-width: 330px;
+}
+
+.preview-header {
+  font-size: 15px;
+  color: $color-19;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.preview-header--client:hover {
+  color: $color-27;
+}
+
+.preview-header--client .mat-icon {
+  margin-right: 5px;
+  font-size: 20px;
+}
+
+.subheader {
+  color: $color-19;
+  font-size: 14px;
+  padding: 8px 0 5px;
+}
+
+.sub-section {
+  padding-left: 6px;
+}
+
+.preview-contact-type {
+  font-size: 10px;
+  color: $color-09;
+  font-weight: bold;
+}
+
+.contact-agency {
+  font-weight: normal;
+}
+
+a.list-row--link,
+a.list-row--link .mat-icon {
+  color: $color-19;
+}
+
+a.list-row--link:hover,
+a.list-row--link:hover .mat-icon {
+  color: $color-27;
+}

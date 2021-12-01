@@ -1,0 +1,8 @@
+<ul>
+  <li
+    *ngFor="let notification of notifications; trackBy: trackByTimestamp"
+    class="notification notification--{{ notification.type }}"
+  >
+    <span>{{ notification.message|translate }}</span>
+  </li>
+</ul>

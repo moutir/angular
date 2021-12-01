@@ -1,0 +1,14 @@
+@import "../variables";
+
+.rf__spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf__spinner--fullpage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50vh 0;
+}

@@ -1,0 +1,230 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page rf__tab-bar--page-read">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_expense'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_general'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_title'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.title || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_category'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ mainCategoryLabel || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_subcategory'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ subCategoryLabel || '-' }}</div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_invoice'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_number'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.invoiceNumber || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.invoiceDate|datetime:'date') || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_period_start_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.startDate|datetime:'date') || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_period_end_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.endDate|datetime:'date') || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_amount'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div>
+                    {{ model.costPerLead.total.totalCost|formatNumber }} (<span
+                      class="rf__text--has-tooltip"
+                      matTooltip="{{ 'tooltip_cost_per_lead_general'|translate:{ category: categoryTooltip, from: (model.startDate|datetime:'date'), to: (model.endDate|datetime:'date') } }}"
+                      matTooltipPosition="above"
+                    >{{ (model.costPerLead.total|costPerLead) || '-' }}</span>)
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_objects'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'entity_property_plural'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--expense-property">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--expense-property-property">{{ 'entity_property_singular'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--expense-property-amount">{{ 'label_marketing_invoice_amount'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--expense-property-title">{{ 'label_report_notes'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--actions"></div>
+                </div>
+
+                <div
+                  *ngFor="let marketingExpenseProperty of model.properties"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--expense-property-property">
+
+                    <app-shared-card-property
+                      [property]="marketingExpenseProperty.property"
+                      [isPlaceholder]="marketingExpenseProperty.property.isLoading === true"
+                    ></app-shared-card-property>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--expense-property-amount">
+                    <div *ngIf="model.costPerLead.property[marketingExpenseProperty.property.id]">
+
+                      {{ model.costPerLead.property[marketingExpenseProperty.property.id].totalCost|formatNumber }} (<span
+                        class="rf__text--has-tooltip"
+                        matTooltip="{{ 'tooltip_cost_per_lead_object'|translate:{ category: categoryTooltip, from: (model.startDate|datetime:'date'), to: (model.endDate|datetime:'date') } }}"
+                        matTooltipPosition="above"
+                      >{{ (model.costPerLead.property[marketingExpenseProperty.property.id]|costPerLead) || '-' }}</span>)
+
+                    </div>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--expense-property-title">{{ marketingExpenseProperty.title }}</div>
+
+                  <div class="rf__table-cell rf__table-cell--actions"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.properties.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_property_added_yet'|translate }}</div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'entity_promotion_plural'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--expense-promotion">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--expense-promotion-promotion">{{ 'entity_promotion_singular'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--expense-promotion-amount">{{ 'label_marketing_invoice_amount'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--expense-promotion-title">{{ 'label_report_notes'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--actions"></div>
+                </div>
+
+                <div
+                  *ngFor="let marketingExpensePromotion of model.promotions"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--expense-promotion-promotion">
+
+                    <app-shared-card-promotion
+                      [promotion]="marketingExpensePromotion.promotion"
+                      [isPlaceholder]="marketingExpensePromotion.promotion.isLoading === true"
+                    ></app-shared-card-promotion>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--expense-property-amount">
+                    <div *ngIf="model.costPerLead.promotion[marketingExpensePromotion.promotion.id]">
+
+                      {{ model.costPerLead.promotion[marketingExpensePromotion.promotion.id].totalCost|formatNumber }} (<span
+                        class="rf__text--has-tooltip"
+                        matTooltip="{{ 'tooltip_cost_per_lead_object'|translate:{ category: categoryTooltip, from: (model.startDate|datetime:'date'), to: (model.endDate|datetime:'date') } }}"
+                        matTooltipPosition="above"
+                      >{{ (model.costPerLead.promotion[marketingExpensePromotion.promotion.id]|costPerLead) || '-' }}</span>)
+
+                    </div>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--expense-promotion-title">{{ marketingExpensePromotion.title }}</div>
+
+                  <div class="rf__table-cell rf__table-cell--actions"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.promotions.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_promotion_added_yet'|translate }}</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

@@ -1,0 +1,99 @@
+<div
+  *ngIf="property === null || (property.broker?.fullName === '')"
+  class="rf__spinner"
+>
+  <mat-spinner
+    color="accent"
+    diameter="30"
+  ></mat-spinner>
+</div>
+<div
+  *ngIf="property !== null"
+  class="preview-property"
+>
+
+  <div class="subheader"><strong>{{ property.reference }}</strong></div>
+
+  <div *ngIf="property.labelPrice" class="list-row">
+    <span class="label-key">{{ 'label_price'|translate }}:</span>
+    <span class="label-value">{{ property.labelPrice }}</span>
+  </div>
+
+  <div *ngIf="property.rooms" class="list-row">
+    <span class="label-key">{{ 'label_specific_rooms'|translate }}:</span>
+    <span class="label-value">{{ property.rooms }}</span>
+  </div>
+
+  <div *ngIf="property.bedrooms" class="list-row">
+    <span class="label-key">{{ 'label_rooms'|translate }}:</span>
+    <span class="label-value">{{ property.bedrooms }}</span>
+  </div>
+
+  <div *ngIf="property.labelCategory" class="list-row">
+    <span class="label-key">{{ 'label_category'|translate }}:</span>
+    <span class="label-value">{{ property.labelCategory }}</span>
+  </div>
+
+  <div *ngIf="property.areaLiving" class="list-row">
+    <span class="label-key">{{ 'label_living_area'|translate }}:</span>
+    <span class="label-value">{{ property.areaLiving }} {{ property.areaUnit|areaUnit }}</span>
+  </div>
+
+  <div *ngIf="property.areaLand" class="list-row">
+    <span class="label-key">{{ 'label_land_area'|translate }}:</span>
+    <span class="label-value">{{ property.areaLand }} {{ property.areaUnit|areaUnit }}</span>
+  </div>
+
+  <div *ngIf="property.location.label" class="list-row">
+    <span class="label-key">{{ 'label_location'|translate }}:</span>
+    <span class="label-value">{{ property.location.label }}</span>
+  </div>
+
+  <div *ngIf="property.location.zipcode" class="list-row">
+    <span class="label-key">{{ 'label_zip'|translate }}:</span>
+    <span class="label-value">{{ property.location.zipcode }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="subheader"><strong>{{ 'label_broker_header'|translate }}:</strong></div>
+
+  <div
+    class="list-row"
+    *ngIf="property.broker.firstName || property.broker.lastName"
+  >
+    <mat-icon>person</mat-icon>
+    <span>{{ property.broker.lastName }} {{ property.broker.firstName }}</span>
+  </div>
+  <div
+    *ngIf="property.broker.companyName"
+    class="list-row"
+  >
+    <mat-icon>domain</mat-icon>
+    <span>{{ property.broker.companyName }}</span>
+  </div>
+
+  <div
+    *ngFor="let mobile of property.broker.mobiles"
+    class="list-row"
+  >
+    <mat-icon>smartphone</mat-icon>
+    <span>{{ mobile.number }}</span>
+  </div>
+
+  <div
+    *ngFor="let landline of property.broker.landlines"
+    class="list-row"
+  >
+    <mat-icon>phone</mat-icon>
+    <span>{{ landline.number }}</span>
+  </div>
+
+  <div
+    *ngFor="let email of property.broker.emails"
+    class="list-row"
+  >
+    <mat-icon>email</mat-icon><span>{{ email.emailId }}</span>
+  </div>
+
+</div>

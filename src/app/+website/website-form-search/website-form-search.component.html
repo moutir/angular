@@ -1,0 +1,35 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="{{ 'label_website_url'|translate }}"
+      formControlName="url"
+    >
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="{{ 'label_api_key_private'|translate }}"
+      formControlName="privateAPIKey"
+    >
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+</form>

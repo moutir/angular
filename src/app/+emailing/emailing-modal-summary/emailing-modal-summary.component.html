@@ -1,0 +1,94 @@
+<div
+  class="rf__modal rf__modal--email-summary"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_emailing_summary_modal_header"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <div class="container-summary">
+        <div class="container-summary-icon">
+          <mat-icon class="icon-main">mail</mat-icon>
+          <mat-icon
+            *ngIf="errorCount === 0"
+            class="icon-sub status-success"
+          >check_circle</mat-icon>
+          <mat-icon
+            *ngIf="errorCount > 0 && errorCount === summaries.length"
+            class="icon-sub status-error"
+          >cancel</mat-icon>
+        </div>
+        <div *ngIf="errorCount === 0" class="text-summary">
+          <span *ngIf="summaries.length === 1">{{ 'label_email_send_success_singular'|translate }}</span>
+          <span *ngIf="summaries.length > 1">{{ 'label_email_send_success_plural'|translate }}</span>
+        </div>
+        <div
+          *ngIf="errorCount > 0 && errorCount !== summaries.length"
+          class="text-summary"
+        >{{ 'label_email_send_success_fail'|translate }}</div>
+        <div
+          *ngIf="errorCount > 0 && errorCount === summaries.length"
+          class="text-summary"
+        >
+          <span *ngIf="summaries.length === 1">{{ 'label_email_send_fail_singular'|translate }}</span>
+          <span *ngIf="summaries.length > 1">{{ 'label_email_send_fail_plural'|translate }}</span>
+        </div>
+      </div>
+
+      <div
+        *ngFor="let summary of summaries"
+        class="container-recipient"
+      >
+
+        <div
+          class="recipient"
+          [matTooltip]="(summary.error ? summary.error : 'label_email_send_success')|translate"
+          matTooltipPosition="above"
+        >
+
+          <div class="recipient-info">
+
+            <app-shared-contact-link
+              [contact]="summary.model"
+            ></app-shared-contact-link>
+
+            <div class="rf__info recipient-subinfo">
+              <mat-icon class="rf__info-icon">mail</mat-icon>
+              <span class="rf__info-label">{{ summary.model.getMainEmailAddress() || 'label_email_not_found'|translate }}</span>
+            </div>
+
+            <div class="rf__info recipient-subinfo">
+              <mat-icon class="rf__info-icon">language</mat-icon>
+              <span class="rf__info-label">{{ languages[summary.model.languageId] }}</span>
+            </div>
+
+          </div>
+
+          <div class="email-status">
+            <mat-icon *ngIf="!summary.error" class="status-success">check_circle</mat-icon>
+            <mat-icon *ngIf="summary.error !== ''" class="status-error">cancel</mat-icon>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <app-shared-modal-footer
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>
+

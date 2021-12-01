@@ -1,0 +1,33 @@
+<div class="rf__table">
+
+  <app-marketing-expense-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    (matSortChange)="onChangeSort($event)"
+  ></app-marketing-expense-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-marketing-expense-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let expense of models; trackBy: trackById;"
+      [expense]="expense"
+      (contextmenu)="onContextMenu($event, expense)"
+      (click)="onClickModel(expense)"
+    ></app-marketing-expense-table-row>
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-marketing-expense-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+    ></app-marketing-expense-table-row>
+
+  </ng-container>
+</div>

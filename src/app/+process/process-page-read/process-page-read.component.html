@@ -1,0 +1,87 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group>
+
+    <mat-tab label="{{ 'process_logs'|translate }}">
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header rf__panel-header--has-badge">
+            <span>{{ 'what_happened_?'|translate }}</span>
+            <span class="rf__badge {{ 'rf__badge--' + model.status }}">
+              {{ model.status ? (('process_status_' + model.status)|translate) : '...' }}
+            </span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__table">
+
+              <div class="rf__table-row rf__table-row--header">
+                <div class="rf__table-cell rf__table-cell--center">{{ 'process_status'|translate }}</div>
+                <div class="rf__table-cell">{{ 'label_message'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--spacer"></div>
+              </div>
+
+              <ng-container *ngIf="(isLoading$|async) === false">
+
+                <div
+                  *ngFor="let processLog of model.logs"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--center">
+                    <span class="rf__badge {{ 'rf__badge--' + processLog.status }}">
+                      {{ processLog.status ? (('process_status_' + processLog.status)|translate) : '...' }}
+                    </span>
+                  </div>
+
+                  <div class="rf__table-cell">
+                    {{ ('process_log_uid_' + processLog.uid)|translate:processLog.data }}
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--spacer"></div>
+
+                </div>
+
+              </ng-container>
+
+              <ng-container *ngIf="(isLoading$|async) === true">
+
+                <div
+                  *ngFor="let i of 10|forLoop"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--center">
+                    <span class="rf__badge {{ 'rf__badge--prog' }}">
+                      {{ 'process_status_prog'|translate }}
+                    </span>
+                  </div>
+
+                  <div class="rf__table-cell">...</div>
+
+                  <div class="rf__table-cell rf__table-cell--spacer"></div>
+
+                </div>
+
+              </ng-container>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

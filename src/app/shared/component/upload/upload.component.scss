@@ -1,0 +1,98 @@
+@import "../../../../styles/variables";
+
+.rf__upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rf__upload--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.rf__upload--document {
+  background-color: $color-16;
+  border: 1px dashed $color-21;
+  border-radius: 3px;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.rf__upload--image {
+  cursor: pointer;
+  transition: background-color 300ms ease-out;
+}
+
+.rf__upload--image:not(.is-progressing):hover {
+  background-color: $color-23;
+}
+
+.rf__upload--image:not(.is-progressing):hover .rf__upload-icon {
+  color: $color-01;
+  display: inline-block;
+}
+
+.rf__upload--document .rf__upload-icon {
+  font-size: 55px;
+  width: 55px;
+  height: 55px;
+}
+
+.rf__upload--image .rf__upload-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.rf__upload--image .rf__upload-icon,
+.rf__upload--image .rf__upload-button-select,
+.rf__upload--image .rf__upload-description {
+  display: none;
+}
+
+.rf__upload.is-active-dragover {
+  border: 2px solid $color-19;
+}
+
+.rf__upload-button-select {
+  margin-top: 20px;
+}
+
+.rf__upload-description {
+  color: $color-37;
+  text-align: center;
+  font-size: 14px;
+}
+
+.rf__upload-custom-description {
+  color: $color-29;
+  font-size: 12px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.rf__upload-description--main {
+  color: $color-38;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.rf__upload-file-input {
+  display: none;
+}
+
+.rf__upload--document .rf__upload-icon {
+  color: $color-09;
+}
+
+@media (min-width: 1400px) {
+
+  .rf__upload--document {
+    min-height: 350px;
+  }
+}

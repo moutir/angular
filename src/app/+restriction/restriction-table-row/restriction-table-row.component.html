@@ -1,0 +1,56 @@
+<div class="rf__table-cell rf__restriction-cell--icon">
+  <app-shared-restriction-link
+    [layout]="'icon'"
+    [restriction]="restriction"
+  ></app-shared-restriction-link>
+</div>
+
+<div class="rf__table-cell rf__restriction-cell--name">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <span class="rf__info-label">{{ restriction.name }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__restriction-cell--module">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <span class="rf__info-label">{{ ('label_restriction_module_' + restriction.module)|translate }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__spacer"></div>
+
+<div class="rf__table-cell rf__restriction-cell--date">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="restriction.createDate"
+    >
+      <mat-icon
+        matTooltip="{{ restriction.createDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span>{{ restriction.createDate|smartDate }}</span>
+    </div>
+  </span>
+
+  <span
+    class="rf__table-txt"
+    *ngIf="restriction.updateDate"
+  >
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ restriction.updateDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >edit</mat-icon>
+      <span>{{ restriction.updateDate|smartDate }}</span>
+    </div>
+  </span>
+
+</div>

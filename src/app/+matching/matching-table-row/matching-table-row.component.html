@@ -1,0 +1,100 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+
+</div>
+
+<div class="rf__table-cell rf__matching-cell--property">
+  <app-shared-card-property
+    [isPlaceholder]="isPlaceholder"
+    [property]="matching.property"
+  ></app-shared-card-property>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--status">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        *ngIf="matching.comment"
+        matTooltip="{{ matching.comment }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >warning</mat-icon>
+      <span class="rf__info-label rf__matching-status--{{ matching.statusId }}">{{ matching.labelStatus }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--date">
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="isPlaceholder === false && matching.matchDate"
+    >
+      <mat-icon
+        matTooltip="{{ matching.matchDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >swap_horiz</mat-icon>
+      <span class="rf__info-label">{{ matching.matchDate|smartDate }}</span>
+    </div>
+  </span>
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="isPlaceholder === false"
+    >
+      <mat-icon
+        matTooltip="{{ matching.processDate|datetime }}"
+        matTooltipPosition="left"
+        [matTooltipDisabled]="matching.processDate === null"
+        class="rf__info-icon"
+      >cached</mat-icon>
+      <span
+        *ngIf="matching.processDate !== null"
+        class="rf__info-label"
+      >{{ matching.processDate|smartDate }}</span>
+      <span
+        *ngIf="matching.processDate === null"
+        class="rf__info-label"
+      >{{ 'label_not_yet_processed'|translate }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--contact">
+  <span class="rf__table-txt">
+    <app-shared-contact-link
+      *ngIf="matching.contact.fullName"
+      [contact]="matching.contact"
+    ></app-shared-contact-link>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__matching-cell--duration">
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false && matching.labelDuration"
+      class="rf__info"
+    >
+      <span class="rf__info-label">{{ matching.labelDuration }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions"></div>

@@ -1,0 +1,140 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form [formGroup]="formGroup">
+
+    <mat-form-field *ngIf="isLoading === true || options.typeId.length > 0">
+      <mat-select
+        placeholder="{{ 'label_all_leads_types'|translate }}"
+        formControlName="type"
+      >
+        <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+        <mat-option
+          *ngFor="let option of options.typeId"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="dateFrom"
+        [matDatepicker]="pickerDateFrom"
+        autocomplete="off"
+        placeholder="{{ 'label_date_from_format'|translate }}"
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="pickerDateFrom"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerDateFrom></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        formControlName="dateTo"
+        [matDatepicker]="pickerDateTo"
+        autocomplete="off"
+        placeholder="{{ 'label_date_to_format'|translate }}"
+      >
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="pickerDateTo"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerDateTo></mat-datepicker>
+    </mat-form-field>
+
+    <app-shared-autocomplete
+      class="mat-form-field"
+      uid="lead-form-search-contact"
+      [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+      [placeholder]="'label_person_concerned'|translate"
+      (changeSelection)="onChangeSelectionContact($event)"
+    ></app-shared-autocomplete>
+
+    <app-shared-autocomplete
+      class="mat-form-field"
+      uid="lead-form-search-property"
+      [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY"
+      [placeholder]="'label_properties_search'|translate"
+      (changeSelection)="onChangeSelectionProperty($event)"
+    ></app-shared-autocomplete>
+
+    <mat-form-field *ngIf="isLoading === true || options.brokerId.length > 0">
+      <mat-select
+        placeholder="{{ 'label_main_contact'|translate }}"
+        formControlName="brokerId"
+      >
+        <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+        <mat-option
+          *ngFor="let option of options.brokerId"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isLoading === true || options.statusIds.length > 0">
+      <mat-select
+        multiple
+        placeholder="{{ 'label_all_leads_status'|translate }}"
+        formControlName="statusIds"
+      >
+        <mat-option
+          *ngFor="let option of options.statusIds"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isLoading === true || options.mainSourceId.length > 0">
+      <mat-select
+        placeholder="{{ 'label_all_leads_sources'|translate }}"
+        formControlName="mainSourceId"
+      >
+        <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+        <mat-option
+          *ngFor="let option of options.mainSourceId"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="isLoading === true || options.subSourceId.length > 0">
+      <mat-select
+        placeholder="{{ 'label_sub_source_of_lead'|translate }}"
+        formControlName="subSourceId"
+      >
+        <mat-option
+          *ngFor="let option of options.subSourceId"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Responsive spacers, do not remove -->
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+
+    <input type="hidden" formControlName="clientId" />
+    <input type="hidden" formControlName="propertyId" />
+
+</form>

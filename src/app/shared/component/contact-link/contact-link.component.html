@@ -1,0 +1,28 @@
+<div
+  class="contact-link contact-link--{{ layout }}"
+  [class.contact-link--text]="layout === 'client'"
+  [class.contact-link--icon]="layout !== 'client'"
+  [class.contact-link--placeholder]="isPlaceholder === true"
+  [class.contact-link--warning]="hasWarning === true"
+  [class.contact-link--with-label]="hasLabel === true"
+  [class.contact-link--empty]="isPlaceholder === false && !contact.initials && !contact.fullName"
+  [class.contact-link--no-id]="!contact.id"
+  matTooltipPosition="{{ tooltipPosition }}"
+  matTooltip="{{ tooltip|translate }}"
+  (click)="onClick($event)"
+>
+  <ng-container *ngIf="layout === 'client'">
+    <mat-icon *ngIf="hasWarning === false && (contact.fullName || contact.initials)" class="contact-link__icon contact-link__icon--person">person</mat-icon>
+    <mat-icon *ngIf="hasWarning === true && (contact.fullName || contact.initials)" class="contact-link__icon contact-link__icon--warning">report</mat-icon>
+    <span class="contact-link__label">{{ contact.fullName || contact.initials }}</span>
+  </ng-container>
+
+  <ng-container *ngIf="layout === 'broker' || layout === 'owner' || layout === 'tenant' || layout === 'intermediary'">
+    <div class="contact-link__initials">{{ contact.initials || (contact.fullName || ''|initials) }}</div>
+    <div class="contact-link__label">{{ 'label_' + layout + '_short'|translate }}</div>
+  </ng-container>
+
+  <ng-container *ngIf="layout === 'confidential'">
+    <mat-icon class="contact-link__icon contact-link__icon--confidential">admin_panel_settings</mat-icon>
+  </ng-container>
+</div>

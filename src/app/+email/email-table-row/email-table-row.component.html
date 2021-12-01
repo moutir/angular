@@ -1,0 +1,190 @@
+<div class="rf__table-cell rf__email-cell--subject">
+  <span class="rf__table-txt">{{ email.subject }}</span>
+</div>
+
+<div class="rf__table-cell rf__email-cell--date">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="email.sentDate"
+    >
+      <mat-icon
+        matTooltip="{{ email.sentDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span>{{ email.sentDate|smartDate }}</span>
+    </div>
+  </span>
+
+  <div class="rf__table-txt">
+    <div *ngIf="isPlaceholder === false && email.recipients && email.recipients[0]">
+      <div
+        *ngIf="email.recipients[0].status === EMAIL_STATUS_DELIVERED"
+        class="rf__info email-status email-status--delivered"
+        matTooltip="{{ 'label_email_not_opened'|translate }}"
+        matTooltipPosition="left"
+      >
+        <mat-icon class="rf__info-icon">mail</mat-icon>
+        <span class="rf__info-label">{{ 'label_email_delivered'|translate }}</span>
+      </div>
+      <div
+        *ngIf="email.recipients[0].status === EMAIL_STATUS_OPENED"
+        class="rf__info email-status email-status--opened"
+        matTooltip="{{ 'tooltip_email_open_dates'|translate: {
+          date1: (email.recipients[0].firstOpenDate|datetime) || 'label_email_not_opened'|translate,
+          date2: (email.recipients[0].lastOpenDate|datetime) || 'label_email_not_opened'|translate
+        } }}"
+        matTooltipPosition="left"
+      >
+        <mat-icon class="rf__info-icon">drafts</mat-icon>
+        <span class="rf__info-label">{{ 'label_email_opened'|translate }}</span>
+      </div>
+      <div
+        *ngIf="email.recipients[0].status === EMAIL_STATUS_BOUNCED"
+        class="rf__info email-status email-status--bounced"
+        [matTooltip]="email.recipients[0].statusCode ? ('tooltip_email_bounce_reason'|translate: {
+          reason: (email.recipients[0].statusCode + ' - ' + email.recipients[0].statusDescription) }) : 'label_email_bounce_reason_not_found'|translate"
+        matTooltipPosition="left"
+      >
+        <mat-icon class="rf__info-icon">cancel_schedule_send</mat-icon>
+        <span class="rf__info-label">{{ 'label_email_bounced'|translate }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__email-cell--sender">
+
+  <div class="rf__table-cell-box">
+
+    <app-shared-contact-link
+      *ngIf="isPlaceholder === true || email.sender.id"
+      [contact]="email.sender"
+      [layout]="'broker'"
+      [isPlaceholder]="isPlaceholder"
+    ></app-shared-contact-link>
+
+    <app-shared-contact-link
+      *ngIf="isPlaceholder === true || email.realSender.id"
+      [contact]="email.realSender"
+      [layout]="'broker'"
+      [isPlaceholder]="isPlaceholder"
+      tooltipPosition="right"
+      [hasWarning]="true"
+      [warningLabel]="'label_sent_on_behalf_of_contact'|translate: { sender: email.sender.fullName, realSender: email.realSender.fullName }"
+    ></app-shared-contact-link>
+
+  </div>
+
+</div>
+
+<div class="rf__table-cell rf__email-cell--recipient">
+
+  <div class="rf__table-cell-box">
+
+    <div class="rf__table-txt">
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === false && email.recipients && email.recipients[0]"
+        [contact]="email.recipients[0]"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-contact-link>
+    </div>
+
+    <app-shared-more-icon
+      *ngIf="isPlaceholder === false"
+      [count]="email.recipients.length"
+      [max]="1"
+      [hasBackground]="false"
+    ></app-shared-more-icon>
+
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--property">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_properties'|translate }}"
+        matTooltipPosition="left">home_work</mat-icon>
+      <span class="rf__info-label">{{ email.propertyCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--promotion">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_promotion_header'|translate }}"
+        matTooltipPosition="left">location_city</mat-icon>
+      <span class="rf__info-label">{{ email.promotionCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--attachment">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_attachments'|translate }}"
+        matTooltipPosition="left">attach_file</mat-icon>
+      <span class="rf__info-label">{{ email.attachmentCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--delivered">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_email_delivered'|translate }}"
+        matTooltipPosition="left">email</mat-icon>
+      <span class="rf__info-label">{{ email.deliveredCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--bounced">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_email_bounced'|translate }}"
+        matTooltipPosition="left">cancel_presentation</mat-icon>
+      <span class="rf__info-label">{{ email.bouncedCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--opened">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_email_opened'|translate }}"
+        matTooltipPosition="left">drafts</mat-icon>
+      <span class="rf__info-label">{{ email.openedCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__email-cell--downloaded">
+  <div class="rf__table-txt">
+    <span class="rf__info">
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ 'label_downloaded'|translate }}"
+        matTooltipPosition="left">save_alt</mat-icon>
+      <span class="rf__info-label">{{ email.downloadCount }}</span>
+    </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions"></div>

@@ -1,0 +1,778 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROFILE) > -1"
+      label="{{ 'label_profile'|translate }}"
+      [id]="PAGE_TAB_PROFILE"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_agency'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_identity'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_name_as_a_word'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.name || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_reference'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.reference || '-' }}</div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_details'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_founded'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.foundingYear || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_employee_count'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.employeeCount || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_founder'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.founder || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_director'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.director || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_president'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.president || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_administrators'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.administrator || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_profile'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">{{ model.description || '-' }}</div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimeFeature$|async).sendEmailOnBehalf === true"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_domain_names'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <div *ngIf="(isLoading$|async) === true">-</div>
+
+                  <ng-container *ngIf="(isLoading$|async) === false">
+
+                    <div *ngIf="model.whitelistedDomains.length === 0">{{ 'label_no_domains_available'|translate }}</div>
+
+                    <mat-chip-list
+                      *ngIf="model.whitelistedDomains.length > 0"
+                      class="rf__chip-list"
+                    >
+                      <mat-chip
+                        *ngFor="let domain of model.whitelistedDomains"
+                        class="rf__chip"
+                      >
+                        <div class="rf__chip-text">{{ domain }}</div>
+                      </mat-chip>
+                    </mat-chip-list>
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_communication'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_mobiles'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--communication rf__table--communication-small">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--communication-checkbox">
+                    <div
+                      matTooltip="{{ 'label_use_as_main_phone'|translate }}"
+                      matTooltipPosition="above"
+                    >
+                      <mat-icon>grade</mat-icon>
+                    </div>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_number'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-double">{{ 'label_notes'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+                </div>
+
+                <div
+                  *ngFor="let mobile of model.mobiles;"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--communication-checkbox">
+                    <mat-icon *ngIf="mobile.isMainNumber" class="checkbox-active">check_box</mat-icon>
+                    <mat-icon *ngIf="!mobile.isMainNumber" class="checkbox-inactive">check_box_outline_blank</mat-icon>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ mobile.number }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-double">
+                    <span class="rf__table-txt">{{ mobile.notes }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.mobiles.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_mobile_added_yet'|translate }}</div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_landlines'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--communication rf__table--communication-small">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div
+                    class="rf__table-cell rf__table-cell--communication-checkbox"
+                    matTooltip="{{ 'label_use_as_main_phone'|translate }}"
+                    matTooltipPosition="above"
+                  >
+                    <mat-icon>grade</mat-icon>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_number'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-double">{{ 'label_notes'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+                </div>
+
+                <div
+                  *ngFor="let landline of model.landlines;"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--communication-checkbox">
+                    <mat-icon *ngIf="landline.isMainNumber" class="checkbox-active">check_box</mat-icon>
+                    <mat-icon *ngIf="!landline.isMainNumber" class="checkbox-inactive">check_box_outline_blank</mat-icon>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ landline.number }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-double">
+                    <span class="rf__table-txt">{{ landline.notes }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.landlines.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_landline_added_yet'|translate }}</div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_emails'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--communication rf__table--communication-medium">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div
+                    class="rf__table-cell rf__table-cell--communication-checkbox"
+                    matTooltip="{{ 'label_use_as_main_email'|translate }}"
+                    matTooltipPosition="above"
+                  >
+                    <mat-icon>grade</mat-icon>
+                  </div>
+                  <div
+                    class="rf__table-cell rf__table-cell--communication-checkbox"
+                    matTooltip="{{ 'label_use_to_send_emails'|translate }}"
+                    matTooltipPosition="above"
+                  >
+                    <mat-icon>mark_email_read</mat-icon>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--communication-double rf__table-cell--communication-responsive">{{ 'label_email'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-double">{{ 'label_notes'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+                </div>
+
+                <div
+                  *ngFor="let email of model.emails;"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--communication-checkbox">
+                    <mat-icon *ngIf="email.isMainEmail" class="checkbox-active">check_box</mat-icon>
+                    <mat-icon *ngIf="!email.isMainEmail" class="checkbox-inactive">check_box_outline_blank</mat-icon>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-email-checkbox">
+                    <mat-icon *ngIf="email.isUsedMailing" class="checkbox-active">check_box</mat-icon>
+                    <mat-icon *ngIf="!email.isUsedMailing" class="checkbox-inactive">check_box_outline_blank</mat-icon>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-double rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ email.emailId }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-double">
+                    <span class="rf__table-txt">{{ email.notes }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.emails.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_email_added_yet'|translate }}</div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_addresses'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--communication rf__table--communication-large">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div
+                    class="rf__table-cell rf__table-cell--communication-checkbox"
+                    matTooltip="{{ 'label_use_as_main_address'|translate }}"
+                    matTooltipPosition="above"
+                  >
+                    <mat-icon>grade</mat-icon>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_line_count'|translate:{ count: 1 } }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-single">{{ 'label_line_count'|translate:{ count: 2 } }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-single">{{ 'label_line_count'|translate:{ count: 3 } }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_zip'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_city'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_country'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+                </div>
+
+                <div
+                  *ngFor="let address of model.addresses;"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--communication-checkbox">
+                    <mat-icon *ngIf="address.isMainAddress" class="checkbox-active">check_box</mat-icon>
+                    <mat-icon *ngIf="!address.isMainAddress" class="checkbox-inactive">check_box_outline_blank</mat-icon>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ address.line1 }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single">
+                    <span class="rf__table-txt">{{ address.line2 }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single">
+                    <span class="rf__table-txt">{{ address.line3 }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ address.zipCode }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ address.city }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ address.countryLabel }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.addresses.length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_address_added_yet'|translate }}</div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_social'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__table rf__table--communication rf__table--communication-small">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">{{ 'label_network'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-double">{{ 'label_url'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+                </div>
+
+                <div
+                  *ngFor="let social of socials"
+                  class="rf__table-row"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--communication-single rf__table-cell--communication-responsive">
+                    <span class="rf__table-txt">{{ getSocialMediaName(social.network)|translate }}</span>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-double rf__table-cell--communication-responsive">
+                    <div class="rf__table-txt">
+                      <a
+                        *ngIf="social.url"
+                        href="{{ social.url }}"
+                        target="_blank"
+                        class="rf__info rf__info--link"
+                      >{{ social.url }}</a>
+                      <span *ngIf="!social.url">-</span>
+                    </div>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--communication-spacer"></div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              *ngIf="socials.length === 0"
+              class="rf__table-information rf__table-information--empty rf__table-information--center"
+            >{{ 'message_no_social_network_added_yet'|translate }}</div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_email_id'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_background'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.bgColorMain"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.bgColorMain"
+                    >{{ model.bgColorMain || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_message'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.bgColorMessage"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.bgColorMessage"
+                    >{{ model.bgColorMessage || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_header_footer'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.bgColorHeaderFooter"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.bgColorHeaderFooter"
+                    >{{ model.bgColorHeaderFooter || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_decoration'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.bgColorTitle"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.bgColorTitle"
+                    >{{ model.bgColorTitle || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_text'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.textColorMain"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.textColorMain"
+                    >{{ model.textColorMain || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_message'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.textColorMessage"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.textColorMessage"
+                    >{{ model.textColorMessage || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_header_footer'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.textColorHeaderFooter"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.textColorHeaderFooter"
+                    >{{ model.textColorHeaderFooter || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_decoration'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.textColorTitle"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.textColorTitle"
+                    >{{ model.textColorTitle || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="createdContact"
+          [createDate]="model.createDate"
+          [updateContact]="updatedContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_IMAGE) > -1"
+      label="{{ 'label_images'|translate }}"
+      [id]="PAGE_TAB_IMAGE"
+    >
+
+      <div class="rf__tab-body">
+
+        <div
+          *ngIf="(isLoading$|async) === false && (model.logo.id || model.watermark.id ||
+            model.defaultPropertyPhoto.id || model.prestigeBrochureCover.id || model.emailBanner.id)"
+          class="rf__panel"
+        >
+
+          <div class="rf__panel-header">{{ 'label_images'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <ng-container *ngFor="let attribute of model.IMAGE_DOCUMENT_ATTRIBUTES">
+
+              <ng-container *ngIf="!!model[attribute]">
+
+              <div class="rf__panel-subheader">
+                <span *ngIf="attribute === 'logo'">{{ 'label_title_logo'|translate }}</span>
+                <span *ngIf="attribute === 'watermark'">{{ 'label_watermark'|translate }}</span>
+                <span *ngIf="attribute === 'defaultPropertyPhoto'">{{ 'label_property_photo_default'|translate }}</span>
+                <span *ngIf="attribute === 'prestigeBrochureCover'">{{ 'label_title_prestige_brochure_cover'|translate }}</span>
+                <span *ngIf="attribute === 'emailBanner'">{{ 'label_email_banner'|translate }}</span>
+              </div>
+
+              <div class="rf__panel-section">
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                    <div *ngIf="(isLoading$|async) === true">...</div>
+
+                    <div
+                      *ngIf="(isLoading$|async) === false && (!model[attribute] || !model[attribute].photoSmallURL)"
+                      class="placeholder-text"
+                    >{{ 'label_not_set'|translate }}</div>
+
+                    <div
+                      *ngIf="model[attribute] && model[attribute].photoSmallURL"
+                      class="thumbnail-image"
+                      appAsyncImage="{{ model[attribute].photoSmallURL }}"
+                      [style.opacity]="attribute === 'watermark' ? model.watermarkOpacity/100 : 1"
+                    >
+                      <mat-icon>broken_image</mat-icon>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <ng-container *ngIf="attribute === 'watermark' && !!model[attribute].id">
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_opacity'|translate }}</div>
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.watermarkOpacity + '%' }}</div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_website'|translate }}</div>
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                      <app-shared-yes-no [isYes]="model.isAppliedWatermarkOnWebsite === true"></app-shared-yes-no>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_brochure'|translate }}</div>
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                      <app-shared-yes-no [isYes]="model.isAppliedWatermarkOnBrochure === true"></app-shared-yes-no>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_portal'|translate }}</div>
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                      <app-shared-yes-no [isYes]="model.isAppliedWatermarkOnPortal === true"></app-shared-yes-no>
+                    </div>
+
+                  </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="!!model[attribute] && model[attribute].id">
+
+                <div class="rf__keyvalue-row rf__keyvalue-row--image-inputs">
+
+                  <ng-container
+                    *ngIf="attribute === 'emailBanner' && model[attribute].data.email_banner_url"
+                  >
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_url_generic'|translate }}</div>
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                      <div>{{ model[attribute].data.email_banner_url }}</div>
+                    </div>
+
+                    <div class="rf__keyvalue-spacer"></div>
+
+                  </ng-container>
+
+                </div>
+
+                </ng-container>
+
+              </div>
+
+              </ng-container>
+
+            </ng-container>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">{{ 'label_images'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <app-gallery
+              [images]="images"
+              [isLoading]="isLoadingImages$|async"
+              messageEmptyState="label_images_not_available"
+            ></app-gallery>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_DOCUMENT) > -1"
+      label="{{ 'label_documents'|translate }}"
+      [id]="PAGE_TAB_DOCUMENT"
+    >
+
+      <div class="rf__tab-body">
+
+        <app-agency-profile-general-document-list
+          [uid]="PAGE_TAB_DOCUMENT"
+          [documents]="documents"
+          [model]="model"
+          [isReadOnly]="true"
+          [isSortable]="false"
+        ></app-agency-profile-general-document-list>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

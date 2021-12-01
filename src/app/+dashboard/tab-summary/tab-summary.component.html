@@ -1,0 +1,46 @@
+<app-preloader *ngIf="!summary"></app-preloader>
+<div class="fade">
+  <app-progress *ngIf="summary" [summary]="summary"></app-progress>
+  <div class="panel panel--off">
+    <div class="panel__header">
+      <div class="panel__title">{{ 'label_key_figures'|translate }}
+      </div>
+    </div>
+    <div class="panel__body">
+      <div class="round__row">
+        <div class="round-block">
+          <div class="round-title">{{ 'label_owner_report_leads'|translate }}</div>
+          <div class="round-figure">{{leadCount}}</div>
+        </div>
+        <span class="arrow"></span>
+        <div class="round-block">
+          <div class="round-title">
+            {{ 'label_proposals_sent'|translate }}
+          </div>
+          <div class="round-figure">{{proposalSentCount}}</div>
+        </div>
+        <span class="arrow"></span>
+        <div class="round-block">
+          <div class="round-title">
+            {{ 'label_visits'|translate }}
+          </div>
+          <div class="round-figure">{{viewingCount}}</div>
+        </div>
+        <span class="arrow"></span>
+        <div class="round-block">
+          <div class="round-title">
+            {{ 'label_offers_received'|translate }}
+          </div>
+          <div class="round-figure">{{offerReceivedCount}}</div>
+        </div>
+        <span class="arrow"></span>
+        <div class="round-block">
+          <div class="round-title">
+            {{ 'label_deals_signed'|translate }}
+          </div>
+          <div class="round-figure">{{dealSignedCount}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

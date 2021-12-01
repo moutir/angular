@@ -1,0 +1,112 @@
+<div
+  *ngIf="promotion === null || (promotion.name === '' && promotion.reference === '')"
+  class="rf__spinner"
+>
+  <mat-spinner
+    color="accent"
+    diameter="30"
+  ></mat-spinner>
+</div>
+<div
+  *ngIf="promotion !== null && (promotion.name !== '' || promotion.reference !== '')"
+  class="preview-promotion"
+>
+
+  <div class="preview-header">{{ promotion.name || promotion.reference }} </div>
+
+  <div *ngIf="promotion.propertyTotalCount">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_promotion_property_total_count'|translate}}:</span>
+      <span class="label-value">{{ promotion.propertyTotalCount }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.propertySoldCount">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_promotion_property_done_count'|translate}}:</span>
+      <span class="label-value">{{ promotion.propertySoldCount }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.propertyReservedCount">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_promotion_property_reserved_count'|translate}}:</span>
+      <span class="label-value">{{ promotion.propertyReservedCount }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.propertyAvailableCount">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_promotion_property_available_count'|translate}}:</span>
+      <span class="label-value">{{ promotion.propertyAvailableCount }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.propertyPriceFrom">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_promotion_price_from'|translate}}:</span>
+      <span class="label-value">{{ promotion.propertyPriceFrom }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.location.label">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_location'|translate}}:</span>
+      <span class="label-value">{{ promotion.location.label }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="promotion.address1 || promotion.address2 || promotion.address3">
+    <div class="list-row">
+      <span class="label-key">{{ 'label_address'|translate}}:</span>
+    </div>
+    <div class="list-row">
+        <div class="label-value-address">{{ promotion.address1 }}</div>
+        <div class="label-value-address">{{ promotion.address2 }}</div>
+        <div class="label-value-address">{{ promotion.address3 }}</div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="subheader"><strong>{{'label_broker_header'|translate}}:</strong></div>
+
+  <div
+    class="list-row"
+    *ngIf="promotion.broker.firstName || promotion.broker.lastName"
+  >
+    <mat-icon>person</mat-icon>
+    <span>{{ promotion.broker.lastName }} {{ promotion.broker.firstName }}</span>
+  </div>
+  <div
+    *ngIf="promotion.broker.companyName"
+    class="list-row"
+  >
+    <mat-icon>domain</mat-icon>
+    <span>{{ promotion.broker.companyName }}</span>
+  </div>
+
+  <div
+    *ngFor="let mobile of promotion.broker.mobiles"
+    class="list-row"
+  >
+    <mat-icon>smartphone</mat-icon>
+    <span>{{ mobile.number }}</span>
+  </div>
+
+  <div
+    *ngFor="let landline of promotion.broker.landlines"
+    class="list-row"
+  >
+    <mat-icon>phone</mat-icon>
+    <span>{{ landline.number }}</span>
+  </div>
+
+  <div
+    *ngFor="let email of promotion.broker.emails"
+    class="list-row"
+  >
+    <mat-icon>email</mat-icon><span>{{ email.emailId }}</span>
+  </div>
+
+</div>

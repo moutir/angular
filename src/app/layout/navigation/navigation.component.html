@@ -1,0 +1,121 @@
+<nav
+  #navigation
+  class="nav"
+  [class.nav--animation]="hasAnimation"
+  [class.nav--fold]="isFolded"
+  [class.nav--sticky]="isSticky"
+  [ngStyle]="{top: positionTop + 'px'}"
+>
+  <div *ngFor="let link of links; trackBy: trackById" class="nav__main">
+    <a
+      *ngIf="link.href"
+      [href]="link.href"
+      class="nav__link nav__link--{{ link.id }}"
+      [class.nav__link--active]="link.isActive"
+    >
+      <mat-icon
+        *ngIf="link.icon"
+        class="nav__icon"
+      >{{ link.icon }}</mat-icon>
+      <span>{{ link.label }}</span>
+      <div *ngIf="link.count > 0" class="rf__badge">{{ link.count }}</div>
+    </a>
+    <a
+      *ngIf="link.route"
+      [routerLink]="link.route"
+      [queryParams]="link.routeParams"
+      class="nav__link nav__link--{{ link.id }}"
+      [class.nav__link--active]="link.isActive"
+      (click)="onClickLink()"
+    >
+      <mat-icon
+        *ngIf="link.icon"
+        class="nav__icon"
+      >{{ link.icon }}</mat-icon>
+      <span>{{ link.label }}</span>
+      <div *ngIf="link.count > 0" class="rf__badge">{{ link.count }}</div>
+    </a>
+    <div
+      *ngIf="link.sublinks.length"
+      class="nav__sublinks nav__sublinks--{{link.isActive ? link.sublinks.length : '0'}}"
+      [class.nav__sublinks--open]="link.isActive"
+    >
+      <div *ngFor="let sublink of link.sublinks">
+        <a *ngIf="sublink.href" [href]="sublink.href" class="nav__sublink" [class.nav__sublink--active]="sublink.isActive">
+          <span>{{ sublink.label }}</span>
+          <div *ngIf="sublink.count > 0" class="rf__badge">{{ sublink.count }}</div>
+        </a>
+        <a
+          *ngIf="sublink.route"
+          [routerLink]="sublink.route"
+          [queryParams]="sublink.routeParams"
+          class="nav__sublink"
+          [class.nav__sublink--active]="sublink.isActive"
+          (click)="onClickSubLink($event)"
+        >
+          <span>{{ sublink.label }}</span>
+          <div *ngIf="sublink.count > 0" class="rf__badge">{{ sublink.count }}</div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isFolded" class="nav__folding" (click)="onClickFolding()">
+    <span *ngIf="isFolded" class="nav__foldspan"></span>
+    <i class="fa fa-chevron-right"></i>
+  </div>
+  <div *ngIf="!isFolded" class="nav__folding" (click)="onClickFolding()">
+    <i class="fa fa-chevron-left"></i>
+    <span *ngIf="!isFolded" class="nav__foldspan">{{ 'fold'|translate }}</span>
+  </div>
+</nav>
+<nav class="nav__collapsible">
+  <mat-icon class="nav__collapsible-icon" (click)="onClickMenu()" [class.active]="isMenuActive">menu</mat-icon>
+  <ul class="nav__collapsible-main">
+    <li *ngFor="let link of links; trackBy: trackById">
+      <a
+        *ngIf="link.href"
+        [href]="link.href"
+        class="nav__link nav__link--{{ link.id }}"
+        [class.nav__link--active]="link.isActive"
+      >
+        <span>{{ link.label }}</span>
+        <div *ngIf="link.count > 0" class="rf__badge">{{ link.count }}</div>
+      </a>
+      <a
+        *ngIf="link.route"
+        [routerLink]="link.route"
+        [queryParams]="link.routeParams"
+        class="nav__link nav__link--{{ link.id }}"
+        [class.nav__link--active]="link.isActive"
+        (click)="onClickLink()"
+      >
+        <span>{{ link.label }}</span>
+        <div *ngIf="link.count > 0" class="rf__badge">{{ link.count }}</div>
+      </a>
+      <ul>
+        <li *ngFor="let sublink of link.sublinks">
+          <a
+            *ngIf="sublink.href"
+            [href]="sublink.href"
+            class="nav__sublink"
+            [class.nav__sublink--active]="sublink.isActive"
+          >
+            <span><mat-icon>arrow_right_alt</mat-icon> {{ sublink.label }}</span>
+            <div *ngIf="sublink.count > 0" class="rf__badge">{{ sublink.count }}</div>
+          </a>
+          <a
+            *ngIf="sublink.route"
+            [routerLink]="sublink.route"
+            [queryParams]="sublink.routeParams"
+            class="nav__sublink"
+            [class.nav__sublink--active]="sublink.isActive"
+            (click)="onClickSubLink($event)"
+          >
+            <span><mat-icon>arrow_right_alt</mat-icon> {{ sublink.label }}</span>
+            <div *ngIf="sublink.count > 0" class="rf__badge">{{ sublink.count }}</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

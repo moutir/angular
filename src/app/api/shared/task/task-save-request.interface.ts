@@ -1,0 +1,33 @@
+export interface TaskSaveRequestInterface {
+  task_type: string;
+  title: string;
+  location: string;
+  due_date: string;
+  due_time: string;
+  end_date: string;
+  end_time: string;
+  personal_notes: string;
+  public_report: string;
+  send_task_to_owner: string;
+  send_notes_to_contact: string;
+  editable_by_others: string;
+  hide_in_reports: string;
+  is_calendar_task: string;
+  reminder_time: string;
+  selectItemagenda_task: string[];
+  contact_contact_id?: string[];
+  contact_email?: string[];
+  contact_firstname?: string[];
+  contact_lastname?: string[];
+  properties?: string[];
+  promotions?: string[];
+  participant_contact_id?: string[];
+  participant_email?: string[];
+  participant_firstname?: string[];
+  participant_lastname?: string[];
+  assignee_contact_id?: string[];
+  assignee_email?: string[];
+  assignee_firstname?: string[];
+  assignee_lastname?: string[];
+  notes_sent_to_contact?: string;
+}

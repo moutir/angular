@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+.rf__table-cell--center .rf__table-txt {
+  margin: auto;
+}
+
+.rf__email-cell--sender {
+  position: absolute;
+  bottom: 2px;
+  left: 3px;
+  z-index: 2;
+}
+
+.rf__email-cell--subject .rf__table-txt {
+  font-weight: bold;
+  color: $color-29;
+}
+
+.rf__email-cell--date .rf__table-txt:nth-child(2) .rf__info-icon {
+  color: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: 1px;
+}

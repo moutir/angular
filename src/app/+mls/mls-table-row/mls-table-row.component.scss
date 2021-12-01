@@ -1,0 +1,28 @@
+@import "../../../styles/variables";
+
+.rf__table-thumbnail {
+  width: 25px;
+  height: 25px;
+  margin: 5px 10px;
+}
+
+.text-muted {
+  color: $color-30;
+  font-size: 11px;
+}
+
+.inactive {
+  color: $color-17;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table-thumbnail {
+    width: 40px;
+    height: 35px;
+  }
+
+  .text-muted {
+    margin-top: -4px;
+  }
+}

@@ -1,0 +1,30 @@
+@import "../../../styles/variables";
+
+.iframe-container {
+  background-color: $color-18;
+  border-width: 0;
+  width: 100%;
+  height: 550px;
+}
+
+#iframe-calendar {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 100ms ease-out;
+}
+
+.placeholder-message {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.export-description {
+  font-size: 13px;
+  font-weight: 700;
+  color: $color-30;
+}
+
+.rf__button-icon--secondary {
+  margin-right: 10px;
+}

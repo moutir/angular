@@ -1,0 +1,68 @@
+@import "../variables";
+
+.rf__history-cell--date {
+  min-width: 100px;
+  max-width: 100px;
+  width: 100px;
+}
+
+.rf__history-cell--done-by {
+  min-width: 140px;
+  max-width: 140px;
+  width: 140px;
+}
+
+.rf__history-cell--done-by .contact-link {
+  margin-right: 5px;
+}
+
+.rf__table-row--placeholder .rf__history-cell--done-by .rf__table-thumbnail {
+  height: 16px;
+  background-color: $color-31;
+}
+
+.rf__table-row:not(.rf__table-row--placeholder) .rf__history-cell--action .rf__table-txt {
+  overflow: visible;
+  white-space: normal;
+  height: auto;
+}
+
+.rf__history-cell--action .rf__info--link a {
+  margin-left: 5px;
+}
+
+.rf__history-cell--action .rf__table-txt a {
+  cursor: pointer;
+  color: $color-19;
+}
+
+.rf__history-cell--action .rf__table-txt a:hover {
+  color: $color-27;
+  cursor: pointer;
+}
+
+.rf__history-cell--done-by .contact-link--empty {
+  cursor: default;
+  visibility: hidden;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__history-cell--date {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+
+  .rf__history-cell--done-by {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+
+  .rf__history-cell--action {
+    min-width: 450px;
+    max-width: 450px;
+    width: 450px;
+  }
+}

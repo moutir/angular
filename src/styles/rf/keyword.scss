@@ -1,0 +1,50 @@
+@import "../variables";
+
+.rf__keyword-list {
+  display: block;
+  width: 100%;
+  margin: 0 0 10px 0;
+  background: $color-25;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.rf__keyword.mat-chip.mat-standard-chip {
+  min-height: 26px;
+  background: $color-12;
+  color: $color-03;
+  transition: background 500ms linear;
+  user-select: none;
+  font-size: 12px;
+}
+
+.rf__keyword--mini.mat-chip.mat-standard-chip {
+  min-height: 20px;
+  font-size: 10px;
+  padding: 2px 10px;
+  margin: 2px;
+}
+
+.rf__keyword--synced.mat-chip.mat-standard-chip {
+  background: $color-15;
+  color: $color-01;
+}
+
+.rf__keyword--link.mat-chip.mat-standard-chip {
+  background: $color-19;
+  color: $color-01;
+  transition: none;
+}
+
+.rf__keyword--link.mat-chip.mat-standard-chip:hover {
+  background: $color-27;
+}
+
+.rf__keyword.mat-standard-chip:focus::after,
+.rf__keyword.mat-standard-chip:hover::after {
+  opacity: 0;
+}
+
+.rf__keyword.mat-chip.mat-standard-chip:not(.mat-chip-disabled):active {
+  box-shadow: none;
+}

@@ -1,0 +1,37 @@
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group>
+
+    <mat-tab>
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+        >
+          <span>Polygon</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>Dummy polygon</span>
+          </div>
+          <div class="rf__panel-body">
+
+            <app-map
+              uid="dummy-map"
+              [mapSettings]="mapSettings"
+              [polygonSettings]="polygonSettings"
+              [polygons]="polygons"
+              (changePolygons)="onChangePolygons($event)"
+            ></app-map>
+
+          </div>
+        </div>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

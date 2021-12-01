@@ -1,0 +1,52 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--photo"></div>
+
+<div class="rf__table-cell rf__promotion-cell--name">
+  <div mat-sort-header="name">{{ 'label_promotion_name'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--date">
+  <div mat-sort-header="date_start_construction_work">{{ 'label_construction_start_date'|translate }}</div>
+  <div mat-sort-header="date_end_construction_work">{{ 'label_construction_end_date'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--location">
+  <div>{{ 'label_location'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--contact">
+  <div>{{ 'label_promotion_developer'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--price">
+  <div>{{ 'label_price'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--status">
+  <div>{{ 'label_promotion_sale_status'|translate }}</div>
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions-label"
+>{{ 'label_actions'|translate }}</div>

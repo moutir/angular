@@ -1,0 +1,33 @@
+@import "../../../../styles/variables";
+
+.history-summary {
+  display: flex;
+  align-items: center;
+}
+
+.history-contact-datetime {
+  display: flex;
+  align-items: center;
+  border-right: solid 1px $color-22;
+  margin-right: 20px;
+}
+
+.history-contact-datetime:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+.history-text {
+  padding: 0 20px 0 10px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.history-type {
+  font-weight: bold;
+  color: $color-19;
+}
+
+.rf__panel-body {
+  min-height: 68px;
+}

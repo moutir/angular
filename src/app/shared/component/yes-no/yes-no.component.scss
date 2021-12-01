@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+.yes-no {
+  font-weight: bold;
+}
+
+.yes-no--yes {
+  color: $color-15;
+}
+
+.yes-no--no {
+  color: $color-17;
+}

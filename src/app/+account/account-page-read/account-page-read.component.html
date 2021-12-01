@@ -1,0 +1,340 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_INFORMATION) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_account'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+            <div class="rf__panel-subheader">{{ 'label_profile'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contact_singular'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--contact">
+
+                  <app-shared-contact-link
+                    [contact]="model.contact"
+                    [layout]="'broker'"
+                    [isPlaceholder]="isLoading$|async"
+                    [hasLabel]="false"
+                    [hasTooltip]="false"
+                  ></app-shared-contact-link>
+
+                  <span class="agency-name">{{ model.contact.agency.name }}</span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_credentials'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_login'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.login }}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_administration'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_status'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no
+                    [isYes]="model.isActive"
+                    labelYes="label_active"
+                    labelNo="label_inactive"
+                  ></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.expiryDate"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_expiry_date'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.expiryDate|smartDate }}
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.notes"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_notes'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">
+                  {{ model.notes }}
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.accountSwitches.length > 0"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_switch_account'|translate }}</span>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <div class="account-switch">
+
+                    <div class="rf__table rf__table--account-switch">
+
+                      <div class="rf__table-row rf__table-row--header">
+                        <div class="rf__table-cell rf__table-cell">{{ 'label_can_switch_to'|translate }}</div>
+                      </div>
+
+                      <div
+                        *ngFor="let accountSwitch of model.accountSwitches;"
+                        class="rf__table-row"
+                      >
+                        <div class="rf__table-cell rf__table-cell--account-switch-account">{{ accountSwitch.account.login }}</div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_privileges'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_account_type'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.accountType.text }}
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_per_module'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <app-shared-account-privileges
+                    [model]="model"
+                    [feature]="runtimeFeature$|async"
+                    [featureAccount]="runtimeFeatureAccount$|async"
+                    [isEditable]="false"
+                    [isLoading]="isLoading$|async"
+                  ></app-shared-account-privileges>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_preferences'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_interface'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  {{ 'label_language'|translate }}
+                </div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ ('label_' + model.language.value)|translate }}
+                </div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_services'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_service_switch_account'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-yes-no
+                    [isYes]="model.isAllowedSwitching"
+                  ></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_service_google_agenda'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-yes-no
+                    [isYes]="model.isEnabledGoogleAgenda"
+                  ></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div
+                class="rf__keyvalue-row"
+                *ngIf="(runtimeFeature$|async).sendEmailOnBehalf"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contract_option_33'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-yes-no
+                    [isYes]="model.isEnabledSendEmailOnBehalf"
+                  ></app-shared-yes-no>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            {{ 'crm_connection'|translate }}
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_last_connection'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                {{ model.lastLoginDate ? (model.lastLoginDate|smartDate) : 'user_never_connected'|translate }}
+              </div>
+
+            </div>
+
+            <ng-container *ngIf="model.lastLoginDate">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_last_activity'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.lastSeenDate|smartDate }}
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_ip_address'|translate }}</span>
+                  <a
+                    *ngIf="model.lastSeenIp"
+                    href="https://tools.keycdn.com/geo?host={{ model.lastSeenIp }}"
+                    target="_blank"
+                    class="rf__icon rf__icon--link"
+                  >
+                    <mat-icon>open_in_new</mat-icon>
+                  </a>
+                </div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.lastSeenIp }}
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_browser_user_agent'|translate }}</span>
+                  <a
+                    *ngIf="model.lastSeenUserAgent"
+                    href="https://gs.statcounter.com/detect?useragent={{ model.lastSeenUserAgent }}"
+                    target="_blank"
+                    class="rf__icon rf__icon--link"
+                  >
+                    <mat-icon>open_in_new</mat-icon>
+                  </a>
+                </div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  {{ model.lastSeenUserAgent }}
+                </div>
+
+              </div>
+
+            </ng-container>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+          [updateContact]="model.updateContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

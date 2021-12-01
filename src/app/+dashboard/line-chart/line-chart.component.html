@@ -1,0 +1,19 @@
+<div class="line_chart_container">
+  <div class="chart_box">
+    <div class="chart-wrapper">
+      <div class="line_chart chart-inner">
+        <div width="100%" class="chart" [chart]="chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart_legend">
+    <ul class="chart_legend__list">
+      <li *ngFor="let item of data.series; let i = index;" class="chart_legend__item">
+        <span class="chart_label" [style.background]="colors[i]"></span>
+        {{item.name}}
+      </li>
+    </ul>
+  </div>
+
+</div>

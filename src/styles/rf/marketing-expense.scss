@@ -1,0 +1,109 @@
+@import "../variables";
+
+.rf__marketing-expense-cell {
+  min-width: 180px;
+  max-width: 180px;
+  width: 180px;
+}
+
+.rf__marketing-expense-cell--amount {
+  min-width: 120px;
+  max-width: 120px;
+  width: 120px;
+}
+
+.rf__marketing-expense-cell--invoice-date {
+  min-width: 140px;
+  max-width: 140px;
+  width: 140px;
+}
+
+.rf__searchlist--marketing-expense .rf__table-row {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.rf__table--expense-property .rf__table-cell,
+.rf__table--expense-promotion .rf__table-cell {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__table--expense-property .rf__table-cell .mat-form-field,
+.rf__table--expense-promotion .rf__table-cell .mat-form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__table--expense-property .rf__table-cell--actions,
+.rf__table--expense-promotion .rf__table-cell--actions {
+  justify-content: flex-end;
+}
+
+.rf__table--expense-property .rf__table-row--header .rf__table-cell--actions button,
+.rf__table--expense-promotion .rf__table-row--header .rf__table-cell--actions button {
+  margin-top: -70px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table--expense-property .rf__table-cell,
+  .rf__table--expense-promotion .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__searchlist .rf__table-cell.rf__marketing-expense-cell-period {
+    display: none;
+  }
+
+  .rf__table--expense-property .rf__table-cell--expense-property-property,
+  .rf__table--expense-promotion .rf__table-cell--expense-promotion-promotion {
+    min-width: 320px;
+    max-width: 320px;
+    width: 320px;
+  }
+
+  .rf__table--expense-property .rf__table-cell--expense-property-title,
+  .rf__table--expense-promotion .rf__table-cell--expense-promotion-title {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  .rf__table--expense-property .rf__table-row--header .rf__table-cell--actions button,
+  .rf__table--expense-promotion .rf__table-row--header .rf__table-cell--actions button {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__table--expense-property .rf__table-cell--expense-property-property,
+  .rf__table--expense-promotion .rf__table-cell--expense-promotion-promotion {
+    min-width: 360px;
+    max-width: 360px;
+    width: 360px;
+  }
+
+  .rf__tab-bar--page-read .rf__table--expense-property .rf__table-cell--expense-property-property,
+  .rf__tab-bar--page-read .rf__table--expense-promotion .rf__table-cell--expense-promotion-promotion {
+    min-width: 580px;
+    max-width: 580px;
+    width: 580px;
+  }
+
+  .rf__table--expense-property .rf__table-cell--expense-property-title,
+  .rf__table--expense-promotion .rf__table-cell--expense-promotion-title {
+    min-width: 80%;
+    max-width: 80%;
+    width: 80%;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .rf__searchlist .rf__table-cell.rf__marketing-expense-cell-period {
+    display: table-cell;
+  }
+}

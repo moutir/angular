@@ -1,0 +1,42 @@
+@import "../../../styles/variables";
+
+.rf__table-row--search,
+.vertical-spacer {
+  display: none;
+}
+
+.rf__table-row--search .rf__table-txt--search {
+  color: $color-30;
+  font-size: 11px;
+  font-weight: normal;
+}
+
+.rf__table-row--search .rf__info-label-icon .mat-icon {
+  color: inherit;
+  font-size: 18px;
+  height: 18px;
+}
+
+.rf__info-label-icon {
+  width: 24px;
+  margin: 0 5px 0 2px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table-row--search {
+    display: table-row;
+    height: 45px;
+  }
+
+  .vertical-spacer {
+    display: block;
+    height: 20px;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .vertical-spacer--odd {
+    height: 10px;
+  }
+}

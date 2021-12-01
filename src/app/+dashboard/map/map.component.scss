@@ -1,0 +1,80 @@
+path {
+  fill: #ffffff;
+  stroke: #818689;
+}
+
+.red {
+  fill: #f5a9ae;
+  &:hover {
+    fill: #eb535d;
+  }
+}
+
+.river {
+  fill: rgba(120, 198, 238, 1.0);
+}
+
+.blue {
+  fill: #bbc5ff;
+  &:hover {
+    fill: darken(#bbc5ff, 15%);
+  }
+}
+
+.map_popup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 94px;
+  height: 78px;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.22);
+  border-radius: 3px;
+  background-color: #ffffff;
+  display: flex !important;
+  opacity: 0;
+  &.show {
+    opacity: 1;
+  }
+  &__item {
+    color: #768bff;
+    font-size: 0.875rem;
+    font-weight: 400;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__icon {
+    width: 20px;
+    height: 19px;
+    background: url('/dist/assets/realforce/dashboard/image/map_popup_sprite.png');
+    margin-bottom: 10px;
+    &.portfolio {
+      background-position: 0 0;
+    }
+    &.leads {
+      background-position: 16px 0;
+      width: 16px;
+    }
+  }
+  .portfolio {
+    color: #768bff;
+  }
+  .leads {
+    color: #eb535d;
+  }
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: -9px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 7px 0 7px;
+    border-color: #ffffff transparent transparent transparent;
+  }
+}

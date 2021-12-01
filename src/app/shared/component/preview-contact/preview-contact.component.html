@@ -1,0 +1,182 @@
+<div
+  *ngIf="contact === null"
+  class="rf__spinner"
+>
+  <mat-spinner
+    color="accent"
+    diameter="30"
+  ></mat-spinner>
+</div>
+<div
+  *ngIf="contact !== null"
+  class="preview-contact"
+>
+
+  <div class="preview-header">
+    <span>{{ contact.firstName }} {{ contact.lastName }}</span>
+  </div>
+
+  <div class="list-row">
+    <mat-icon class="list-row-icon">manage_accounts</mat-icon>
+    <span class="contact-agency">{{ (isTypeBroker === true ? 'label_broker_header' : 'label_client')|translate }} &bull; {{ contact.agency.name }}</span>
+  </div>
+
+  <a class="list-row list-row--link" href="/contact/active/contact?contact_id={{ contact.id }}" target="_blank">
+    <mat-icon class="list-row-icon">open_in_new</mat-icon>
+    <span>{{ 'open_profile'|translate }}</span>
+  </a>
+
+  <ng-container *ngIf="contact.mobiles.length + contact.landlines.length + contact.emails.length > 0">
+
+    <div class="subheader">
+      <strong>{{ 'label_contact_details'|translate}}</strong>
+    </div>
+
+    <div
+      *ngFor="let mobile of contact.mobiles"
+      class="list-row"
+    >
+      <mat-icon class="list-row-icon">smartphone</mat-icon>
+      <span>{{ mobile.number }}</span>
+    </div>
+
+    <div
+      *ngFor="let landline of contact.landlines"
+      class="list-row"
+    >
+      <mat-icon class="list-row-icon">phone</mat-icon>
+      <span>{{ landline.number }}</span>
+    </div>
+
+    <div
+      *ngFor="let email of contact.emails"
+      class="list-row"
+    >
+      <mat-icon class="list-row-icon">email</mat-icon><span>{{ email.emailId }}</span>
+    </div>
+
+  </ng-container>
+
+  <div class="subheader">
+    <strong>{{ 'label_searches'|translate}}</strong>
+  </div>
+
+  <div
+    *ngIf="contact.searches.length === 0"
+    class="list-row"
+  >
+    <mat-icon class="list-row-icon">search</mat-icon>
+    {{ 'label_contacts_without_searches'|translate }}
+  </div>
+
+  <div
+    *ngFor="let search of contact.searches;"
+    class="list-row"
+  >
+    <mat-icon class="list-row-icon">search</mat-icon>
+    <div>{{ search.title || ('#' + search.id) }}</div>
+  </div>
+
+  <ng-container *ngIf="isTypeBroker === false">
+
+    <ng-container *ngIf="contact.mainContact">
+
+      <div class="subheader"><strong>{{'label_main_contact'|translate}}</strong></div>
+      <div>
+        <div class="list-row">
+          <mat-icon class="list-row-icon">person</mat-icon>
+          <span>{{ contact.mainContact.firstName }} {{ contact.mainContact.lastName }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngIf="contact.mainContact.agency.name"
+        >
+          <mat-icon class="list-row-icon">domain</mat-icon>
+          <span>{{ contact.mainContact.agency.name }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let mobile of contact.mainContact.mobiles"
+        >
+          <mat-icon class="list-row-icon">smartphone</mat-icon>
+          <span>{{ mobile.number }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let landline of contact.mainContact.landlines"
+        >
+          <mat-icon class="list-row-icon">phone</mat-icon>
+          <span>{{ landline.number }}</span>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="contact.saleContact">
+
+      <div class="subheader"><strong>{{'label_contact_sale_contact'|translate}}</strong></div>
+      <div>
+        <div class="list-row">
+          <mat-icon class="list-row-icon">person</mat-icon>
+          <span>{{ contact.saleContact.firstName }} {{ contact.saleContact.lastName }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngIf="contact.saleContact.agency.name"
+        >
+          <mat-icon class="list-row-icon">domain</mat-icon>
+          <span>{{ contact.saleContact.agency.name }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let mobile of contact.saleContact.mobiles"
+        >
+          <mat-icon class="list-row-icon">smartphone</mat-icon>
+          <span>{{ mobile.number }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let landline of contact.saleContact.landlines"
+        >
+          <mat-icon class="list-row-icon">phone</mat-icon>
+          <span>{{ landline.number }}</span>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="contact.rentalContact">
+
+      <div class="subheader"><strong>{{'label_rental_contact'|translate}}</strong></div>
+      <div>
+        <div class="list-row">
+          <mat-icon class="list-row-icon">person</mat-icon>
+          <span>{{ contact.rentalContact.firstName }} {{ contact.rentalContact.lastName }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngIf="contact.rentalContact.agency.name"
+        >
+          <mat-icon class="list-row-icon">domain</mat-icon>
+          <span>{{ contact.rentalContact.agency.name }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let mobile of contact.rentalContact.mobiles"
+        >
+          <mat-icon class="list-row-icon">smartphone</mat-icon>
+          <span>{{ mobile.number }}</span>
+        </div>
+        <div
+          class="list-row"
+          *ngFor="let landline of contact.rentalContact.landlines"
+        >
+          <mat-icon class="list-row-icon">phone</mat-icon>
+          <span>{{ landline.number }}</span>
+        </div>
+      </div>
+
+    </ng-container>
+
+  </ng-container>
+</div>

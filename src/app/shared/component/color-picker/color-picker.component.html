@@ -1,0 +1,18 @@
+<div
+  class="rf__color-picker"
+  [class.rf__color-picker--disabled]="isDisabled"
+  [style.background-color]="color"
+  matTooltip="{{ 'label_pick_color'|translate }}"
+  matTooltipPosition="above"
+  cpOKButtonClass= "rf__color-picker-button rf__color-picker-button--ok"
+  cpCancelButtonClass= "rf__color-picker-button rf__color-picker-button--cancel"
+  cpOKButtonText="{{ 'label_ok' | translate }}"
+  cpCancelButtonText="{{ 'label_cancel' | translate }}"
+  cpPosition="{{ popupPosition }}"
+  [cpDisabled]="isDisabled"
+  [cpSaveClickOutside]="false"
+  [cpOKButton]="true"
+  [cpCancelButton]="true"
+  [colorPicker]="color"
+  (colorPickerSelect)="onSelectColor($event)"
+></div>

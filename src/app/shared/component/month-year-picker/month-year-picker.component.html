@@ -1,0 +1,25 @@
+<ng-container
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="{{ formControlName }}"
+      [matDatepicker]="pickerDate"
+      autocomplete="off"
+      placeholder="{{ placeholder|translate }}"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="pickerDate"
+    ></mat-datepicker-toggle>
+    <mat-datepicker
+      #pickerDate
+      startView="multi-year"
+      (monthSelected)="onPickMonth($event, pickerDate)"
+    ></mat-datepicker>
+    <mat-error>{{ error|translate }}</mat-error>
+  </mat-form-field>
+
+</ng-container>

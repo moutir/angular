@@ -1,0 +1,97 @@
+<div
+  class="rf__searchlist rf__searchlist--contact"
+  [class.rf__searchlist--contact--without-agency]="isDisplayedAgency === false"
+>
+
+  <app-shared-selection-bar
+    *ngIf="isUsingActions === true"
+    entity="contact"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+    (clickSelectNone)="onClickSelectNone()"
+  ></app-shared-selection-bar>
+
+  
+  <app-contact-table
+
+  [isUsingActions]="isUsingActions"
+  [loadingModelIds]="operationIds$|async"
+  [isSelectedHeader]="isSelectedPage$|async"
+  [filters]="filters$|async"
+  [sort]="sort$|async"
+  [selection]="selection$|async"
+  [models]="models$|async"
+  [modelsSelectable]="modelsSelectable$|async"
+  [modelsSelected]="modelsSelected$|async"
+  [feature]="runtimeFeature$|async"
+  [permissions]="runtimePermissions$|async"
+  [isBetaPerformance]="isBetaPerformance"
+  (changeSort)="onChangeSort($event)"
+  (changeSelectionHeader)="onChangeSelectionHeader($event)"
+  (changeSelectionModel)="onChangeSelectionModel($event)"
+  (contextModel)="onContextModel($event)"
+  (clickModel)="onClickModel($event)"
+  (clickSearchModel)="onClickSearchModel($event)"
+ 
+></app-contact-table>
+
+  
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>
+
+<app-history-modal
+  [isVisible]="(contactHistory$|async).entity !== null"
+  [history]="contactHistory$|async"
+  [histories]="historyModels$|async"
+  labelTitle="title_contact_history"
+  (submitModal)="onSubmitModalHistory($event)"
+></app-history-modal>
+
+<app-contact-modal-modify-broker
+  [isVisible]="(operation$|async) === operationNameModifyBroker"
+  [modifyBroker]="contactModifyBroker$|async"
+  [options]="contactModifyBrokerOptions$|async"
+  [permissions]="runtimePermissions$|async"
+  (submitModal)="onSubmitModalModifyBroker($event)"
+></app-contact-modal-modify-broker>
+
+<app-contact-modal-transfer
+  [isVisible]="(operation$|async) === operationNameTransfer"
+  [transfer]="contactTransfer$|async"
+  [options]="contactTransferOptions$|async"
+  (changeInput)="onChangeInputTransfer($event)"
+  (submitModal)="onSubmitModalTransfer($event)"
+></app-contact-modal-transfer>
+
+<app-contact-modal-transfer-activity
+  [isVisible]="(operation$|async) === operationNameTransferActivity"
+  [transferActivity]="contactTransferActivity$|async"
+  [options]="contactTransferActivityOptions$|async"
+  [contact]="(modelsSelected$|async)[0]"
+  (submitModal)="onSubmitModalTransferActivity($event)"
+></app-contact-modal-transfer-activity>

@@ -1,0 +1,48 @@
+<div class="rf__table">
+
+  <app-website-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-website-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-website-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let website of models; trackBy: trackById;"
+      [website]="website"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(website.id) > -1"
+      [isLoading]="loadingModelIds.indexOf(website.id) > -1"
+      (contextmenu)="onContextMenu($event, website)"
+      (changeSelection)="onChangeSelectionModel($event, website)"
+      (click)="onClickModel(website)"
+    ></app-website-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-website-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isSelected]="selection.isSelectedAll === true"
+    ></app-website-table-row>
+
+  </ng-container>
+</div>
+
+<div
+  *ngIf="models !== null && models.length === 0"
+  class="rf__table-noresults"
+>{{ 'label_no_results_found'|translate }}</div>

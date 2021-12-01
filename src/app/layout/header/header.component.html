@@ -1,0 +1,54 @@
+<header
+  [class.header--is-active-search]="isActiveSearch === true"
+  (click)="onClick($event)"
+>
+
+  <a
+    class="header__collapsible--logo header__logolink"
+    [routerLink]="defaultPath"
+  >
+    <img src="{{logoUrl}}" class="nav__logoimg header__logo" />
+  </a>
+
+  <div class="rf__spacer"></div>
+
+  <div
+    class="header__search"
+    [class.header__search--is-active]="isActiveSearch === true"
+  >
+    <input
+      #search
+      class="header__search-input"
+      matInput
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      placeholder="{{ 'label_quick_search'|translate }}"
+      (input)="onChangeInputSearch($event)"
+      (click)="onClickInputSearch($event)"
+    >
+    <button
+      mat-icon-button
+      class="rf__button-icon header__search-button"
+      (click)="onClickButtonSearch($event)"
+    >
+      <mat-icon class="header__search-icon">search</mat-icon>
+    </button>
+  </div>
+
+  <div
+    class="header__user"
+    (click)="onClickUser($event)"
+  >
+    <div
+      *ngIf="avatarUrl"
+      class="header__user-photo"
+      [style.background-image]="'url(' + avatarUrl + ')'"
+    ></div>
+    <div
+      *ngIf="!avatarUrl"
+      class="header__user-initials"
+    >{{ userName | initials }}</div>
+  </div>
+
+</header>

@@ -1,0 +1,39 @@
+<div class="fade fade--delay">
+  <div class="tab_content__head">
+    <div class="panel__title">
+      {{ 'label_transactions'|translate }}
+    </div>
+  </div>
+  <div class="tab_content__body transactions-body">
+    <app-filter [noMatchFoundText]="noMatchFoundText"
+                [loadingText]="loadingText"
+                [placeHolderFromDate]="placeHolderFromDate"
+                [placeHolderToDate]="placeHolderToDate"
+                [searchContactText]="searchContactText"
+                [searchPropetyText]="searchPropertyText"
+                [isLoading]="loadingCount > 0"
+                (filterData)="filterData($event)"
+    ></app-filter>
+    <app-expanding-table [config]="config"
+                         [rows]="transactions"
+                         [columns]="columns"
+                         [totalsRecords]="totalRecords"
+                         [rowsTotal]="rowsTotal"
+                         [previousLabel]="previousLabel"
+                         [nextLabel]="nextLabel"
+                         [loadingText]="loadingText"
+                         [noMatchFoundText]="noMatchFoundText"
+                         [rowExpandContent]="rowComponent"
+                         [rowInputs]="rowInputs"
+                         [expandable]="true" [page]="page"
+                         (tableChanged)="onChangeTable($event)"
+                         (filterData)="filterData($event)"
+                         (scrolledDown)="onScrollDown()"
+                         (valueEdit)="editRow($event)"
+    ></app-expanding-table>
+    <div *ngIf="loadingCount > 0" id="properties_processing" class="dataTables_processing">{{ "label_processing" | translate
+      }}
+    </div>
+  </div>
+</div>
+

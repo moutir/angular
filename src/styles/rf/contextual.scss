@@ -1,0 +1,30 @@
+@import "../variables";
+
+.rf__contextual {
+  background-color: $color-01;
+  box-shadow: $color-13 0 0 10px;
+  position: fixed;
+  z-index: $zindex-max;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+.rf__contextual[data-uid$="-menu"] {
+  overflow: visible;
+}
+
+.rf__contextual-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: ($zindex-max - 1);
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__contextual {
+    max-height: 400px;
+  }
+}

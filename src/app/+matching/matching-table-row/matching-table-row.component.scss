@@ -1,0 +1,10 @@
+@import "../../../styles/variables";
+
+.rf__matching-cell--status > div {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rf__matching-cell--status .rf__table-txt {
+  min-width: 16px;
+}

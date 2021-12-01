@@ -1,0 +1,106 @@
+@import "../variables";
+
+.rf__website-article-cell--title {
+  background-color: $color-19;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.rf__searchlist--website-article .rf__website-article-cell--title .rf__table-txt {
+  color: $color-01;
+}
+
+.rf__searchlist--website-article .rf__table-row--placeholder .rf__website-article-cell--title .rf__table-txt {
+  opacity: 0.5;
+  width: 60%;
+}
+
+.rf__searchlist--website-article .rf__table-row {
+  height: 150px;
+  padding-bottom: 0;
+}
+
+.rf__document-list--website-article .rf__document-manager-document .rf__document-input {
+  width: 90%;
+}
+
+.rf__document-list--website-article .rf__document-manager-document .rf__document-button-wrapper--copy {
+  display: flex;
+}
+
+@media (min-width: 650px) {
+
+  .rf__document-list--website-article .rf__document-manager-document .rf__document-input {
+    width: 50%;
+    max-width: 320px;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--website-article .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist--website-article .rf__table-row--placeholder .rf__website-article-cell--title .rf__table-txt {
+    opacity: 1;
+    width: 100%;
+  }
+
+  .rf__searchlist--website-article .rf__website-article-cell--title .rf__table-txt {
+    color: inherit;
+  }
+
+  .rf__website-article-cell--title {
+    background-color: initial;
+    padding: 5px 10px;
+    margin-bottom: 0;
+    min-width: 240px;
+    max-width: 240px;
+    width: 240px;
+  }
+
+  .rf__website-article-cell--url {
+    min-width: 220px;
+    max-width: 220px;
+    width: 220px;
+  }
+
+  .rf__website-article-cell--date {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+
+  .rf__website-article-cell--publish {
+    text-align: center;
+    min-width: 100px;
+    max-width: 100px;
+    width: 100px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__website-article-cell--title {
+    min-width: 380px;
+    max-width: 380px;
+    width: 380px;
+  }
+}
+
+
+@media (min-width: 1350px) {
+
+  .rf__website-article-cell--title {
+    min-width: 460px;
+    max-width: 460px;
+    width: 460px;
+  }
+
+  .rf__website-article-cell--url {
+    min-width: 270px;
+    max-width: 270px;
+    width: 270px;
+  }
+}

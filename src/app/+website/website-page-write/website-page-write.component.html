@@ -1,0 +1,180 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      [id]="PAGE_TAB_GENERAL"
+    >
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_GENERAL] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_GENERAL] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_GENERAL] } }}"
+        >
+          <span>{{ 'label_general'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_GENERAL] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-website-form-general
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          [permissions]="runtimePermissions$|async"
+          [feature]="runtimeFeature$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-website-form-general>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="(model$|async).isInternal && tabUids.indexOf(PAGE_TAB_STYLE) > -1"
+      [id]="PAGE_TAB_STYLE"
+    >
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_STYLE] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_STYLE] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_STYLE] } }}"
+        >
+          <span>{{ 'label_style'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_STYLE] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-website-form-style
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-website-form-style>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="(model$|async).isInternal && tabUids.indexOf(PAGE_TAB_PHOTO) > -1 && (runtimePermissions$|async).indexOf(PERMISSION_WEBSITE_CONTENT_READ) > -1"
+      [id]="PAGE_TAB_PHOTO"
+    >
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+        >
+          <span>{{ 'label_photos'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_PHOTO] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header rf__panel-header--has-warning">
+            <span>{{ 'label_warning_word'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+            {{ 'label_tab_modifications_stored_immediately'|translate }}
+          </div>
+        </div>
+
+        <app-website-document-list
+          [uid]="PAGE_TAB_PHOTO"
+          [documents]="documents"
+          [model]="model$|async"
+          [isDisabled]="!(model$|async).id"
+          [isReadOnly]="false"
+          [isSortable]="false"
+        ></app-website-document-list>
+
+      </div>
+
+    </mat-tab>
+
+    <ng-container *ngIf="(model$|async).isInternal">
+
+      <ng-container *ngFor="let language of availableLanguageIds$|async; let i = index">
+
+        <mat-tab
+          *ngIf="tabUids.indexOf(getWriteContentTabUid(language)) > -1"
+          [id]="getWriteContentTabUid(language)"
+        >
+          <ng-template mat-tab-label>
+            <div
+              class="rf__tab-label"
+              [class.rf__tab-label--has-error]="tabErrorCount[getWriteContentTabUid(language)] > 0"
+              matTooltipPosition="above"
+              matTooltip="{{ (tabErrorCount[getWriteContentTabUid(language)] > 0 ?
+                'tooltip_tab_error' : '')|translate: { count: tabErrorCount[getWriteContentTabUid(language)] } }}"
+            >
+              <app-shared-svg-icon class="icon" icon="flag-{{ language }}"></app-shared-svg-icon>
+              <span class="rf__website-tab-title">{{ (availableLanguages$|async)[language] || '' }}</span>
+              <span class="rf__badge rf__badge--error">{{ tabErrorCount[getWriteContentTabUid(language)] }}</span>
+            </div>
+          </ng-template>
+          <div class="rf__tab-body">
+
+            <ng-container *ngIf="model$|async as model">
+
+              <app-shared-general-error
+                [error]="generalError$|async"
+              ></app-shared-general-error>
+
+              <app-website-form-content
+                [isLoading]="isLoading$|async"
+                [model]="model"
+                [options]="options$|async"
+                [error]="modelError$|async"
+                [language]="language"
+                (changeForm)="onChangeForm($event)"
+                (errorForm)="onErrorForm($event)"
+                (pristineForm)="onPristineForm($event)"
+              ></app-website-form-content>
+
+            </ng-container>
+
+          </div>
+        </mat-tab>
+
+      </ng-container>
+
+    </ng-container>
+
+  </mat-tab-group>
+
+</div>

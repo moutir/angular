@@ -1,0 +1,112 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form [formGroup]="formGroup">
+
+  <app-shared-autocomplete
+    class="mat-form-field report-form-field report-form-field--property"
+    uid="report-form-search-property"
+    [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY"
+    [placeholder]="'label_autocomplete_property'|translate"
+    (changeSelection)="onChangeSelectionProperty($event)"
+  ></app-shared-autocomplete>
+
+  <app-shared-autocomplete
+    class="mat-form-field report-form-field"
+    uid="report-form-search-client"
+    [entities]="AUTOCOMPLETE_ENTITIES_CLIENT"
+    [filterType]="AUTOCOMPLETE_TYPE_MAPPING[model.reportType]"
+    [placeholder]="'label_client'|translate"
+    (changeSelection)="onChangeSelectionClient($event)"
+  ></app-shared-autocomplete>
+
+  <app-shared-autocomplete
+    class="mat-form-field report-form-field"
+    uid="report-form-search-broker"
+    [entities]="AUTOCOMPLETE_ENTITIES_BROKER"
+    [placeholder]="'label_broker_header'|translate"
+    (changeSelection)="onChangeSelectionBroker($event)"
+  ></app-shared-autocomplete>
+
+  <mat-form-field class="report-form-field">
+    <input
+      matInput
+      formControlName="dateFrom"
+      [matDatepicker]="pickerDateFrom"
+      autocomplete="off"
+      placeholder="{{ 'label_date_from_format'|translate }}"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="pickerDateFrom"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #pickerDateFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="report-form-field">
+    <input
+      matInput
+      formControlName="dateTo"
+      [matDatepicker]="pickerDateTo"
+      autocomplete="off"
+      placeholder="{{ 'label_date_to_format'|translate }}"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="pickerDateTo"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #pickerDateTo></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field
+    class="report-form-field report-form-field--property-type"
+    *ngIf="isLoading === true || options.propertyTypeId.length > 0"
+  >
+    <mat-select
+      placeholder="{{ 'label_property_type'|translate }}"
+      formControlName="propertyTypeId"
+    >
+      <mat-option
+        *ngFor="let option of options.propertyTypeId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    class="report-form-field report-form-field--schedule-type"
+    *ngIf="isLoading === true || options.scheduleId.length > 0"
+  >
+    <mat-select
+      placeholder="{{ 'label_report_scheduling'|translate }}"
+      formControlName="scheduleId"
+    >
+      <mat-option value="">{{ 'label_all_reports'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.scheduleId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field report-form-field"></div>
+  <div class="mat-form-field report-form-field"></div>
+  <div class="mat-form-field report-form-field"></div>
+  <div class="mat-form-field report-form-field"></div>
+  <div class="mat-form-field report-form-field"></div>
+  <div class="mat-form-field report-form-field"></div>
+
+  <input type="hidden" formControlName="reportType" />
+  <input type="hidden" formControlName="propertyIds" />
+  <input type="hidden" formControlName="clientIds" />
+  <input type="hidden" formControlName="brokerIds" />
+
+</form>

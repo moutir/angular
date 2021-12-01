@@ -1,0 +1,45 @@
+<div class="fade fade--delay">
+  <div class="table-fake" *ngIf="isLoadingMyProductionTable">
+    <app-preloader></app-preloader>
+  </div>
+  <app-total-table *ngIf="!isLoadingMyProductionTable && dataTable.length > 0" [dataTable]="dataTable" [typeTable]="'production'">
+    <tr>
+      <th></th>
+      <th *ngFor="let th of dataTable[0].data">{{th.name}}</th>
+      <th class="lastcol">{{ 'label_total'|translate }}</th>
+    </tr>
+  </app-total-table>
+
+  <div class="table-fake" *ngIf="isLoadingMyProductionTable">
+    <app-preloader></app-preloader>
+  </div>
+  <app-line-chart *ngIf="!isLoadingMyProductionTable && lineChartData"
+                  [data]="lineChartData"
+                  [height]="300"></app-line-chart>
+
+  <div class="panel panel--off">
+    <div class="panel__header">
+      <div class="panel__title">
+        <span [hidden]="roleId !== 2">{{ 'label_my_efforts'|translate }}</span>
+        <span [hidden]="roleId !== 3">{{ 'label_office_efforts'|translate }}</span>
+      </div>
+    </div>
+    <div class="panel__body">
+      <div class="table-fake" *ngIf="isLoadingMyEffortTable">
+        <app-preloader></app-preloader>
+      </div>
+      <app-total-table *ngIf="!isLoadingMyEffortTable && dataEfforts.length > 0"
+                       [dataTable]="dataEfforts"
+                       [customClass]="'table_total--custom'"
+                       [typeTable]="'efforts'">
+        <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let th of dataEfforts[0].data">{{th.name}}</th>
+          <th class="lastcol-efforts">{{ 'label_total'|translate }}</th>
+        </tr>
+        </thead>
+      </app-total-table>
+    </div>
+  </div>
+</div>

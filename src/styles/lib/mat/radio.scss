@@ -1,0 +1,17 @@
+.mat-radio-label-content {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.mat-radio-button:not(:first-child) {
+  margin-left: 16px;
+}
+
+.mat-radio-group--column {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-radio-group--column .mat-radio-button {
+  margin: 5px 0;
+}

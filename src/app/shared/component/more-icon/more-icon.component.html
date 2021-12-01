@@ -1,0 +1,6 @@
+<div
+  *ngIf="count > max"
+  class="more-icon"
+  [class.more-icon--has-background]="hasBackground === true"
+  [class.more-icon--has-margin-bottom]="hasMarginBottom === true"
+>+{{ count - max }}</div>

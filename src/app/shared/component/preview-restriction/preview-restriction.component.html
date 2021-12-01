@@ -1,0 +1,85 @@
+<div
+  *ngIf="restriction === null"
+  class="rf__spinner"
+>
+  <mat-spinner
+    color="accent"
+    diameter="30"
+  ></mat-spinner>
+</div>
+<div
+  *ngIf="restriction !== null"
+  class="preview-restriction"
+>
+
+  <div class="preview-restriction-title">
+
+    <mat-icon class="preview-restriction-icon">gavel</mat-icon>
+
+    <div class="preview-restriction-name">
+      {{ restriction.name }}
+    </div>
+  </div>
+
+  <div class="preview-restriction-body">
+    <app-shared-restriction-rule
+      [restriction]="restriction"
+      [ruleType]="'condition'"
+    ></app-shared-restriction-rule>
+  </div>
+
+  <div class="preview-restriction-body">
+    <app-shared-restriction-rule
+      [restriction]="restriction"
+      [ruleType]="'validation'"
+    ></app-shared-restriction-rule>
+  </div>
+
+  <div class="preview-restriction-header">
+    {{ 'label_applies_to'|translate }}
+  </div>
+
+  <div class="preview-restriction-body">
+
+    <ng-container *ngIf="restriction.agencyTargets.length > 0">
+
+      <div class="preview-restriction-subheader">
+        {{ 'label_agencies'|translate }}
+      </div>
+
+      <div class="preview-restriction-body">
+        <ul class="rf__list">
+          <li
+            *ngFor="let target of restriction.agencyTargets"
+            class="rf__list-line"
+          >{{ target.name }}</li>
+        </ul>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="restriction.brokerTargets.length > 0">
+
+      <div class="preview-restriction-subheader">
+        {{ 'label_brokers'|translate }}
+      </div>
+
+      <div class="preview-restriction-body">
+        <ul class="rf__list">
+          <li
+            *ngFor="let target of restriction.brokerTargets"
+            class="rf__list-line"
+          >{{ target.name }}</li>
+        </ul>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="restriction.groupTargets.length + restriction.agencyTargets.length + restriction.brokerTargets.length === 0">
+
+      <div class="preview-restriction-subheader">{{ 'restriction_applies_to_no_one_yet'|translate }}</div>
+
+    </ng-container>
+
+  </div>
+</div>

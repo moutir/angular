@@ -1,0 +1,50 @@
+<div
+  class="rf__modal rf__modal--agency-email-preview"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_email_preview"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <div class="container-preview">
+
+        <div
+          *ngIf="!emailPreview.data.template"
+          class="rf__spinner"
+        >
+
+          <mat-spinner
+            color="accent"
+            diameter="36"
+          ></mat-spinner>
+
+        </div>
+
+        <div *ngIf="emailPreview.data.template">
+
+          <div [innerHtml]="preview"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <app-shared-modal-footer
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,115 @@
+@import "../../styles/variables.scss";
+
+.rf__dns-table .rf__table-cell .rf__table-txt {
+  height: auto;
+}
+
+.rf__dns-table .rf__dns-cell--record-host .rf__table-txt,
+.rf__dns-table .rf__dns-cell--record-value .rf__dns-txt {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rf__dns-cell--value {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.rf__dns-table .rf__table-cell {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__dns-table .rf__table-row {
+  padding-bottom: 10px;
+}
+
+.rf__dns-cell--record-value .rf__dns-cell--value {
+  width: auto;
+}
+
+.rf__dns-table .rf__dns-cell--record-value .rf__dns-txt {
+  width: 100%;
+}
+
+.rf__dns-info-message {
+  border: 1px solid $color-19;
+  background-color: $color-25;
+  border-radius: 4px;
+  padding: 10px;
+  color: $color-19;
+  font-weight: 500;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__dns-table .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__dns-table .rf__dns-cell--record-status {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+  }
+
+  .rf__dns-table .rf__dns-cell--record-type {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .rf__dns-table .rf__dns-cell--record-host {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+  }
+
+  .rf__dns-table .rf__dns-cell--record-value {
+    width: auto;
+    min-width: auto;
+    max-width: none;
+  }
+
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__dns-cell--record-value .rf__dns-cell--value {
+    width: 185px;
+  }
+
+}
+
+@media (min-width: 1040px) {
+
+  .rf__dns-cell--record-value .rf__dns-cell--value {
+    width: 200px;
+  }
+
+}
+
+@media (min-width: 1065px) {
+
+  .rf__dns-cell--record-value .rf__dns-cell--value {
+    width: 225px;
+  }
+
+}
+
+@media (min-width: 1080px) {
+
+  .rf__dns-cell--record-value .rf__dns-cell--value {
+    width: auto;
+  }
+  .rf__dns-table .rf__dns-cell--record-value .rf__dns-txt {
+    width: 300px;
+  }
+
+}
+
+.rf__dns-table .rf__table-row--placeholder .rf__table-txt {
+  height: 16px;
+}

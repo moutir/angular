@@ -1,0 +1,101 @@
+<div class="cart_chart_flex">
+  <div class="cart_chart">
+    <app-doughnut-chart [allDataChart]="doughnutDataBuyers"
+                        [chartLegendTitleLeft]="labelStars"
+                        [chartLegendTitleRight]="labelAmount"
+                        [amounts]="buyersAmount"
+                        [seriesName]="transactionTypeId === '2' ? seriesNameBuyers : seriesNameTenants"
+    >
+      <div class="amount_currency" *ngIf="transactionTypeId === '2'">
+        {{ 'label_buyers'|translate }}
+      </div>
+      <div class="amount_currency" *ngIf="transactionTypeId === '1'">
+        {{ 'label_tenants'|translate }}
+      </div>
+    </app-doughnut-chart>
+  </div>
+  <div class="buyers__properties">
+    <div class="mandates-prop mandates-prop--buyers" *ngIf="buyers">
+      <div class="mandates-prop__item">
+        <div class="mandates-prop__inner">
+          <div class="mandates-prop__photo">
+            <i class="mandates-prop__icon"></i>
+          </div>
+          <div class="mandates-prop__info">
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+              {{ 'label_buyers'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 60
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+              {{ 'label_tenants'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 60
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__count">{{buyersFive60}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="mandates-prop__item">
+        <div class="mandates-prop__inner">
+          <div class="mandates-prop__photo">
+            <i class="mandates-prop__icon"></i>
+          </div>
+          <div class="mandates-prop__info">
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+              {{ 'label_buyers'|translate }}
+              3*, <br>{{ 'label_not_contacted'|translate }} > 30
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+              {{ 'label_tenants'|translate }}
+              3*, <br>{{ 'label_not_contacted'|translate }} > 30
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__count">{{buyersFive30}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="mandates-prop__item">
+        <div class="mandates-prop__inner">
+          <div class="mandates-prop__photo">
+            <i class="mandates-prop__icon"></i>
+          </div>
+          <div class="mandates-prop__info">
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+              {{ 'label_buyers'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 15
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+              {{ 'label_tenants'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 15
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__count">{{buyersFive15}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="mandates-prop__item">
+        <div class="mandates-prop__inner">
+          <div class="mandates-prop__photo">
+            <i class="mandates-prop__icon"></i>
+          </div>
+          <div class="mandates-prop__info">
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+              {{ 'label_buyers'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 10
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+              {{ 'label_tenants'|translate }} 3*,
+              <br>{{ 'label_not_contacted'|translate }} > 10
+              {{ 'label_days'|translate }}
+            </div>
+            <div class="mandates-prop__count">{{buyersFive10}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

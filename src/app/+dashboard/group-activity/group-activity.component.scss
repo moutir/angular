@@ -1,0 +1,98 @@
+.group-activity {
+  background-color: #fff;
+  border: 1px solid #E0E0E0;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  &__header {
+    padding: 24px 29px 26px 29px;
+    text-align: left;
+  }
+  &__title {
+    font-size: 1.75rem;
+    color: #323641;
+  }
+  &__body {
+    padding: 0 24px;
+  }
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -4px;
+    margin-left: -4px;
+    margin-bottom: 16px;
+  }
+  &__item {
+    flex-basis: 25%;
+    max-width: 25%;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-bottom: 24px;
+    @media (max-width: 1200px) {
+      flex-basis: 33.33333%;
+      max-width: 33.33333%;
+    }
+    @media (max-width: 992px) {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+  }
+  &__inner {
+    background-color: #F3F5F9;
+    border-radius: 3px;
+    height: 100%;
+    padding: 15px 24px 20px;
+  }
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  &__name {
+    font-size: 1.5rem;
+    color: #323641;
+  }
+  &__progress {
+    font-size: 1.5rem;
+    color: #768BFF;
+    font-weight: bold;
+  }
+  &__list {
+    margin: 0;
+    padding: 0;
+  }
+  &__list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid #DEDFE4;
+    }
+  }
+  &__property,
+  &__value {
+    font-size: 0.875rem;
+  }
+  &__property {
+    color: #7B7F89;
+  }
+  &__value {
+    color: #323641;
+    font-weight: bold;
+  }
+  &__progress-line {
+    margin-bottom: 16px;
+    background-color: #DEDFE4;
+    border-radius: 2px;
+    position: relative;
+    height: 8px;
+    &--active {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #768BFF;
+      box-shadow: 0 1px 2px 0 rgba(118, 139, 255, 0.56);
+      border-radius: 2px;
+    }
+  }
+}

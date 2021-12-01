@@ -1,0 +1,10 @@
+@import "../variables";
+
+.rf__opacity {
+  opacity: 0.0;
+  transition: opacity 300ms linear;
+}
+
+.rf__opacity--visible {
+  opacity: 1.0;
+}

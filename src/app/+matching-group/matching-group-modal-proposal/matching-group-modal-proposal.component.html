@@ -1,0 +1,223 @@
+<div
+  class="rf__modal rf__modal--matching-proposal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="label_send_proposal"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <form [formGroup]="formGroup">
+
+        <div class="rf__modal-heading">{{ 'label_brochure_settings'|translate }}</div>
+
+        <div class="rf__proposal-row">
+
+          <mat-form-field *ngIf="options.emailBrochureTypeId.length > 0">
+            <mat-select
+              placeholder="{{ 'label_format_brochures'|translate }}"
+              formControlName="emailBrochureTypeId"
+            >
+              <mat-option
+                *ngFor="let option of options.emailBrochureTypeId"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="options.emailBrochurePrivacyId.length > 0">
+            <mat-select
+              placeholder="{{ 'label_brochure_privacy'|translate }}"
+              formControlName="emailBrochurePrivacyId"
+            >
+              <mat-option
+                *ngFor="let option of options.emailBrochurePrivacyId"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="rf__modal-heading">{{ 'label_email_settings'|translate }}</div>
+
+        <div class="rf__proposal-row">
+
+          <mat-form-field *ngIf="options.emailTemplate.length > 0">
+
+            <mat-label
+              class="field-label"
+            >
+              <span>{{ 'label_email_template'|translate }}</span>
+              <mat-icon
+                class="rf__keyvalue-icon"
+                matTooltip="{{ 'message_matching_email_with_promotion_hint'|translate }}"
+                matTooltipPosition="right"
+              >info</mat-icon>
+            </mat-label>
+
+            <mat-select formControlName="emailTemplateId">
+              <mat-option
+                *ngFor="let option of options.emailTemplate"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          <mat-form-field>
+
+            <mat-label class="field-label">
+              <span>{{ 'label_sender'|translate }}</span>
+              <mat-icon
+                *ngIf="permissions.indexOf(PERMISSION_MAILING_SEND_ON_BEHALF) > -1"
+                class="rf__keyvalue-icon"
+                matTooltip="{{ 'disclaimer_send_email_on_behalf_accounts_list'|translate }}"
+                matTooltipPosition="above"
+              >info</mat-icon>
+            </mat-label>
+
+            <mat-select formControlName="senderId">
+              <ng-container *ngFor="let optionGroup of options.sender">
+                <mat-optgroup
+                  *ngIf="optionGroup.options.length > 0"
+                  label="{{ optionGroup.label|translate }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <ng-container
+          *ngIf="formGroup.contains('emailContentLanguageId') &&
+          options.emailContentContacts !== null && options.emailContentContacts.length > 0 &&
+          options.emailContentLanguages !== null && options.emailContentLanguages.length > 0"
+        >
+
+          <div class="rf__modal-heading rf__modal-heading--language">{{ 'label_email_language'|translate }}</div>
+
+          <p>{{ 'message_matching_email_no_language_info'|translate }}</p>
+          <p class="hint">{{ 'message_matching_email_no_language_hint'|translate }}</p>
+          <ul formGroupName="emailContentLanguageId">
+
+            <li *ngFor="let contact of options.emailContentContacts;">
+
+              <app-shared-svg-icon icon="{{ 'flag-' + contact.languageId }}" class="icon"></app-shared-svg-icon>
+
+              <div class="name">{{ contact.firstName || contact.lastName ? contact.firstName + ' ' + contact.lastName : contact.fullName }}</div>
+              <div class="rf__spacer">{{ 'label_matching_will_receive_email_in'|translate }}</div>
+
+              <app-shared-svg-icon icon="{{ 'flag-' + formGroup.get('emailContentLanguageId').get(contact.id).value }}" class="icon"></app-shared-svg-icon>
+
+              <mat-select
+                formControlName="{{ contact.id }}"
+              >
+                <mat-option
+                  *ngFor="let option of options.emailContentLanguages"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+
+            </li>
+          </ul>
+
+        </ng-container>
+
+        <div class="rf__modal-heading">{{ 'label_email_content'|translate }}</div>
+
+        <div class="rf__proposal-row rf__proposal-row--email-content">
+
+          <mat-form-field *ngIf="options.emailContent.length > 0">
+            <mat-select
+              placeholder="{{ 'label_predefined_content'|translate }}"
+              formControlName="emailContentId"
+            >
+              <mat-optgroup
+                *ngFor="let optionGroup of options.emailContent"
+                label="{{ optionGroup.label }}"
+              >
+                <mat-option
+                  *ngFor="let option of optionGroup.options"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="tab-group-container">
+
+            <mat-icon
+              class="note-info-icon"
+              matTooltip="{{ 'label_email_tags_message_full'|translate }}"
+              matTooltipPosition="right"
+            >info</mat-icon>
+
+            <mat-tab-group
+              *ngIf="formGroup.contains('emailContentLanguageHtml')"
+              animationDuration="0ms"
+            >
+
+              <mat-tab
+                *ngFor="let option of options.emailContentContactLanguages"
+                [label]="option.text"
+                formGroupName="emailContentLanguageHtml"
+              >
+                <ng-template matTabLabel>
+                  <app-shared-svg-icon icon="{{ 'flag-' + option.value }}" class="icon"></app-shared-svg-icon>
+                  <span class="tab-label">{{ option.text }}</span>
+                  <span
+                    *ngIf="option.count"
+                    matTooltip="{{ (option.count === 1 ? 'tooltip_matching_contact_lang_singular': 'tooltip_matching_contact_lang_plural') | translate:{ count: option.count, lang: option.text } }}"
+                    matTooltipPosition="above"
+                  >({{ option.count }})</span>
+                </ng-template>
+
+                <div>
+                  <app-shared-wysiwyg
+                    id="email-content-{{ option.value }}"
+                    minHeight="200px"
+                    [isUpdatableOnChange]="false"
+                    [value]="formGroup.get('emailContentLanguageHtml').value[option.value]"
+                    (changeValue)="onChangeWysiwyg($event, option.value)"
+                  ></app-shared-wysiwyg>
+                  <input type="hidden" [formControlName]="option.value" />
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <app-shared-modal-footer
+      [isDisabledValid]="formGroup.invalid || options.emailContentLanguages === null || options.emailContentContacts === null"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

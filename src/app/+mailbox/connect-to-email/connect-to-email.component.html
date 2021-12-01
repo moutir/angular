@@ -1,0 +1,97 @@
+<div class="properties-selection form-horizontal">
+  <div class="input-group">
+    <div class="input-group-btn" [class.open]="isOpenDropdown === true">
+      <button
+        type="button"
+        class="btn btn-default dropdown-toggle"
+        [ngClass]="{'property': email.modalState === 'properties','promotion': email.modalState === 'promotions', 'contact': email.modalState === 'contacts' }"
+        (click)="onClickDropdown()"
+      >
+        <span *ngIf="email.modalState === 'properties'">{{ 'label_properties'|translate }}</span>
+        <span *ngIf="email.modalState === 'promotions'">{{ 'label_promotion_header'|translate }}</span>
+        <span *ngIf="email.modalState === 'contacts'">{{ 'label_contacts'|translate }}</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li (click)="onClickOptionProperty($event, email)"><a class='dropdown-toggle'>{{ 'label_properties'|translate }}</a></li>
+        <li (click)="onClickOptionPromotion($event, email)"><a class='dropdown-toggle'>{{ 'label_promotion_header'|translate }}</a></li>
+        <li (click)="onClickOptionContact($event, email)"><a class='dropdown-toggle'>{{ 'label_contacts'|translate }}</a></li>
+      </ul>
+    </div>
+
+    <div *ngIf="email.modalState === 'properties'">
+      <input
+        class="form-control"
+        placeholder="{{ 'label_search_properties'|translate }}"
+        (focusout)="onFocusOut($event.target)"
+        (focus)="onFocus($event.target)"
+        (input)="onInputProperty($event.target.value)"
+      >
+      <div class="autocomplete-wrapper search" *ngIf="isLoading">
+        <div class="col-sm-12 text-left">
+          <span class="prop-name">{{ 'label_search_hint_text'|translate }}</span>
+        </div>
+      </div>
+      <div class="autocomplete-wrapper" *ngIf="properties && properties.length > 0">
+        <div class="auto-inner-wrapper">
+          <div class="row autocomplete-row " *ngFor="let property of properties"
+               (click)="onClickProperty($event, property)" (mousedown)="$event.preventDefault()">
+            <div class="col-sm-10 text-left">
+              <span class="prop-name">{{property.name}}</span>-<span class="prop-type">{{property.city}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="email.modalState === 'promotions'">
+      <input
+        class="form-control"
+        placeholder="{{ 'label_search_promotions'|translate }}"
+        (focusout)="onFocusOut($event.target)"
+        (focus)="onFocus($event.target)"
+        (input)="onInputPromotion($event.target.value)"
+      >
+      <div class="autocomplete-wrapper search" *ngIf="isLoading">
+        <div class="col-sm-12 text-left">
+          <span class="prop-name">{{ 'label_search_hint_text'|translate }}</span>
+        </div>
+      </div>
+      <div class="autocomplete-wrapper" *ngIf="promotions && promotions.length > 0">
+        <div class="auto-inner-wrapper">
+          <div class="row autocomplete-row " *ngFor="let promotion of promotions"
+               (click)="onClickPromotion($event, promotion)" (mousedown)="$event.preventDefault()">
+            <div class="col-sm-10 text-left">
+              <span class="prop-name">{{promotion.value}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="email.modalState === 'contacts'">
+      <input
+        class="form-control"
+        placeholder="{{ 'label_search_contacts'|translate }}"
+        (focusout)="onFocusOut($event.target)"
+        (focus)="onFocus($event.target)"
+        (input)="onInputContact($event.target.value)"
+      >
+      <div class="autocomplete-wrapper search" *ngIf="isLoading">
+        <div class="col-sm-12 text-left">
+          <span class="prop-name">{{ 'label_search_hint_text'|translate }}</span>
+        </div>
+      </div>
+      <div class="autocomplete-wrapper" *ngIf="contacts && contacts.length > 0">
+        <div class="auto-inner-wrapper">
+          <div class="row autocomplete-row " *ngFor="let contact of contacts"
+               (click)="onClickContact($event, contact)" (mousedown)="$event.preventDefault()">
+            <div class="col-sm-10 text-left">
+              <span class="prop-name">{{contact.search}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

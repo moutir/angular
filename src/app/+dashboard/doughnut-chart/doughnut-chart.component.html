@@ -1,0 +1,39 @@
+<div class="wrapper_doughnut_chart">
+  <div *ngIf="isData" class="doughnut_chart">
+    <div class="doughnut_chart__center">
+      <div class="amount_val">
+        {{amountFormat(amounts)}}
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div id="wrapper" class="chart-inner">
+      <div [chart]="chart" class="pie"></div>
+    </div>
+  </div>
+  <div *ngIf="isData" class="chart_legend">
+    <div class="chart_legend__title">
+      <div class="chart_legend__title__item">{{chartLegendTitleLeft}}</div>
+      <div class="chart_legend__title__item">{{chartLegendTitleRight}}</div>
+    </div>
+    <ul class="chart_legend__list">
+      <li *ngFor="let label of allDataChart" class="chart_legend__item">
+        <div class="list-flex">
+          <div class="list-flex__box list-flex__box__left">
+            <span class="chart_label" [style.background]="label.color"></span>
+            <span [ngClass]="chartLegendItemClass"
+                  class="chart_bold">{{label.stars}}</span>
+          </div>
+          <div class="list-flex__box list-flex__box__right" [class.notValue]="!showCartValue">
+            <span class="chart_bold chart_percent">{{label.percentage}}%</span>
+            <span class="chart_value"
+                  [hidden]="!showCartValue">
+            ( {{amountFormat(label.y)}} )</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!isData" class="plug">
+    {{ 'label_no_data'|translate }}
+  </div>
+</div>

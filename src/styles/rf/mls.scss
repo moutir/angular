@@ -1,0 +1,87 @@
+@import "../variables";
+
+// Sent
+.rf__mls-status--165 {
+  color: $color-20;
+}
+
+// Received
+.rf__mls-status--165-1 {
+  color: $color-26;
+}
+
+// Ongoing
+.rf__mls-status--166 {
+  color: $color-11;
+}
+
+// Refused
+.rf__mls-status--167 {
+  color: $color-17;
+}
+
+// Closed
+.rf__mls-status--168 {
+  color: $color-37;
+}
+
+// Cancelled
+.rf__mls-status--169 {
+  color: $color-09;
+}
+
+.rf__searchlist--mls .rf__mls-cell--partner {
+  background-color: $color-19;
+  color: $color-01;
+}
+
+.rf__searchlist--mls .rf__table-row {
+  padding-bottom: 10px;
+  height: 180px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__mls-cell--partner .rf__table-txt {
+    min-width: 200px;
+  }
+
+  .rf__searchlist--mls .rf__table-row {
+    padding-bottom: 0;
+    height: auto;
+  }
+
+  .rf__searchlist--mls .rf__mls-cell--partner {
+    background: none;
+    color: inherit;
+  }
+
+  .rf__mls-cell--partner {
+    min-width: 230px;
+    max-width: 230px;
+    width: 230px;
+  }
+
+  .rf__mls-cell--status {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+
+  .rf__mls-cell--start,
+  .rf__mls-cell--end {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .rf__mls-cell--start,
+  .rf__mls-cell--end {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+}

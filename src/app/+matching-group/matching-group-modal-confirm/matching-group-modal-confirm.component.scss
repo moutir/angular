@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 400px;
+  width: auto;
+  text-align: center;
+}
+
+li {
+  list-style: circle;
+  padding: 2px 0;
+  margin-left: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.modal-confirm__message {
+  margin-top: 20px;
+}
+
+.modal-confirm__warning,
+.modal-confirm__message {
+  margin-top: 10px;
+}

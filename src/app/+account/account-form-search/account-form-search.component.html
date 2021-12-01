@@ -1,0 +1,81 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field *ngIf="isLoading === true || options.agencyId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_agency'|translate }}"
+      formControlName="agencyId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.agencyId"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.accountTypeId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_type_singular'|translate }}"
+      formControlName="accountTypeId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.accountTypeId"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="account-form-search-contact"
+    [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+    [placeholder]="'label_contact_singular'|translate"
+    (changeSelection)="onChangeSelectionContact($event)"
+  ></app-shared-autocomplete>
+  <input type="hidden" formControlName="contactId" />
+
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="{{ 'label_login'|translate }}"
+      formControlName="login"
+    />
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.isActive01.length > 0">
+    <mat-select
+      placeholder="{{ 'label_status'|translate }}"
+      formControlName="isActive01"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.isActive01"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div
+    *ngIf="isLoading === false && options.agencyId.length === 0"
+    class="mat-form-field"
+  ></div>
+
+</form>

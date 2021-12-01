@@ -1,0 +1,20 @@
+@import "../variables";
+
+.rf__async-image {
+  opacity: 0;
+  transition: opacity 500ms linear;
+}
+
+.rf__async-image--success {
+  opacity: 1;
+}
+
+.rf__async-image--failure {
+  opacity: 1;
+  color: $color-19;
+  background: $color-22;
+}
+
+.rf__async-image--failure .mat-icon {
+  display: inline;
+}

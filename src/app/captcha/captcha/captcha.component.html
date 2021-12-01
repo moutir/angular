@@ -1,0 +1,18 @@
+<div
+class="rf__captcha"
+[formGroup]="formGroup"
+>
+  <ngx-recaptcha2
+    formControlName="{{ formControlName }}"
+    [siteKey]="siteKey"
+    [useGlobalDomain]="settings?.useGlobalDomain"
+    [size]="settings?.size"
+    [theme]="settings?.theme"
+    [type]="settings?.type"
+    (success)="onSuccess($event)"
+    (reset)="onReset()"
+    (expire)="onExpire()"
+    (load)="onLoad()"
+  >
+  </ngx-recaptcha2>
+</div>

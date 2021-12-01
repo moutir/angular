@@ -1,0 +1,60 @@
+@import "../../../../styles/variables";
+
+.rf__card {
+  height: 60px;
+}
+
+.rf__card-text--description {
+  text-transform: lowercase;
+}
+
+.rf__card-text--title {
+  font-size: 12px;
+}
+
+.rf__card:not(.rf__card--placeholder) .subcategory,
+.rf__card:not(.rf__card--placeholder) .price,
+.rf__card:not(.rf__card--placeholder) .reference {
+  color: $color-03;
+}
+
+.rf__card-text--title .address {
+  max-width: 30%;
+}
+
+.rf__card-body {
+  padding: 0 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.rf__card-body > .rf__card-text > span:not(:last-child):after {
+  content: "-";
+  padding: 0 4px;
+  display: inline-block;
+}
+
+.rf__card-star {
+  margin-right: 5px;
+}
+
+.rf__info-label {
+  font-size: 11px;
+}
+
+.sale-status {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  height: 16px;
+}
+
+.sale-status .rf__info {
+  line-height: 18px;
+}
+
+.sale-status .rf__info span {
+  min-width: 13px;
+}

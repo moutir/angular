@@ -1,0 +1,163 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+
+</div>
+
+<div class="rf__table-cell rf__lead-cell--date">
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false && lead.contactDate !== null"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ lead.contactDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ lead.contactDate|smartDate }}</span>
+    </div>
+  </span>
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false && lead.labelDuration"
+      class="rf__info rf__lead-duration--{{lead.labelDurationLevel}}"
+    >
+      <mat-icon class="rf__info-icon rf__info-icon--duration">access_time</mat-icon>
+      <span class="rf__info-label">{{ lead.labelDuration }}</span>
+    </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__lead-cell--client">
+  <span class="rf__table-txt">
+
+    <app-shared-contact-link
+      *ngIf="isPlaceholder === false && lead.contact.fullName"
+      [contact]="lead.contact"
+      [hasWarning]="lead.isNeedValidation"
+      [isStopPropagation]="lead.isNeedValidation === false"
+      warningLabel="label_required_contact_validation"
+    ></app-shared-contact-link>
+
+  </span>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--type-status">
+  <span class="rf__table-txt">{{ lead.typeLabel }}</span>
+  <div class="rf__table-txt rf__lead-status rf__lead-status--{{ lead.statusId }}">{{ lead.statusLabel }}</div>
+</div>
+
+<div
+  class="rf__table-cell rf__lead-cell--lead-broker"
+  [class.has-lead-broker]="lead.broker.initials"
+>
+
+  <app-shared-contact-link
+    *ngIf="isPlaceholder === true || lead.broker.id"
+    [contact]="lead.broker"
+    [layout]="'broker'"
+    [isPlaceholder]="isPlaceholder"
+  ></app-shared-contact-link>
+
+</div>
+
+<div class="rf__table-cell rf__lead-cell--client-broker">
+
+  <app-shared-contact-link
+    *ngIf="isPlaceholder === true"
+    [isPlaceholder]="true"
+    [layout]="'broker'"
+  ></app-shared-contact-link>
+
+  <app-shared-contact-link
+    *ngIf="isPlaceholder === false && lead.contact.mainContact"
+    [contact]="lead.contact.mainContact"
+    [layout]="'broker'"
+    [hasTooltip]="false"
+  ></app-shared-contact-link>
+
+</div>
+
+<div class="rf__table-cell rf__lead-cell--property">
+
+  <app-shared-card-property
+    *ngIf="isPlaceholder === true || lead.getProperty().id"
+    [property]="lead.getProperty()"
+    [isPlaceholder]="isPlaceholder"
+  ></app-shared-card-property>
+
+  <mat-icon
+    *ngIf="isPlaceholder === false && !!lead.getProperty().id === false"
+    class="rf__lead-no-property"
+  >remove</mat-icon>
+
+</div>
+
+<div class="rf__table-cell rf__lead-cell--source">
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="isPlaceholder === false && lead.sourceLabel"
+    >
+      <mat-icon
+        matTooltip="{{ 'label_source'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >how_to_vote</mat-icon>
+      <span class="rf__info-label">{{ lead.sourceLabel }}</span>
+    </div>
+  </span>
+
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="isPlaceholder === false && lead.mediaLabel"
+    >
+      <mat-icon
+        matTooltip="{{ 'label_mean_of_communication'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >forum</mat-icon>
+      <span class="rf__info-label">{{ lead.mediaLabel }}</span>
+    </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions">
+
+  <span
+    class="rf__button-wrapper"
+    matTooltip="{{ getActionTooltip()|translate }}"
+    matTooltipPosition="left"
+  >
+    <button
+      mat-icon-button
+      [disabled]="lead.isAllowedEmail === false"
+      (click)="onClickSendMail($event)"
+      >
+      <mat-icon>email</mat-icon>
+    </button>
+  </span>
+
+</div>

@@ -1,0 +1,212 @@
+<div
+  class="rf__sidenav"
+  [class.rf__sidenav--is-visible]="isVisible === true"
+  [class.rf__sidenav--is-active]="isActive === true"
+>
+
+  <mat-sidenav-container
+    (backdropClick)="deactivate()"
+  >
+
+    <mat-sidenav
+      #sidenav
+      position="end"
+      [autoFocus]="false"
+      (keydown.escape)="deactivate()"
+    >
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_CONTACT_READ) > -1">
+
+        <div class="rf__sidenav-header">
+
+          <span>{{ 'entity_contact_plural'|translate }}</span>
+
+          <div class="rf__spinner">
+            <mat-spinner
+              *ngIf="search.entities.contact.isLoading === true"
+              class="mat-spinner--white"
+              diameter="16"
+            ></mat-spinner>
+          </div>
+
+        </div>
+
+        <div class="rf__sidenav-body">
+
+          <ng-container *ngIf="search.entities.contact.isLoading === true">
+
+            <div
+              *ngFor="let i of placeholderCount|forLoop"
+              class="rf__sidenav-list-item rf__sidenav-list-item--placeholder"
+            >
+
+              <app-shared-card-contact
+                [hasSummary]="false"
+                [isPlaceholder]="true"
+                class="rf__sidenav-card rf__sidenav-card--contact"
+              ></app-shared-card-contact>
+
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="search.entities.contact.isLoading === false">
+
+            <div
+              *ngFor="let contact of results.contact"
+              class="rf__sidenav-list-item"
+              (click)="onClickContact(contact)"
+            >
+
+              <app-shared-card-contact
+                [contact]="contact"
+                [hasSummary]="false"
+                [isPlaceholder]="false"
+                [personInCharge]="contact.mainContact"
+                class="rf__sidenav-card rf__sidenav-card--contact"
+              ></app-shared-card-contact>
+
+            </div>
+
+          </ng-container>
+
+          <div
+            *ngIf="search.entities.contact.isLoading === false && results.contact.length === 0"
+            class="rf__sidenav-noresults"
+          >
+            <span>{{ 'label_no_entity_found'|translate: { entity: ('entity_contact_plural'|translate).toLowerCase() } }}</span>
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_PROPERTY_READ) > -1">
+
+        <div class="rf__sidenav-header">
+
+          <span>{{ 'entity_property_plural'|translate }}</span>
+
+          <div class="rf__spinner">
+            <mat-spinner
+              *ngIf="search.entities.property.isLoading === true"
+              class="mat-spinner--white"
+              diameter="16"
+            ></mat-spinner>
+          </div>
+
+        </div>
+
+        <div class="rf__sidenav-body">
+
+          <ng-container *ngIf="search.entities.property.isLoading === true">
+
+            <div
+              *ngFor="let i of placeholderCount|forLoop"
+              class="rf__sidenav-list-item rf__sidenav-list-item--placeholder"
+            >
+
+              <app-shared-card-property
+                [isPlaceholder]="true"
+                class="rf__sidenav-card rf__sidenav-card--property"
+              ></app-shared-card-property>
+
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="search.entities.property.isLoading === false">
+
+            <div
+              *ngFor="let property of results.property"
+              class="rf__sidenav-list-item"
+              (click)="onClickProperty(property)"
+            >
+
+              <app-shared-card-property
+                [property]="property"
+                class="rf__sidenav-card rf__sidenav-card--property"
+              ></app-shared-card-property>
+
+            </div>
+
+          </ng-container>
+
+          <div
+            *ngIf="search.entities.property.isLoading === false && results.property.length === 0"
+            class="rf__sidenav-noresults"
+          >
+            <span>{{ 'label_no_entity_found'|translate: { entity: ('entity_property_plural'|translate).toLowerCase() } }}</span>
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="permissions.indexOf(PERMISSION_PROMOTION_READ) > -1">
+
+        <div class="rf__sidenav-header">
+
+          <span>{{ 'entity_promotion_plural'|translate }}</span>
+
+          <div class="rf__spinner">
+            <mat-spinner
+              *ngIf="search.entities.promotion.isLoading === true"
+              class="mat-spinner--white"
+              diameter="16"
+            ></mat-spinner>
+          </div>
+
+        </div>
+
+        <div class="rf__sidenav-body">
+
+          <ng-container *ngIf="search.entities.promotion.isLoading === true">
+
+            <div
+              *ngFor="let i of placeholderCount|forLoop"
+              class="rf__sidenav-list-item rf__sidenav-list-item--placeholder"
+            >
+
+              <app-shared-card-promotion
+                [isPlaceholder]="true"
+                class="rf__sidenav-card rf__sidenav-card--promotion"
+              ></app-shared-card-promotion>
+
+            </div>
+
+          </ng-container>
+
+          <ng-container *ngIf="search.entities.promotion.isLoading === false">
+
+            <div
+              *ngFor="let promotion of results.promotion"
+              class="rf__sidenav-list-item"
+              (click)="onClickPromotion(promotion)"
+            >
+
+              <app-shared-card-promotion
+                [promotion]="promotion"
+                class="rf__sidenav-card rf__sidenav-card--promotion"
+              ></app-shared-card-promotion>
+
+            </div>
+
+          </ng-container>
+
+          <div
+            *ngIf="search.entities.promotion.isLoading === false && results.promotion.length === 0"
+            class="rf__sidenav-noresults"
+          >
+            <span>{{ 'label_no_entity_found'|translate: { entity: ('entity_promotion_plural'|translate).toLowerCase() } }}</span>
+          </div>
+
+        </div>
+
+      </ng-container>
+
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+
+</div>

@@ -1,0 +1,250 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_agency'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_title_logo'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="agency-image-container">
+
+              <app-shared-upload-image
+                uid="agency-logo"
+                class="thumbnail-image agency-logo"
+                [isDisabled]="isLoading === true"
+                [imageDocument]="model.logo"
+                [width]="150"
+                [height]="80"
+                [uploadStrategy]="uploadStrategy"
+                (uploadComplete)="onUploadComplete($event, 'logo')"
+                (removeImage)="onClickRemove($event, 'logo')"
+              ></app-shared-upload-image>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_watermark'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="agency-image-container">
+
+              <app-shared-upload-image
+                uid="agency-watermark"
+                class="thumbnail-image agency-watermark"
+                [isDisabled]="isLoading === true"
+                [imageDocument]="model.watermark"
+                [width]="150"
+                [height]="80"
+                [uploadStrategy]="uploadStrategy"
+                (uploadComplete)="onUploadComplete($event, 'watermark')"
+                (removeImage)="onClickRemove($event, 'watermark')"
+              ></app-shared-upload-image>
+
+              <img
+                *ngIf="model.watermark && model.watermark.photoSmallURL"
+                class="thumbnail-image--transparent"
+                appAsyncImage="{{ model.watermark.photoSmallURL }}"
+                appAsyncImageStrategy="src"
+                [style.maxWidth.px]="150"
+                [style.opacity]="model.watermarkOpacity/100"
+              />
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_opacity'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-slider
+              formControlName="watermarkOpacity"
+              thumbLabel
+              min="0"
+              max="100"
+              step="1"
+            ></mat-slider>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_website'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isAppliedWatermarkOnWebsite">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_brochure'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isAppliedWatermarkOnBrochure">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_watermark_apply_portal'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isAppliedWatermarkOnPortal">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_property_photo_default'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="agency-image-container">
+
+              <app-shared-upload-image
+                uid="agency-defaultPropertyPhoto"
+                class="thumbnail-image agency-defaultPropertyPhoto"
+                [isDisabled]="isLoading === true"
+                [imageDocument]="model.defaultPropertyPhoto"
+                [width]="150"
+                [height]="80"
+                [uploadStrategy]="uploadStrategy"
+                (uploadComplete)="onUploadComplete($event, 'defaultPropertyPhoto')"
+                (removeImage)="onClickRemove($event, 'defaultPropertyPhoto')"
+              ></app-shared-upload-image>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_title_prestige_brochure_cover'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="agency-image-container">
+
+              <app-shared-upload-image
+                uid="agency-prestigeBrochureCover"
+                class="thumbnail-image agency-prestigeBrochureCover"
+                [isDisabled]="isLoading === true"
+                [imageDocument]="model.prestigeBrochureCover"
+                [width]="150"
+                [height]="80"
+                [uploadStrategy]="uploadStrategy"
+                (uploadComplete)="onUploadComplete($event, 'prestigeBrochureCover')"
+                (removeImage)="onClickRemove($event, 'prestigeBrochureCover')"
+              ></app-shared-upload-image>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_email_banner'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_image'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="agency-image-container">
+
+              <app-shared-upload-image
+                uid="agency-emailBanner"
+                class="thumbnail-image agency-emailBanner"
+                [isDisabled]="isLoading === true"
+                [imageDocument]="model.emailBanner"
+                [width]="150"
+                [height]="80"
+                [uploadStrategy]="uploadStrategy"
+                (uploadComplete)="onUploadComplete($event, 'emailBanner')"
+                (removeImage)="onClickRemove($event, 'emailBanner')"
+              ></app-shared-upload-image>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_url_generic'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_url_generic'|translate }}"
+                [formControlName]="getFormControlName('emailBanner', 'email_banner_url')"
+              />
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

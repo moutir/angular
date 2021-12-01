@@ -1,0 +1,15 @@
+<app-fisher-modal
+  [isVisible]="(fisherForm$|async).step > 0"
+  [fisher]="fisherForm$|async"
+  [data]="fisherData$|async"
+  [options]="fisherOptions$|async"
+  [feature]="fisherFeature$|async"
+  [settings]="settings$|async"
+  [countryRestrictions]="countryRestrictions"
+  (submitModal)="onSubmitModalFisher($event)"
+  (changeInput)="onChangeInput($event)"
+></app-fisher-modal>
+
+<app-shared-notification
+  [notification]="notification$|async"
+></app-shared-notification>

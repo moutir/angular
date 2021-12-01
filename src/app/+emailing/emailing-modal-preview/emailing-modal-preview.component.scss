@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 900px;
+  padding: 10px;
+}
+
+.rf__modal--is-active .rf__spinner {
+  height: 70px;
+}
+
+.rf__tab-label {
+  padding-left: 10px;
+}
+
+.rf__tab-body {
+  padding: 20px 10px;
+}

@@ -1,0 +1,379 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.validationOptionId || error.validationContact"
+    >
+      <span>{{ 'label_validation'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_method'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_option'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-radio-group
+              class="mat-radio-group--column"
+              formControlName="validationOptionId"
+            >
+              <mat-radio-button [value]="3">{{ 'label_type_of_validation_3'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="1">{{ 'label_type_of_validation_1'|translate }}</mat-radio-button>
+              <mat-radio-button
+                *ngIf="model.matchingContacts.length > 0"
+                [value]="2"
+              >{{ 'label_type_of_validation_2'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <ng-container *ngIf="model.validationOptionId === 2">
+
+        <div class="rf__panel-subheader">{{ 'label_type_of_validation_2'|translate }}</div>
+
+        <div class="rf__panel-section">
+
+          <div class="container-matching-contacts">
+
+            <mat-radio-group
+              formControlName="validationContact"
+            >
+
+              <div class="rf__table rf__table--lead-contact">
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div
+                    class="rf__table-cell rf__table-cell--center rf__table-cell--selection"
+                    matTooltip="{{ 'tooltip_select_matching_contact'|translate }}"
+                    matTooltipPosition="above"
+                  >
+                    <div><mat-icon>how_to_reg</mat-icon></div>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--name">{{ 'label_title_name'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--matching">
+                    <div>{{ 'label_matching'|translate }}</div>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--info">
+                    <div>{{ 'label_contact_information'|translate }}</div>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--address">
+                    <div>{{ 'label_address'|translate }}</div>
+                  </div>
+                  <div class="rf__table-cell rf__table-cell--center rf__table-cell--archive">
+                    <div>{{ 'label_is_archived'|translate }}</div>
+                  </div>
+                </div>
+
+                <div
+                  *ngFor="let contact of model.matchingContacts;"
+                  class="rf__table-row rf__table-row--is-clickable"
+                  (click)="onClickMatchingContactRow(contact)"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--center rf__table-cell--selection">
+                    <div class="radio-button-container">
+                      <mat-radio-button
+                        [value]="contact.id"
+                        [disableRipple]="true"
+                      ></mat-radio-button>
+                    </div>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--name">
+                    <div class="rf__table-txt">
+                      <app-shared-contact-link
+                        [contact]="contact"
+                      ></app-shared-contact-link>
+                    </div>
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--matching">
+                    {{ ('label_matching-' + contact.matchBy)|translate }}
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--info">
+                    {{ [
+                      contact.emails[0]?.emailId,
+                      contact.mobiles[0]?.number,
+                      contact.landlines[0]?.number
+                    ]|join:' / ' }}
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--address">
+                    {{ [
+                      contact.addresses[0]?.line1,
+                      contact.addresses[0]?.line2,
+                      contact.addresses[0]?.line3,
+                      contact.addresses[0]?.city,
+                      contact.addresses[0]?.zipCode,
+                      contact.addresses[0]?.countryLabel
+                    ]|join: ', ' }}
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--center rf__table-cell--archive">
+                    <div class="rf__table-txt">{{ (contact.isArchived ? 'label_yes' : 'label_no')|translate }}</div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </mat-radio-group>
+
+            <mat-error
+              *ngIf="!model.validationContact.id"
+              class="rf__form-error"
+            >{{ 'form_error_select_matching_contact'|translate }}</mat-error>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="model.validationOptionId === 3">
+
+        <div class="rf__panel-subheader">{{ 'label_type_of_validation_3'|translate }}</div>
+
+        <div class="rf__panel-section">
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_existing_contact'|translate }}</div>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+              <app-shared-autocomplete
+                uid="lead-form-validation-contact"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+                [placeholder]="'label_search_for_contacts'|translate"
+                [error]="error.validationContact"
+                [isDisabled]="isDisabled || isLoading"
+                [isDisplayedSelectionText]="true"
+                [selectionId]="model.validationContact.id"
+                [selectionText]="model.validationContact.fullName"
+                (changeQuery)="onChangeQueryContact($event)"
+                (changeSelection)="onChangeSelectionContact($event)"
+              ></app-shared-autocomplete>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <div class="rf__panel-subheader">{{ 'label_requester'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_received_contact'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="container-contact">
+
+              <div class="rf__info contact-subinfo contact-subinfo--name">
+                <mat-icon class="rf__info-icon">person</mat-icon>
+                <span class="rf__info-label">{{ model.contact.fullName || 'label_not_available'|translate }}</span>
+              </div>
+
+              <div class="rf__info contact-subinfo">
+                <mat-icon
+                  class="rf__info-icon"
+                  matTooltip="{{ 'label_email_id'|translate }}"
+                  matTooltipPosition="left"
+                >mail</mat-icon>
+                <span class="rf__info-label">{{ model.contact.emails[0]?.emailId || 'label_not_available'|translate }}</span>
+              </div>
+
+              <div class="rf__info contact-subinfo">
+                <mat-icon
+                  class="rf__info-icon"
+                  matTooltip="{{ 'label_mobile'|translate }}"
+                  matTooltipPosition="left"
+                >smartphone</mat-icon>
+                <span class="rf__info-label">{{ model.contact.mobiles[0]?.number || ('label_not_available'|translate) }}</span>
+              </div>
+
+              <div class="rf__info contact-subinfo">
+                <mat-icon
+                  class="rf__info-icon"
+                  matTooltip="{{ 'label_landline'|translate }}"
+                  matTooltipPosition="left"
+                >phone</mat-icon>
+                <span class="rf__info-label">
+                  {{ model.contact.landlines[0]?.number || model.contact.faxes[0]?.number || ('label_not_available'|translate) }}
+                </span>
+              </div>
+
+              <div class="rf__info contact-subinfo">
+                <mat-icon
+                  class="rf__info-icon"
+                  matTooltip="{{ 'label_address'|translate }}"
+                  matTooltipPosition="left"
+                >home</mat-icon>
+                <span class="rf__info-label">
+                  {{ ([
+                  model.contact.addresses[0]?.line1,
+                  model.contact.addresses[0]?.line2,
+                  model.contact.addresses[0]?.line3,
+                  model.contact.addresses[0]?.city,
+                  model.contact.addresses[0]?.countryLabel
+                ]|join:', ') || ('label_not_available'|translate) }}
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div
+            class="rf__keyvalue-spacer"
+            [class.rf__keyvalue-spacer--fill]="model.validationOptionId === 1"
+          >
+            <mat-icon
+              *ngIf="model.validationOptionId !== 1"
+              class="rf__info-icon rf__info-icon--chevron"
+            >chevron_right</mat-icon>
+          </div>
+
+          <ng-container>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+              <span *ngIf="model.validationOptionId === 1">{{ 'label_contact_save_preview'|translate }}</span>
+              <span *ngIf="model.validationOptionId !== 1">{{ 'label_selected_contact'|translate }}</span>
+            </div>
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+              <div
+                *ngIf="!model.validationContact.id"
+                class="value-placeholder"
+              >{{ 'label_no_contact_selected'|translate }}</div>
+
+              <div
+                *ngIf="model.validationContact.id"
+                class="container-contact"
+              >
+
+                <app-shared-contact-link
+                  [contact]="model.validationContact"
+                ></app-shared-contact-link>
+
+                <div class="rf__info contact-subinfo">
+                  <mat-icon
+                    class="rf__info-icon"
+                    matTooltip="{{ 'label_email_id'|translate }}"
+                    matTooltipPosition="left"
+                  >mail</mat-icon>
+                  <span class="rf__info-label">{{ model.validationContact.emails[0]?.emailId || 'label_not_available'|translate }}</span>
+                </div>
+
+                <div class="rf__info contact-subinfo">
+                  <mat-icon
+                    class="rf__info-icon"
+                    matTooltip="{{ 'label_mobile'|translate }}"
+                    matTooltipPosition="left"
+                  >smartphone</mat-icon>
+                  <span class="rf__info-label">{{ model.validationContact.mobiles[0]?.number || ('label_not_available'|translate) }}</span>
+                </div>
+
+                <div class="rf__info contact-subinfo">
+                  <mat-icon
+                    class="rf__info-icon"
+                    matTooltip="{{ 'label_landline'|translate }}"
+                    matTooltipPosition="left"
+                  >phone</mat-icon>
+                  <span class="rf__info-label">
+                  {{ model.validationContact.landlines[0]?.number || model.validationContact.faxes[0]?.number || ('label_not_available'|translate) }}
+                </span>
+                </div>
+
+                <div class="rf__info contact-subinfo">
+                  <mat-icon
+                    class="rf__info-icon"
+                    matTooltip="{{ 'label_address'|translate }}"
+                    matTooltipPosition="left"
+                  >home</mat-icon>
+                  <span class="rf__info-label">
+                  {{ ([
+                    model.validationContact.addresses[0]?.line1,
+                    model.validationContact.addresses[0]?.line2,
+                    model.validationContact.addresses[0]?.line3,
+                    model.validationContact.addresses[0]?.city,
+                    model.validationContact.addresses[0]?.countryLabel
+                  ]|join:', ') || ('label_not_available'|translate) }}
+                </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_confirm'|translate }}</div>
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key"></div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="contact-validation-actions">
+              <button
+                mat-raised-button
+                class="rf__button rf__button--with-icon rf__button--with-icon-left rf__button--gray"
+                (click)="onClickCancel()"
+              >
+                <mat-icon>clear</mat-icon>
+                <span>{{ 'label_reset'|translate }}</span>
+              </button>
+
+              <button
+                mat-raised-button
+                class="rf__button rf__button--with-icon rf__button--with-icon-left rf__button--green"
+                [class.rf__button--loading]="isSubmitted"
+                [disabled]="model.validationOptionId !== 1 && !model.validationContact.id"
+                (click)="onClickSave()"
+              >
+                <mat-icon>save</mat-icon>
+                <mat-spinner
+                  diameter="16"
+                ></mat-spinner>
+                <span class="rf__button-label">{{ 'label_save'|translate }}</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

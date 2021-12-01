@@ -1,0 +1,8 @@
+<div class="chart-wrapper">
+  <div *ngIf="isData" class="chart-inner">
+    <div [chart]="chart" style="width:100%; height: 100%; display: block"></div>
+  </div>
+  <div *ngIf="!isData" class="plug">
+    {{ 'label_no_data'|translate }}
+  </div>
+</div>

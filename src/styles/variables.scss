@@ -1,0 +1,59 @@
+$color-01: #ffffff;
+$color-02: #333333;
+$color-03: #23262d;
+$color-04: #111111;
+$color-05: #484a54;
+$color-06: #22242c;
+$color-07: #222430;
+$color-08: #222222; // nav active
+$color-09: #9b9ba3;
+$color-10: #5cb85c;
+$color-11: #4cae4c;
+$color-12: #e7ebec;
+$color-13: rgba(0, 0, 0, 0.25);
+$color-14: transparent;
+$color-15: #47a447;
+$color-16: #fafafa;
+$color-17: #cc0000;
+$color-18: #f7f7f7;
+$color-19: #5e6fd3;
+$color-20: #ffd500;
+$color-21: #d5d5d5;
+$color-22: #f0f0f0;
+$color-23: rgba(0, 0, 0, 0.54);
+$color-24: #ff6600;
+$color-25: #ecf3ff; // light blue hover
+$color-26: #0099ff;
+$color-27: #ff4081;
+$color-28: rgba(0, 0, 0, 0.12);
+$color-29: #777777;
+$color-30: #888888;
+$color-31: #ececec;
+$color-32: #19c719;
+$color-33: rgba(150, 0, 0, 0.75);
+$color-34: rgba(0, 150, 0, 0.75);
+$color-35: rgba(225, 75, 0, 0.75);
+$color-36: rgba(0, 0, 200, 0.75);
+$color-37: #666666;
+$color-38: #555555;
+$color-39: #f44336;
+$color-40: #ffa500;
+
+$layout-breakpoint: 800px; // bellow this breakpoint there will be no layout difference left/top
+$layout-menu-width-fold: 45px;
+$layout-menu-width-unfold: 200px;
+$layout-transition-duration: 300ms;
+$layout-transition-function: ease-out;
+$layout-header-height: 56px;
+$layout-header-z-index: 50;
+$page-header-height: 56px;
+
+$searchlist-breakpoint: 1024px; // bellow this breakpoint a searchlist should NOT look like a table of rows, but a list of cards
+
+$zindex-max: 999; // Angular Material's max z-index seems to be 1000 for tooltips, please do NOT go over 999 in custom CSS
+
+$grid-columns: 12; // Total columns in a grid
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 992px;
+$desktop-xl-breakpoint: 1200px;
+

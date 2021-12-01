@@ -1,0 +1,14 @@
+<mat-chip-list>
+  <mat-chip
+    *ngFor="let keyword of keywords; trackBy: trackByNameValue;"
+    class="rf__keyword"
+    [class.rf__keyword--synced]="keyword.isSynced === true"
+    (removed)="onRemoved(keyword)"
+  >
+    <span>{{ keyword.translation|translate:{ key: keyword.labelKey, label: keyword.label } }}</span>
+    <mat-icon
+      *ngIf="isRemovable === true && keyword.isRemovable === true"
+      matChipRemove
+    >cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>

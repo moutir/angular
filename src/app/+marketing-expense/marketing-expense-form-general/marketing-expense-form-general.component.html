@@ -1,0 +1,461 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.title || error.invoiceDate || error.invoiceAmount || error.mainCategoryId"
+    >
+      <span>{{ 'label_general'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_marketing_title'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_title'|translate }}"
+                formControlName="title"
+              />
+              <mat-error>{{ error.title|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_category'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_category'|translate }}"
+                formControlName="mainCategoryId"
+              >
+                <mat-option
+                  *ngFor="let option of options.category"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.mainCategoryId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_subcategory'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_category'|translate }}"
+                formControlName="subCategoryId"
+              >
+                <mat-option
+                  *ngFor="let option of options.subCategory"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.subCategoryId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_invoice'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_number'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_invoice_number'|translate }}"
+                formControlName="invoiceNumber"
+              />
+              <mat-error>{{ error.invoiceNumber|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="invoiceDate"
+                [matDatepicker]="pickerInvoiceDate"
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_invoice_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerInvoiceDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerInvoiceDate></mat-datepicker>
+              <mat-error>{{ error.invoiceDate|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_period_start_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="startDate"
+                [matDatepicker]="pickerStartDate"
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_period_start_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerStartDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerStartDate></mat-datepicker>
+              <mat-error>{{ error.startDate|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_period_end_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="endDate"
+                [matDatepicker]="pickerEndDate"
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_period_end_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerEndDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerEndDate></mat-datepicker>
+              <mat-error>{{ error.endDate|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_marketing_invoice_amount'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_marketing_invoice_amount'|translate }}"
+                formControlName="invoiceAmount"
+              />
+              <mat-error>{{ error.invoiceAmount|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.properties || error.promotions"
+    >
+      <span>{{ 'label_objects'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'entity_property_plural'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--expense-property"
+          formArrayName="properties"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div class="rf__table-cell rf__table-cell--expense-property-property">{{ 'entity_property_singular'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--expense-property-amount">{{ 'label_marketing_invoice_amount'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--expense-property-title">{{ 'label_report_notes'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_expense_add_property'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('properties')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('properties').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.properties[i].isRemoved === true"
+            [formGroup]="getFormArray('properties').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--expense-property-property">
+
+              <app-shared-autocomplete
+                class="mat-form-field"
+                floatLabel="never"
+                [uid]="'expense-form-general-property-' + i"
+                [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY"
+                limit="10"
+                [placeholder]="'entity_property_singular'|translate"
+                [isDisplayedSelectionText]="true"
+                [isDisabled]="isLoading === true"
+                [selectionId]="model.properties[i].property.id"
+                [selectionText]="model.properties[i].property.reference"
+                [error]="getFormArrayError('properties', i, 'property')"
+                (changeSelection)="onChangeSelectionProperty($event, i)"
+              ></app-shared-autocomplete>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--expense-property-amount">
+
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_marketing_invoice_amount'|translate }}"
+                  formControlName="amount"
+                />
+                <mat-error>{{ getFormArrayError('properties', i, 'amount')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--expense-property-title">
+
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'title'|translate }}"
+                  formControlName="title"
+                />
+                <mat-error>{{ getFormArrayError('properties', i, 'title')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.properties[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_expense_remove_property'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('properties', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.properties[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('properties', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.properties.length === 0"
+          class="rf__table-information rf__table-information--empty rf__table-information--center"
+        >{{ 'message_no_property_added_yet'|translate }}</div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'entity_promotion_plural'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--expense-promotion"
+          formArrayName="promotions"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div class="rf__table-cell rf__table-cell--expense-promotion-promotion">{{ 'entity_promotion_singular'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--expense-promotion-amount">{{ 'label_marketing_invoice_amount'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--expense-promotion-title">{{ 'label_report_notes'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_expense_add_promotion'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('promotions')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('promotions').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.promotions[i].isRemoved === true"
+            [formGroup]="getFormArray('promotions').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--expense-promotion-promotion">
+
+              <app-shared-autocomplete
+                class="mat-form-field"
+                floatLabel="never"
+                [uid]="'expense-form-general-promotion-' + i"
+                [entities]="AUTOCOMPLETE_ENTITIES_PROMOTION"
+                limit="10"
+                [placeholder]="'entity_promotion_singular'|translate"
+                [isDisplayedSelectionText]="true"
+                [isDisabled]="isLoading === true"
+                [selectionId]="model.promotions[i].promotion.id"
+                [selectionText]="model.promotions[i].promotion.name"
+                [error]="getFormArrayError('promotions', i, 'promotion')"
+                (changeSelection)="onChangeSelectionPromotion($event, i)"
+              ></app-shared-autocomplete>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--expense-promotion-amount">
+
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_marketing_invoice_amount'|translate }}"
+                  formControlName="amount"
+                />
+                <mat-error>{{ getFormArrayError('promotions', i, 'amount')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--expense-promotion-title">
+
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'title'|translate }}"
+                  formControlName="title"
+                />
+                <mat-error>{{ getFormArrayError('promotions', i, 'title')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.promotions[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_expense_remove_promotion'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('promotions', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.promotions[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('promotions', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.promotions.length === 0"
+          class="rf__table-information rf__table-information--empty rf__table-information--center"
+        >{{ 'message_no_promotion_added_yet'|translate }}</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

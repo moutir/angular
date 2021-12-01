@@ -1,0 +1,116 @@
+@import "../../../../styles/variables";
+
+.contact-link {
+  cursor: pointer;
+}
+
+.contact-link--confidential {
+  cursor: inherit;
+}
+
+.contact-link--icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0 0 8px 0;
+}
+
+.contact-link--text {
+  color: $color-19;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-link--text .contact-link__icon {
+  color: inherit;
+  cursor: default;
+  font-size: 14px;
+  width: 15px;
+  height: 15px;
+  margin-right: 1px;
+}
+
+.contact-link--text .contact-link__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.contact-link--icon .contact-link__initials {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 50%;
+  color: $color-01;
+  background: $color-19;
+  text-transform: uppercase;
+  line-height: 24px;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.contact-link--icon .contact-link__label {
+  display: none;
+  font-size: 8px;
+  background: $color-22;
+  color: $color-03;
+  padding: 0 2px;
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  text-transform: lowercase;
+  line-height: 10px;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-link--icon.contact-link--with-label {
+  padding: 0 0 8px 0;
+  height: 32px;
+}
+
+.contact-link--icon.contact-link--placeholder .contact-link__initials {
+  background: $color-22;
+}
+
+.contact-link--icon.contact-link--placeholder .contact-link__label {
+  line-height: 1337px;
+  opacity: 0.9;
+}
+
+.contact-link--warning .contact-link__initials {
+  background: $color-24;
+}
+
+.contact-link--text.contact-link--warning,
+.contact-link--text.contact-link--warning:hover {
+  color: $color-24;
+}
+
+.contact-link--icon.contact-link--with-label .contact-link__label {
+  display: inline-block;
+}
+
+.contact-link--text:hover {
+  color: $color-27;
+}
+
+.contact-link--icon:hover .contact-link__initials {
+  background: $color-27;
+}
+
+.contact-link--text.contact-link--no-id:not(.contact-link--warning),
+.contact-link--text.contact-link--no-id:not(.contact-link--warning):hover {
+  color: $color-37;
+  cursor: default;
+}
+
+.contact-link__icon--confidential {
+  color: $color-19;
+}

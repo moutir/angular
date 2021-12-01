@@ -1,0 +1,49 @@
+<div class="rf__searchlist rf__searchlist--suggestion">
+
+  <app-shared-selection-bar
+    entity="suggestion"
+    [noSelectionSentence]="'suggestion_invitation_to_share'"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    [isActiveSelectionText]="false"
+    [isActiveSelectionAll]="false"
+    [isActiveAction]="false"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+    (clickSelectNone)="onClickSelectNone()"
+  ></app-shared-selection-bar>
+
+  <app-suggestion-table
+    [loadingModelIds]="operationIds$|async"
+    [isSelectedHeader]="isSelectedPage$|async"
+    [sort]="sort$|async"
+    [selection]="selection$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [modelsSelected]="modelsSelected$|async"
+    (changeSort)="onChangeSort($event)"
+    (changeSelectionHeader)="onChangeSelectionHeader($event)"
+    (changeSelectionModel)="onChangeSelectionModel($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-suggestion-table>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>

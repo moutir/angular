@@ -1,0 +1,273 @@
+<div class="rf__panel">
+
+  <div class="rf__panel-header">
+    <span>{{ 'label_informations'|translate }}</span>
+  </div>
+
+  <div class="rf__panel-body">
+
+    <div
+      class="container-agency-profile"
+      [class.is-placeholder]="isPlaceholder === true"
+    >
+
+      <div class="container-summary">
+
+        <img
+          *ngIf="!isPlaceholder && agency.logo?.photoSmallURL"
+          class="agency-logo"
+          [class.agency-logo-placeholder]="isPlaceholder"
+          appAsyncImage="{{ agency.logo?.photoSmallURL }}"
+          appAsyncImageStrategy="src"
+        />
+
+        <div
+          *ngIf="isPlaceholder"
+          class="agency-logo-placeholder"
+        ></div>
+
+        <div class="summary-info">
+
+          <div class="main-header">{{ agency.name }}</div>
+
+          <div
+            *ngIf="agency.landlines.length > 0 || isPlaceholder"
+            class="rf__info"
+          >
+            <mat-icon
+              matTooltip="{{ 'label_phone'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >phone</mat-icon>
+            <span class="rf__info-label">{{ agency.landlines[0]?.number }}</span>
+          </div>
+
+          <div
+            *ngIf="agency.emails.length > 0 || isPlaceholder"
+            class="rf__info"
+          >
+            <mat-icon
+              matTooltip="{{ 'label_email_id'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >email</mat-icon>
+            <span class="rf__info-label">{{ agency.emails[0]?.emailId }}</span>
+          </div>
+
+          <div
+            *ngIf="websiteUrl || isPlaceholder"
+            class="rf__info"
+          >
+            <mat-icon
+              matTooltip="{{ 'label_website'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >link</mat-icon>
+            <span class="rf__info-label">{{ websiteUrl }}</span>
+          </div>
+
+          <ng-container *ngIf="isPlaceholder">
+            <div
+              *ngFor="let i of 3|forLoop"
+              class="rf__info"
+            ></div>
+          </ng-container>
+
+          <div
+            *ngIf="agency.addresses.length > 0"
+            class="rf__info rf__info--address"
+          >
+            <mat-icon
+              matTooltip="{{ 'label_address'|translate }}"
+              matTooltipPosition="left"
+              class="rf__info-icon"
+            >domain</mat-icon>
+            <div class="rf__info-label">
+              {{ [agency.addresses[0]?.line1, agency.addresses[0]?.line2, agency.addresses[0]?.line3]|join: ', ' }}
+            </div>
+            <div class="rf__info-label">{{ agency.addresses[0]?.zipCode }} {{ agency.addresses[0]?.city }}</div>
+          </div>
+
+          <div class="social-container">
+
+            <ng-container *ngIf="agency.socials.length > 1 && !isPlaceholder">
+              <ng-container *ngFor="let social of agency.socials">
+                <span
+                  *ngIf="social.network !== 'website' && social.url"
+                  (click)="onClickButtonUrl($event, social.url)"
+                >
+                  <app-shared-svg-icon
+                    class="social-icon"
+                    icon="{{ social.network }}"
+                  ></app-shared-svg-icon>
+              </span>
+              </ng-container>
+            </ng-container>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="agency.description || isPlaceholder"
+        class="subheader"
+      >{{ 'label_description'|translate }}</div>
+
+      <div
+        *ngIf="agency.description && !isPlaceholder"
+        class="agency-description"
+        [innerHTML]="agency.description"
+      ></div>
+
+      <div *ngIf="isPlaceholder">
+        <div
+          *ngFor="let i of 5|forLoop"
+          class="agency-description"
+        ></div>
+      </div>
+
+      <div class="subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__keyvalue-row">
+
+        <ng-container *ngIf="agency.founder || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_founder'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.founder }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.foundingYear || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_founded'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.foundingYear }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.president || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_president'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.president }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.director || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_director'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.director }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.administrator || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_administrators'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.administrator }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.employeeCount || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_employees'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.employeeCount }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.headQuarters || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_hq'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.headQuarters }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.branches || isPlaceholder">
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_branches'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.branches }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="agency.isShownStatisticsOnMls === true">
+
+          <ng-container *ngIf="agency.saleListingCount">
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sales_listing'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.saleListingCount }}</div>
+          </ng-container>
+
+          <ng-container *ngIf="agency.saleSearchCount">
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sales_searches'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.saleSearchCount }}</div>
+          </ng-container>
+
+          <ng-container *ngIf="agency.rentalListingCount">
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_rental_listings'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.rentalListingCount }}</div>
+          </ng-container>
+
+          <ng-container *ngIf="agency.rentalSearchCount">
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_rental_searches'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ agency.rentalSearchCount }}</div>
+          </ng-container>
+
+        </ng-container>
+
+      </div>
+
+      <div
+        *ngIf="agency.contacts.length > 0 || isPlaceholder"
+        class="subheader"
+      >{{ 'label_team'|translate }}</div>
+
+      <div class="team-list">
+
+        <div
+          *ngFor="let contact of agency.contacts"
+          class="card-contact"
+        >
+
+          <div
+            class="contact-photo"
+            appAsyncImage="{{ contact.photoURL }}"
+          >
+            <mat-icon>person</mat-icon>
+          </div>
+
+          <div class="contact-summary-info">
+
+            <div class="contact-title">{{ contact.fullName }}</div>
+
+            <div
+              *ngIf="contact.profession"
+              class="rf__info"
+            >
+              <mat-icon
+                matTooltip="{{ 'label_position'|translate }}"
+                matTooltipPosition="left"
+                class="rf__info-icon"
+              >work</mat-icon>
+              <span class="rf__info-label">{{ contact.profession }}</span>
+            </div>
+
+            <div
+              *ngIf="contact.landlines[0]?.number"
+              class="rf__info"
+            >
+              <mat-icon
+                matTooltip="{{ 'label_phone'|translate }}"
+                matTooltipPosition="left"
+                class="rf__info-icon"
+              >phone</mat-icon>
+              <span class="rf__info-label">{{ contact.landlines[0]?.number }}</span>
+            </div>
+
+            <div
+              *ngIf="contact.emails[0]?.emailId"
+              class="rf__info"
+            >
+              <mat-icon
+                matTooltip="{{ 'label_email_id'|translate }}"
+                matTooltipPosition="left"
+                class="rf__info-icon"
+              >email</mat-icon>
+              <a
+                href="{{ 'mailto:' + contact.emails[0]?.emailId }}"
+                class="rf__info-label"
+              >{{ contact.emails[0]?.emailId }}</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

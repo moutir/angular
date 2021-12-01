@@ -1,0 +1,42 @@
+@import "../variables";
+
+.rf__chip-list {
+  display: block;
+  width: 100%;
+  padding-top: 5px;
+}
+
+.rf__chip-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.rf__chip.mat-chip.mat-standard-chip {
+  min-height: 26px;
+  background: $color-12;
+  color: $color-03;
+  user-select: none;
+  font-size: 12px;
+  padding: 0 12px;
+  line-height: 26px;
+}
+
+.rf__chip--small.mat-chip.mat-standard-chip,
+.rf__chip--medium.mat-chip.mat-standard-chip {
+  font-weight: 400;
+  padding: 0 10px;
+  margin: 2px;
+}
+
+.rf__chip--small.mat-chip.mat-standard-chip {
+  min-height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+}
+
+.rf__chip--medium.mat-chip.mat-standard-chip {
+  min-height: 22px;
+  line-height: 22px;
+  font-size: 11px;
+}

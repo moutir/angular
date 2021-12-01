@@ -1,0 +1,69 @@
+<div class="rf__searchlist rf__searchlist--report rf__searchlist--report-{{ reportType }}">
+
+  <app-shared-selection-bar
+    entity="report"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    [isActiveSelectionAll]="false"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+  ></app-shared-selection-bar>
+
+  <app-report-table
+    [isClickable]="false"
+    [loadingModelIds]="operationIds$|async"
+    [isSelectedHeader]="isSelectedPage$|async"
+    [sort]="sort$|async"
+    [selection]="selection$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [modelsSelected]="modelsSelected$|async"
+    [permissions]="runtimePermissions$|async"
+    [authentication]="runtimeAuthentication$|async"
+    [featureReport]="featureReport$|async"
+    [reportType]="reportType"
+    (changeSort)="onChangeSort($event)"
+    (changeSelectionHeader)="onChangeSelectionHeader($event)"
+    (changeSelectionModel)="onChangeSelectionModel($event)"
+    (contextModel)="onContextModel($event)"
+  ></app-report-table>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === 'report-brochure-menu'"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="brochureMenuItems$|async"
+  (clickMenuItem)="onClickMenuItemBrochure($event)"
+></app-shared-menu>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>
+
+<app-report-modal-generation
+  [isVisible]="(generation$|async).step > 0"
+  [generation]="generation$|async"
+  [options]="generationOptions$|async"
+  [report]="generationReport$|async"
+  [error]="generationError$|async"
+  [permissions]="runtimePermissions$|async"
+  [hasPermissionUpdate]="hasGenerationUpdate$|async"
+  (changeForm)="onChangeFormGeneration($event)"
+  (errorForm)="onErrorFormGeneration($event)"
+  (submitModal)="onSubmitModalGeneration($event)"
+></app-report-modal-generation>

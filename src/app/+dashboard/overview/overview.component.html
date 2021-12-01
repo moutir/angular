@@ -1,0 +1,33 @@
+<div class="fade">
+  <div class="panel">
+    <app-pipeline></app-pipeline>
+  </div>
+  <div class="tabs_container">
+    <div class="tab_header">
+      <ul class="panel__tab">
+        <li (click)="onClickTab('summary')" [class.active]="tabActive === 'summary'">
+          <span>{{ 'label_summary'|translate }}</span>
+        </li>
+        <li (click)="onClickTab('mandates')" [class.active]="tabActive === 'mandates'">
+          <span>{{ 'label_mandates'|translate }}</span>
+        </li>
+        <li (click)="onClickTab('production')" [class.active]="tabActive === 'production'">
+          <span>{{ 'label_production'|translate }}</span>
+        </li>
+        <li (click)="onClickTab('transactions')" [class.active]="tabActive === 'transactions'">
+          <span>{{ 'label_transactions'|translate }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="tab_content">
+      <app-tab-summary *ngIf="tabActive === 'summary'"></app-tab-summary>
+      <app-tab-mandates *ngIf="tabActive === 'mandates'"></app-tab-mandates>
+      <app-tab-production *ngIf="tabActive === 'production'"></app-tab-production>
+      <app-tab-transactions
+        *ngIf="tabActive === 'transactions'"
+        [isContractMvp]="(feature$|async).contract === true"
+        [options]="options$|async"
+      ></app-tab-transactions>
+    </div>
+  </div>
+</div>

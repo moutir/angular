@@ -1,0 +1,63 @@
+@import "../../../styles/variables";
+
+.row-preference {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.preference-label {
+  color: $color-19;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.preference-description {
+  font-size: 13px;
+}
+
+.container-description {
+  padding-right: 10px;
+}
+
+.container-input {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.container-description, .container-input {
+  width: 100%;
+}
+
+.container-input .mat-form-field {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+
+  .container-description {
+    width: 60%;
+  }
+
+  .container-input {
+    width: 40%;
+  }
+
+  .container-input .mat-form-field {
+    width: auto;
+  }
+}
+
+@media (min-width: 950px) {
+
+  .container-description {
+    width: 70%;
+  }
+
+  .container-input {
+    width: 30%;
+  }
+}

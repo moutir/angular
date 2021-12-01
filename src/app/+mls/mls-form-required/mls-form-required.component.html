@@ -1,0 +1,45 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.partnerAgencyId"
+    >
+      <span>{{ 'label_partnership'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_select_partner'|translate }}</div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+          <app-shared-autocomplete
+            class="mat-form-field"
+            uid="mls-form-required-partner"
+            [entities]="AUTOCOMPLETE_ENTITIES_MLS"
+            [placeholder]="'autocomplete_mls_partner'|translate"
+            [error]="error.partnerAgencyId"
+            [isDisplayedSelectionText]="true"
+            [selectionId]="model.partnerAgency.id"
+            [selectionText]="model.partnerAgency.name"
+            (changeQuery)="onChangeQueryPartner($event)"
+            (changeSelection)="onChangeSelectionPartner($event)"
+          ></app-shared-autocomplete>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-mls-agency-panel
+    *ngIf="isLoading || model.partnerAgency.isLoading === true || model.partnerAgency.id"
+    [agency]="model.partnerAgency"
+    [isPlaceholder]="isLoading || model.partnerAgency.isLoading === true || !model.partnerAgency.id"
+  ></app-mls-agency-panel>
+
+</form>

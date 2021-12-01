@@ -1,0 +1,288 @@
+@import "../variables";
+
+// Project
+.rf__contract-step--project {
+  color: $color-36;
+}
+
+// Offer
+.rf__contract-step--offer {
+  color: $color-20;
+}
+
+// Preliminary agreement
+.rf__contract-step--agreement {
+  color: $color-15;
+}
+
+// Forecast deed of sale
+.rf__contract-step--forecast_dead_of_sale {
+  color: $color-27;
+}
+
+// Closed
+.rf__contract-step--closed {
+  color: $color-29;
+}
+
+// Cancelled
+.rf__contract-step--canceled {
+  color: $color-17;
+}
+
+.rf__searchlist--contract .rf__table-row {
+  padding-top: 40px;
+}
+
+.rf__searchlist--contract .rf__contract-cell--reference .rf__table-txt {
+  background-color: $color-05;
+  color: $color-01;
+  position: absolute;
+  top: -1px;
+  padding: 10px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.rf__contract-cell--step {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  z-index: 2;
+}
+
+.rf__contract-cell--broker {
+  background: $color-22;
+  width: 100%;
+  height: 44px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 8px 10px;
+  z-index: 1;
+}
+
+.rf__table-cell--contract-commission-amount.total {
+  font-weight: 500;
+}
+
+.rf__searchlist .rf__table-cell.rf__contract-cell--signed-price,
+.rf__searchlist .rf__table-cell.rf__contract-cell--property {
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.rf__table--contract-contact .rf__table-cell .mat-form-field,
+.rf__table--contract-commission .rf__table-cell .mat-form-field {
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__table-cell--contract-commission-comment .rf__table-cell .mat-form-field {
+  max-width: none;
+  width: 100%;
+}
+
+.rf__table--contract-contact .rf__table-cell,
+.rf__table--contract-commission .rf__table-cell {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__table--contract-contact .rf__table-cell--actions,
+.rf__table--contract-commission .rf__table-cell--actions {
+  justify-content: flex-end;
+}
+
+.rf__table--contract-contact .rf__table-row--header .rf__table-cell--actions button {
+  margin-top: -70px;
+}
+
+.rf__table--contract-commission .rf__table-row--header .rf__table-cell--actions button {
+  margin-top: -110px;
+}
+
+.rf__table-cell--contract-commission-operator .mat-icon {
+  font-size: 19px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table--contract-contact .rf__table-cell,
+  .rf__table--contract-commission .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__contract-cell--agency .rf__info-icon,
+  .rf__contract-cell--signed-price .rf__info-icon,
+  .rf__contract-cell--property .rf__info-icon {
+    display: none;
+  }
+
+  .rf__searchlist .rf__table-cell.rf__contract-cell--signed-price,
+  .rf__searchlist .rf__table-cell.rf__contract-cell--property {
+    display: table-cell;
+  }
+
+  .rf__searchlist .rf__table-cell.rf__contract-cell--seller,
+  .rf__searchlist .rf__table-cell.rf__contract-cell--buyer {
+    display: none;
+  }
+
+  .rf__searchlist--contract .rf__contract-cell--reference {
+    padding-left: 20px;
+  }
+
+  .rf__searchlist--contract .rf__table-row {
+    padding-top: 0;
+    height: auto;
+  }
+
+  .rf__searchlist--contract .rf__table-row:not(.rf__table-row--header) .rf__table-cell {
+    height: 60px;
+  }
+
+  .rf__contract-cell--broker {
+    background-color: $color-14;
+  }
+
+  .rf__searchlist--contract .rf__contract-cell--step,
+  .rf__searchlist--contract .rf__contract-cell--broker {
+    position: static;
+  }
+
+  .rf__searchlist--contract .rf__contract-cell--reference .rf__table-txt {
+    background-color: initial;
+    color: $color-29;
+    position: static;
+    padding: initial;
+    width: 100%;
+    height: 20px;
+  }
+
+  .rf__searchlist--contract .rf__table-row--placeholder .rf__contract-cell--reference .rf__table-txt {
+    background: $color-22;
+    height: 16px;
+  }
+
+  .rf__table--contract-contact .rf__table-row--header .rf__table-cell--actions button,
+  .rf__table--contract-commission .rf__table-row--header .rf__table-cell--actions button {
+    margin-top: 0;
+  }
+
+  .rf__contract-cell--reference,
+  .rf__contract-cell--signed-price {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+
+  .rf__contract-cell--agency,
+  .rf__contract-cell--property,
+  .rf__contract-cell--step {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+  .rf__contract-cell--broker {
+    min-width: 90px;
+    max-width: 90px;
+    width: 90px;
+  }
+
+  .rf__contract-cell--seller,
+  .rf__contract-cell--buyer {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+
+  .rf__table--contract-contact .rf__table-cell--contract-contact-contact,
+  .rf__table--contract-contact .rf__table-cell--contract-contact-type {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  .rf__table--contract-contact .rf__table-cell--contract-contact-comment {
+    min-width: 250px;
+    max-width: 80%;
+    width: 80%;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-operator {
+    min-width: 35px;
+    max-width: 35px;
+    width: 35px;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-type,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-contact,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-invoice {
+    min-width: 130px;
+    max-width: 130px;
+    width: 130px;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-amount {
+    min-width: 100px;
+    max-width: 100px;
+    width: 100px;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-comment .mat-form-field {
+    width: 100px;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-comment .mat-form-field {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__contract-cell--agency,
+  .rf__contract-cell--property {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+
+  .rf__searchlist--contract .rf__table-cell.rf__contract-cell--seller {
+    display: table-cell;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-type,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-contact,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-invoice {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-amount {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+}
+
+@media (min-width: 1380px) {
+
+  .rf__searchlist--contract .rf__table-cell.rf__contract-cell--buyer {
+    display: table-cell;
+  }
+
+  .rf__table--contract-commission .rf__table-cell--contract-commission-type,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-contact,
+  .rf__table--contract-commission .rf__table-cell--contract-commission-invoice {
+    min-width: 190px;
+    max-width: 190px;
+    width: 190px;
+  }
+}

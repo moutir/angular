@@ -1,0 +1,225 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div
+  class="rf__table-cell rf__task-cell--permission"
+  matTooltip="{{ task.readOnlyReason|translate }} {{ task.readLevelReason|translate }}"
+  matTooltipPosition="right"
+  [matTooltipDisabled]="task.isReadonly === false"
+>
+
+  <button
+    *ngIf="task.isReadonly === true"
+    mat-icon-button
+    [disabled]="task.readLevel === 2"
+  >
+    <mat-icon
+      class="rf__info-icon"
+    >lock</mat-icon>
+  </button>
+
+</div>
+
+<div
+  class="rf__table-cell rf__task-cell--important"
+  matTooltip="{{ (task.allowedImportantReason || (task.isImportant ? 'label_task_important' : 'label_task_regular'))|translate }}"
+  matTooltipPosition="right"
+>
+
+  <button
+    mat-icon-button
+    [disabled]="task.isAllowedImportant === false"
+    (click)="onClickToggleImportant(!task.isImportant)"
+  >
+    <mat-icon
+      *ngIf="task.isImportant === true"
+      class="rf__task-icon-important--yes"
+    >error</mat-icon>
+    <mat-icon
+      *ngIf="task.isImportant === false"
+      class="rf__task-icon-important--no"
+    >error_outline</mat-icon>
+  </button>
+
+</div>
+
+<div
+  class="rf__table-cell rf__task-cell--finished"
+  matTooltip="{{ (task.allowedFinishReason || (task.isFinished ? 'label_finished' : 'label_in_progress'))|translate }}"
+  matTooltipPosition="right"
+>
+
+  <button
+    mat-icon-button
+    [disabled]="task.isAllowedFinish === false"
+    (click)="onClickToggleFinished(!task.isFinished)"
+  >
+    <mat-icon
+      *ngIf="task.isFinished === true"
+      class="rf__task-icon-finished--yes"
+    >check_circle_outline</mat-icon>
+    <mat-icon
+      *ngIf="task.isFinished === false"
+      class="rf__task-icon-finished--no"
+    >radio_button_unchecked</mat-icon>
+  </button>
+
+</div>
+
+<div class="rf__table-cell rf__task-cell--title">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        *ngIf="task.brokerNotes"
+        matTooltip="{{ task.brokerNotes }}"
+        matTooltipPosition="right"
+        class="rf__info-icon"
+      >warning</mat-icon>
+      <span class="rf__info-label">{{ task.title }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__task-cell--type">
+  <span class="rf__table-txt">{{ task.typeLabel }}</span>
+</div>
+
+<div class="rf__table-cell rf__task-cell--date">
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false && task.startDate !== null"
+      class="rf__info"
+    >
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ ((task.durationHours || task.durationMinutes) ? 'tooltip_task_date_duration' : 'tooltip_task_date_end') |translate:{
+          user: task.createContact.fullName,
+          created: (task.createDate || task.startDate || task.getEndDate())|datetime,
+          started: task.startDate|datetime,
+          durationHours: task.durationHours,
+          durationMinutes: task.durationMinutes}
+        }}"
+        matTooltipPosition="left"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ task.startDate|smartDate }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__task-cell--broker">
+  <div class="rf__table-cell-box contacts">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        *ngFor="let i of contactMax|forLoop"
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <app-shared-contact-link
+        *ngFor="let broker of task.brokers.slice(0, contactMax)"
+        [contact]="broker"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+      <app-shared-more-icon [count]="task.brokers.length" [max]="contactMax"></app-shared-more-icon>
+
+    </ng-container>
+
+  </div>
+</div>
+
+<div class="rf__table-cell rf__task-cell--contact">
+
+  <div class="rf__table-txt">
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <app-shared-contact-link
+        *ngIf="task.contacts[0]"
+        [contact]="task.contacts[0]"
+      ></app-shared-contact-link>
+
+    </ng-container>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__task-cell--property">
+  <div class="properties">
+    <app-shared-card-property
+      *ngIf="isPlaceholder === true"
+      [isPlaceholder]="isPlaceholder"
+    ></app-shared-card-property>
+    <ng-container *ngIf="isPlaceholder === false && task.properties.length > 0">
+      <app-shared-card-property
+        *ngFor="let property of task.properties.slice(0, 1)"
+        [property]="property"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-card-property>
+      <app-shared-more-icon [count]="task.properties.length" [max]="1"></app-shared-more-icon>
+    </ng-container>
+    <mat-icon
+      *ngIf="isPlaceholder === false && task.properties.length === 0"
+      class="rf__task-no-property"
+    >remove</mat-icon>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__task-cell--promotion">
+  <div class="promotions">
+    <app-shared-card-promotion
+      *ngIf="isPlaceholder === true"
+      [isPlaceholder]="isPlaceholder"
+    ></app-shared-card-promotion>
+    <ng-container *ngIf="isPlaceholder === false && task.promotions.length > 0">
+      <app-shared-card-promotion
+        *ngFor="let promotion of task.promotions.slice(0, 1)"
+        [promotion]="promotion"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-card-promotion>
+      <app-shared-more-icon [count]="task.promotions.length" [max]="1"></app-shared-more-icon>
+    </ng-container>
+    <mat-icon
+      *ngIf="isPlaceholder === false && task.promotions.length === 0"
+      class="rf__task-no-promotion"
+    >remove</mat-icon>
+  </div>
+</div>
+
+<div
+  class="rf__table-cell rf__table-cell--actions"
+  matTooltip="{{ (task.allowedDeleteReason || 'label_task_delete')|translate }}"
+  matTooltipPosition="left"
+>
+
+  <button
+    mat-icon-button
+    [disabled]="task.isAllowedDelete === false"
+    (click)="onClickDelete($event)"
+  >
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+
+</div>

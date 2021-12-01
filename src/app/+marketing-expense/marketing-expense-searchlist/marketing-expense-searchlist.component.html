@@ -1,0 +1,34 @@
+<div class="rf__searchlist rf__searchlist--marketing-expense">
+
+  <app-marketing-expense-table
+    [loadingModelIds]="operationIds$|async"
+    [sort]="sort$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    (changeSort)="onChangeSort($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-marketing-expense-table>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>

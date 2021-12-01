@@ -1,0 +1,210 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.agencyStreet"
+    >
+      <span>{{ 'label_agency'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_address'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_address'|translate }}"
+                formControlName="agencyStreet"
+              />
+              <mat-error>{{ error.agencyStreet|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_city'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_city'|translate }}"
+                formControlName="agencyCity"
+              />
+              <mat-error>{{ error.agencyCity|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_zip'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_zip'|translate }}"
+                formControlName="agencyZip"
+              />
+              <mat-error>{{ error.agencyZip|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_country'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_country'|translate }}"
+                formControlName="agencyCountry"
+              >
+                <mat-option value="">{{ 'label_selection'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.portalCountry"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.agencyCountry|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_communication'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency_reference'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_agency_reference'|translate }}"
+                formControlName="agencyContact"
+              />
+              <mat-error>{{ error.agencyContact|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_fax'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_fax'|translate }}"
+                formControlName="agencyFax"
+              />
+              <mat-error>{{ error.agencyFax|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_copy_lead'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_gateway_copy_lead'|translate }}"
+                formControlName="sendLeadCopy"
+              >
+                <mat-option
+                  *ngFor="let option of options.sendLeadCopy"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.sendLeadCopy|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_send_broker_phone'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-send-broker-phone"
+              formControlName="sendBrokerPhone"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_send_copy_to_sales'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-send-lead-sale"
+              formControlName="sendLeadCopySales"
+            ></mat-checkbox>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_send_copy_to_rentals'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-send-lead-rental"
+              formControlName="sendLeadCopyRentals"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_gateway_send_empty_file'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-checkbox
+              aria-labelledby="label-send-empty-file"
+              formControlName="sendEmptyFile"
+            ></mat-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

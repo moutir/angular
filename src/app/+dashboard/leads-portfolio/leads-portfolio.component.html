@@ -1,0 +1,38 @@
+<div class="leads_flex">
+  <div class="leads_flex__box">
+    <div class="cart_box">
+      <div class="chart_title"> {{ 'label_property_type'|translate}}
+      </div>
+      <app-bar-leads *ngIf="propertyData" class="static"
+                     [categories]="propertyCategories" [legend]="'true'"
+                     [data]="propertyData"></app-bar-leads>
+    </div>
+    <div class="cart_box">
+      <div class="chart_title"> {{ 'label_budget'|translate }}
+      </div>
+      <app-bar-leads
+        *ngIf="budgetChart"
+        [categories]="budgetCategories"
+        [yaxisText]="budgetYAxisText"
+        [data]="budgetChart"
+        [legend]="'true'"
+      ></app-bar-leads>
+    </div>
+  </div>
+  <div class="leads_flex__box">
+    <div class="chart_title">
+    </div>
+    <table class="rf__table table-property">
+      <thead class="rf__table-row rf__table-row--header">
+        <tr role="row">
+          <th *ngFor="let column of columns" class="rf__table-cell">{{ column.title }}</th>
+        </tr>
+      </thead>
+      <tbody class="rf__table-row-group">
+        <tr *ngFor="let row of propertyLocationData" class="rf__table-row">
+          <td *ngFor="let column of columns" class="rf__table-cell">{{ getTableData(row, column.name) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

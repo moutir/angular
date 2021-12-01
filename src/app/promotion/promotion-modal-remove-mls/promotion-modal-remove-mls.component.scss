@@ -1,0 +1,58 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 490px;
+}
+
+.modal__description {
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.modal__notes {
+  text-align: center;
+  font-size: 12px;
+  padding: 10px 20px;
+}
+
+.list {
+  margin: 10px auto 10px;
+  width: 92%;
+  border: 1px solid $color-21;
+}
+
+.list__body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.list__header {
+  width: 100%;
+  display: flex;
+  padding: 5px 0;
+  background-color: $color-22;
+  border-bottom: 1px solid $color-21;
+}
+
+.list__row {
+  padding: 10px 0;
+  font-size: 15px;
+  width: 100%;
+  display: flex;
+}
+
+.list__row:nth-child(even) {
+  background: $color-18;
+}
+
+.list__cell {
+  width: 50%;
+  padding: 0 5px 0 10px;
+}
+
+.list__header .list__cell {
+  font-weight: 700;
+}

@@ -1,0 +1,36 @@
+@import "../../../styles/variables";
+
+.rf__custom-attribute-cell--value-count {
+  margin-left: 5px;
+}
+
+.rf__custom-attribute-cell--value-count .rf__info,
+.rf__custom-attribute-cell--property .rf__info,
+.rf__custom-attribute-cell--promotion .rf__info,
+.rf__custom-attribute-cell--contact .rf__info  {
+  justify-content: center;
+}
+
+.rf__custom-attribute-cell--value-count .rf__table-txt {
+  max-width: 40px;
+  margin: auto;
+}
+
+.rf__custom-attribute-cell--property .rf__table-txt,
+.rf__custom-attribute-cell--promotion .rf__table-txt,
+.rf__custom-attribute-cell--contact .rf__table-txt  {
+  max-width: 70px;
+  margin: auto;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__info-icon {
+    display: none;
+  }
+
+  .rf__custom-attribute-cell--value-count {
+    margin-left: 0;
+  }
+}
+

@@ -1,0 +1,46 @@
+@import "../../../../styles/variables";
+
+.rf__spinner {
+  width: 200px;
+  height: 200px;
+}
+
+.preview-restriction {
+  padding: 15px;
+}
+
+.preview-restriction-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.preview-restriction-icon {
+  color: $color-19;
+  margin-right: 10px;
+}
+
+.preview-restriction-name {
+  font-size: 18px;
+  color: $color-19;
+  font-weight: bold;
+}
+
+.preview-restriction-header {
+  font-size: 14px;
+  color: $color-19;
+  font-weight: bold;
+}
+
+.preview-restriction-subheader {
+  font-size: 12px;
+  color: $color-29;
+  margin-top: 10px;
+}
+
+.preview-restriction-body {
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+

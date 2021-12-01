@@ -1,0 +1,43 @@
+@import "../../../../styles/variables";
+
+.rf__wysiwyg {
+  position: relative;
+}
+
+.rf__wysiwyg.has-error {
+  border-bottom: 1px solid $color-39;
+  margin-bottom: 15px;
+}
+
+.rf__wysiwyg .mat-error {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  font-size: 75%;
+}
+
+.rf__wysiwyg-buttons {
+  display: none;
+  position: absolute;
+  top: 6px;
+  right: 3px;
+}
+
+.rf__wysiwyg-button {
+  background-color: $color-01;
+  border: 1px solid $color-21;
+  padding: 3px 6px;
+  margin: 0 3px;
+  font-size: 12px;
+}
+
+.rf__wysiwyg-button:hover {
+  background-color: $color-22;
+}
+
+@media (min-width: $desktop-xl-breakpoint) {
+
+  .rf__wysiwyg-buttons {
+    display: block;
+  }
+}

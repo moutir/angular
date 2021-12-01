@@ -1,0 +1,402 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_fisher_modal_header"
+      [hasCloseButton]="true"
+      (clickClose)="onClickCloseButton()"
+    ></app-shared-modal-header>
+
+    <div
+      #modalBodyElement
+      class="rf__modal-body"
+    >
+
+      <form [formGroup]="formGroup">
+
+        <mat-horizontal-stepper
+          class="mat-stepper--label-hidden"
+          linear
+          #stepper
+          labelPosition="bottom"
+          (selectionChange)="onSelectionChangeStep($event)"
+        >
+
+          <!-- Step 1 -->
+          <mat-step>
+            <div class="form-group group-home">
+              <div class="form-group__title">{{ 'label_fisher_home_title'|translate }}</div>
+              <div class="form-group__description">{{ 'label_fisher_home_text'|translate }}</div>
+              <button
+                mat-raised-button
+                color="primary"
+                class="rf__button"
+                (click)="onClickButton(true)"
+              >
+                {{ labelValid|translate }}
+                <mat-icon>arrow_forward_ios</mat-icon>
+              </button>
+              <mat-icon class="group-home-icon">timer</mat-icon>
+              <div class="powered-by">
+                <div class="powered-by__text">{{ 'label_powered_by'|translate }}</div>
+                <div class="powered-by__logos">
+                  <img src="{{ host + '/dist-fisher/assets/fisher/rf-logo.png' }}" alt="Realforce" />
+                  <img src="{{ host + '/dist-fisher/assets/fisher/ph-logo.png' }}" alt="Price Hubble" />
+                </div>
+              </div>
+            </div>
+          </mat-step>
+
+          <!-- Step 2 -->
+          <mat-step
+            formGroupName="addressInfo"
+            [stepControl]="formGroupAddressInfo"
+          >
+            <div class="form-group group-address">
+              <div class="form-group__description">{{ 'label_fisher_description_address'|translate }}</div>
+              <div class="form-group__title">{{ 'label_fisher_title_address'|translate }}</div>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="address"
+                  placeholder="{{ 'label_address'|translate }}"
+                  [appAddress]="{ uid: 'fisher', countryRestrictions: countryRestrictions, control: formGroupAddressInfo.get('address') }"
+                  [appAddressValue]="fisher.step === 2 ? formGroupAddressInfo.get('address').value : null"
+                >
+                <mat-error *ngIf="formGroupAddressInfo.get('address').hasError('required')">{{ 'label_field_required'|translate }}</mat-error>
+                <mat-error *ngIf="formGroupAddressInfo.get('address').hasError('invalidAddress')">{{ 'feedback_fisher_invalid_location'|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+          </mat-step>
+
+          <!-- Step 3 -->
+          <mat-step
+            formGroupName="locationInfo"
+            [stepControl]="formGroupLocationInfo"
+          >
+            <div class="form-group group-location">
+              <div class="form-group__title">{{ 'label_fisher_title_location'|translate }}</div>
+              <mat-form-field class="mat-form-field--required cell-8">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_street'|translate }}"
+                  formControlName="street"
+                >
+                <mat-error
+                  *ngIf="formGroupLocationInfo.get('street').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required cell-4">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_house_number'|translate }}"
+                  formControlName="houseNumber"
+                >
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required cell-4">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_zip'|translate }}"
+                  formControlName="zipCode"
+                >
+                <mat-error
+                  *ngIf="formGroupLocationInfo.get('zipCode').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required cell-8">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_city'|translate }}"
+                  formControlName="city"
+                >
+                <mat-error
+                  *ngIf="formGroupLocationInfo.get('city').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <div class="map-container">
+                <app-map
+                  uid="map:fisher"
+                  [markers]="markers"
+                  [mapSettings]="mapSettings"
+                ></app-map>
+                <input type="hidden" formControlName="coordinates" />
+              </div>
+            </div>
+          </mat-step>
+
+          <!-- Step 4 -->
+          <mat-step
+            formGroupName="propertyInfo"
+            [stepControl]="formGroupPropertyInfo"
+          >
+            <div class="form-group group-property">
+              <div class="form-group__title">{{ 'label_fisher_title_property_info'|translate }}</div>
+              <mat-form-field class="mat-form-field--required">
+                <mat-label>{{ 'label_property_type'|translate }}</mat-label>
+                <mat-select formControlName="category">
+                  <mat-option *ngFor="let option of options.propertyCategory" [value]="option.value">
+                    {{option.text}}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="formGroupPropertyInfo.get('category').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'label_property_sub_type'|translate }}</mat-label>
+                <mat-select formControlName="subCategory">
+                  <mat-option *ngFor="let option of options.propertySubCategory" [value]="option.value">
+                    {{option.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="0"
+                  placeholder="{{ 'label_living_area_msq'|translate }}"
+                  formControlName="livingArea"
+                >
+                <mat-error
+                  *ngIf="formGroupPropertyInfo.get('livingArea').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="0"
+                  placeholder="{{ 'label_number_of_rooms'|translate }}"
+                  formControlName="rooms"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="0"
+                  placeholder="{{ 'label_bathrooms_number'|translate }}"
+                  formControlName="bathrooms"
+                >
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="1900"
+                  placeholder="{{ 'label_construction_year'|translate }}"
+                  formControlName="year"
+                >
+                <mat-error
+                  *ngIf="formGroupPropertyInfo.get('year').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'label_property_state'|translate }}</mat-label>
+                <mat-select formControlName="state">
+                  <mat-option *ngFor="let option of options.propertyStatus" [value]="option.value">
+                    {{option.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="0"
+                  placeholder="{{ 'label_land_area_msq'|translate }}"
+                  formControlName="landArea"
+                >
+              </mat-form-field>
+              <mat-form-field
+                *ngIf="isVisibleFloor === true"
+                class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="number"
+                  min="0"
+                  placeholder="{{ 'label_floor_number'|translate }}"
+                  formControlName="floor"
+                >
+                <mat-error
+                  *ngIf="isVisibleFloor === true && formGroupPropertyInfo.get('floor').hasError('requiredIfParentInArrayValidator')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+          </mat-step>
+
+          <!-- Step 5 -->
+          <mat-step
+            formGroupName="contactInfo"
+            [stepControl]="formGroupContactInfo"
+          >
+            <input type="hidden" formControlName="language">
+            <input type="hidden" formControlName="recaptcha">
+            <div class="form-group group-contact">
+              <div class="form-group__title form-group__title--step5">{{ 'label_fisher_title_contact_info'|translate }}</div>
+              <div class="form-group__description">{{ 'disclaimer_fisher_email'|translate }}</div>
+              <mat-form-field class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_first_name'|translate }}"
+                  formControlName="firstName"
+                >
+                <mat-error
+                  *ngIf="formGroupContactInfo.get('firstName').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_last_name'|translate }}"
+                  formControlName="lastName"
+                >
+                <mat-error
+                  *ngIf="formGroupContactInfo.get('lastName').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="mat-form-field--required">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_email_address'|translate }}"
+                  formControlName="email"
+                >
+                <mat-error
+                  *ngIf="formGroupContactInfo.get('email').hasError('required')"
+                >{{ 'label_field_required'|translate }}</mat-error>
+                <mat-error
+                  *ngIf="formGroupContactInfo.get('email').hasError('email')"
+                >{{ 'feedback_email_invalid'|translate }}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_mobile'|translate }}"
+                  formControlName="mobile"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_address'|translate }}"
+                  formControlName="address1"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_address'|translate }}"
+                  formControlName="address2"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_zip'|translate }}"
+                  formControlName="zip"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_city'|translate }}"
+                  formControlName="city"
+                >
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'label_country'|translate }}</mat-label>
+                <mat-select formControlName="country">
+                  <mat-option *ngFor="let option of options.country" [value]="option.value">
+                    {{option.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ 'label_motivation'|translate }}</mat-label>
+                <mat-select formControlName="motivation">
+                  <mat-option
+                    *ngFor="let option of options.motivation"
+                    [value]="option.value">
+                    {{option.text}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </mat-step>
+
+          <!-- Step 6 -->
+          <mat-step>
+            <div
+              *ngIf="fisher.step === 6 && (!data || !data.confidence)"
+              class="rf__spinner"
+            >
+              <mat-spinner
+                color="accent"
+                diameter="36"
+              ></mat-spinner>
+            </div>
+            <div
+              *ngIf="data && data.confidence"
+              class="form-group group-result"
+            >
+              <div class="form-group__title">{{ 'label_fisher_title_valuation_result'|translate }}</div>
+              <div class="form-group__description">{{ 'label_fisher_top_desc_result'|translate }}</div>
+              <div class="body">
+                <small>{{ 'text_between'|translate }}</small>
+                <div class="price">{{ data.currency }} {{ data.valueRangeLower | formatNumber }}</div>
+                <small>{{ 'label_and'|translate }}</small>
+                <div class="price">{{ data.currency }} {{ data.valueRangeUpper | formatNumber }}</div>
+                <div class="emoticon-container confidence-{{ data.confidence }}">
+                  <small>{{ 'label_with_confidence'|translate }}</small>
+                  <div class="emoticon-dissatisfied"><mat-icon>sentiment_dissatisfied</mat-icon></div>
+                  <div class="emoticon-satisfied-medium"><mat-icon>sentiment_satisfied</mat-icon></div>
+                  <div class="emoticon-satisfied"><mat-icon>sentiment_satisfied_alt</mat-icon></div>
+                </div>
+                <div class="form-group__description">{{ 'label_fisher_bottom_desc_result'|translate }}</div>
+              </div>
+            </div>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+
+      </form>
+
+    </div>
+
+    <app-fisher-modal-footer
+      [isDisabledValid]="isDisabledValid"
+      [isVisibleValid]="isVisibleValid"
+      [isVisibleInvalid]="isVisibleInvalid"
+      [labelInvalid]="labelInvalid"
+      [labelValid]="labelValid"
+      (clickButton)="onClickButton($event)"
+    ></app-fisher-modal-footer>
+
+  </div>
+</div>

@@ -1,0 +1,51 @@
+@import "../variables";
+
+.rf__custom-attribute-cell--name {
+  background-color: $color-38;
+  color: $color-01;
+}
+
+.rf__searchlist--custom-attribute .rf__table-cell--checkbox {
+  z-index: 5;
+}
+
+.rf__searchlist--custom-attribute .rf__custom-attribute-cell--value-count,
+.rf__searchlist--custom-attribute .rf__custom-attribute-cell--property,
+.rf__searchlist--custom-attribute .rf__custom-attribute-cell--promotion,
+.rf__searchlist--custom-attribute .rf__custom-attribute-cell--contact  {
+  display: inline-block;
+  padding: 2px 5px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--custom-attribute .rf__custom-attribute-cell--value-count,
+  .rf__searchlist--custom-attribute .rf__custom-attribute-cell--property,
+  .rf__searchlist--custom-attribute .rf__custom-attribute-cell--promotion,
+  .rf__searchlist--custom-attribute .rf__custom-attribute-cell--contact  {
+    display: table-cell;
+    padding: 2px 10px;
+  }
+
+  .rf__custom-attribute-cell--name {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+    background-color: inherit;
+    color: inherit;
+  }
+
+  .rf__custom-attribute-cell--value-count {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+
+  .rf__custom-attribute-cell--property,
+  .rf__custom-attribute-cell--promotion,
+  .rf__custom-attribute-cell--contact {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+}

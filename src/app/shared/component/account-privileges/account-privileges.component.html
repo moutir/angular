@@ -1,0 +1,42 @@
+<div class="rf__table">
+
+  <div class="rf__table-row rf__table-row--header">
+    <div class="rf__table-cell">{{ 'label_module'|translate }}</div>
+    <div
+      *ngFor="let group of groups"
+      class="rf__table-cell rf__table-cell--center"
+    >{{ ('label_privilege_group_' + group)|translate }}</div>
+  </div>
+
+  <div
+    *ngFor="let module of modules"
+    class="rf__table-row"
+  >
+    <div class="rf__table-cell">{{ ('label_' + module)|translate }}</div>
+    <div
+      *ngFor="let group of groups"
+      class="rf__table-cell rf__table-cell--center"
+      [class.rf__table-cell--editable]="isEditableGroup(module, group)"
+      [class.rf__table-cell--disabled]="!!getPermissionMessageGroup(module, group)"
+      matTooltip="{{ getTooltipGroup(module, group)|translate }}"
+      matTooltipPosition="above"
+      (click)="onClickModuleGroup(module, group)"
+    >
+
+      <ng-container *ngIf="isAvailableGroup(module, group)">
+
+        <div
+          class="privilege-checkbox"
+          [class.privilege-checkbox--active]="isChecked(module, group) === true"
+          [class.privilege-checkbox--inactive]="isChecked(module, group) === false"
+        >
+          <mat-icon *ngIf="isChecked(module, group) === true">check_box</mat-icon>
+          <mat-icon *ngIf="isChecked(module, group) === false">check_box_outline_blank</mat-icon>
+        </div>
+
+      </ng-container>
+
+    </div>
+  </div>
+
+</div>

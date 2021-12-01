@@ -1,0 +1,10 @@
+@import "../../variables";
+
+.mat-tooltip {
+  font-size: 12px;
+  white-space: pre-line;
+}
+
+.mat-tooltip-panel .mat-tooltip {
+  max-width: 350px;
+}

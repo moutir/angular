@@ -1,0 +1,53 @@
+.rf__wysiwyg {
+  width: 100%;
+}
+
+.rf__wysiwyg angular-editor.rf__wysiwyg-editor .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+  margin: -1px 0 0;
+}
+
+.rf__wysiwyg:not(.rf__wysiwyg--has-min-height) angular-editor.rf__wysiwyg-editor .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+  min-height: 250px;
+}
+
+.rf__wysiwyg u {
+  text-decoration: underline;
+}
+
+.rf__wysiwyg ul, .rf__wysiwyg ol {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.rf__wysiwyg ul li {
+  list-style: disc;
+}
+
+.rf__wysiwyg ol li {
+  list-style: decimal;
+}
+
+.rf__wysiwyg li {
+  list-style: initial;
+}
+
+.rf__wysiwyg a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $color-19;
+}
+
+.rf__wysiwyg a:hover {
+  color: $color-27;
+}
+
+@media (min-width: $desktop-breakpoint) {
+
+  .rf__wysiwyg:not(.rf__wysiwyg--has-min-height) angular-editor.rf__wysiwyg-editor .angular-editor .angular-editor-wrapper .angular-editor-textarea {
+    min-height: 500px;
+  }
+}

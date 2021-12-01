@@ -1,0 +1,164 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-body">
+
+  <mat-accordion
+    *ngIf="(isLoading$|async) === true"
+  >
+
+    <mat-expansion-panel *ngFor="let i of 8|forLoop" disabled>
+
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+
+          <span class="title-placeholder"></span>
+
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <div
+    *ngIf="(isLoading$|async) === false && helpContents.length === 0"
+    class="rf__panel"
+  >
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_online_help'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div
+        class="message-noresults"
+      >{{ 'label_not_available'|translate }}</div>
+
+    </div>
+
+  </div>
+
+  <mat-accordion
+    *ngIf="(isLoading$|async) === false && helpContents.length > 0"
+    multi="true"
+    class="panel-container"
+  >
+
+    <mat-expansion-panel
+      *ngFor="let category of model.contents|keyvalue"
+    >
+
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ category.value[0].categoryLabel }}</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div>
+
+        <mat-accordion
+          multi="true"
+          togglePosition="before"
+        >
+
+          <mat-expansion-panel
+            hideToggle
+            *ngFor="let content of category.value"
+            [expanded]="isPanelExpanded(content.id) === true"
+            (closed)="onClosePanel(content.id)"
+          >
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <mat-icon class="mat-expansion-indicator--expand">add</mat-icon>
+                <mat-icon class="mat-expansion-indicator--collapse">remove</mat-icon>
+                {{ content.title }}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{ content.keyword }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <div class="panel-content">
+
+              <div
+                *ngIf="content.dependencyId"
+                class="dependency-container"
+              >
+                <span>{{ 'label_to_be_viewed_previously'|translate }}: </span>
+                <span
+                  class="rf__info rf__info--link"
+                  (click)="onClickLink(content.dependencyId)"
+                >
+                  <span>{{ getTitle(content.dependencyId) }}</span>
+                </span>
+              </div>
+
+              <video
+                *ngIf="content.formatLabel === 'video'"
+                controls
+                class="video-player"
+              >
+                <source src="{{ content.url }}" type="video/mp4">
+              </video>
+
+              <div
+                *ngIf="content.formatLabel === 'html'"
+                [innerHTML]="content.htmlContent"
+              ></div>
+
+              <a
+                *ngIf="content.formatLabel === 'link' || content.formatLabel === 'document'"
+                href="{{ content.url }}"
+                target="_blank"
+                class="rf__info rf__info--link"
+              >{{ 'label_click_here_to_access_online_help'|translate }}</a>
+
+            </div>
+
+          </mat-expansion-panel>
+
+        </mat-accordion>
+
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">{{ 'support_information'|translate }}</div>
+
+    <div class="rf__panel-body">
+
+      <div class="instructions">
+
+        <span>{{ 'help_please_copy'|translate }}</span>
+
+        <button
+          (click)="onClickCopy()"
+          class="rf__button rf__button--with-icon rf__button--with-icon-left rf__searchlist-form-button"
+          color="primary"
+          mat-raised-button
+        >
+          <mat-icon>file_copy</mat-icon>
+          {{ 'label_copy'|translate }}
+        </button>
+
+      </div>
+      <div class="whoami">
+        <div>{{ whoAmI }}</div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,72 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 230px;
+}
+
+.rf__searchlist-form--advanced:not(.rf__searchlist-form--owner) .rf__searchlist-form-body {
+  height: 120px;
+}
+
+@media (min-width: 600px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 175px;
+  }
+}
+
+@media (min-width: 700px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 120px;
+  }
+
+  .rf__searchlist-form--advanced:not(.rf__searchlist-form--owner) .rf__searchlist-form-body {
+    height: 63px;
+  }
+
+  .rf__searchlist-form:not(.rf__searchlist-form--owner) .rf__searchlist-form-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 175px;
+  }
+
+  .rf__searchlist-form--advanced:not(.rf__searchlist-form--owner) .rf__searchlist-form-body {
+    height: 120px;
+  }
+
+  .rf__searchlist-form:not(.rf__searchlist-form--owner) .rf__searchlist-form-toggle {
+    display: inline-block;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 120px;
+  }
+
+  .rf__searchlist-form--advanced:not(.rf__searchlist-form--owner) .rf__searchlist-form-body {
+    height: 63px;
+  }
+
+  .rf__searchlist-form:not(.rf__searchlist-form--owner) .rf__searchlist-form-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 1570px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 63px;
+  }
+
+  .rf__searchlist-form-toggle {
+    display: none;
+  }
+}

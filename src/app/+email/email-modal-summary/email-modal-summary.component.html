@@ -1,0 +1,221 @@
+<div
+  class="rf__modal rf__modal--email-summary"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_email_summary"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <div *ngIf="summary.email !== null">
+
+        <div class="rf__modal-heading">{{ 'label_email'|translate }}</div>
+
+        <div class="list-row subject">{{ summary.email.subject }}</div>
+
+        <div class="list-row sent-date">
+          <span>{{ summary.email.sentDate|datetime }}</span>
+          <span
+            *ngIf="summary.email.realSender.id"
+            class="text-warning"
+          >{{ 'label_sent_on_behalf_of_contact'|translate: {
+            sender: summary.email.sender.fullName,
+            realSender: summary.email.realSender.fullName }
+          }}</span>
+        </div>
+
+        <div
+          class="container-message"
+          [class.open]="hasFullMessage === true"
+        >
+          <div class="message" [innerHTML]="summary.email.message"></div>
+          <div class="container-toggle-message" *ngIf="summary.email.message">
+            <span class="toggle-message" (click)="onClickButtonToggle()">
+              <span class="rf__info rf__info--link btn-show-more">
+                <mat-icon class="rf__info-icon">expand_more</mat-icon>
+                <span class="rf__info-label">{{ 'label_show_full_text'|translate }}</span>
+              </span>
+              <span class="rf__info rf__info--link btn-show-less">
+                <mat-icon class="rf__info-icon">expand_less</mat-icon>
+                <span class="rf__info-label">{{ 'label_hide_full_text'|translate }}</span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Recipients -->
+        <div
+          *ngIf="summary.email.recipients.length > 0"
+          class="rf__modal-heading"
+        >
+          {{ 'label_recipients'|translate }}
+        </div>
+
+        <div
+          *ngFor="let recipient of summary.email.recipients"
+          class="container-recipient"
+          [class.has-downloads]="recipient.downloadedProperties.length > 0 || recipient.downloadedPromotions.length > 0"
+        >
+
+          <div
+            class="recipient"
+            matTooltip="{{ recipientStatus[recipient.status].tooltip(recipient) }}"
+            matTooltipPosition="above"
+          >
+
+            <div class="recipient-info">
+
+              <app-shared-contact-link
+                [contact]="recipient"
+              ></app-shared-contact-link>
+
+              <div class="rf__info recipient-subinfo">
+                <mat-icon class="rf__info-icon">mail</mat-icon>
+                <span class="rf__info-label">{{ recipient.emails[0].emailId || 'label_email_not_found'|translate }}</span>
+              </div>
+
+              <div class="rf__info recipient-subinfo">
+                <mat-icon class="rf__info-icon">save_alt</mat-icon>
+                <span class="rf__info-label">{{ 'label_email_download_count'|translate: { count: recipient.downloadCount } }}</span>
+              </div>
+
+            </div>
+
+            <div class="rf__info email-status {{ recipientStatus[recipient.status].cssClass }}">
+              <mat-icon class="rf__info-icon">{{ recipientStatus[recipient.status].icon }}</mat-icon>
+              <span class="rf__info-label">{{ recipientStatus[recipient.status].label|translate }}</span>
+            </div>
+
+          </div>
+
+          <div
+            *ngIf="recipient.downloadedProperties.length > 0 || recipient.downloadedPromotions.length > 0"
+            class="recipient-entities"
+          >
+
+            <div
+              *ngFor="let property of recipient.downloadedProperties"
+              class="recipient-entity"
+              matTooltip="{{ 'tooltip_email_download_dates'|translate: {
+                  date1: (property.firstDownloadDate|datetime) || 'label_unknown'|translate,
+                  date2: (property.lastDownloadDate|datetime) || 'label_unknown'|translate
+                } }}"
+              matTooltipPosition="above"
+            >
+
+              <div class="rf__table-thumbnail" (click)="onClickProperty($event, property.id)">
+                <mat-icon>photo_camera</mat-icon>
+                <div
+                  *ngIf="property.photoURL"
+                  class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+                  appAsyncImage="{{ property.photoURL }}"
+                >
+                  <mat-icon>broken_image</mat-icon>
+                </div>
+                <div class="rf__table-thumbnail-overlay">
+                  <mat-icon>info</mat-icon>
+                </div>
+              </div>
+
+              <div class="container-details">
+                <div class="list-row title">{{ property.reference }}</div>
+                <div class="list-row rf__info">
+                  <mat-icon class="rf__info-icon">save_alt</mat-icon>
+                  <span class="rf__info-label">{{ 'label_email_download_count'|translate: { count: property.downloadCount } }}</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div
+              *ngFor="let promotion of recipient.downloadedPromotions"
+              class="recipient-entity"
+              matTooltip="{{ 'tooltip_email_download_dates'|translate: {
+                    date1: (promotion.firstDownloadDate|datetime) || 'label_unknown'|translate,
+                    date2: (promotion.lastDownloadDate|datetime) || 'label_unknown'|translate
+                  } }}"
+              matTooltipPosition="above"
+            >
+              <div class="rf__table-thumbnail" (click)="onClickPromotion($event, promotion.id)">
+                <mat-icon>photo_camera</mat-icon>
+                <div
+                  *ngIf="promotion.photoURL"
+                  class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+                  appAsyncImage="{{ promotion.photoURL }}"
+                >
+                  <mat-icon>broken_image</mat-icon>
+                </div>
+                <div class="rf__table-thumbnail-overlay">
+                  <mat-icon>info</mat-icon>
+                </div>
+              </div>
+
+              <div class="container-details">
+                <div class="list-row title">{{ promotion.name || promotion.reference }}</div>
+                <div class="list-row rf__info">
+                  <mat-icon class="rf__info-icon">save_alt</mat-icon>
+                  <span class="rf__info-label">{{ 'label_email_download_count'|translate: { count: promotion.downloadCount } }}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Properties -->
+        <ng-container *ngIf="summary.email.properties.length > 0">
+          <div class="rf__modal-heading">{{ 'label_properties'|translate }}</div>
+          <div class="container-properties">
+            <app-shared-card-property
+              *ngFor="let property of summary.email.properties"
+              [property]="property"
+              class="email-property"
+            ></app-shared-card-property>
+          </div>
+        </ng-container>
+
+        <!-- Promotions -->
+        <ng-container *ngIf="summary.email.promotions.length > 0">
+          <div class="rf__modal-heading">{{ 'label_promotion_header'|translate }}</div>
+          <div class="container-promotions">
+            <app-shared-card-promotion
+              *ngFor="let promotion of summary.email.promotions"
+              [promotion]="promotion"
+              class="email-promotion"
+            ></app-shared-card-promotion>
+          </div>
+        </ng-container>
+
+        <!-- Attachments -->
+        <ng-container *ngIf="summary.email.attachments.length > 0">
+          <div class="rf__modal-heading">{{ 'label_attachments'|translate }}</div>
+          <div class="container-attachments">
+            <div *ngFor="let attachment of summary.email.attachments">
+              <a href="{{ attachment.url }}" target="blank">
+                <div class="rf__info rf__info--link">
+                  <mat-icon class="rf__info-icon">attach_file</mat-icon>
+                  <span class="rf__info-label">{{ attachment.filename }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <app-shared-modal-footer
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+@import "../../../../styles/variables";
+
+:host {
+  min-width: 16px;
+  min-height: 10px;
+  display: inline-block;
+}
+
+.progress-icon {
+  width: 100%;
+  height: 100%;
+  background: $color-22;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.progress-icon--100 {
+  animation: pulse 2s linear infinite;
+}
+
+.progress-icon-bar {
+  transition: width 250ms ease-out, background 250ms ease-out;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  background: $color-19;
+}
+
+.progress-icon-bar--0 {
+  background: $color-17;
+}
+
+.progress-icon-bar--1 {
+  background: $color-24;
+}
+
+.progress-icon-bar--2 {
+  background: $color-20;
+}
+
+.progress-icon-bar--3 {
+  background: $color-26;
+}
+
+.progress-icon-bar--4 {
+  background: $color-32;
+}
+

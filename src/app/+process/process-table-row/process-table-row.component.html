@@ -1,0 +1,37 @@
+<div class="rf__table-cell rf__process-cell--start">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ process.startDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span>{{ process.startDate|smartDate }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__process-cell--type">
+  <span class="rf__badge rf__badge--inactive">
+    {{ process.type ? (('process_type_' + process.type)|translate) : '...' }}
+  </span>
+</div>
+
+<div class="rf__table-cell rf__process-cell--agency">
+  <span
+    class="rf__table-txt"
+    [class.rf__table-txt--empty]="!!process.agency.id === false"
+  >{{ process.agency.id ? process.agency.name : ('label_none'|translate) }}</span>
+</div>
+
+<div class="rf__table-cell rf__process-cell--label">
+  <span class="rf__table-txt">{{ process.label }}</span>
+</div>
+
+<div class="rf__table-cell rf__table-cell--spacer"></div>
+
+<div class="rf__table-cell rf__process-cell--status">
+  <span class="rf__badge {{ 'rf__badge--' + process.status }}">
+    {{ process.status ? (('process_status_' + process.status)|translate) : '...' }}
+  </span>
+</div>

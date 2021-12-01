@@ -1,0 +1,48 @@
+@import "../../../styles/variables";
+
+.suggestion-image {
+  width: 100%;
+}
+
+.rf__table,
+.rf__table-row,
+.rf__table-cell {
+  display: block;
+}
+
+.rf__table-cell--suggestion-image-thumbnail {
+  width: 100px;
+  height: 50px;
+}
+
+.suggestion-image-thumbnail {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.rf__table--suggestion-images .mat-form-field {
+  width: 100%;
+}
+
+.rf__keyvalue-cell .rf__form-field--textarea textarea.textarea--long {
+  min-height: 200px;
+}
+
+@media (min-width: 1200px) {
+
+  .rf__table {
+    display: table;
+  }
+
+  .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table-cell {
+    display: table-cell;
+  }
+}

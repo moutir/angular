@@ -1,0 +1,47 @@
+<div class="group-activity__row">
+  <div *ngFor="let item of data" class="group-activity__item">
+    <div class="group-activity__inner">
+      <div class="group-activity__top">
+          <span class="group-activity__name">
+            {{ item.title }}
+          </span>
+        <span class="group-activity__progress">
+            {{ item.progress }}
+          </span>
+      </div>
+      <div class="group-activity__progress-line">
+        <div class="group-activity__progress-line--active" [style.width]="item.progress"></div>
+      </div>
+      <ul class="group-activity__list">
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Production</span>
+          <span class="group-activity__value">{{ item.production }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Target</span>
+          <span class="group-activity__value">{{ item.target }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Production N-1</span>
+          <span class="group-activity__value">{{ item.productionn }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Agents</span>
+          <span class="group-activity__value">{{ item.agent }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Signed deals</span>
+          <span class="group-activity__value">{{ item.signeddeals }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Offers received</span>
+          <span class="group-activity__value">{{ item.offersreceived }}</span>
+        </li>
+        <li class="group-activity__list-item">
+          <span class="group-activity__property">Offers accepted</span>
+          <span class="group-activity__value">{{ item.offersaccepted }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

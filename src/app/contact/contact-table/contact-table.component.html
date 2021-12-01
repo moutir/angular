@@ -1,0 +1,158 @@
+<div class="rf__table">
+
+  <app-contact-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    [isUsingActions]="isUsingActions"
+    [isBetaPerformance]="isBetaPerformance"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-contact-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <div
+      *ngIf="isBetaPerformance === true"
+      class="vertical-spacer vertical-spacer--half"
+    ></div>
+
+    <ng-container *ngFor="let contact of models; trackBy: trackById;">
+
+      <app-contact-table-row
+        class="rf__table-row"
+        [class.rf__table-row--is-clickable]="isClickable === true"
+        [class.rf__table-row--disabled]="contact.isBlacklisted === true || contact.isConfidential === true"
+        [contact]="contact"
+        [hash]="filters && filters.contactTextSearch || ''"
+        [modelsSelectable]="modelsSelectable"
+        [isSelected]="selection.ids.indexOf(contact.id) > -1"
+        [isUsingActions]="isUsingActions"
+        [isLoading]="loadingModelIds.indexOf(contact.id) > -1"
+        [permissions]="permissions"
+        [feature]="feature"
+        [isBetaPerformance]="isBetaPerformance"
+        [matTooltipDisabled]="contact.isBlacklisted === false"
+        matTooltip="{{ 'label_blacklisted_contact'|translate }}"
+        matTooltipPosition="above"
+        (contextmenu)="onContextMenu($event, contact)"
+        (changeSelection)="onChangeSelectionModel($event, contact)"
+        (click)="onClickModel(contact)"
+      ></app-contact-table-row>
+
+      <ng-container *ngIf="isBetaPerformance === true">
+
+        <div
+          *ngFor="let search of contact.searches;"
+          class="rf__table-row rf__table-row--search"
+          [class.rf__table-row--is-clickable]="isClickable === true"
+          [class.rf__table-row--disabled]="contact.isBlacklisted === true || contact.isConfidential === true"
+          (click)="onClickContactSearch(contact, search)"
+        >
+
+          <div class="rf__table-cell rf__table-cell--checkbox"></div>
+
+          <div class="rf__table-cell rf__contact-cell--name rf__contact-cell--name-performance">
+            <div class="rf__table-txt rf__table-txt--search">
+              <div class="rf__info">
+                <div class="rf__info-label-icon">
+                  <mat-icon class="rf__info-icon">search</mat-icon>
+                </div>
+                <span class="rf__info-label" >{{ search.title || ('#' + search.id) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rf__table-cell rf__contact-cell--ranking">
+            <span class="rf__contact-search-status rf__contact-search-status--{{ search.statusId }}">{{ ('search_status_' + search.statusId)|translate }}</span>
+          </div>
+
+          <div class="rf__table-cell rf__contact-cell--agency">
+            <div class="rf__table-cell-box">
+
+              <app-shared-contact-link
+                *ngIf="search.brokerContact"
+                [contact]="search.brokerContact"
+                [layout]="'broker'"
+              ></app-shared-contact-link>
+              <div>
+                <span class="rf__table-txt rf__table-txt--slim">{{ search.brokerContact ? search.brokerContact.fullName : ('label_no_manager'|translate) }}</span>
+                <span class="rf__table-txt rf__table-txt--slim rf__table-txt--contact-subinfo">{{ search.brokerContact ? search.brokerContact.agency.name : '' }}</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--spacer"></div>
+
+          <div class="rf__table-cell rf__table-cell--actions-label"><mat-icon>chevron_right</mat-icon></div>
+
+        </div>
+
+        <div
+          *ngIf="contact.searches.length === 0"
+          class="rf__table-row rf__table-row--search"
+          [class.rf__table-row--is-clickable]="isClickable === true"
+          [class.rf__table-row--disabled]="contact.isBlacklisted === true || contact.isConfidential === true"
+          (click)="onClickContactSearch(contact, null)"
+        >
+          <div class="rf__table-cell rf__table-cell--checkbox"></div>
+
+          <div class="rf__table-cell rf__contact-cell--name rf__contact-cell--name-performance">
+
+            <div class="rf__table-txt rf__table-txt--search">
+              <div class="rf__info">
+                <div class="rf__info-label-icon">
+                  <mat-icon class="rf__info-icon">search</mat-icon>
+                </div>
+                <span class="rf__info-label">{{ 'no_searches_registered_yet'|translate }}</span>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="rf__table-cell rf__contact-cell--ranking"></div>
+
+          <div class="rf__table-cell rf__contact-cell--agency"></div>
+
+          <div class="rf__table-cell rf__table-cell--spacer"></div>
+
+          <div class="rf__table-cell rf__table-cell--actions-label">
+            <mat-icon *ngIf="contact.isBlacklisted === false && contact.isConfidential === false">chevron_right</mat-icon>
+          </div>
+        </div>
+
+        <div
+          class="vertical-spacer"
+          [class.vertical-spacer--odd]="contact.searches.length === 0 || contact.searches.length % 2 === 1"
+        ></div>
+        <div
+          *ngIf="contact.searches.length === 0 || contact.searches.length % 2 === 1"
+          class="vertical-spacer vertical-spacer--odd"
+        ></div>
+
+      </ng-container>
+
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-contact-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isUsingActions]="isUsingActions"
+      [permissions]="permissions"
+      [feature]="feature"
+      [isSelected]="selection.isSelectedAll === true"
+      [isBetaPerformance]="isBetaPerformance"
+    ></app-contact-table-row>
+
+  </ng-container>
+</div>

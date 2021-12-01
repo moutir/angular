@@ -1,0 +1,108 @@
+@import "../../../styles/variables";
+
+.suggestion-votes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.suggestion-vote {
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  white-space: nowrap;
+  transition: color 300ms ease-out, background 300ms ease-out;
+  font-size: 14px;
+  font-weight: bold;
+  color: $color-02;
+  background: $color-18;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.suggestion-vote-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: inherit;
+  background: $color-19;
+  color: $color-01;
+}
+
+.suggestion-vote--active {
+  color: $color-27;
+}
+
+.suggestion-vote-label {
+  width: 100%;
+  text-align: left;
+  padding: 0 15px;
+}
+
+.suggestion-vote--active .suggestion-vote-icon {
+  color: $color-01;
+  background: $color-27;
+}
+
+.suggestion-vote:hover,
+.suggestion-vote:hover .suggestion-vote-icon {
+  color: $color-01;
+  background: $color-27;
+}
+
+.rf__table-row {
+  height: 40px;
+}
+
+.rf__table-cell:first-child {
+  padding-left: 20px;
+}
+
+.rf__table-cell:last-child {
+  padding-right: 20px;
+}
+
+.rf__keyvalue-row--is-computer-translated {
+  color: $color-17;
+}
+
+.suggestion-title {
+  font-weight: bold;
+}
+
+app-shared-progress-icon {
+  width: 128px;
+  height: 24px;
+}
+
+.suggestion-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.rf__panel--suggestion-chart {
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+
+  .suggestion-charts {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .rf__panel--suggestion-chart {
+    width: 49.5%;
+  }
+}

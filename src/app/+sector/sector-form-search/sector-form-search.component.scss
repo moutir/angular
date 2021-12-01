@@ -1,0 +1,19 @@
+@import "../../../styles/variables";
+
+.mat-form-field {
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+
+  .mat-form-field {
+    width: 50%;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .mat-form-field {
+    width: 30%;
+  }
+}

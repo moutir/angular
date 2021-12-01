@@ -1,0 +1,5 @@
+<span
+  class="yes-no"
+  [class.yes-no--yes]="isYes"
+  [class.yes-no--no]="!isYes"
+>{{ (isYes ? labelYes : labelNo)|translate }}</span>

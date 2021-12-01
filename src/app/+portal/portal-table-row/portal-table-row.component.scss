@@ -1,0 +1,169 @@
+@import "../../../styles/variables";
+
+.rf__portal-cell--gateway .rf__table-txt.accent {
+  font-weight: bold;
+  color: $color-29;
+}
+
+.rf__portal-cell-header .portal-status-active,
+.rf__portal-cell-header .portal-status-inactive {
+  padding: 2px 6px;
+  border-radius: 10px;
+  background-color: $color-01;
+  max-width: 100px;
+  justify-content: center;
+  display: flex;
+}
+
+.rf__portal-cell-header--column {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.rf__portal-cell-header--column.rf__portal-cell-header--column-portal {
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 10px;
+  color: $color-01;
+}
+
+.rf__portal-cell-header--column-portal .rf__table-txt {
+  line-height: normal;
+  max-height: 15px;
+}
+
+.rf__portal-cell-header--column.rf__portal-cell-header--column-status {
+  justify-content: flex-end;
+  margin: 0 10px;
+  color: $color-01;
+  flex: 1;
+}
+
+.rf__portal-cell-header--column-portal-subtitle {
+  font-size: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rf__table-cell.rf__portal-cell-header {
+  display: flex;
+  flex: 1;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  background: $color-19;
+  align-items: center;
+  height: 50px;
+}
+
+.rf__portal-cell--execution-date {
+  display: flex;
+  width: 100%;
+}
+
+.rf__table-cell.rf__portal-cell--language {
+  display: none;
+}
+
+.rf__table-cell.rf__portal-cell--gateway {
+  display: none;
+}
+
+.rf__table-cell.rf__portal-cell--status {
+  display: none;
+  text-align: center;
+}
+
+.rf__portal-cell--execution-date .rf__table-txt {
+  display: flex;
+  flex: 1;
+}
+
+.rf__panel .rf__portal-cell-header .rf__table-txt {
+  color: $color-01;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__portal-cell--language .icon {
+    margin-top: 2px;
+  }
+
+  .rf__portal-last-status {
+    height: 100%;
+    justify-content: center;
+  }
+
+  .rf__portal-last-status .rf__info-label {
+    display: none;
+  }
+
+  .rf__portal-cell--language {
+    width: 60px;
+  }
+
+  .rf__portal-cell--gateway {
+    width: 180px;
+  }
+
+  .rf__portal-cell--status {
+    width: 80px;
+  }
+
+  .rf__portal-cell--message {
+    width: 180px;
+    max-width: 180px;
+  }
+
+  .rf__table-cell.rf__portal-cell-header {
+    display: none;
+  }
+
+  .rf__portal-cell-header--column-portal .rf__table-txt {
+    height: auto;
+  }
+
+  .rf__portal-cell--actions {
+    justify-content: flex-end;
+  }
+
+  .rf__table-cell.rf__portal-cell--language {
+    display: table-cell;
+  }
+
+  .rf__table-cell.rf__portal-cell--gateway {
+    display: table-cell;
+  }
+
+  .rf__table-cell.rf__portal-cell--status {
+    display: table-cell;
+  }
+
+  .rf__portal-cell--execution-date {
+    display: table-cell;
+    width: 160px;
+  }
+
+  .rf__portal-cell--execution-date .rf__table-txt {
+    display: block;
+  }
+
+}
+
+@media (min-width: 1170px) {
+  .rf__portal-cell--message {
+    width: 280px;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .rf__portal-cell--message {
+    width: 400px;
+    max-width: 400px;
+  }
+}

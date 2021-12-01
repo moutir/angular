@@ -1,0 +1,143 @@
+@import "../../../styles/variables";
+
+.rf__reporting-cell--property {
+  padding: 2px 0;
+}
+
+.rf__table-cell.rf__reporting-cell--contacts {
+  position: absolute;
+  top: auto;
+  bottom: 2px;
+}
+
+.rf__table-cell.rf__reporting-cell--date-range,
+.rf__table-cell.rf__reporting-cell--frequency {
+  display: flex;
+  align-items: center;
+}
+
+.rf__reporting-cell--date-range .rf__table-txt {
+  margin-right: 10px;
+}
+
+.process-status span {
+  padding-left: 5px;
+}
+
+.rf__card--property {
+  display: none;
+}
+
+.property-info {
+  position: relative;
+}
+
+.property__reference, .property__price span,
+.property__title {
+  padding: 2px 10px;
+}
+
+.property-info .property__reference {
+  top: -28px;
+}
+
+.property-info .property__price {
+  top: 124px;
+}
+
+.property-info .property__price:after {
+  margin-top: -20px;
+}
+
+.rf__table-thumbnail {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 3px;
+}
+
+.process-status {
+  position: absolute;
+  bottom: 47px;
+  right: 0;
+  z-index: 2;
+}
+
+.process-status .rf__table-txt {
+  height: 23px;
+  padding: 2px 10px;
+}
+
+.process-status .rf__info-icon {
+  margin: 0 0 0 3px;
+}
+
+.process-status button {
+  position: absolute;
+  bottom: -44px;
+  right: 5px;
+}
+
+.process-user {
+  color: $color-19;
+  cursor: pointer;
+}
+
+.process-user .mat-icon,
+.process-date .mat-icon {
+  font-size: 13px;
+  width: 13px;
+  height: 13px;
+}
+
+.process-user, .process-date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rf__table-cell--actions {
+  min-height: 45px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table-cell.rf__reporting-cell--date-range,
+  .rf__table-cell.rf__reporting-cell--frequency {
+    display: table-cell;
+  }
+
+  .rf__card--property {
+    display: block;
+  }
+
+  .property-info,
+  .rf__reporting-cell--date-range .mat-icon,
+  .rf__reporting-cell--generation-date .mat-icon,
+  .rf__reporting-cell--frequency .mat-icon {
+    display: none;
+  }
+
+  .rf__table-cell.rf__reporting-cell--contacts, .process-status {
+    position: static;
+  }
+
+  .process-status {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .process-status button {
+    position: static;
+  }
+
+  .rf__table-cell--actions {
+    min-height: auto;
+  }
+
+  .process-status .rf__table-txt {
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+}

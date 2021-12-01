@@ -1,0 +1,28 @@
+<div class="rf__modal-footer">
+  <div class="powered-by">
+    <span>{{ 'label_powered_by'|translate }}</span>
+    <img src="{{ host + '/dist-fisher/assets/fisher/rf-logo.png' }}" alt="Realforce" />
+    <img src="{{ host + '/dist-fisher/assets/fisher/ph-logo.png' }}" alt="Price Hubble" />
+  </div>
+  <div class="rf__spacer"></div>
+  <button
+    *ngIf="isVisibleInvalid"
+    mat-raised-button
+    color="default"
+    class="rf__button rf__modal-button rf__modal-button--invalid"
+    [disabled]="isDisabledInvalid"
+    (click)="onClickInvalid()"
+  >
+    {{ labelInvalid|translate }}
+  </button>
+  <button
+    *ngIf="isVisibleValid"
+    mat-raised-button
+    color="primary"
+    class="rf__button rf__modal-button rf__modal-button--valid"
+    [disabled]="isDisabledValid"
+    (click)="onClickValid()"
+  >
+    {{ labelValid|translate }}
+  </button>
+</div>

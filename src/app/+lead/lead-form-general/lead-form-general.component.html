@@ -1,0 +1,509 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.typeId || error.statusId || error.contactDate ||
+        error.contactTime || error.sourceId || error.contact || error.brokerId || error.subSourceId ||
+        error.mediaId || error.properties || error.promotions"
+    >
+      <span>{{ 'label_lead'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'entity_contact_plural'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_requester'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__form-autocomplete">
+
+              <app-shared-autocomplete
+                uid="lead-form-request-contact"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+                [placeholder]="'label_search_for_contacts'|translate"
+                [error]="error.contact"
+                [isDisabled]="isDisabled || isLoading || model.isNeedValidation === true"
+                [isDisplayedSelectionText]="true"
+                [selectionId]="model.contact.id"
+                [selectionText]="[model.contact.fullName, model.contact.emails[0]?.emailId]|join:' - '"
+                (changeQuery)="onChangeQueryContact($event)"
+                (changeSelection)="onChangeSelectionContact($event)"
+              ></app-shared-autocomplete>
+
+              <button
+                *ngIf="!isDisabled && model.isNeedValidation === true"
+                class="rf__button rf__button--with-icon rf__button--with-icon-right validate-button"
+                mat-button
+                (click)="onClickValidate()"
+              >
+                {{ 'label_contact_validate'|translate }} <mat-icon>arrow_forward_ios</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_lead_broker'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_lead_broker'|translate }}"
+                formControlName="brokerId"
+              >
+                <mat-option
+                  *ngFor="let option of options.broker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.brokerId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_status'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-button-toggle-group
+              formControlName="statusId"
+              class="rf__button-toggle-group"
+            >
+              <mat-button-toggle
+                *ngFor="let option of options.status"
+                [value]="option.value"
+                class="rf__button-toggle"
+              >
+                {{ option.text }}
+              </mat-button-toggle>
+              <mat-error class="rf__form-error">{{ error.statusId|translate }}</mat-error>
+            </mat-button-toggle-group>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__form-datetime">
+
+              <mat-form-field
+                class="rf__form-datetime-date"
+                floatLabel="never"
+              >
+                <input
+                  matInput
+                  formControlName="contactDate"
+                  [matDatepicker]="pickerContactDate"
+                  autocomplete="off"
+                  placeholder="{{ 'label_date'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerContactDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerContactDate></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field
+                class="rf__form-datetime-time"
+                floatLabel="never"
+              >
+                <input
+                  placeholder="hh:mm:ss"
+                  matInput
+                  appInputTime
+                  autocomplete="off"
+                  formControlName="contactTime"
+                  [isShownSeconds]="true"
+                />
+              </mat-form-field>
+
+              <mat-error class="rf__form-error">{{ (error.contactDate || error.contactTime)|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_single_type'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_single_type'|translate }}"
+                formControlName="typeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.type"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.typeId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_communication'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_source'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_source'|translate }}"
+                formControlName="sourceId"
+              >
+                <mat-option
+                  *ngFor="let option of options.source"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.sourceId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sub_source'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_sub_source'|translate }}"
+                formControlName="subSourceId"
+              >
+                <mat-option
+                  *ngFor="let option of options.subSource"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.subSourceId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_mean_of_communication'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_mean_of_communication'|translate }}"
+                formControlName="mediaId"
+              >
+                <mat-option
+                  *ngFor="let option of options.media"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.mediaId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_message'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+              <textarea
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_message'|translate }}"
+                formControlName="contactMessage"
+              ></textarea>
+              <mat-error>{{ error.contactMessage|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_objects'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          *ngIf="isLoading || model.promotions.length === 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'entity_property_singular'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__keyvalue-autocomplete-chiplist">
+
+              <app-shared-autocomplete
+                uid="lead-form-general-property"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY"
+                [placeholder]="'label_search_for_properties'|translate"
+                [error]="error.properties"
+                [isDisabled]="isDisabled || isLoading || (model.id && model.promotions.length > 0)"
+                [isDisplayedSelectionText]="!!model.id"
+                [selectionId]="model.getProperty().id"
+                [selectionText]="model.getProperty().reference"
+                (changeQuery)="onChangeQueryProperty($event)"
+                (changeSelection)="onChangeSelectionProperty($event)"
+              ></app-shared-autocomplete>
+
+              <div class="rf__card-list">
+
+                <app-shared-card-property
+                  *ngIf="model.properties.length === 0"
+                  [isPlaceholder]="true"
+                ></app-shared-card-property>
+
+                <ng-container *ngFor="let property of model.properties; let i = index;">
+                  <app-shared-card-property
+                    *ngIf="property.id"
+                    class="rf__card-list-item"
+                    [property]="property"
+                    [isDeletable]="isDisabled === false"
+                    [isPlaceholder]="property.isLoading === true"
+                    (clickDelete)="onClickRemoveEntity(i, 'properties')"
+                  ></app-shared-card-property>
+                </ng-container>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="isLoading || model.properties.length === 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'entity_promotion_singular'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__keyvalue-autocomplete-chiplist">
+
+              <app-shared-autocomplete
+                uid="lead-form-general-promotion"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_PROMOTION"
+                [placeholder]="'label_search_for_promotions'|translate"
+                [error]="error.promotions"
+                [isDisabled]="isDisabled || isLoading || (model.id && model.properties.length > 0)"
+                [isDisplayedSelectionText]="!!model.id"
+                [selectionId]="model.getPromotion().id"
+                [selectionText]="model.getPromotion().reference"
+                (changeQuery)="onChangeQueryPromotion($event)"
+                (changeSelection)="onChangeSelectionPromotion($event)"
+              ></app-shared-autocomplete>
+
+              <div class="rf__card-list">
+
+                <app-shared-card-promotion
+                  *ngIf="model.promotions.length === 0"
+                  [isPlaceholder]="true"
+                ></app-shared-card-promotion>
+
+                <ng-container *ngFor="let promotion of model.promotions; let i = index;">
+                  <app-shared-card-promotion
+                    *ngIf="promotion.id"
+                    class="rf__card-list-item"
+                    [promotion]="promotion"
+                    [isDeletable]="isDisabled === false"
+                    [isPlaceholder]="promotion.isLoading === true"
+                    (clickDelete)="onClickRemoveEntity(i, 'promotions')"
+                  ></app-shared-card-promotion>
+                </ng-container>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_title_lead_treatment'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_lead_management_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__form-datetime">
+
+              <mat-form-field
+                class="rf__form-datetime-date"
+                floatLabel="never"
+              >
+                <input
+                  matInput
+                  formControlName="manageDate"
+                  [matDatepicker]="pickerManageDate"
+                  autocomplete="off"
+                  placeholder="{{ 'label_date'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerManageDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerManageDate></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field
+                class="rf__form-datetime-time"
+                floatLabel="never"
+              >
+                <input
+                  placeholder="hh:mm"
+                  matInput
+                  appInputTime
+                  autocomplete="off"
+                  formControlName="manageTime"
+                />
+              </mat-form-field>
+
+              <mat-error class="rf__form-error">{{ (error.manageDate || error.manageTime)|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_management_mean_of_communication'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_management_mean_of_communication'|translate }}"
+                formControlName="managementMediaId"
+              >
+                <mat-option
+                  *ngFor="let option of options.media"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.managementMediaId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_personal_notes'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+              <textarea
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_placeholder_note'|translate }}"
+                formControlName="brokerNotes"
+              ></textarea>
+              <mat-error>{{ error.brokerNotes|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

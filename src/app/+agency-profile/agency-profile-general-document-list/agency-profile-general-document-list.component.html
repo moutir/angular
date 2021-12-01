@@ -1,0 +1,45 @@
+<div class="rf__document-list rf__document-list--agency-general">
+
+  <div class="rf__panel" *ngIf="isReadOnly === false">
+
+    <div class="rf__panel-header rf__panel-header--has-warning">
+      <span>{{ 'label_warning_word'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+      {{ 'label_tab_modifications_stored_immediately'|translate }}
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">{{ 'label_documents'|translate }}</div>
+
+    <div class="rf__panel-body">
+
+      <app-document-manager
+        [documents]="documents"
+        [isLoading]="isLoading$|async"
+        [isReadOnly]="isReadOnly"
+        [isDisabled]="isDisabled"
+        [isSortable]="isSortable"
+        [placeholderCount]="placeholderCount"
+        [strategy]="documentManagerStrategy"
+        (changeDocuments)="onChangeDocuments($event)"
+        (removeDocument)="onRemoveDocument($event)"
+        (changeInput)="onChangeDocumentInput($event)"
+      ></app-document-manager>
+
+      <app-shared-upload
+        [uid]="uid"
+        [strategy]="uploadStrategy"
+        [isDisabled]="isDisabled"
+        (uploadComplete)="onUploadComplete($event)"
+      ></app-shared-upload>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,76 @@
+<div
+  class="rf__card rf__card--contact"
+  [class.rf__card--placeholder]="isPlaceholder === true"
+>
+
+  <div class="rf__card-row rf__card-row--name">
+
+    <div class="rf__card-col rf__card-col--name rf__card-text">
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === false && (contact.fullName || contact.initials)"
+        [contact]="contact"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-contact-link>
+    </div>
+
+    <div class="rf__card-col rf__card-col--star">
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === true"
+        [layout]="'broker'"
+        [isPlaceholder]="true"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+      <app-shared-contact-link
+        *ngIf="isPlaceholder === false && personInCharge"
+        [contact]="personInCharge"
+        [layout]="'broker'"
+        [hasLabel]="false"
+      ></app-shared-contact-link>
+      <div class="rf__card-star">
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="contact.ranking > 0"
+        >star</mat-icon>
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="contact.ranking > 1"
+        >star</mat-icon>
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="contact.ranking > 2"
+        >star</mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="hasSummary && contact.searches[0] as search">
+
+    <div
+      class="rf__card-row rf__card-row--search"
+      [class.rf__card-row--search-with-note]="!!search.notes"
+    >
+
+      <mat-icon
+        class="icon-search"
+        [class.icon-search--active]="!!search.notes"
+        [matTooltip]="search.notes"
+        matTooltipPosition="right"
+        [matTooltipDisabled]="!search.notes"
+      >speaker_notes</mat-icon>
+
+      <div class="rf__card-text rf__card-text--search">{{ search.title || ('#' + search.id) }}</div>
+
+    </div>
+
+  </ng-container>
+
+  <app-shared-svg-icon
+    *ngIf="contact.isVip"
+    icon="vip"
+    matTooltip="{{ 'label_vip'|translate }}"
+    matTooltipPosition="left"
+    class="svg-icon"
+  ></app-shared-svg-icon>
+
+</div>

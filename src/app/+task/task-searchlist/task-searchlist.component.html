@@ -1,0 +1,51 @@
+<div class="rf__searchlist rf__searchlist--task">
+
+  <app-shared-selection-bar
+    entity="task"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isActiveSelectionAll]="false"
+    [isLoading]="(models$|async) === null"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+    (clickSelectNone)="onClickSelectNone()"
+  ></app-shared-selection-bar>
+
+  <app-task-table
+    [isSelectedHeader]="isSelectedPage$|async"
+    [loadingModelIds]="operationIds$|async"
+    [sort]="sort$|async"
+    [selection]="selection$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [modelsSelected]="modelsSelected$|async"
+    (changeSort)="onChangeSort($event)"
+    (changeSelectionHeader)="onChangeSelectionHeader($event)"
+    (changeSelectionModel)="onChangeSelectionModel($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-task-table>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>

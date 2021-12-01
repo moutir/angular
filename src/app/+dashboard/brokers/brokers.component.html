@@ -1,0 +1,16 @@
+<div *ngIf="isAdmin" class="wrapper__dropdown">
+  <app-multiselect [data]="colleagues"
+                   [(ngModel)]="selectedColleagues"
+                   (onSelect)="selectDrop($event)"
+                   (onSelectAll)="changeDrop($event)"
+                   [settings]="multiselectSettings"
+                   [mainSelection]="userBroker"
+                   (onDeSelect)="unSelectDrop($event)"></app-multiselect>
+
+</div>
+<div class="container wrapper__dropdown-type" *ngIf="!(hideSales || hideRentals)">
+  <input type="radio" [checked]="dashboardState.transactionTypeId === '2'" (change)="onChangeTransactionTypeId('2')">
+  <label class="transaction-label">{{'label_for_sale'|translate}}</label>
+  <input type="radio" [checked]="dashboardState.transactionTypeId === '1'" (change)="onChangeTransactionTypeId('1')">
+  <label class="transaction-label">{{'label_rentals'|translate}}</label>
+</div>

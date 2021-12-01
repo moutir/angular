@@ -1,0 +1,103 @@
+@import "../variables";
+
+.website-status-active {
+  color: $color-15;
+}
+
+.website-status-inactive {
+  color: $color-17;
+}
+
+.rf__website-cell--url {
+  background-color: $color-19;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.rf__searchlist--website .rf__website-cell--url .rf__table-txt:first-child {
+  color: $color-01;
+  font-weight: normal;
+}
+
+.rf__searchlist--website .rf__table-row--placeholder .rf__website-cell--url .rf__table-txt {
+  opacity: 0.5;
+  width: 60%;
+}
+
+.rf__searchlist--website .rf__table-row {
+  padding-bottom: 0;
+}
+
+.rf__document-list--website .rf__document-manager-document .rf__document-input {
+  width: 90%;
+}
+
+.rf__document-list--website .rf__document-manager-document .rf__document-button-wrapper--copy {
+  display: flex;
+}
+
+.rf__searchlist--website .rf__website-cell--yes-no {
+  display: none;
+}
+
+@media (min-width: 650px) {
+
+  .rf__document-list--website .rf__document-manager-document .rf__document-input {
+    width: 50%;
+    max-width: 320px;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--website .rf__website-cell--yes-no {
+    display: table-cell;
+  }
+
+  .rf__searchlist--website .rf__table-row--placeholder .rf__website-cell--url .rf__table-txt {
+    opacity: 1;
+    width: 100%;
+  }
+
+  .rf__website-cell--url {
+    background-color: initial;
+    padding: 2px 10px;
+    margin-bottom: 0;
+  }
+
+  .rf__searchlist--website .rf__website-cell--url .rf__table-txt:first-child {
+    color: $color-29;
+    font-weight: bold;
+  }
+
+  .rf__website-cell--url {
+    min-width: 220px;
+    max-width: 220px;
+    width: 220px;
+  }
+}
+
+@media (min-width: 1230px) {
+
+  .rf__website-cell--url {
+    min-width: 240px;
+    max-width: 240px;
+    width: 240px;
+  }
+}
+
+@media (min-width: 1350px) {
+
+  .rf__website-cell--url {
+    min-width: 280px;
+    max-width: 280px;
+    width: 280px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__document-list--website .rf__document-manager-document .rf__upload--document {
+    height: 350px;
+  }
+}

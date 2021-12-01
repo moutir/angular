@@ -1,0 +1,79 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div
+  class="rf__table-cell rf__contact-cell--name"
+  [class.rf__contact-cell--name-performance]="isBetaPerformance === true"
+>
+  <div>{{ 'label_title_name'|translate }}</div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--contacts"
+>
+  {{ 'label_broker_header'|translate }}
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--date"
+>
+  <div mat-sort-header="creation">{{ 'label_creation_date'|translate }}</div>
+  <div mat-sort-header="last_contact_time">{{ 'label_last_contact'|translate }}</div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__contact-cell--ranking"
+>
+  {{ 'label_ranking'|translate }} / {{ 'label_status'|translate }}
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__contact-cell--agency"
+>
+  {{ 'label_broker_header'|translate }}
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__table-cell--spacer"
+></div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--search"
+>
+  <div>{{ 'label_searches'|translate }}</div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--ranking"
+>
+  {{ 'label_ranking'|translate }}
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions-label"
+>{{ 'label_actions'|translate }}</div>

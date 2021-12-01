@@ -1,0 +1,133 @@
+<div
+  class="rf__modal rf__modal--report-generation"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+    <app-shared-modal-header
+      [labelTitle]="generation.action === actionSchedule ? ('label_report_scheduler_' + generation.reportType) :
+      ('label_modal_report_generation_' + generation.reportType)"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <mat-progress-bar
+        class="rf__opacity"
+        [class.rf__opacity--visible]="generation.isLoading === true"
+        mode="indeterminate"
+      ></mat-progress-bar>
+
+      <div *ngIf="report.id" class="container-entity">
+
+        <app-shared-card-property
+          [property]="report.property"
+        ></app-shared-card-property>
+
+        <mat-icon>arrow_forward</mat-icon>
+
+        <app-shared-card-contact
+          *ngIf="report.contact.id"
+          [contact]="report.contact"
+        ></app-shared-card-contact>
+
+        <div
+          *ngIf="!report.contact.id"
+          class="card-placeholder"
+        >{{ 'label_not_available_contact'|translate }}</div>
+
+      </div>
+
+      <div class="container-date">
+        <span *ngIf="generation.reportDateFrom">{{ 'label_from'|translate }}<strong>{{ generation.reportDateFrom|smartDate }}</strong></span>
+        <span *ngIf="generation.reportDateTo">{{ 'label_to'|translate }}<strong>{{ generation.reportDateTo|smartDate }}</strong></span>
+      </div>
+
+      <div
+        *ngIf="errorMessage"
+        class="rf__panel"
+      >
+        <div class="rf__panel-header rf__panel-header--has-error">
+          {{ errorMessage|translate }}
+        </div>
+      </div>
+
+      <app-report-form-generation
+        *ngIf="isVisible"
+        [isLoading]="generation.isLoading"
+        [model]="generation.model"
+        [options]="options"
+        [error]="error"
+        [permissions]="permissions"
+        [action]="generation.action"
+        [reportType]="generation.reportType"
+        (changeForm)="onChangeForm($event)"
+        (errorForm)="onErrorForm($event)"
+      ></app-report-form-generation>
+
+    </div>
+
+    <app-shared-modal-footer
+      *ngIf="generation.action === actionDownload"
+      labelValid="label_generate_report"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+    <app-shared-modal-footer
+      *ngIf="generation.action === actionSend"
+      labelValid="label_send_report"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+    <div
+      *ngIf="isVisible && generation.action === actionSchedule"
+      class="rf__modal-footer"
+    >
+      <button
+        mat-raised-button
+        color="default"
+        class="rf__button rf__modal-button rf__modal-button--invalid"
+        (click)="onClickButton(false)"
+      >
+        {{ 'label_cancel'|translate }}
+      </button>
+      <span
+        class="rf__button-wrapper"
+        matTooltip="{{ errorMessage|translate }}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="!!errorMessage === false"
+      >
+        <button
+          *ngIf="hasPermissionUpdate === true && generation.model.isSchedulerEnabled === true"
+          mat-raised-button
+          color="default"
+          class="rf__button rf__modal-button rf__modal-button--invalid"
+          [disabled]="!!errorMessage === true"
+          (click)="onClickButtonScheduler(false)"
+        >
+          {{ 'label_deactivate'|translate }}
+        </button>
+      </span>
+      <span
+        class="rf__button-wrapper"
+        matTooltip="{{ errorMessage|translate }}"
+        matTooltipPosition="above"
+        [matTooltipDisabled]="!!errorMessage === false"
+      >
+        <button
+          *ngIf="hasPermissionUpdate === true"
+          mat-raised-button
+          class="rf__button rf__modal-button rf__modal-button--valid"
+          [disabled]="!!errorMessage === true"
+          (click)="onClickButtonScheduler(true)"
+        >
+          {{ (generation.model.isSchedulerEnabled === true ? 'label_update': 'label_activate')|translate }}
+        </button>
+      </span>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="rf__page-header rf__page-header--sticky">
+
+  <mat-icon class="rf__page-header-icon">{{ header.icon || 'bug_report' }}</mat-icon>
+
+  <div class="rf__page-header-content">
+    <div class="rf__page-header-title">{{ header.title|translate }}</div>
+    <div class="rf__page-header-subtitles">
+      <ng-container *ngFor="let subtitle of header.subtitles">
+        <span>{{ subtitle|translate }}</span>
+        <span class="rf__page-header-subtitle-separator">/</span>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="rf__page-header-buttons">
+    <ng-container *ngFor="let uid of header.buttons">
+      <button
+        mat-raised-button
+        class="rf__button rf__button--with-icon rf__button--with-icon-left"
+        [ngClass]="'rf__button--' + button[uid].color"
+        [class.rf__button--loading]="header.buttonsLoading.indexOf(uid) > -1"
+        [disabled]="header.buttonsDisabled.indexOf(uid) > -1"
+        (click)="onClickButton($event, button[uid])"
+      >
+        <mat-icon>{{ button[uid].icon }}</mat-icon>
+        <mat-spinner
+          diameter="16"
+        ></mat-spinner>
+        <span class="rf__button-label">{{ button[uid].label|translate }}</span>
+      </button>
+    </ng-container>
+  </div>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uid"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="header.menu"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-menu>

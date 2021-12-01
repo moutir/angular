@@ -1,0 +1,208 @@
+<div class="agency-links">
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(agencyConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/agency-profile']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>description</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_profile'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(agencyPreferenceConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/agency-preference']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ agencyPreferenceConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_preference'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(accountConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/account']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ accountConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'page_header_account'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimeFeature$|async).restriction === true"
+    class="agency-links__link"
+    [routerLink]="['/restriction']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ restrictionConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_restrictions'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimeFeature$|async).marketingExpense === true"
+    class="agency-links__link"
+    [routerLink]="['/marketing-expense']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>explicit</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_marketing_expense'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(PERMISSION_AGENCY_PRODUCTION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/production']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>bar_chart</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_production'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(portalConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/portal']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ portalConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_gateways'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(deviceConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/device']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ deviceConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_mobile_device'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(dnsConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/dns']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ dnsConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_dns_zone'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimeFeature$|async).sector === true"
+    class="agency-links__link"
+    [routerLink]="['/sector']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ sectorConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_sectors'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimeFeature$|async).customAttribute === true"
+    class="agency-links__link"
+    [routerLink]="['/custom-attribute']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ customAttributeConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_custom_attributes'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimeFeature$|async).mls === true"
+    class="agency-links__link"
+    [routerLink]="['/mls']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ mlsConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_mls_network'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(websiteConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/website']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ websiteConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_websites'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="(runtimePermissions$|async).indexOf(websiteArticleConfig.PERMISSION_READ) > -1"
+    class="agency-links__link"
+    [routerLink]="['/website-article']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ websiteArticleConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_websites'|translate }} {{ 'label_articles'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    class="agency-links__link"
+    [routerLink]="['/data-backup']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>cloud_download</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_data_backup'|translate }}</div>
+    </div>
+  </a>
+
+  <a
+    class="agency-links__link"
+    [routerLink]="['/process']"
+  >
+    <div class="agency-links__block agency-links__block--icon">
+      <mat-icon>{{ processConfig.ICON }}</mat-icon>
+    </div>
+    <div class="agency-links__block agency-links__block--legend">
+      <div>{{ 'label_process_auto'|translate }}</div>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,13 @@
+@import "../../../styles/variables";
+
+.placeholder-text {
+  font-style: italic;
+  color: $color-29;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table-cell-box {
+    justify-content: center;
+  }
+}

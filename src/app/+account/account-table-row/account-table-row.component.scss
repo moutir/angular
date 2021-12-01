@@ -1,0 +1,24 @@
+@import "../../../styles/variables";
+
+.rf__account-cell--login {
+  font-weight: bold;
+}
+
+.rf__table-txt--agency-name {
+  font-size: 9px;
+}
+
+.rf__account-cell--contact,
+.rf__account-cell--dates,
+.rf__account-cell--last-ip {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__account-cell--contact,
+  .rf__account-cell--dates,
+  .rf__account-cell--last-ip {
+    display: table-cell;
+  }
+}

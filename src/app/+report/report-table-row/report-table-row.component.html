@@ -1,0 +1,231 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <span
+    matTooltip="{{ actionTooltip|translate }}"
+    matTooltipPosition="right"
+  >
+    <mat-checkbox
+      *ngIf="isLoading === false"
+      [(ngModel)]="isSelected"
+      [disabled]="isSelectable() === false"
+      (change)="onChangeCheckbox()"
+      (click)="onClickCheckbox($event)"
+    ></mat-checkbox>
+  </span>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__report-cell--property">
+  <div class="property-info">
+
+    <div class="rf__table-thumbnail">
+      <mat-icon>photo_camera</mat-icon>
+      <div
+        *ngIf="report.property.photoSmallURL"
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+        appAsyncImage="{{ report.property.photoSmallURL }}"
+      >
+        <mat-icon>broken_image</mat-icon>
+      </div>
+      <div
+        *ngIf="report.property.photoLargeURL"
+        class="rf__table-thumbnail-image rf__table-thumbnail-image--large"
+        appAsyncImage="{{ report.property.photoLargeURL }}"
+      >
+        <mat-icon>broken_image</mat-icon>
+      </div>
+      <div
+        *ngIf="isPlaceholder === false"
+        class="rf__table-thumbnail-overlay"
+      >
+        <mat-icon>photo_camera</mat-icon>
+      </div>
+    </div>
+
+    <div
+      *ngIf="report.property.reference"
+      class="rf__table-txt property__reference"
+    >{{ report.property.reference }}</div>
+
+    <div
+      *ngIf="report.property.labelPrice"
+      class="property__price"
+    >
+      <span class="rf__table-txt">{{ report.property.labelPrice }}</span>
+    </div>
+
+    <div class="rf__table-txt property__title">{{ report.property.labelSubcategory }}</div>
+    <div class="rf__table-txt property__title">{{ report.property.location.label }}</div>
+
+  </div>
+
+  <app-shared-card-property
+    class="rf__card--property"
+    [property]="report.property"
+    [isPlaceholder]="isPlaceholder"
+  ></app-shared-card-property>
+</div>
+
+<div class="rf__table-cell rf__report-cell--promotion">
+    <div class="promotion-info">
+
+      <div class="rf__table-thumbnail">
+        <mat-icon>photo_camera</mat-icon>
+        <div
+          *ngIf="report.promotion.photoSmallURL"
+          class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+          appAsyncImage="{{ report.promotion.photoSmallURL }}"
+        >
+          <mat-icon>broken_image</mat-icon>
+        </div>
+        <div
+          *ngIf="report.promotion.photoLargeURL"
+          class="rf__table-thumbnail-image rf__table-thumbnail-image--large"
+          appAsyncImage="{{ report.promotion.photoLargeURL }}"
+        >
+          <mat-icon>broken_image</mat-icon>
+        </div>
+        <div
+          *ngIf="isPlaceholder === false"
+          class="rf__table-thumbnail-overlay"
+        >
+          <mat-icon>photo_camera</mat-icon>
+        </div>
+      </div>
+
+      <div class="rf__table-txt promotion__reference">{{ report.promotion.name }}</div>
+
+      <div class="promotion__price">
+        <span class="rf__table-txt">{{ report.promotion.propertyPriceFrom }}</span>
+      </div>
+
+      <div class="rf__table-txt promotion__title">
+        <span>{{ report.promotion.location.label }}</span>
+      </div>
+    </div>
+
+    <app-shared-card-promotion
+      class="rf__card--promotion"
+      [promotion]="report.promotion"
+      [isPlaceholder]="isPlaceholder"
+    ></app-shared-card-promotion>
+  </div>
+
+<div
+  *ngIf="featureReport.isSchedulerEnabled === true"
+  class="rf__table-cell rf__report-cell--schedule"
+>
+  <div
+    *ngIf="isPlaceholder === true || report.generation && report.generation.isSchedulerEnabled"
+    class="rf__info"
+    matTooltip="{{ 'tooltip_report_scheduler_info'|translate:{
+      frequency: ('label_' + report.generation?.frequency)|translate,
+      start: report.generation?.startDate|smartDate,
+      range: ('label_' + report.generation?.dateRange)|translate} }}"
+    matTooltipPosition="right"
+  >
+    <mat-icon
+      class="rf__info-icon"
+    >query_builder</mat-icon>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__report-cell--client">
+  <span class="rf__table-txt">
+    <app-shared-contact-link
+      *ngIf="isPlaceholder === false && report.contact.fullName"
+      [contact]="report.contact"
+    ></app-shared-contact-link>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__report-cell--broker">
+
+  <div class="rf__table-cell-box">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        *ngFor="let i of contactMax|forLoop"
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <app-shared-contact-link
+        *ngFor="let broker of report.brokers.slice(0, contactMax)"
+        [contact]="broker"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+      <app-shared-more-icon [count]="report.brokers.length" [max]="contactMax" [hasMarginBottom]="true"></app-shared-more-icon>
+
+    </ng-container>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__report-cell--proposition">
+  <span class="rf__table-txt">{{ report.propositionCount }}</span>
+</div>
+
+<div class="rf__table-cell rf__report-cell--visit-plan">
+  <span class="rf__table-txt">{{ report.visitPlannedCount }}</span>
+</div>
+
+<div class="rf__table-cell rf__report-cell--visit-done">
+  <span class="rf__table-txt">{{ report.visitDoneCount }}</span>
+</div>
+
+<div class="rf__table-cell rf__report-cell--status">
+  <div class="rf__table-cell-box">
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'label_number_of_propositions'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >call_made</mat-icon>
+      <span class="rf__table-txt">{{ report.propositionCount }}</span>
+    </div>
+
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'label_number_of_visits_planned'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >today</mat-icon>
+      <span class="rf__table-txt">{{ report.visitPlannedCount }}</span>
+    </div>
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'label_number_of_visits_done'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >how_to_reg</mat-icon>
+      <span class="rf__table-txt">{{ report.visitDoneCount }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions">
+
+  <button
+    mat-icon-button
+    matTooltip="{{ 'label_generate_report'|translate }}"
+    matTooltipPosition="left"
+    (click)="onClickButtonBrochure($event)"
+  >
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+
+</div>

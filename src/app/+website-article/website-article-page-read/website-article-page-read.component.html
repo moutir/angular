@@ -1,0 +1,196 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_general'|translate }}"
+      [id]="PAGE_TAB_GENERAL"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_article'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency_website'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.websiteUrl }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_author'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.author || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_creation_date'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.creationDate|datetime) || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_published'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no [isYes]="model.isPublished === true"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">{{ 'label_photos'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <app-gallery
+              [images]="images"
+              [isLoading]="isLoadingPhotos$|async"
+            ></app-gallery>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <ng-container *ngFor="let language of availableLanguageIds$|async; let i = index">
+
+      <mat-tab
+        *ngIf="model.content[language]"
+        id="website-article-read-content-{{ language }}"
+      >
+
+        <ng-template mat-tab-label>
+          <div class="rf__tab-label">
+            <app-shared-svg-icon class="icon" icon="flag-{{ language }}"></app-shared-svg-icon>
+            <span>{{ (availableLanguages$|async)[language] || '' }}</span>
+          </div>
+        </ng-template>
+
+        <div class="rf__tab-body rf__tab-body--content-{{language}}">
+
+          <div class="rf__panel">
+
+            <div class="rf__panel-header">{{ 'label_content'|translate }}</div>
+
+            <div class="rf__panel-body">
+
+              <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+              <div class="rf__panel-section">
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                    <span>{{ 'label_title'|translate }}</span>
+                  </div>
+
+                  <div
+                    [class.placeholder-text]="!model.content[language].title"
+                    class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                  >
+                    <span>{{ model.content[language].title ||
+                      ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                  </div>
+
+                </div>
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                    <span>{{ 'label_description'|translate }}</span>
+                  </div>
+
+                  <div
+                    [class.placeholder-text]="!model.content[language].description"
+                    class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--html"
+                  >
+                    <div
+                      *ngIf="!model.content[language].description"
+                    >{{ ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</div>
+                    <div
+                      *ngIf="model.content[language].description"
+                      [innerHTML]="model.content[language].description"
+                    ></div>
+                  </div>
+
+                </div>
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                    <span>{{ 'label_website_seo_description'|translate }}</span>
+                  </div>
+
+                  <div
+                    [class.placeholder-text]="!model.content[language].seoDescription"
+                    class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                  >
+                    <span>{{ model.content[language].seoDescription ||
+                      ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                  </div>
+
+                </div>
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                    <span>{{ 'label_website_seo_keywords'|translate }}</span>
+                  </div>
+
+                  <div
+                    [class.placeholder-text]="!model.content[language].seoKeyword"
+                    class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                  >
+                    <span>{{ model.content[language].seoKeyword ||
+                      ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </mat-tab>
+
+    </ng-container>
+
+  </mat-tab-group>
+
+</div>

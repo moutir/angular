@@ -1,0 +1,65 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__property-cell--photo"></div>
+
+<div class="rf__table-cell rf__property-cell--reference">
+  <div mat-sort-header="reference">{{ 'label_reference'|translate }}</div>
+  <div mat-sort-header="status_label">{{ 'label_status'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__property-cell--category">
+  <div mat-sort-header="sub_category">{{ 'label_category'|translate }}</div>
+  <div mat-sort-header="location">{{ 'label_location'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__property-cell--price">
+  <ng-container *ngIf="listType === listTypeBasket">
+    <div mat-sort-header="price">{{ 'label_price_rent'|translate }}</div>
+    <div>{{ 'label_financing_charges'|translate }}</div>
+  </ng-container>
+  <ng-container *ngIf="listType === listTypeSell">
+    <div mat-sort-header="price">{{ 'label_price'|translate }}</div>
+    <div>{{ 'label_financing'|translate }}</div>
+  </ng-container>
+  <ng-container *ngIf="listType === listTypeRent">
+    <div mat-sort-header="price">{{ 'label_rent'|translate }}</div>
+    <div>{{ 'label_charges'|translate }}</div>
+  </ng-container>
+</div>
+
+<div class="rf__table-cell rf__property-cell--dimensions">
+  <div>{{ 'label_dimensions'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__property-cell--contacts">{{ 'label_contacts'|translate }}</div>
+
+<div class="rf__table-cell rf__property-cell--ranking" mat-sort-header="ranking">{{ 'label_ranking'|translate }}</div>
+
+<div class="rf__table-cell rf__property-cell--date">
+  <div mat-sort-header="creation">{{ 'label_creation_date'|translate }}</div>
+  <div mat-sort-header="lastupdate">{{ 'label_update_date'|translate }}</div>
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions-label"
+>{{ 'label_actions'|translate }}</div>

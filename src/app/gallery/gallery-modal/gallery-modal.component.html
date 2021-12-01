@@ -1,0 +1,80 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    *ngIf="gallery.images.length > 0"
+    class="rf__modal-content rf__gallery-modal"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <div class="rf__gallery-modal-header">
+
+      <div class="rf__gallery-modal-header-counter">{{ gallery.currentIndex + 1 }}/{{ gallery.images.length }}</div>
+      <div class="rf__gallery-modal-header-title">{{ gallery.images[gallery.currentIndex].title }}</div>
+
+      <button
+        class="rf__gallery-modal-header-button"
+        [class.rf__gallery-modal-header-button--active]="gallery.isCrop"
+        (click)="onClickCrop()"
+      >
+        <mat-icon class="rf__gallery-modal-header-icon-crop">crop</mat-icon> <span>{{ 'label_crop'|translate }}</span>
+      </button>
+      <button
+        class="rf__gallery-modal-header-button"
+        (click)="onClickButton(false)"
+      >
+        <mat-icon class="rf__gallery-modal-header-icon-close">close</mat-icon> <span>{{ 'label_close'|translate }}</span>
+      </button>
+
+    </div>
+
+    <div class="rf__gallery-modal-body">
+
+      <div class="rf__spinner">
+        <mat-spinner
+          color="accent"
+          diameter="64"
+        ></mat-spinner>
+      </div>
+
+      <div
+        *ngFor="let image of gallery.images; let i = index;"
+        class="rf__gallery-modal-body-image"
+        [class.rf__gallery-modal-body-image--crop]="gallery.isCrop"
+        [class.rf__gallery-modal-body-image--active]="i === gallery.currentIndex"
+        appAsyncImage="{{ image.url }}"
+      >
+
+        <div
+          class="rf__gallery-nav rf__gallery-nav--previous"
+          (click)="onClickPrevious()"
+        >
+          <mat-icon class="rf__gallery-nav-icon">arrow_back_ios</mat-icon>
+        </div>
+
+        <div
+          class="rf__gallery-nav rf__gallery-nav--next"
+          (click)="onClickNext()"
+        >
+          <mat-icon class="rf__gallery-nav-icon">arrow_forward_ios</mat-icon>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="rf__gallery-modal-footer">
+
+      <div
+        *ngFor="let image of gallery.images; let i = index;"
+        class="rf__gallery-modal-footer-image"
+        [class.rf__gallery-modal-footer-image--active]="i === gallery.currentIndex"
+        (click)="onClickImage(i)"
+        appAsyncImage="{{ image.url }}"
+      ></div>
+
+    </div>
+
+  </div>
+</div>

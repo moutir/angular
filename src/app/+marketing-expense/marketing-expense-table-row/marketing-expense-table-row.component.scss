@@ -1,0 +1,33 @@
+@import "../../../styles/variables";
+
+.rf__marketing-expense-cell--cell-title {
+  display: flex;
+  flex: 1;
+  font-weight: 700;
+}
+
+.rf__table-txt {
+  display: flex;;
+  flex:  1;
+}
+
+.rf__table-cell {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__marketing-expense-cell--cell-title {
+    display: none;
+  }
+
+  .rf__table-txt {
+    display: block;
+  }
+
+  .rf__table-cell {
+    display: table-cell;
+  }
+}

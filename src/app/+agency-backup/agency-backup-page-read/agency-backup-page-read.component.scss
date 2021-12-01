@@ -1,0 +1,9 @@
+@import "../../../styles/variables";
+
+.rf__table-cell {
+  padding: 10px 20px;
+}
+
+.rf__table-cell:nth-child(2) {
+  text-align: right;
+}

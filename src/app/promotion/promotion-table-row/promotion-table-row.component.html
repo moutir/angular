@@ -1,0 +1,178 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    matTooltipPosition="right"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--photo">
+  <div class="rf__table-thumbnail">
+
+    <mat-icon>photo_camera</mat-icon>
+
+    <div
+      *ngIf="promotion.photoSmallURL"
+      class="rf__table-thumbnail-image rf__table-thumbnail-image--small"
+      appAsyncImage="{{ promotion.photoSmallURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="promotion.photoLargeURL"
+      class="rf__table-thumbnail-image rf__table-thumbnail-image--large"
+      appAsyncImage="{{ promotion.photoLargeURL }}"
+    >
+      <mat-icon>broken_image</mat-icon>
+    </div>
+
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__table-thumbnail-overlay"
+      (click)="onClickThumbnail($event)"
+    >
+      <mat-icon>photo_camera</mat-icon>
+    </div>
+
+  </div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--name">
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon
+        *ngIf="promotion.notes"
+        matTooltip="{{ promotion.notes }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >warning</mat-icon>
+      <span class="rf__info-label">{{ promotion.name }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--date">
+  <div class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="promotion.constructionStartDate !== null"
+    >
+      <mat-icon
+        matTooltip="{{ promotion.constructionStartDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ promotion.constructionStartDate|datetime:'date' }}</span>
+    </div>
+  </div>
+  <div class="rf__table-txt">
+    <div
+      class="rf__info"
+      *ngIf="promotion.constructionEndDate !== null"
+    >
+      <mat-icon
+        matTooltip="{{ promotion.constructionEndDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >flag</mat-icon>
+      <span class="rf__info-label">{{ promotion.constructionEndDate|datetime:'date' }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--location">
+  <span
+    *ngIf="isPlaceholder === true || promotion.location.label"
+    class="rf__table-txt"
+  >
+    <span>{{ promotion.location.label }}</span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--contact">
+  <span class="rf__table-txt">
+    <app-shared-contact-link
+      *ngIf="promotion.broker.fullName"
+      [contact]="promotion.broker"
+    ></app-shared-contact-link>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--price">
+  <span class="rf__table-txt">
+    <span>{{ promotion.propertyPrice }}</span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__promotion-cell--status">
+  <div>
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'reserved_promotion_properties'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >assignment_returned</mat-icon>
+      <span class="rf__table-txt">{{ promotion.propertyReservedCount }}</span>
+    </div>
+
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'sold_promotion_properties'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >assignment_turned_in</mat-icon>
+      <span class="rf__table-txt">{{ promotion.propertySoldCount }}</span>
+    </div>
+    <div class="rf__info">
+      <mat-icon
+        matTooltip="{{ 'total_promotion_properties'|translate }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >apps</mat-icon>
+      <span class="rf__table-txt">{{ promotion.propertyTotalCount }}</span>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions"
+>
+
+  <button
+    mat-icon-button
+    matTooltip="{{ 'title_download_pdf_brochure'|translate }}"
+    matTooltipPosition="left"
+    [disabled]="promotion.isBlacklisted === true"
+    (click)="onClickButtonBrochure($event)"
+  >
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+
+  <button
+    *ngIf="feature.history === true"
+    mat-icon-button
+    matTooltip="{{ 'title_promotion_history'|translate }}"
+    matTooltipPosition="left"
+    [disabled]="promotion.isBlacklisted === true"
+    (click)="onClickButtonHistory($event)"
+  >
+    <mat-icon>event_note</mat-icon>
+  </button>
+
+</div>

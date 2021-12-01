@@ -1,0 +1,9 @@
+@import "../../../styles/variables";
+
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__contract-cell--broker .rf__table-cell-box {
+    justify-content: center;
+  }
+}

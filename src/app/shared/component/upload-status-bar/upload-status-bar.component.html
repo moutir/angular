@@ -1,0 +1,91 @@
+<div
+  class="rf__upload-status-bar"
+  [class.rf__upload-status-bar--appear]="uploads.length > 0"
+  [class.rf__upload-status-bar--fold]="isFolded === true"
+>
+
+  <div class="rf__upload-status-bar-header">
+
+    <div>{{ headerTitle|translate: { count: headerTitleUploadCount } }}</div>
+
+    <div class="rf__upload-status-bar-header-actions">
+
+      <button
+        mat-button
+        matTooltip="{{ (isFolded === false ? 'label_minimize' : 'label_maximize') |translate }}"
+        matTooltipPosition="above"
+        class="rf__button-icon rf__upload-status-bar-toggle"
+        (click)="onClickToggle()"
+      >
+        <mat-icon *ngIf="isFolded === false">expand_more</mat-icon>
+        <mat-icon *ngIf="isFolded === true">expand_less</mat-icon>
+      </button>
+
+      <button
+        mat-button
+        matTooltip="{{ 'label_close'|translate }}"
+        matTooltipPosition="above"
+        class="rf__button-icon rf__upload-status-bar-cancel-upload-all"
+        (click)="onClickCancelAll()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="rf__upload-status-bar-file-list">
+
+    <div *ngFor="let upload of uploads.reverse()" class="rf__upload-status-bar-file">
+
+      <div class="rf__upload-status-bar-file-title">{{ upload.name }}</div>
+
+      <div
+        *ngIf="upload.status === uploadStatusFailed"
+        class="rf__upload-status-bar-file-subtitle"
+      >{{ 'label_upload_failed'|translate }}</div>
+
+      <div
+        *ngIf="upload.status === uploadStatusCancelled"
+        class="rf__upload-status-bar-file-subtitle"
+      >{{ 'label_upload_cancelled'|translate }}</div>
+
+      <div class="rf__upload-status-bar-file-action">
+
+        <div
+          *ngIf="upload.status === uploadStatusProgressing"
+          class="rf__upload-status-bar-file-spinner"
+        >
+          <mat-progress-spinner
+            diameter="22"
+            strokeWidth="3"
+            [value]="upload.status === uploadStatusProgressing ? upload.progressPercentage : 50"
+            [mode]="upload.status === uploadStatusProgressing ? 'determinate' : 'indeterminate'"
+          ></mat-progress-spinner>
+        </div>
+
+        <button
+          *ngIf="upload.status === uploadStatusProgressing"
+          mat-button
+          matTooltip="{{ 'label_upload_cancel'|translate }}"
+          matTooltipPosition="left"
+          class="rf__button-icon rf__upload-status-bar-cancel-upload"
+          (click)="onClickCancel(upload.id)"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+
+        <mat-icon
+          *ngIf="upload.status === uploadStatusFailed || upload.status === uploadStatusCancelled"
+          class="rf__upload-status-bar-icon rf__upload-status-bar-icon--fail">info</mat-icon>
+
+        <mat-icon
+          *ngIf="upload.status === uploadStatusCompleted"
+          class="rf__upload-status-bar-icon rf__upload-status-bar-icon--complete">check_circle</mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+</div>

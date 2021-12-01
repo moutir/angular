@@ -1,0 +1,16 @@
+<form class="search-input" role="search" action="http://webapplayers.com/inspinia_admin-v2.3/search_results.html">
+  <div class="form-group">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <input
+      type="text"
+      placeholder="{{ 'label_search' |  translate }}"
+      class="form-control"
+      name="top-search"
+      id="top-search"
+      autocomplete="off"
+      [(ngModel)]="needle"
+    >
+    <div><i class="fa fa-close close" aria-hidden="true" *ngIf="needle && needle !== ''" (click)="onClickClear()"></i>
+    </div>
+  </div>
+</form>

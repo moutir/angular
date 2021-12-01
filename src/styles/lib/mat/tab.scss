@@ -1,0 +1,20 @@
+@import "../../variables";
+
+.mat-tab-labels .mat-tab-label {
+  font-size: 12px;
+  height: 40px;
+  padding: 0 16px;
+  min-width: 0;
+  transition: color 400ms ease-out;
+  opacity: 1;
+  color: $color-29;
+}
+
+.mat-tab-labels .mat-tab-label:hover {
+  color: $color-27;
+}
+
+.mat-tab-labels .mat-tab-label-active,
+.mat-tab-labels .mat-tab-label-active:hover {
+  color: $color-19;
+}

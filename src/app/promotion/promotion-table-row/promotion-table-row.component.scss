@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+
+.rf__promotion-cell--name .rf__table-txt {
+  font-weight: bold;
+  color: $color-29;
+}
+
+.rf__promotion-cell--status > div {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rf__promotion-cell--status .rf__table-txt {
+  min-width: 16px;
+}

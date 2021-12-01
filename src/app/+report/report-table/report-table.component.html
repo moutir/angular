@@ -1,0 +1,57 @@
+<div class="rf__table">
+
+  <app-report-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    (matSortChange)="onChangeSort($event)"
+    [featureReport]="featureReport"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-report-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-report-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let report of models; trackBy: trackById;"
+      [report]="report"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(report.id) > -1"
+      [isLoading]="loadingModelIds.indexOf(report.id) > -1"
+      [authentication]="authentication"
+      [permissions]="permissions"
+      [featureReport]="featureReport"
+      [reportType]="reportType"
+      (contextmenu)="onContextMenu($event, report)"
+      (changeSelection)="onChangeSelectionModel($event, report)"
+      (click)="onClickModel(report)"
+    ></app-report-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-report-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isSelected]="selection.isSelectedAll === true"
+      [permissions]="permissions"
+      [authentication]="authentication"
+      [featureReport]="featureReport"
+      [reportType]="reportType"
+    ></app-report-table-row>
+
+  </ng-container>
+</div>
+
+<div
+  *ngIf="models !== null && models.length === 0"
+  class="rf__table-noresults"
+>{{ 'label_no_results_found'|translate }}</div>

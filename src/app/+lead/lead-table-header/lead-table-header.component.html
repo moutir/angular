@@ -1,0 +1,52 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--date">
+  <div mat-sort-header="contact_date">{{ 'label_contact_date'|translate }}</div>
+  <div mat-sort-header="duration">{{ 'label_contact_delay'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--client">
+  <div mat-sort-header="client">{{ 'label_client'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--type-status">
+  <div mat-sort-header="lead_type_label">{{ 'label_lead_type'|translate }}</div>
+  <div mat-sort-header="status_label">{{ 'label_status'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--lead-broker">
+  <div mat-sort-header="manager">{{ 'label_lead_broker'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--client-broker">
+  <div mat-sort-header="client_contact">{{ 'label_client_broker'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--property">
+  <div mat-sort-header="reference">{{ 'label_properties_search'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__lead-cell--source">
+  <div mat-sort-header="source_label">{{ 'label_source'|translate }}</div>
+  <div mat-sort-header="original_communication_label">{{ 'label_mean_of_communication'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions-label">{{ 'label_actions'|translate }}</div>

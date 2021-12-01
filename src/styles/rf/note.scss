@@ -1,0 +1,31 @@
+@import "../variables";
+
+.rf__note {
+  background-color: $color-25;
+  border-radius: 6px;
+  color: $color-05;
+  width: 100%;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.rf__note-body {
+  padding-top: 16px;
+}
+
+.rf__note-header,
+.rf__note-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rf__note-label {
+  width: 40%;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.rf__note-value {
+  width: 60%;
+  line-height: 13px;
+}

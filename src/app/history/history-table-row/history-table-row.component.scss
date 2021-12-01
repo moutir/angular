@@ -1,0 +1,28 @@
+@import "../../../styles/variables.scss";
+
+.rf__table-thumbnail {
+  width: 100px;
+  height: 27px;
+  background: none;
+}
+
+.rf__table-thumbnail .rf__table-thumbnail-image {
+  background-size: contain;
+  background-position: left center;
+}
+
+.rf__history-cell--done-by > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rf__history-cell--date .rf__table-txt:nth-child(2) {
+  color: $color-30;
+  font-size: 11px;
+}
+
+.rf__history-cell--action .rf__info-icon {
+  font-size: 18px;
+  margin: -4px 0 0 3px;
+}

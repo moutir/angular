@@ -1,0 +1,34 @@
+<div class="rf__table">
+
+  <app-portal-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    matSortDisableClear="true"
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    (matSortChange)="onChangeSort($event)"
+  ></app-portal-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-portal-table-row
+      *ngFor="let portal of models; let idx = index; trackBy: trackById;"
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      [portal]="portal"
+      [rowIndex]="idx + 1"
+      (click)="onClickModel(portal)"
+      (contextmenu)="onContextMenu($event, portal)"
+    ></app-portal-table-row>
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-portal-table-row
+      *ngFor="let i of placeholderCount|forLoop"
+      class="rf__table-row rf__table-row--placeholder"
+      [isPlaceholder]="true"
+    ></app-portal-table-row>
+
+  </ng-container>
+</div>

@@ -1,0 +1,27 @@
+<div class="menu">
+  <div
+    *ngFor="let menuItem of menu.items"
+    class="menu_item"
+    [class.menu_item--disabled]="!menuItem.isEnabled"
+    [class.menu_item--hover]="menuItem.isEnabled && activeItem && activeItem.id === menuItem.id"
+    (mouseover)="onMouseOverMenuItem($event, menuItem)"
+    (click)="onClickMenuItem(menuItem)"
+    [matTooltipDisabled]="!menuItem.tooltip"
+    matTooltip="{{ menuItem.tooltip|translate }}"
+    matTooltipPosition="above"
+  >
+
+    <mat-icon *ngIf="menuItem.icon && menuItem.icon.indexOf('flag-') === -1" class="icon">{{ menuItem.icon }}</mat-icon>
+    <app-shared-svg-icon *ngIf="menuItem.icon.indexOf('flag-') === 0" icon="{{ menuItem.icon }}" class="icon"></app-shared-svg-icon>
+    <div class="menu_label">{{ menuItem.label|translate }}</div>
+    <mat-icon *ngIf="menuItem.items.length > 0">arrow_right</mat-icon>
+
+  </div>
+</div>
+
+<app-shared-menu
+  *ngIf="activeItem !== null"
+  [menu]="activeItem"
+  [ngStyle]="childStyle"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-menu>

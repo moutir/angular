@@ -1,0 +1,8 @@
+@import "../../../styles/variables";
+
+@media (min-width: $searchlist-breakpoint) {
+
+  app-website-table-row {
+    height: 60px;
+  }
+}

@@ -1,0 +1,46 @@
+
+// TODO[legacy] Move .layout classes to app.component.scss once CRM is on Angular only
+.layout {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding-top: 56px;
+}
+
+.layout--animation {
+  transition: padding-left $layout-transition-duration $layout-transition-function;
+}
+
+.layout-spacer {
+  width: 100%;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .layout {
+    padding-left: $layout-menu-width-unfold;
+  }
+
+  .layout--fold {
+    padding-left: $layout-menu-width-fold;
+  }
+
+  .layout--fold .rf__page-header--sticky {
+    padding-left: ($layout-menu-width-fold + 10px);
+  }
+}
+
+app-shared-page-header + div.rf__tab-body,
+app-shared-page-header + div.rf__page-body {
+  padding-top: ($page-header-height + 20px);
+}
+
+app-shared-page-header + div.rf__tab-bar,
+app-shared-page-header + div.rf__tab-bar--page {
+  padding-top: $page-header-height;
+}
+
+app-shared-page-header + app-agency-links {
+  display: block;
+  padding-top: $page-header-height;
+}

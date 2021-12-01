@@ -1,0 +1,81 @@
+<div *ngIf="dataProfile" class="profile">
+
+  <div class="profile__full-info">
+    <div class="profile__properties">
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+          {{ 'label_direct_mandates'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ directMandates }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+          {{ 'label_mandate_listed'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ mandateListed }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+         3* {{ 'label_mandates'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ fiveMandates }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+          {{ 'label_exclusive_mandates'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ exclusiveMandates }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name" *ngIf="transactionTypeId === '2'">
+           {{ 'label_buyers'|translate }}
+        </span>
+
+        <span class="profile__properties-name" *ngIf="transactionTypeId === '1'">
+           {{ 'label_tenants'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ buyers }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name" *ngIf="transactionTypeId === '2'">
+           3* {{ 'label_buyers'|translate }}
+        </span>
+        <span class="profile__properties-name" *ngIf="transactionTypeId === '1'">
+           3* {{ 'label_tenants'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ fiveBuyers }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+          {{ 'label_offers_received'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ offersReceived }}
+        </span>
+      </div>
+      <div class="profile__properties-item">
+        <span class="profile__properties-name">
+          {{ 'label_offers_accepted'|translate }}
+        </span>
+        <span class="profile__properties-value">
+          {{ offersAccepted }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,27 @@
+<div
+  class="rf__sidenav"
+  [class.rf__sidenav--is-visible]="isVisible === true"
+  [class.rf__sidenav--is-active]="isActive === true"
+>
+
+  <mat-sidenav-container
+    (backdropClick)="deactivate()"
+  >
+
+    <mat-sidenav
+      #sidenav
+      position="end"
+      (keydown.escape)="deactivate()"
+    >
+
+      <div class="rf__sidenav-header">{{ 'label_switch_account'|translate }}</div>
+
+      <div class="rf__sidenav-body">
+        <app-user-switch></app-user-switch>
+      </div>
+
+    </mat-sidenav>
+
+  </mat-sidenav-container>
+
+</div>

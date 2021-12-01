@@ -1,0 +1,26 @@
+<div class="rf__gallery">
+
+  <div *ngIf="isLoading === true" class="rf__gallery-loading">{{ 'label_loading_records'|translate }}</div>
+
+  <ng-container *ngIf="isLoading === false && images.length > 0">
+
+    <div
+      *ngFor="let image of images; let i = index;"
+      class="rf__gallery-image"
+      appAsyncImage="{{ image.thumbnailUrl }}"
+      (click)="onClickImage(i)"
+    >
+      <div class="rf__gallery-image-title">
+        <span>{{ image.title }}</span>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <div
+    *ngIf="isLoading === false && images.length === 0"
+    class="rf__gallery-empty"
+  >{{ messageEmptyState|translate }}</div>
+
+</div>
+

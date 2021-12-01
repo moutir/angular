@@ -1,0 +1,58 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<app-agency-links></app-agency-links>
+
+<div class="rf__tab-bar--page">
+  <div class="rf__tab-body">
+
+    <div class="rf__panel">
+      <div class="rf__panel-header">
+        <span>{{ 'label_your_contract_options'|translate }}</span>
+      </div>
+      <div class="rf__panel-body">
+
+        <ng-container *ngIf="!(isLoading$|async)">
+          <div
+            *ngFor="let option of model.contractOptions"
+            class="agency--contract"
+          >
+            <div class="agency--contract-checkbox-block">
+              <mat-icon
+                *ngIf="option.isActive"
+                class="agency--contract-checkbox-active"
+              >check_box</mat-icon>
+              <mat-icon
+                *ngIf="!option.isActive"
+                class="agency--contract-checkbox-inactive"
+              >check_box_outline_blank</mat-icon>
+            </div>
+            <div class="agency--contract-value">
+              <span>
+                {{ 'label_contract_option_' + option.id | translate }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="isLoading$|async">
+          <div
+            *ngFor="let i of 5|forLoop"
+            class="agency--contract-placeholder"
+          >
+            <div class="agency--contract-checkbox-block-placeholder">
+              <mat-icon class="agency--contract-checkbox-placeholder">check_box_outline_blank</mat-icon>
+            </div>
+            <div class="agency--contract-value">
+              <span></span>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</div>

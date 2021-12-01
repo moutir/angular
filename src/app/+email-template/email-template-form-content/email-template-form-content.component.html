@@ -1,0 +1,90 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="formGroup.invalid"
+    >
+      <span>{{ 'label_content'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'title'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'title'|translate }}"
+                [formControlName]="getFormControlName('title')"
+              />
+              <mat-error>{{ error[getFormControlName('title')]|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_subject'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_subject'|translate }}"
+                [formControlName]="getFormControlName('subject')"
+              />
+              <mat-error>{{ error[getFormControlName('subject')]|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_message'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_email_tags_message_full'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="container-message">
+
+              <app-shared-wysiwyg
+                [id]="getFormControlName('message')"
+                [error]="error[getFormControlName('message')]"
+                [value]="formGroup.get(getFormControlName('message')).value"
+                (changeValue)="onChangeWysiwyg($event)"
+                placeholder="{{ 'label_message'|translate }}"
+              ></app-shared-wysiwyg>
+              <input type="hidden" [formControlName]="getFormControlName('message')" />
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

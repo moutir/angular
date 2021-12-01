@@ -1,0 +1,135 @@
+<div class="rf__panel">
+
+  <div class="rf__panel-header rf__panel-header--has-badge">
+    <span>{{ 'page_header_suggestion'|translate }}</span>
+    <span class="rf__badge">{{ 'label_make_realforce_great_again'|translate }}</span>
+  </div>
+
+  <div class="rf__panel-body">
+
+      <div class="rf__table">
+
+        <div
+          class="rf__table-row rf__table-row--header"
+        >
+
+          <div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--vote">
+            {{ 'label_suggestion_my_opinion'|translate }}
+          </div>
+
+          <div class="rf__table-cell rf__suggestion-cell--title">
+            {{ 'title'|translate }}
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--popularity">
+            {{ 'label_suggestion_popularity'|translate }}
+          </div>
+
+          <div class="rf__table-cell rf__suggestion-cell--status">
+            {{ 'label_suggestion_status'|translate }}
+          </div>
+
+          <div class="rf__table-cell rf__suggestion-cell--update">
+            {{ 'label_last_updated'|translate }}
+          </div>
+
+        </div>
+
+        <ng-container *ngIf="suggestions === null">
+
+          <div
+            *ngFor="let i of 4|forLoop"
+            class="rf__table-row rf__table-row--placeholder"
+          >
+
+            <div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--vote">
+              <span class="rf__table-txt"></span>
+            </div>
+
+            <div class="rf__table-cell rf__suggestion-cell--title">
+              <span class="rf__table-txt"></span>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--popularity">
+              <span class="rf__table-txt"></span>
+            </div>
+
+            <div class="rf__table-cell rf__suggestion-cell--status">
+              <span class="rf__table-txt"></span>
+            </div>
+
+            <div class="rf__table-cell rf__suggestion-cell--update">
+              <span class="rf__table-txt"></span>
+            </div>
+
+          </div>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="suggestions !== null">
+
+        <a
+          *ngFor="let suggestion of suggestions"
+          class="rf__table-row"
+          [routerLink]="['/suggestion', suggestion.id]"
+        >
+
+          <div class="rf__table-cell rf__table-cell--center rf__suggestion-cell--vote">
+            <span class="rf__table-txt">
+              <span *ngIf="suggestion.voteId" class="suggestion-my-vote">{{ ('suggestion_vote_' + suggestion.voteId)|translate }}</span>
+              <span *ngIf="suggestion.voteId === null" class="rf__badge">{{ 'label_new'|translate }}</span>
+            </span>
+          </div>
+
+          <div
+            class="rf__table-cell rf__suggestion-cell--title"
+            [class.suggestion-new]="suggestion.voteId === null"
+          >
+            <span class="rf__table-txt">
+              {{ suggestion.contents[0] ? suggestion.contents[0].title : '' }}
+            </span>
+          </div>
+
+          <div
+            class="rf__table-cell rf__table-cell--center rf__suggestion-cell--popularity"
+          >
+            <app-shared-progress-icon
+              [percentage]="suggestion.getPopularityPercentage()"
+            ></app-shared-progress-icon>
+          </div>
+
+          <div class="rf__table-cell rf__suggestion-cell--status">
+            <span class="rf__table-txt">
+              {{ ('suggestion_status_' + suggestion.statusId)|translate }}
+            </span>
+          </div>
+
+          <div class="rf__table-cell rf__suggestion-cell--update">
+            <span class="rf__table-txt">
+              {{ (suggestion.updateDate || suggestion.createDate)|smartDate }}
+            </span>
+          </div>
+
+        </a>
+
+        </ng-container>
+
+      </div>
+      <div
+        *ngIf="suggestions !== null && suggestions.length === 0"
+        class="rf__table-noresults"
+      >{{ 'label_no_results_found'|translate }}</div>
+
+      <a
+        *ngIf="suggestions === null || suggestions.length > 0"
+        class="suggestion-link-all"
+        [routerLink]="['/suggestion']"
+      >
+        <span>{{ 'label_view_all_suggestions'|translate }}</span>
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+
+  </div>
+
+</div>

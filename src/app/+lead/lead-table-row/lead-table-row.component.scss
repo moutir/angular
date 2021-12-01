@@ -1,0 +1,109 @@
+@import "../../../styles/variables";
+
+.rf__info-icon--duration.mat-icon {
+  color: inherit;
+}
+
+.rf__lead-no-contact {
+  color: $color-24;
+}
+
+.rf__table-cell.rf__lead-cell--date,
+.rf__table-cell.rf__lead-cell--type-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rf__table-cell.rf__lead-cell--date {
+  padding-left: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+  background: $color-19;
+}
+
+.rf__lead-cell--date .rf__table-txt:first-child .rf__info-icon.mat-icon,
+.rf__lead-cell--date .rf__table-txt:first-child .rf__info-label {
+  color: $color-01;
+}
+
+.rf__lead-cell--date .rf__table-txt:last-child {
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.rf__lead-cell--lead-broker,
+.rf__lead-cell--client-broker {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  z-index: 2;
+}
+
+.rf__lead-cell--lead-broker.has-lead-broker + .rf__lead-cell--client-broker {
+  left: 35px;
+}
+
+.rf__lead-cell--property {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__lead-cell--date .rf__table-txt:first-child .rf__info-icon.mat-icon {
+    color: $color-19;
+  }
+
+  .rf__lead-cell--date .rf__table-txt:first-child .rf__info-label {
+    color: inherit;
+  }
+
+  .rf__table-cell.rf__lead-cell--date,
+  .rf__table-cell.rf__lead-cell--type-status {
+    display: table-cell;
+  }
+
+  .rf__table-cell.rf__lead-cell--date {
+    padding-left: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-bottom: 0;
+    background: $color-14;
+  }
+
+  .rf__lead-cell--date .rf__table-txt:last-child {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .rf__table-txt {
+    margin-right: 10px;
+  }
+
+  .rf__lead-cell--source .rf__info-icon {
+    display: none;
+  }
+
+  .rf__lead-cell--lead-broker,
+  .rf__lead-cell--client-broker,
+  .rf__table-cell--actions {
+    position: initial;
+  }
+
+  .rf__lead-cell--lead-broker {
+    padding-right: 25px;
+  }
+
+  .rf__table-cell--actions {
+    padding-right: 24px;
+  }
+
+  .rf__lead-no-property {
+    display: initial;
+    margin-left: 25px;
+    opacity: 0.25;
+  }
+}

@@ -1,0 +1,74 @@
+@import "../../../../styles/variables";
+
+:host {
+  position: relative;
+  display: block;
+}
+
+.rf__upload-image {
+  border: 1px solid $color-19;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: transform 300ms ease-out;
+}
+
+.rf__upload-image--has-uploader:not(.rf__upload-image--has-image):hover {
+  transform: scale(1.08);
+}
+
+.rf__upload-image-placeholder {
+  color: $color-21;
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+}
+
+.rf__upload-image--has-image .rf__upload-image-placeholder {
+  display: none;
+}
+
+.rf__upload-image--has-image .rf__upload-image-thumbnail {
+  min-height: 80px;
+}
+
+.rf__upload-image-thumbnail {
+  min-width: 150px;
+}
+
+.rf__upload-image-thumbnail.rf__async-image--failure {
+  width: 150px;
+  height: 80px;
+}
+
+.rf__upload-image--has-image .rf__upload-image-thumbnail.rf__async-image--success {
+  min-width: auto;
+  min-height: auto;
+  height: auto;
+}
+
+.rf__upload-image-uploader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.rf__upload-image-remove {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  z-index: 5;
+}
+
+.rf__upload-image-remove.rf__button-icon--gray:not([disabled]) {
+  color: $color-17;
+}
+
+.rf__upload-image-remove.rf__button-icon--gray:not([disabled]):hover {
+  background-color: $color-27;
+  color: $color-01;
+}

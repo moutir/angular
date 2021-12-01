@@ -1,0 +1,32 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 500px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.rf__proposal-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+app-shared-card-property {
+  display: block;
+  margin-bottom: 30px;
+}
+
+@media (min-width: 400px) {
+
+  .rf__proposal-row {
+    flex-wrap: nowrap;
+  }
+
+  .mat-form-field {
+    width: 48%;
+  }
+}

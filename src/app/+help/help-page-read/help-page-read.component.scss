@@ -1,0 +1,67 @@
+@import "../../../styles/variables";
+
+.panel-content {
+  font-size: 13px;
+  padding: 0 15px;
+}
+
+.dependency-container {
+  padding-bottom: 15px;
+}
+
+.dependency-container .rf__info--link {
+  display: inline-block;
+}
+
+.message-noresults {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.title-placeholder {
+  background-color: $color-31;
+  height: 10px;
+  width: 300px;
+}
+
+.whoami {
+  width: 100%;
+  padding: 32px;
+  font-size: 16px;
+  color: $color-19;
+  border: dashed 3px $color-22;
+}
+
+.whoami > div {
+  width: 100%;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+}
+
+.rf__button {
+  margin-left: 10px;
+}
+
+.video-player {
+  width: 100%;
+  height: 350px;
+}
+
+.rf__panel {
+  margin-top: 20px;
+}
+
+@media (min-width: 1200px) {
+
+  .video-player {
+    width: 640px;
+    height: 480px;
+  }
+}

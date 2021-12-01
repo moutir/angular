@@ -1,0 +1,63 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_transfer"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+        <form [formGroup]="formGroup">
+          <mat-grid-list
+            cols="1"
+            rowHeight="55px"
+          >
+            <mat-grid-tile>
+              <mat-form-field>
+                <mat-select
+                  placeholder="{{ 'label_agency'|translate }}"
+                  formControlName="agencyId"
+                >
+                  <mat-option
+                    *ngFor="let option of options.agency"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <mat-form-field>
+                <mat-select
+                    placeholder="{{ 'label_broker_header'|translate }}"
+                    formControlName="brokerId"
+                >
+                  <mat-option
+                    *ngFor="let option of options.broker"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <input type="hidden" formControlName="contactIds" />
+        </form>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_transfer"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>
+

@@ -1,0 +1,21 @@
+<app-shared-page-header
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+  [header]="header$|async"
+></app-shared-page-header>
+
+<div class="rf__tab-body">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-body">
+
+      <app-website-article-searchlist
+        [uid]="uid"
+      ></app-website-article-searchlist>
+
+    </div>
+
+  </div>
+
+</div>

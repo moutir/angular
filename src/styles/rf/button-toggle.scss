@@ -1,0 +1,49 @@
+@import "../variables";
+
+.rf__button-toggle {
+  margin: 1px 5px;
+  box-shadow: 0 0 2px $color-21;
+}
+
+.rf__button-toggle-group {
+  border: none;
+}
+
+.rf__button-toggle:first-child {
+  margin-left: 1px;
+}
+
+.rf__button-toggle:last-child {
+  margin-right: 1px;
+}
+
+.rf__button-toggle:hover {
+  background: $color-27;
+  color: $color-01;
+}
+
+.rf__button-toggle-group.mat-button-toggle-group-appearance-standard .rf__button-toggle.mat-button-toggle {
+  border: none;
+  border-radius: 4px;
+}
+
+.rf__button-toggle .mat-button-toggle-focus-overlay {
+  display: none;
+}
+
+.rf__button-toggle.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 36px;
+}
+
+.rf__button-toggle.mat-button-toggle-checked {
+  background-color: $color-19;
+  color: $color-01;
+}
+
+.rf__button-toggle-group.mat-button-toggle-group {
+  overflow: visible;
+}
+
+.rf__button-toggle-group .rf__form-error {
+  top: 36px;
+}

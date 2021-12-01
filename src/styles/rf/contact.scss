@@ -1,0 +1,201 @@
+@import "../variables";
+
+.rf__contact-search-status {
+  font-size: 11px;
+}
+
+.rf__contact-search-status--149 {
+  color: $color-26;
+}
+
+.rf__contact-search-status--150 {
+  color: $color-24;
+}
+
+.rf__contact-search-status--151 {
+  color: $color-11;
+}
+
+.rf__contact-search-status--152 {
+  color: $color-17;
+}
+
+.rf__contact-search-status--153 {
+  color: $color-09;
+}
+
+.rf__searchlist--contact .rf__table-row {
+  height: 210px;
+}
+
+.rf__searchlist--contact .rf__table-cell--checkbox {
+  z-index: 5;
+}
+
+.rf__searchlist--contact .rf__contact-cell--ranking {
+  position: absolute;
+  top: 4px;
+  left: 25px;
+}
+
+.rf__searchlist--contact .rf__contact-cell--name:before {
+  background-color: $color-30;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 36px;
+}
+
+.rf__searchlist--contact .rf__contact-cell--contacts {
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: 10;
+}
+
+.rf__searchlist--contact .rf__table-row {
+  padding-top: 36px;
+}
+
+.rf__searchlist--contact .rf__contact-cell--name {
+  padding: 2px 10px;
+  margin-top: 8px;
+}
+
+.rf__searchlist--contact .rf__contact-cell--name .contact-link,
+.rf__searchlist--contact .rf__contact-cell--agency .contact-link {
+  margin-right: 5px;
+}
+
+.rf__searchlist--contact .rf__contact-cell--name .rf__table-txt {
+  width: 100%;
+}
+
+.rf__searchlist--contact .rf__table-txt {
+  margin-right: 10px;
+}
+
+.rf__modal-contact-transfer-activity .text {
+  color: $color-19;
+  font-size: 95%;
+}
+
+.rf__card.rf__card--contact .contact-link.contact-link--icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.rf__card.rf__card--contact .contact-link.contact-link--icon .contact-link__initials {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  line-height: 17px;
+  letter-spacing: 0;
+}
+
+.rf__searchlist.rf__searchlist--contact--without-agency .rf__table-cell.rf__contact-cell--agency {
+  display: none;
+}
+
+.rf__table-txt--slim {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  line-height: normal;
+}
+
+.rf__table-txt--contact-subinfo {
+  font-size: 10px;
+  color: $color-09;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--contact .rf__contact-cell--ranking,
+  .rf__searchlist--contact .rf__contact-cell--contacts {
+    position: static;
+    display: table-cell;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--name:before,
+  .rf__searchlist--contact .rf__contact-cell--agency,
+  .rf__searchlist--contact .rf__contact-cell--search,
+  .rf__searchlist--contact .rf__contact-cell--ranking {
+    display: none;
+  }
+
+  .rf__searchlist--contact .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist--contact .rf__table-txt {
+    margin-right: auto;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--name {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--name.rf__contact-cell--name-performance {
+    min-width: 350px;
+    max-width: 350px;
+    width: 350px;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--contacts {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--name.rf__contact-cell--contacts-performance {
+    min-width: 210px;
+    max-width: 210px;
+    width: 210px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__searchlist--contact .rf__contact-cell--search,
+  .rf__searchlist--contact .rf__contact-cell--ranking {
+    display: table-cell;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--agency {
+    display: table-cell;
+    min-width: 190px;
+    max-width: 190px;
+    width: 190px;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .rf__searchlist--contact .rf__contact-cell--agency {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+  }
+}
+
+@media (min-width: 1470px) {
+
+  .rf__searchlist--contact .rf__contact-cell--name {
+    min-width: 260px;
+    max-width: 260px;
+    width: 260px;
+  }
+
+  .rf__searchlist--contact .rf__contact-cell--name.rf__contact-cell--name-performance {
+    min-width: 550px;
+    max-width: 550px;
+    width: 550px;
+  }
+}

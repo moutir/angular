@@ -1,0 +1,35 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="label_mls_remove_promotion"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <div class="modal__description">{{ 'label_mls_promotion_remove_warning'|translate }}</div>
+      <div class="list">
+        <div class="list__header">
+            <div class="list__cell">{{ 'label_promotion_name'|translate }}</div>
+        </div>
+        <div class="list__body">
+          <div class="list__row" *ngFor="let promotion of promotions">
+            <div class="list__cell">
+              <strong>{{promotion.name}}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_mls_promotion_remove_confirm"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

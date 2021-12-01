@@ -1,0 +1,112 @@
+<div class="rf__searchlist rf__searchlist--property">
+
+  <app-shared-selection-bar
+    *ngIf="isUsingActions === true"
+    entity="property"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+    (clickSelectNone)="onClickSelectNone()"
+  ></app-shared-selection-bar>
+
+  <app-property-table
+    [isUsingActions]="isUsingActions"
+    [isSelectedHeader]="isSelectedPage$|async"
+    [loadingModelIds]="operationIds$|async"
+    [sort]="sort$|async"
+    [selection]="selection$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [modelsSelected]="modelsSelected$|async"
+    [feature]="runtimeFeature$|async"
+    [featurePrice]="runtimeFeaturePrice$|async"
+    [permissions]="runtimePermissions$|async"
+    [listType]="listType"
+    (changeSort)="onChangeSort($event)"
+    (changeSelectionHeader)="onChangeSelectionHeader($event)"
+    (changeSelectionModel)="onChangeSelectionModel($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-property-table>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>
+
+<!-- TODO[later] Components below are UI-PROPERTY related, should be moved in higher order template -->
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === 'property-brochure-menu'"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="brochureMenuItems$|async"
+  (clickMenuItem)="onClickMenuItemBrochure($event)"
+></app-shared-menu>
+
+<app-property-modal-transfer
+  [isVisible]="(operation$|async) === OPERATION_PROPERTY_TRANSFER_BROKER"
+  [transfer]="propertyTransfer$|async"
+  [options]="propertyTransferOptions$|async"
+  (changeInput)="onChangeInputTransfer($event)"
+  (submitModal)="onSubmitModalTransfer($event)"
+></app-property-modal-transfer>
+
+<app-property-modal-publication
+  [isVisible]="(operation$|async) === OPERATION_PROPERTY_MANAGE_PUBLICATION"
+  [publication]="propertyPublication$|async"
+  [options]="propertyPublicationOptions$|async"
+  (submitModal)="onSubmitModalPublication($event)"
+></app-property-modal-publication>
+
+<app-property-modal-remove-mls
+  [isVisible]="(operation$|async) === OPERATION_PROPERTY_REMOVE_MLS"
+  [properties]="modelsSelected$|async"
+  (submitModal)="onSubmitModalRemoveMls($event)"
+></app-property-modal-remove-mls>
+
+<app-property-modal-mortgage
+  [isVisible]="(propertyMortgage$|async).step > 0"
+  [mortgage]="propertyMortgage$|async"
+  [property]="propertyMortgageProperty$|async"
+  [permissions]="runtimePermissions$|async"
+  (submitModal)="onSubmitModalMortgage($event)"
+></app-property-modal-mortgage>
+
+<app-property-modal-valuation
+  [isVisible]="(propertyValuation$|async).step > 0"
+  [valuation]="propertyValuation$|async"
+  (submitModal)="onSubmitModalValuation($event)"
+></app-property-modal-valuation>
+
+<app-property-modal-brochure
+  [isVisible]="(propertyBrochure$|async).step > 0"
+  [brochure]="propertyBrochure$|async"
+  [options]="propertyBrochureOptions$|async"
+  [property]="propertyBrochureProperty$|async"
+  (changeInput)="onChangeInputBrochure($event)"
+  (submitModal)="onSubmitModalBrochure($event)"
+></app-property-modal-brochure>
+
+<app-history-modal
+  [isVisible]="(propertyHistory$|async).entity !== null"
+  [history]="propertyHistory$|async"
+  [histories]="historyModels$|async"
+  labelTitle="title_property_history"
+  (submitModal)="onSubmitModalHistory($event)"
+></app-history-modal>

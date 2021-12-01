@@ -1,0 +1,42 @@
+@import "../../../styles/variables";
+
+.rf__form-field--textarea textarea {
+  min-height: 120px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.thumbnail-image {
+  width: 200px;
+  height: 80px;
+}
+
+.rf__panel--email-template .rf__keyvalue-cell--value {
+  position: relative;
+  overflow: visible;
+}
+
+.color-picker-block {
+  position: absolute;
+  left: 16px;
+  bottom: 25px;
+  z-index: 2;
+}
+
+.rf__form-field--email-preview {
+  margin-right: 20px;
+}
+
+@media (min-width: $desktop-xl-breakpoint) {
+
+  .rf__form-field--email-preview {
+    margin-right: 0;
+  }
+
+  .rf__button--email-preview {
+    position: absolute;
+    right: -80px;
+  }
+}

@@ -1,0 +1,157 @@
+@import "../variables";
+
+.rf__document-list--agency-image .rf__document-manager-document .rf__document-input:nth-child(2) {
+  display: none;
+}
+
+.agency-watermark .rf__upload-image--has-image .rf__upload-image-thumbnail {
+  opacity: 0;
+}
+
+.rf__table--communication .rf__table-row,
+.rf__table--communication .rf__table-cell {
+  display: block;
+}
+
+.rf__table-cell--communication-spacer {
+  display: none;
+}
+
+.rf__table-cell--communication-checkbox {
+  color: $color-19;
+}
+
+.rf__table--communication .rf__table-cell {
+  display: none;
+}
+
+.rf__table--communication .rf__table-cell--communication-responsive {
+  display: block;
+}
+
+@media (min-width: 500px) {
+
+  .rf__document-list--agency-image .rf__document-manager-document .rf__document-input,
+  .rf__document-list--agency-general .rf__document-manager-document .rf__document-input {
+    width: 100%;
+  }
+}
+
+@media (min-width: 650px) {
+
+  .rf__document-list--agency-image .rf__document-manager-document .rf__document-input {
+    width: 50%;
+  }
+}
+
+@media (min-width: 900px) {
+
+  .rf__table--communication-small .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--communication-small .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--communication-small .rf__table-cell--communication-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--communication-small .rf__table-cell--communication-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--communication-small .rf__table-cell--communication-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--communication-small .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--communication-small .rf__table-cell--communication-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__table--communication-medium .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--communication-medium .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--communication-medium .rf__table-cell--communication-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--communication-medium .rf__table-cell--communication-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--communication-medium .rf__table-cell--communication-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--communication-medium .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--communication-medium .rf__table-cell--communication-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+
+  .rf__document-list--agency-general .rf__document-manager-document .rf__document-input {
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__table--communication-large .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--communication-large .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--communication-large .rf__table-cell--communication-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--communication-large .rf__table-cell--communication-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--communication-large .rf__table-cell--communication-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--communication-large .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--communication-large .rf__table-cell--communication-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+}

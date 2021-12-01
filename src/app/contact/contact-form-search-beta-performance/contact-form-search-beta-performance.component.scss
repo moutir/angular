@@ -1,0 +1,108 @@
+@import "../../../styles/variables";
+
+.rf__panel-subheader {
+  margin: 10px 0;
+  height: auto;
+}
+
+form {
+  width: 100%;
+}
+
+.form-fields {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.mat-form-field {
+  display: block;
+  width: 48.5%;
+  margin-right: 1.5%;
+  height: 53px;
+  flex-shrink: 0;
+}
+
+.mat-form-field--half {
+  width: 23.5%;
+}
+
+@media (min-width: 600px) {
+
+  .mat-form-field {
+    width: 32%;
+    margin-right: 1%;
+  }
+
+  .mat-form-field--half {
+    width: 15.5%;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .mat-form-field {
+    width: 23%;
+    margin-right: 1.5%;
+  }
+
+  .mat-form-field--half {
+    width: 10.75%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .mat-form-field {
+    width: 18%;
+  }
+
+  .mat-form-field--half {
+    width: 8.25%;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .mat-form-field {
+    width: 15.5%;
+    margin-right: 1%;
+  }
+
+  .mat-form-field--half {
+    width: 7.25%;
+  }
+}
+
+@media (min-width: 1570px) {
+
+  .mat-form-field {
+    width: 13%;
+  }
+
+  .mat-form-field--half {
+    width: 6%;
+  }
+}
+
+@media (min-width: 1670px) {
+
+  .mat-form-field {
+    width: 11.5%;
+  }
+
+  .mat-form-field--half {
+    width: 5.25%;
+  }
+
+  .form-fields {
+
+    .mat-form-field {
+      width: 13%;
+    }
+
+    .mat-form-field--half {
+      width: 6%;
+    }
+  }
+}

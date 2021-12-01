@@ -1,0 +1,38 @@
+<div class="rf__table-cell rf__account-cell--contact">
+  <app-shared-contact-link
+    [contact]="account.contact"
+    [layout]="'broker'"
+    [isPlaceholder]="isPlaceholder === true"
+    [hasLabel]="false"
+    [hasTooltip]="false"
+  ></app-shared-contact-link>
+</div>
+
+<div class="rf__table-cell rf__account-cell--login">
+  <span class="rf__table-txt">{{ account.login }}</span>
+</div>
+
+<div class="rf__table-cell rf__account-cell--agency">
+  <span class="rf__table-txt">{{ account.accountType.text }}</span>
+  <span class="rf__table-txt rf__table-txt--agency-name">{{ account.contact.agency.name }}</span>
+</div>
+
+<div class="rf__table-cell rf__account-cell--dates">
+  <span class="rf__table-txt">{{ account.lastLoginDate|smartDate }}</span>
+  <span class="rf__table-txt">{{ account.lastSeenDate|smartDate }}</span>
+</div>
+
+<div class="rf__table-cell rf__account-cell--last-ip">
+  <span class="rf__table-txt">{{ account.lastSeenIp }}</span>
+</div>
+
+<div class="rf__table-cell rf__account-cell--active">
+  <span class="rf__table-txt">
+    <app-shared-yes-no
+      *ngIf="account.id"
+      [isYes]="account.isActive"
+      labelYes="label_active"
+      labelNo="label_inactive"
+    ></app-shared-yes-no>
+  </span>
+</div>

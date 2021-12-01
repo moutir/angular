@@ -1,0 +1,46 @@
+@import "../variables";
+
+.rf__badge {
+  width: auto;
+  min-width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  padding: 0 4px;
+  white-space: nowrap;
+  background: $color-27;
+  color: $color-22;
+  text-align: center;
+  display: inline-block;
+  font-size: 9px;
+  font-weight: normal;
+}
+
+.rf__badge--inactive {
+  background: $color-21;
+  color: $color-03;
+}
+
+.rf__badge--error,
+.rf__badge--fail {
+  background: $color-17;
+}
+
+.rf__badge--warning,
+.rf__badge--warn {
+  background: $color-24;
+}
+
+.rf__badge--success,
+.rf__badge--succ {
+  background: $color-15;
+}
+
+.rf__badge--info,
+.rf__badge--prog {
+  background: $color-26;
+}
+
+.rf__badge--tooltip {
+  background: $color-19;
+}

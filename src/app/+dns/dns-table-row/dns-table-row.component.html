@@ -1,0 +1,174 @@
+<div class="rf__dns-table-row">
+
+  <div class="rf__dns-table-row-title">
+
+    <div class="rf__dns-table-row-title--status" *ngIf="isPlaceholder === false">
+
+      <div *ngIf="dnsRecord.valid" class="rf__dns-record--status-valid">
+        <mat-icon
+          matTooltip="{{ 'label_dns_record_verified'|translate }}"
+          class="rf__info-icon">
+            check_circle
+        </mat-icon>
+      </div>
+
+      <div *ngIf="!dnsRecord.valid" class="rf__dns-record--status-invalid">
+        <mat-icon
+          matTooltip="{{ 'label_dns_record_not_verified'|translate }}"
+          class="rf__info-icon">
+            remove_circle
+        </mat-icon>
+      </div>
+
+    </div>
+
+    <div class="rf__dns-table-row-title--domain">
+      <span class="rf__card-text">
+        {{ dnsRecord.domain }}
+      </span>
+    </div>
+
+  </div>
+
+  <div class="rf__dns-table-row-body rf__table">
+
+    <div class="rf__table-row rf__table-row--header">
+
+      <div class="rf__table-cell rf__dns-cell--record-status">
+        <div>
+          {{ 'label_status'|translate }}
+        </div>
+      </div>
+
+      <div class="rf__table-cell rf__dns-cell--record-type">
+        <div>{{ 'label_dns_record_type'|translate }}</div>
+      </div>
+
+      <div class="rf__table-cell rf__dns-cell--record-host">
+        <div>{{ 'label_dns_record_host'|translate }}</div>
+      </div>
+
+      <div class="rf__table-cell rf__dns-cell--record-value">
+        <div>{{ 'label_dns_record_value'|translate }}</div>
+      </div>
+
+    </div>
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <div *ngFor="let i of 3|forLoop" class="rf__table-row">
+        <div class="rf__table-cell rf__dns-cell--record-status">
+          <span class="rf__table-txt"></span>
+        </div>
+        <div class="rf__table-cell rf__dns-cell--record-type">
+          <span class="rf__table-txt"></span>
+        </div>
+        <div class="rf__table-cell rf__dns-cell--record-host">
+          <span class="rf__table-txt"></span>
+        </div>
+        <div class="rf__table-cell rf__dns-cell--record-value">
+          <span class="rf__table-txt"></span>
+        </div>
+      </div>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <div *ngFor="let dnsRecord of dnsRecords;" class="rf__table-row">
+
+        <div class="rf__table-cell rf__dns-cell--record-status">
+          <span class="rf__dns-cell--cell-title">
+            {{ 'label_status'|translate }}
+          </span>
+
+          <span *ngIf="dnsRecord.valid" class="rf__table-txt rf__dns-record--status-valid">
+            <div class="rf__info">
+              <mat-icon class="rf__info-icon">check_circle</mat-icon>
+              <span class="rf__info-label">{{ 'label_dns_record_verified'|translate }}</span>
+            </div>
+          </span>
+
+          <span *ngIf="!dnsRecord.valid" class="rf__table-txt rf__dns-record--status-invalid">
+            <div class="rf__info">
+              <mat-icon class="rf__info-icon">remove_circle</mat-icon>
+              <span class="rf__info-label">{{ 'label_dns_record_not_verified'|translate }}</span>
+            </div>
+          </span>
+
+        </div>
+
+        <div class="rf__table-cell rf__dns-cell--record-type">
+
+          <span class="rf__dns-cell--cell-title">
+            {{ 'label_dns_record_type'|translate }}
+          </span>
+
+          <span class="rf__table-txt">
+            {{ dnsRecord.type }}
+          </span>
+
+        </div>
+
+        <div class="rf__table-cell rf__dns-cell--record-host">
+
+          <span class="rf__dns-cell--cell-title">
+            {{ 'label_dns_record_host'|translate }}
+          </span>
+
+          <span class="rf__table-txt">
+
+            <span class="rf__dns-cell--value">
+              {{ dnsRecord.host }}
+            </span>
+
+            <span
+              class="rf__button-wrapper"
+              matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+              matTooltipPosition="left"
+            >
+              <button
+                (click)="onClickCopyHost(dnsRecord.host)"
+                mat-icon-button
+              >
+                <mat-icon>file_copy</mat-icon>
+              </button>
+            </span>
+
+          </span>
+
+        </div>
+
+        <div class="rf__table-cell rf__dns-cell--record-value">
+          <span class="rf__dns-cell--cell-title">
+            {{ 'label_dns_record_value'|translate }}
+          </span>
+
+          <span class="rf__table-txt">
+            <div class="rf__dns-txt">
+              <span class="rf__dns-cell--value">
+                {{ dnsRecord.value }}
+              </span>
+
+              <span
+                class="rf__button-wrapper"
+                matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                matTooltipPosition="left"
+              >
+                <button
+                  (click)="onClickCopyHost(dnsRecord.value)"
+                  mat-icon-button
+                >
+                  <mat-icon>file_copy</mat-icon>
+                </button>
+              </span>
+            </div>
+
+          </span>
+        </div>
+      </div>
+
+    </ng-container>
+
+  </div>
+</div>

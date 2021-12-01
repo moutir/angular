@@ -1,0 +1,45 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 176px;
+}
+
+.rf__searchlist-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+app-shared-selection-bar {
+  width: 100%;
+}
+
+.rf__matching-group-action {
+  width: auto;
+}
+
+app-matching-group-table-row {
+  display: block;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 700px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 125px;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 126px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__searchlist-form-toggle {
+    display: none;
+  }
+}

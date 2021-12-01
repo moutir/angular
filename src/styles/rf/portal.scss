@@ -1,0 +1,110 @@
+@import "../variables";
+
+.rf__portal-page--write .checkbox-label,
+.rf__portal-page--write .toggle-label {
+  font-weight: 400;
+}
+
+.toggle-label-title {
+  padding-right: 8px;
+  line-height: 25px;
+}
+
+.rf__portal-last-status .rf__info-icon {
+  width: 12px;
+  height: 12px;
+  border: 1px solid $color-14;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.rf__portal-last-status .rf__info-label {
+  margin-left: 2px;
+  white-space: normal;
+}
+
+.rf__portal-last-status--on {
+  color: $color-15;
+}
+
+.rf__portal-last-status--off {
+  color: $color-17;
+}
+
+.rf__portal-last-status--on .rf__info-icon {
+  background-color: $color-15;
+}
+
+.rf__portal-last-status--off .rf__info-icon {
+  background-color: $color-17;
+}
+
+.portal-status-active {
+  color: $color-15;
+}
+
+.portal-status-inactive {
+  color: $color-24;
+}
+
+.rf__searchlist.rf__searchlist--portal .rf__table-row {
+  padding-bottom: 15px;
+}
+
+@media(min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist.rf__searchlist--portal .rf__table-row {
+    padding-bottom: 0;
+  }
+
+  .rf__table-row .rf__portal-cell--status {
+    text-align: center;
+  }
+
+  .rf__table-row .rf__portal-cell--last-status {
+    text-align: center;
+  }
+
+  .rf__table-row--placeholder .rf__portal-cell--language .rf__table-txt,
+  .rf__table-row--placeholder .rf__portal-cell--last-status .rf__table-txt {
+    min-width: auto;
+    max-width: 20px;
+    margin: 3px auto;
+  }
+
+  .rf__portal-cell--language {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .rf__portal-cell--last-status {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .rf__portal-cell--gateway {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+  }
+
+  .rf__portal-cell--status {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  .rf__portal-cell--execution-date {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+  }
+
+  .rf__portal-cell--message {
+    width: auto;
+    max-width: auto;
+  }
+}

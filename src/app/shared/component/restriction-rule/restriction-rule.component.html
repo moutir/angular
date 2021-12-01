@@ -1,0 +1,21 @@
+<div
+  *ngIf="ruleType"
+  class="restriction-rule"
+>
+
+  <div class="restriction-rule-sentence restriction-rule-sentence--module">
+    {{ ('label_restriction_' + ruleType + '_' + restriction.module)|translate }}
+  </div>
+  <div
+    *ngFor="let rule of restrictionRules"
+    class="restriction-rule-sentence"
+  >
+    {{ 'label_restriction_and'|translate }}
+    <span class="restriction-rule-highlight">{{ ('label_restriction_attribute_' + rule.attribute)|translate }}</span>
+    {{ ('label_restriction_operator_' + rule.operator)|translate }}
+    <span *ngIf="rule.operator === 'in' || rule.operator === 'not_in'">[</span>
+    <span class="restriction-rule-highlight">{{ getFormattedValue(rule) }}</span>
+    <span *ngIf="rule.operator === 'in' || rule.operator === 'not_in'">]</span>
+  </div>
+
+</div>

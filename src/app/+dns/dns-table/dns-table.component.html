@@ -1,0 +1,24 @@
+<div
+  class="rf__table rf__dns-table"
+>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-dns-table-row
+      *ngFor="let dnsRecord of models; trackBy: trackById;"
+      [dnsRecord]="dnsRecord"
+    ></app-dns-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-dns-table-row
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      class="rf__table-row rf__table-row--placeholder"
+    ></app-dns-table-row>
+
+  </ng-container>
+
+</div>

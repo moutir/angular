@@ -1,0 +1,41 @@
+<div class="search-table-outer">
+  <table class="table_total" [ngClass]="[customClass]">
+    <ng-content></ng-content>
+    <tr *ngFor="let row of dataTable; let i = index" [class.active]="row.active">
+      <td class="headcol">
+        <span class="bold">{{row.name}}</span> <span>{{row.prefix}}</span>
+      </td>
+      <td *ngFor="let td of row.data"
+          [ngClass]="{'success': isPercentRow(row) && moreThanHundred(td.val),
+                      'danger': isPercentRow(row) && !moreThanHundred(td.val)}">
+        <span *ngIf="typeTable !== 'efforts' && !isPercentRow(row) && row.name !== 'Deals'">
+            {{td.val | formatNumber}} <span *ngIf="isPercentRow(row)">%</span>
+        </span>
+        <span *ngIf="typeTable === 'efforts' || isPercentRow(row) || row.name === 'Deals'">
+            {{td.val}} <span *ngIf="isPercentRow(row)">%</span>
+        </span>
+      </td>
+      <td class="total lastcol" *ngIf="!isPercentRow(row)" [hidden]="typeTable == 'production' && monthly && i == 2">
+        <span *ngIf="typeTable !== 'efforts' && row.name !== 'Deals'">
+            {{ getTotal(row.data, i) | formatNumber }}
+        </span>
+        <span *ngIf="typeTable === 'efforts' || row.name === 'Deals'">
+            {{ getTotal(row.data, i) }}
+        </span>
+      </td>
+      <td class="total lastcol" *ngIf="!isPercentRow(row) && typeTable == 'production' && monthly && i == 2">
+        <span *ngIf="typeTable !== 'efforts' && row.name !== 'Deals'">
+            {{ getTarget(row.data) | formatNumber }}
+        </span>
+        <span *ngIf="typeTable === 'efforts' || row.name === 'Deals'">
+            {{ getTarget(row.data) }}
+        </span>
+      </td>
+      <td *ngIf="isPercentRow(row)" class="lastcol"
+          [ngClass]="{'success': moreThanHundred(getTotalPercent(row.data)),
+                      'danger': !moreThanHundred(getTotalPercent(row.data))}">
+          {{ getTotalPercent(row.data)}} %
+      </td>
+    </tr>
+  </table>
+</div>

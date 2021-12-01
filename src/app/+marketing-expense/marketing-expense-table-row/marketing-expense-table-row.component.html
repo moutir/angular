@@ -1,0 +1,51 @@
+<div class="rf__table-cell rf__marketing-expense-cell--invoice-date">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'label_marketing_invoice_date'|translate }}
+  </span>
+  <span class="rf__table-txt">
+    <div
+      class="rf__info"
+    >
+      <span class="rf__info-label">{{ expense.invoiceDate|datetime:'date' }} </span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__marketing-expense-cell">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'title'|translate }}
+  </span>
+  <span class="rf__table-txt">
+      <span class="rf__info-label">{{ expense.title }}</span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__marketing-expense-cell-period">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'label_manage_publication_period'|translate }}
+  </span>
+  <span class="rf__table-txt">
+      <span class="rf__info-label">{{ 'label_range_from_to'|translate:{ from: expense.startDate|datetime:'date', to: expense.endDate|datetime:'date' } }}</span>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__marketing-expense-cell--amount">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'label_invoice_amount'|translate }}
+  </span>
+  <span class="rf__table-txt">{{ expense.invoiceAmount|formatNumber }}</span>
+</div>
+
+<div class="rf__table-cell rf__marketing-expense-cell">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'label_marketing_category'|translate }}
+  </span>
+  <span class="rf__table-txt">{{ expense.mainCategoryLabel }}</span>
+</div>
+
+<div class="rf__table-cell">
+  <span class="rf__marketing-expense-cell--cell-title">
+    {{ 'label_marketing_subcategory'|translate }}
+  </span>
+  <span class="rf__table-txt">{{ expense.subCategoryLabel }}</span>
+</div>

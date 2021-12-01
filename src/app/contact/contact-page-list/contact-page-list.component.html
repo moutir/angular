@@ -1,0 +1,124 @@
+<div
+  *ngIf="isBetaPerformance !== null"
+  class="rf__panel"
+>
+
+  <div
+    class="rf__searchlist-form"
+    [class.rf__searchlist-form--live]="isBetaPerformance === false"
+    [class.rf__searchlist-form--beta-performance]="isBetaPerformance === true"
+    [class.rf__searchlist-form--simple]="(isFormAdvanced$|async) === false"
+    [class.rf__searchlist-form--advanced]="(isFormAdvanced$|async) === true"
+  >
+
+    <div class="rf__searchlist-form-body">
+
+        <app-contact-form-search
+          [model]="form$|async"
+          [options]="formOptions$|async"
+          [isLoading]="isLoading$|async"
+          [permissions]="runtimePermissions$|async"
+          (changeForm)="onChangeForm($event)"
+        ></app-contact-form-search>
+
+        <app-contact-form-search-beta-performance
+          *ngIf="isBetaPerformance === true && (runtimeAuthentication$|async).isBetaTester === true"
+          [model]="form$|async"
+          [options]="formOptions$|async"
+          [isLoading]="isLoading$|async"
+          [permissions]="runtimePermissions$|async"
+          (changeForm)="onChangeForm($event)"
+        ></app-contact-form-search-beta-performance>
+
+    </div>
+
+    <div class="rf__searchlist-form-footer">
+
+      <div class="rf__searchlist-form-keywords">
+        <app-shared-keywords
+          [keywords]="keywords$|async"
+          (removeKeyword)="onRemoveKeyword($event)"
+        ></app-shared-keywords>
+      </div>
+
+      <span
+        class="rf__searchlist-form-save"
+        matTooltip="{{ 'tooltip_list_save_default_params'|translate }}"
+        matTooltipPosition="left"
+        (click)="onClickSaveParams()"
+      >
+        {{ 'label_save'|translate }}
+      </span>
+
+      <span
+        class="rf__searchlist-form-reset"
+        (click)="onClickReset()"
+      >
+        {{ 'label_reset_filter'|translate }}
+      </span>
+
+      <button
+        class="rf__button rf__button--with-icon rf__button--with-icon-left rf__searchlist-form-button"
+        mat-raised-button
+        color="primary"
+        [disabled]="(isLoading$|async) === true"
+        (click)="onClickSearch()"
+      >
+        <mat-icon>search</mat-icon> {{ 'label_search_for'|translate }}
+      </button>
+
+      <span
+        class="rf__searchlist-form-toggle"
+        (click)="onClickFormToggle()"
+      >
+        <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--more">
+          <mat-icon class="rf__info-icon">add</mat-icon>
+          <span class="rf__icon-label">{{ 'label_more_options'|translate }}</span>
+        </span>
+        <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--less">
+          <mat-icon class="rf__info-icon">remove</mat-icon>
+          <span class="rf__icon-label">{{ 'label_less_options'|translate }}</span>
+        </span>
+      </span>
+
+    </div>
+  </div>
+
+  <div class="rf__page-body">
+
+    <app-contact-searchlist
+      [uid]="uid"
+      [isBetaPerformance]="isBetaPerformance"
+      [isDisplayedAgency]="(runtimeAuthentication$|async).isMultiAgency"
+    ></app-contact-searchlist>
+
+  </div>
+
+  <div
+    *ngIf="isBetaPerformance !== null && (runtimeAuthentication$|async).isBetaTester === true"
+    class="rf__panel-footer"
+  >
+
+    <div
+      class="beta-checkbox-label"
+      (click)="onClickBeta()"
+    >
+
+      <mat-icon
+        *ngIf="isBetaPerformance === true"
+        class="beta-checkbox-label__checkbox"
+      >check_box</mat-icon>
+      <mat-icon
+        *ngIf="isBetaPerformance === false"
+        class="beta-checkbox-label__checkbox"
+      >check_box_outline_blank</mat-icon>
+
+      <span class="beta-checkbox-label__label">{{ 'label_use_beta_version'|translate }}</span>
+
+    </div>
+
+    <div class="rf__spacer"></div>
+
+  </div>
+
+</div>

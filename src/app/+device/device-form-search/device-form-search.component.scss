@@ -1,0 +1,15 @@
+@import "../../../styles/variables";
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.mat-form-field {
+  display: block;
+  width: 320px;
+  height: 53px;
+  flex-shrink: 0;
+}

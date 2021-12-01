@@ -1,0 +1,62 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+<div
+  class="rf__table-cell rf__task-cell--permission"
+  matTooltip="{{ 'label_task_permission'|translate }}"
+  matTooltipPosition="above"
+>
+  <mat-icon>lock</mat-icon>
+</div>
+<div
+  class="rf__table-cell rf__task-cell--important"
+  matTooltip="{{ 'label_task_important'|translate }}"
+  matTooltipPosition="above"
+>
+  <mat-icon>priority_high</mat-icon>
+</div>
+<div
+  class="rf__table-cell rf__task-cell--finished"
+  matTooltip="{{ 'label_task_done'|translate }}"
+  matTooltipPosition="above"
+>
+  <mat-icon>done</mat-icon>
+</div>
+<div class="rf__table-cell rf__task-cell--title">
+  <div mat-sort-header="title">{{ 'label_title'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--type">
+  <div mat-sort-header="task-type">{{ 'label_type_of_task'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--date">
+  <div mat-sort-header="date">{{ 'label_date'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--broker">
+  <div mat-sort-header="person-in-charge">{{ 'label_brokers'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--contact">
+  <div>{{ 'label_clients'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--property">
+  <div>{{ 'label_properties'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__task-cell--promotion">
+  <div>{{ 'label_promotion_header'|translate }}</div>
+</div>
+<div class="rf__table-cell rf__table-cell--actions-label">{{ 'label_actions'|translate }}</div>

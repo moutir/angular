@@ -1,0 +1,12 @@
+:host {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+svg {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
+  all: inherit; /* Not supported by IE & Edge */
+}

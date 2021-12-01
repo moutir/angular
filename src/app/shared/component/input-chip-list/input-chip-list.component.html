@@ -1,0 +1,32 @@
+<mat-form-field floatLabel="never">
+  <mat-chip-list #inputChipList>
+    <mat-chip
+      *ngFor="let option of selection"
+      [selectable]="false"
+      [removable]="true"
+      (removed)="onClickRemove(option)">
+      {{ option.text|translate }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      autocomplete="off"
+      placeholder="{{ placeholder|translate }}"
+      #chipInput
+      [formControl]="formControl"
+      [matAutocomplete]="chipAutocomplete"
+      [matChipInputFor]="inputChipList"
+      (matChipInputTokenEnd)="onAdd($event)">
+    <mat-error>{{ error|translate }}</mat-error>
+  </mat-chip-list>
+  <mat-autocomplete
+    #chipAutocomplete="matAutocomplete"
+    (optionSelected)="onSelect($event)"
+  >
+    <mat-option
+      *ngFor="let option of results"
+      [value]="option"
+    >
+      {{ option.text|translate }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

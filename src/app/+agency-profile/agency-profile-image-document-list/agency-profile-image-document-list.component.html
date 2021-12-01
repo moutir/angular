@@ -1,0 +1,59 @@
+<div class="rf__document-list rf__document-list--agency-image">
+
+  <div
+    *ngIf="isReadOnly === false"
+    class="rf__panel"
+  >
+
+    <div class="rf__panel-header rf__panel-header--has-warning">
+      <span>{{ 'label_warning_word'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+      {{ 'label_tab_modifications_stored_immediately'|translate }}
+    </div>
+
+  </div>
+
+  <app-agency-profile-form-images
+    *ngIf="(isLoading$|async) === false"
+    [isLoading]="isLoading$|async"
+    [model]="model"
+    [documents]="model.images"
+    [documentManagerStrategy]="documentManagerStrategy"
+    (changeForm)="onChangeImagesForm($event)"
+    (pristineForm)="onPristineImagesForm($event)"
+  ></app-agency-profile-form-images>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">{{ 'label_images'|translate }}</div>
+
+    <div class="rf__panel-body">
+
+      <app-document-manager
+        [documents]="documents"
+        [isLoading]="isLoading$|async"
+        [isReadOnly]="isReadOnly"
+        [isDisabled]="isDisabled"
+        [isSortable]="isSortable"
+        [placeholderCount]="placeholderCount"
+        [strategy]="documentManagerStrategy"
+        (changeDocuments)="onChangeDocuments($event)"
+        (removeDocument)="onRemoveDocument($event)"
+        (changeInput)="onChangeDocumentInput($event)"
+      ></app-document-manager>
+
+      <app-shared-upload
+        *ngIf="isReadOnly === false"
+        [uid]="uid"
+        [strategy]="uploadStrategy"
+        [isDisabled]="isDisabled"
+        (uploadComplete)="onUploadComplete($event)"
+      ></app-shared-upload>
+
+    </div>
+
+  </div>
+
+</div>

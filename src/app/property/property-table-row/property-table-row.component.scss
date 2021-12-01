@@ -1,0 +1,60 @@
+@import "../../../styles/variables";
+
+.rf__property-cell--ranking {
+  white-space: nowrap;
+}
+
+.rf__property-cell--ranking-locked .mat-icon,
+.rf__property-cell--ranking-locked div {
+  cursor: default;
+  pointer-events: none;
+}
+
+.rf__property-cell--ranking div {
+  cursor: pointer;
+  display: flex;
+}
+
+.rf__property-cell--ranking div:hover > .mat-icon {
+  color: $color-19;
+}
+
+.rf__property-cell--dimensions .rf__table-txt {
+  min-width: 16px;
+}
+
+.rf__property-cell--dimensions > div {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.rf__table-txt--mortgage .rf__info-label {
+  font-size: 10px;
+}
+
+.rf__table-txt--mortgage .rf__info--link {
+  color: $color-01;
+}
+
+.rf__table-txt--mortgage .rf__info--link:hover {
+  color: $color-27;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__table-txt--mortgage .rf__info--link {
+    color: $color-19;
+  }
+
+  .rf__property-cell--dimensions .rf__table-txt {
+    min-width: 32px;
+  }
+
+  .rf__property-cell--dimensions > div > div:first-child {
+    width: 40px;
+  }
+
+  .rf__property-cell--dimensions > div > div:first-child .rf__table-txt {
+    min-width: 16px;
+  }
+}

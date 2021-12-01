@@ -1,0 +1,42 @@
+@import "../../variables";
+
+.mat-expansion-panel .mat-expansion-panel .mat-expansion-panel-header-description {
+  justify-content: flex-end;
+}
+
+.mat-expansion-panel.mat-expansion-panel-spacing {
+  margin: 8px 0;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: 0 1px 4px $color-28;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) .mat-expansion-panel {
+  box-shadow: none;
+}
+
+.mat-expansion-panel .mat-expansion-panel .mat-expansion-panel-header {
+  font-size: 14px;
+}
+
+.mat-expansion-panel-header .mat-expansion-indicator--collapse {
+  display: none;
+}
+
+.mat-expansion-panel-header .mat-expansion-indicator--expand,
+.mat-expansion-panel-header .mat-expansion-indicator--collapse {
+  margin: 0 5px 0 -5px;
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.mat-expansion-panel .mat-expansion-panel .mat-expanded .mat-expansion-indicator--collapse {
+  display: block;
+}
+
+.mat-expansion-panel .mat-expansion-panel .mat-expanded .mat-expansion-indicator--expand {
+  display: none;
+}

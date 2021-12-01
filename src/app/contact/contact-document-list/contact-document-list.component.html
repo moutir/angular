@@ -1,0 +1,33 @@
+<div class="rf__document-list rf__document-list--user">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_documents'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <app-document-manager
+        [documents]="documents"
+        [isLoading]="isLoading$|async"
+        [isReadOnly]="isReadOnly"
+        [isSortable]="isSortable"
+        [placeholderCount]="placeholderCount"
+        [strategy]="documentManagerStrategy"
+        (changeDocuments)="onChangeDocuments($event)"
+        (removeDocument)="onRemoveDocument($event)"
+        (changeInput)="onChangeDocumentInput($event)"
+      ></app-document-manager>
+
+      <app-shared-upload
+        [uid]="uid"
+        [strategy]="uploadStrategy"
+        (uploadComplete)="onUploadComplete($event)"
+      ></app-shared-upload>
+
+    </div>
+
+  </div>
+
+</div>

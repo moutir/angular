@@ -1,0 +1,29 @@
+@import "../variables";
+
+.rf__preview-image {
+  width: 380px;
+  height: 280px;
+  background: $color-22;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color-21;
+  user-select: none;
+}
+
+.rf__preview-image-photo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rf__preview-image-photo:not(.rf__async-image--failure) .mat-icon {
+  display: none;
+}

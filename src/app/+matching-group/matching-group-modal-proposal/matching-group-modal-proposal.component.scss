@@ -1,0 +1,117 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 800px;
+}
+
+.mat-form-field, .rf__proposal-row .hint {
+  width: 48%;
+}
+
+.rf__proposal-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.hint {
+  font-style: italic;
+  color: $color-29;
+  font-size: 11px;
+}
+
+.tab-label {
+  padding: 0 5px;
+}
+
+.note-info-icon {
+  color: $color-19;
+  cursor: default;
+  font-size: 20px;
+  line-height: 25px;
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  z-index: 10;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  padding: 3px 0;
+}
+
+li > * {
+  margin: 0 4px;
+}
+
+li .icon {
+  flex-shrink: 0;
+}
+
+li .name {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 16px;
+  font-weight: bold;
+}
+
+li .mat-select {
+  max-width: 100px;
+  flex-shrink: 0;
+  padding: 2px 0;
+}
+
+li .rf__spacer {
+  white-space: nowrap;
+  font-style: italic;
+  font-size: 11px;
+  text-align: right;
+  overflow: hidden;
+  color: $color-14;
+}
+
+.rf__proposal-row--email-content {
+  flex-wrap: wrap;
+}
+
+.rf__modal-heading--language {
+  margin-top: 10px;
+}
+
+.tab-group-container {
+  margin-top: 10px;
+  width: 100%;
+  position: relative;
+}
+
+.field-label {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.field-label .rf__keyvalue-icon {
+  font-size: 18px;
+}
+
+@media (min-width: 600px) {
+
+  li .rf__spacer {
+    overflow: initial;
+    color: $color-29;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__modal-body {
+    min-width: 600px;
+  }
+}

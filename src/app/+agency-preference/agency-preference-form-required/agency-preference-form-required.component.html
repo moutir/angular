@@ -1,0 +1,39 @@
+<form [formGroup]="formGroup">
+  <div
+    class="rf__panel"
+    *ngFor="let page of content.pages"
+  >
+    <div class="rf__panel-header">
+      <span>{{ page.label|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+        <div
+          *ngFor="let preference of page.preferences"
+          class="row-preference"
+        >
+
+          <div class="container-description">
+            <div class="preference-label">{{ preference.label|translate }}</div>
+            <div class="preference-description">{{ preference.description|translate }}</div>
+          </div>
+
+          <div class="container-input">
+            <mat-form-field>
+              <mat-select
+                placeholder="{{ 'label_preference'|translate }}"
+                formControlName="{{ preference.control }}"
+              >
+                <mat-option
+                  *ngFor="let option of preference.options"
+                  [value]="option.value"
+                >
+                  {{ option.text|translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>

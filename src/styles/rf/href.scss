@@ -1,0 +1,10 @@
+@import "../variables";
+
+.rf__href {
+  color: $color-19;
+  transition: color 300ms ease-out;
+}
+
+.rf__href:hover {
+  color: $color-27;
+}

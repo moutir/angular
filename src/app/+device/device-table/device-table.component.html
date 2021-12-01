@@ -1,0 +1,35 @@
+<div
+  class="rf__table"
+  [ngClass]="isBlacklistDevicesList() ? 'device-blacklist': 'device-all'"
+>
+
+  <app-device-table-header
+    (matSortChange)="onChangeSort($event)"
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    class="rf__table-row rf__table-row--header"
+    matSort
+    matSortDisableClear="true"
+  ></app-device-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-device-table-row
+      *ngFor="let device of models; trackBy: trackById;"
+      (contextmenu)="onContextMenu($event, device)"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      [device]="device"
+      class="rf__table-row"
+    ></app-device-table-row>
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-device-table-row
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      class="rf__table-row rf__table-row--placeholder"
+    ></app-device-table-row>
+
+  </ng-container>
+</div>

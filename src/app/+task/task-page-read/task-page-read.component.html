@@ -1,0 +1,460 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_informations'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_status'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_type_of_task'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  {{ (model.allowedImportantReason || (model.isImportant ? 'label_task_important' : 'label_task_regular'))|translate }}
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_progress'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  {{ (model.allowedFinishReason || (model.isFinished ? 'label_finished' : 'label_in_progress'))|translate }}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_task'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_single_type'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.typeLabel || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'title'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">{{ model.title || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.startDate|datetime) || '-' }}</div>
+
+              </div>
+
+              <div
+                *ngIf="model.durationHours || model.durationMinutes"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_duration'|translate }}</div>
+
+                <div
+                  class="rf__keyvalue-cell rf__keyvalue-cell--value"
+                >{{ 'label_hours_and_minutes'|translate:{ hh: model.durationHours, mm: model.durationMinutes } }}</div>
+
+              </div>
+
+              <div
+                *ngIf="model.brokerNotes"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_personal_notes'|translate }}</span>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.brokerNotes }}</div>
+
+              </div>
+
+            </div>
+
+            <div
+              *ngIf="model.brokers.length > 0 || model.contacts.length > 0"
+              class="rf__panel-subheader"
+            >{{ 'entity_contact_plural'|translate }}</div>
+
+            <div
+              *ngIf="model.brokers.length > 0 || model.contacts.length > 0"
+              class="rf__panel-section"
+            >
+
+              <div
+                *ngIf="model.brokers.length > 0"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_brokers'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div class="brokers">
+                    <app-shared-contact-link
+                      *ngFor="let broker of model.brokers"
+                      [contact]="broker"
+                      [layout]="'broker'"
+                    ></app-shared-contact-link>
+                  </div>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.contacts.length > 0"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_clients'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div>
+                    <app-shared-contact-link
+                      *ngFor="let contact of model.contacts"
+                      [contact]="contact"
+                    ></app-shared-contact-link>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              *ngIf="model.properties.length > 0 || model.promotions.length > 0"
+              class="rf__panel-subheader"
+            >{{ 'label_objects'|translate }}</div>
+
+            <div
+              *ngIf="model.properties.length > 0 || model.promotions.length > 0"
+              class="rf__panel-section"
+            >
+
+              <div
+                *ngIf="model.properties.length > 0"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <div>
+                    <span>{{ 'entity_property_plural'|translate }}</span>
+                    <span class="rf__keyvalue-key-count">({{ model.properties.length }})</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <div class="rf__card-list">
+                    <ng-container *ngFor="let property of model.properties; let i = index;">
+                      <app-shared-card-property
+                        *ngIf="property.id"
+                        class="rf__card-list-item"
+                        [property]="property"
+                        [isDeletable]="false"
+                        [isPlaceholder]="property.isLoading === true"
+                      ></app-shared-card-property>
+                    </ng-container>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.promotions.length > 0"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <div>
+                    <span>{{ 'entity_promotion_plural'|translate }}</span>
+                    <span class="rf__keyvalue-key-count">({{ model.promotions.length }})</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <div class="rf__card-list">
+                    <ng-container *ngFor="let promotion of model.promotions; let i = index;">
+                      <app-shared-card-promotion
+                        *ngIf="promotion.id"
+                        class="rf__card-list-item"
+                        [promotion]="promotion"
+                        [isDeletable]="false"
+                        [isPlaceholder]="promotion.isLoading === true"
+                      ></app-shared-card-promotion>
+                    </ng-container>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_notes'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_clients'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_task_send_to_clients'|translate }}</span>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no [isYes]="model.isSendMessageToContact"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.isSendMessageToContact && model.contactNotes"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_client_notes'|translate }}</span>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.contactNotes }}</div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_reports'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_show_in_reports'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no [isYes]="model.isShownInReports"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.isShownInReports && model.publicReport"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_report_notes'|translate }}</span>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.publicReport }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_options'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_settings'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_task_editable_by_others'|translate }}</span>
+                  <mat-icon
+                    class="rf__keyvalue-icon"
+                    matTooltip="{{ 'label_editable_by_others'|translate }}"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no [isYes]="model.isEditableByOthers"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row rf__keyvalue-row--hidden">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_task_send_to_owner'|translate }}</span>
+                  <mat-icon
+                    class="rf__keyvalue-icon"
+                    matTooltip="{{ 'label_send_notes_to_property_owner'|translate }}"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <app-shared-yes-no [isYes]="model.isSendMessageToOwner"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_google_agenda'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_google_agenda_my_calendars'|translate }}</span>
+                  <mat-icon
+                    class="rf__keyvalue-icon"
+                    matTooltip="{{ 'label_sync_with_google_agenda_time'|translate }}"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <div *ngIf="(runtimePermissions$|async).indexOf(PERMISSION_AGENDA_READ) === -1 || (featureTask$|async).isAgendaEnabled === false">
+                    {{ 'label_google_agenda_no_available'|translate }}
+                  </div>
+
+                  <ng-container
+                    *ngIf="(runtimePermissions$|async).indexOf(PERMISSION_AGENDA_READ) > -1 && (featureTask$|async).isAgendaEnabled === true"
+                  >
+
+                    <mat-chip-list class="rf__chip-list">
+                      <mat-chip
+                        *ngFor="let agenda of model.agendaLabels"
+                        class="rf__chip"
+                        [removable]="false"
+                      >
+                        <div class="rf__chip-text">{{ agenda }}</div>
+                      </mat-chip>
+                    </mat-chip-list>
+
+                  </ng-container>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimePermissions$|async).indexOf(PERMISSION_AGENDA_READ) > -1 && (featureTask$|async).isAgendaEnabled === true"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_google_agenda_notification'|translate }}</span>
+                  <mat-icon
+                    class="rf__keyvalue-icon"
+                    matTooltip="{{ 'tooltip_google_agenda_notification'|translate }}"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.reminderAtLabel || '-' }}</div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_other_agendas'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <span>{{ 'label_task_sync_device_calendar'|translate }}</span>
+                  <mat-icon
+                    class="rf__keyvalue-icon"
+                    matTooltip="{{ 'label_sync_with_other_agenda_time'|translate }}"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+                  <div *ngIf="(runtimeFeature$|async).calendarExport === false">
+                    {{ 'label_other_agenda_no_available'|translate }}
+                  </div>
+
+                  <app-shared-yes-no
+                    *ngIf="(runtimeFeature$|async).calendarExport === true"
+                    [isYes]="model.isCalendarTask"
+                  ></app-shared-yes-no>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

@@ -1,0 +1,216 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  min-width: 300px;
+  max-width: 650px;
+  max-height: 500px;
+  color: $color-38;
+}
+
+.rf__modal-heading {
+  margin: 20px 0 6px;
+}
+
+.rf__modal-heading:first-child {
+  margin-top: 0;
+}
+
+.container-recipient {
+  box-shadow: 0 1px 3px $color-13;
+  border-radius: 3px;
+  margin-top: 10px;
+  position: relative;
+  line-height: 15px;
+}
+
+.recipient,
+.recipient-entity {
+  background: transparent;
+  transition: background 300ms ease-out;
+}
+
+.recipient:hover,
+.recipient-entity:hover {
+  background: $color-25;
+}
+
+.recipient {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.email-status {
+  cursor: default;
+  position: absolute;
+  right: 13px;
+  top: 9px;
+}
+
+.email-status .rf__info-icon {
+  color: inherit;
+  line-height: 17px;
+}
+
+.list-row {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list-row.sent-date {
+  font-size: 11px;
+  color: $color-30;
+  margin: -3px 0 8px;
+}
+
+.container-message {
+  position: relative;
+  padding-bottom: 30px;
+  overflow: hidden;
+}
+
+.message {
+  white-space: pre-line;
+  line-height: 19px;
+  max-height: 90px;
+  transition: max-height 500ms ease-in-out;
+  padding: 10px;
+  border: 2px solid $color-22;
+  border-bottom: none;
+}
+
+.container-message.open .message {
+  max-height: 5000px;
+}
+
+.toggle-message {
+  display: inline-block;
+}
+
+.container-toggle-message {
+  background: $color-22;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.container-toggle-message .rf__info-icon {
+  line-height: 14px;
+}
+
+.btn-show-less {
+  display: none;
+}
+
+.container-message.open .btn-show-more {
+  display: none;
+}
+
+.container-message.open .btn-show-less {
+  display: flex;
+}
+
+span.list-row {
+  display: inline-block;
+}
+
+.list-row .rf__info {
+  max-width: 100%;
+}
+
+.list-row strong {
+  margin-right: 8px;
+  line-height: 12px;
+}
+
+.list-row.subject {
+  font-weight: bold;
+}
+
+.recipient-subinfo {
+  color: $color-30;
+}
+
+.recipient-subinfo .rf__info-icon {
+  color: inherit;
+  line-height: 17px;
+  font-size: 12px;
+}
+
+.recipient-stats {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.container-details {
+  line-height: 17px;
+  max-width: 85%;
+}
+
+.container-details .title {
+  color: $color-37;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.container-details .rf__info {
+  color: $color-19;
+  cursor: default;
+}
+
+.recipient-entities {
+  padding: 0 0 10px 0;
+}
+
+.recipient-entity {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 4px 10px;
+}
+
+.recipient-entity .rf__table-thumbnail {
+  cursor: pointer;
+  width: 60px;
+  min-width: 60px;
+  height: 40px;
+  margin-right: 7px;
+}
+
+.recipient-entity .rf__table-thumbnail .mat-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.recipient-entity strong {
+  font-size: 11px;
+  color: $color-37;
+  margin-right: 5px;
+}
+
+.container-attachments a {
+  font-size: 13px;
+  display: inline-block;
+}
+
+.text-warning {
+  color: $color-24;
+  margin-left: 5px;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__modal-body {
+    min-width: 550px;
+  }
+}

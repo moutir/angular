@@ -1,0 +1,37 @@
+<div
+  #container
+  class="rf__map {{ 'rf__map--' + uid }}"
+></div>
+<ul
+  *ngIf="this.polygonSettings?.isEditable === true"
+  class="rf__map-polygons"
+>
+  <li
+    class="rf__map-polygon rf__map-polygon--add"
+    [class.rf__map-polygon--disabled]="this.polygonSettings.isDisabled === true || polygons.length >= this.polygonSettings.maxCount"
+    (click)="onClickAddPolygon()"
+  >
+    <div class="rf__map-polygon-color"></div>
+    <span class="rf__map-polygon-label">{{ (polygons.length >= this.polygonSettings.maxCount ? 'label_max_polygon' : 'label_add_polygon')|translate }}</span>
+    <span class="rf__map-polygon-count">({{ 'label_limit'|translate }} {{ polygons.length }}/{{ polygonSettings.maxCount }})</span>
+    <div class="rf__spacer"></div>
+    <mat-icon>add</mat-icon>
+  </li>
+  <ng-container *ngFor="let polygon of polygons; trackBy: trackByPolygonId;">
+    <li
+      *ngIf="polygon !== null"
+      class="rf__map-polygon"
+      [class.rf__map-polygon--disabled]="this.polygonSettings.isDisabled === true"
+      (click)="onClickDeletePolygon(polygon)"
+    >
+      <div
+        class="rf__map-polygon-color"
+        [style.background]="polygon.color"
+      ></div>
+      <span class="rf__map-polygon-label">{{ 'label_polygon'|translate }}</span>
+      <span class="rf__map-polygon-count">({{ 'label_limit'|translate }} {{ polygon.vertices.length }}/{{ polygonSettings.verticesMaxCount }})</span>
+      <div class="rf__spacer"></div>
+      <mat-icon class="rf__map-polygon-icon--delete">clear</mat-icon>
+    </li>
+  </ng-container>
+</ul>

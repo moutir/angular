@@ -1,0 +1,153 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page rf__portal-page--write">
+
+  <mat-tab-group>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_REQUIRED) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_REQUIRED] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_REQUIRED] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_REQUIRED] } }}"
+        >
+          <span>{{ 'label_field_required'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_REQUIRED] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-portal-form-required
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          [featurePortal]="featurePortal$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-portal-form-required>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_CONTACT) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_CONTACT] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_CONTACT] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_CONTACT] } }}"
+        >
+          <span>{{ 'label_field_contact'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_CONTACT] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-portal-form-contact
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-portal-form-contact>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_TECHNICAL) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_TECHNICAL] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_TECHNICAL] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_TECHNICAL] } }}"
+        >
+          <span>{{ 'label_field_technical'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_TECHNICAL] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-portal-form-technical
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-portal-form-technical>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_SETTINGS) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_SETTINGS] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_SETTINGS] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_SETTINGS] } }}"
+        >
+          <span>{{ 'label_field_settings'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_SETTINGS] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-portal-form-settings
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-portal-form-settings>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

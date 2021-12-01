@@ -1,0 +1,126 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page rf__user-page--write">
+
+  <mat-tab-group (selectedTabChange)="onChangeTab($event)">
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_PROFILE) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_PROFILE] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_PROFILE] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_PROFILE] } }}"
+        >
+          <span>{{ 'label_my_profile'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_PROFILE] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-shared-contact-form-required
+          [isLoading]="isLoading$|async"
+          [model]="(model$|async).account.contact"
+          [options]="(options$|async).contact"
+          [error]="modelError$|async"
+          (changeForm)="onChangeFormContact($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-shared-contact-form-required>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_DOCUMENT) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_DOCUMENT] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_DOCUMENT] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_DOCUMENT] } }}"
+        >
+          <span>{{ 'label_my_documents'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_DOCUMENT] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <div class="rf__panel">
+          <div class="rf__panel-header rf__panel-header--has-warning">
+            <span>{{ 'label_warning_word'|translate }}</span>
+          </div>
+          <div class="rf__panel-body">
+            {{ 'label_tab_modifications_stored_immediately'|translate }}
+          </div>
+        </div>
+
+        <app-user-document-list
+          [uid]="PAGE_TAB_DOCUMENT"
+          [documents]="documents"
+          [model]="model$|async"
+          [isReadOnly]="false"
+          [isSortable]="false"
+        ></app-user-document-list>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_ACCOUNT) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_ACCOUNT] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_ACCOUNT] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_ACCOUNT] } }}"
+        >
+          <span>{{ 'label_my_account'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_ACCOUNT] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-shared-account-form-required
+          [layout]="'user'"
+          [isLoading]="isLoading$|async"
+          [model]="(model$|async).account"
+          [options]="(options$|async).account"
+          [error]="modelError$|async"
+          [permissions]="runtimePermissions$|async"
+          [feature]="runtimeFeature$|async"
+          [featureAccount]="runtimeFeatureAccount$|async"
+          (changeForm)="onChangeFormAccount($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-shared-account-form-required>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

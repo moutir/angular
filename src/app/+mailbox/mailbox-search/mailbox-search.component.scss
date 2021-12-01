@@ -1,0 +1,33 @@
+.search-input {
+  .form-group {
+    i {
+      font-size: 1.3em;
+      line-height: 43px;
+      position: absolute;
+      display: inline-block;
+      top: 0;
+      left: 20px;
+      z-index: 99;
+    }
+    i.close {
+      font-size: 1.3em;
+      line-height: 43px;
+      position: absolute;
+      display: inline-block;
+      top: 0;
+      left: 245px;
+      z-index: 99;
+    }
+    input {
+      position: relative;
+      height: 43px;
+      width: 265px;
+      line-height: 43px;
+      background: white;
+      padding-left: 40px;
+      padding-right: 30px;
+      margin-left: -15px;
+      border: 1px solid #ddd;
+    }
+  }
+}

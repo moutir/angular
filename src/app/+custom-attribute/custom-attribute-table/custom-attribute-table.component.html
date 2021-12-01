@@ -1,0 +1,48 @@
+<div class="rf__table">
+
+  <app-custom-attribute-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    (matSortChange)="onChangeSort($event)"
+    (changeSelection)="onChangeSelectionHeader($event)"
+  ></app-custom-attribute-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-custom-attribute-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let customAttribute of models; trackBy: trackById;"
+      [customAttribute]="customAttribute"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(customAttribute.id) > -1"
+      [isLoading]="loadingModelIds.indexOf(customAttribute.id) > -1"
+      (contextmenu)="onContextMenu($event, customAttribute)"
+      (changeSelection)="onChangeSelectionModel($event, customAttribute)"
+      (click)="onClickModel(customAttribute)"
+    ></app-custom-attribute-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-custom-attribute-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      [isSelected]="selection.isSelectedAll === true"
+    ></app-custom-attribute-table-row>
+
+  </ng-container>
+</div>
+
+<div
+  *ngIf="models !== null && models.length === 0"
+  class="rf__table-noresults"
+>{{ 'label_no_results_found'|translate }}</div>

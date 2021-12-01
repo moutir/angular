@@ -1,0 +1,56 @@
+<div
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoadingSelection === false"
+    [disabled]="isSelectable() === false"
+    [(ngModel)]="isSelected"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoadingSelection === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div class="rf__table-cell rf__report-cell--property"></div>
+
+<div class="rf__table-cell rf__report-cell--promotion"></div>
+
+<div
+  *ngIf="featureReport.isSchedulerEnabled === true"
+  class="rf__table-cell rf__report-cell--schedule"
+  matTooltip="{{ 'label_report_schedule'|translate }}"
+  matTooltipPosition="above"
+>
+  <mat-icon>query_builder</mat-icon>
+</div>
+
+<div class="rf__table-cell rf__report-cell--client">
+  <div mat-sort-header="name">{{ 'label_client'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__report-cell--broker">
+  <div mat-sort-header="brokers">{{ 'label_brokers'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__table-cell--multiline rf__report-cell--proposition">
+  <div class="label-owner">{{ 'label_number_of_propositions'|translate }}</div>
+  <div class="label-buyer">{{ 'label_properties_proposed'|translate }}</div>
+  <div class="label-tenant">{{ 'label_sent_emails'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__table-cell--multiline rf__report-cell--visit-plan">
+  <div class="label-owner">{{ 'label_number_of_visits_planned'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--center rf__table-cell--multiline rf__report-cell--visit-done">
+  <div class="label-owner">{{ 'label_number_of_visits_done'|translate }}</div>
+</div>
+
+<div class="rf__table-cell rf__table-cell--actions-label">{{ 'label_actions'|translate }}</div>

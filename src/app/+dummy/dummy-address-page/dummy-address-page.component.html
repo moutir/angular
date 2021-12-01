@@ -1,0 +1,58 @@
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group>
+
+    <mat-tab>
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+        >
+          <span>Address</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+          <div class="rf__panel-header">
+            <span>Dummy address</span>
+          </div>
+          <div class="rf__panel-body">
+            <form [formGroup]="formGroup">
+              <div>
+              <mat-form-field>
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_reference'|translate }}"
+                  formControlName="reference"
+                >
+              </mat-form-field>
+              </div>
+              <div>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="address"
+                  placeholder="{{ 'label_address'|translate }}"
+                  [appAddress]="{ uid: 'dummy-address-page', countryRestrictions: [], control: formGroup.get('address') }"
+                  [appAddressValue]="formGroup.get('address').value"
+                >
+              </mat-form-field>
+              </div>
+              <div>
+                <button
+                  mat-raised-button
+                  class="rf__button"
+                  (click)="onClickButton()"
+                >{{ 'label_save'|translate }}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

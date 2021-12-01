@@ -1,0 +1,13 @@
+@import "../../../styles/variables";
+
+app-restriction-table-row {
+  padding-bottom: 0;
+  height: 120px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  app-restriction-table-row {
+    height: 60px;
+  }
+}

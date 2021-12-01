@@ -1,0 +1,100 @@
+@import "../../../styles/variables";
+
+.rf__panel-body {
+  height: 370px;
+}
+
+.rf__table-row.rf__table-row--header:hover {
+  background: $color-18;
+}
+
+.rf__table-cell {
+  height: 55px;
+}
+
+.rf__suggestion-cell--title {
+  width: 100%;
+}
+
+.suggestion-link-all {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 300ms ease-out, color 300ms ease-out;
+  background: $color-14;
+  color: $color-19;
+  cursor: pointer;
+}
+
+.suggestion-link-all:hover {
+  background: $color-25;
+  color: $color-27;
+}
+
+.rf__suggestion-cell--title {
+  max-width: 200px;
+}
+
+.rf__suggestion-cell--update,
+.rf__suggestion-cell--status,
+.rf__suggestion-cell--popularity {
+  display: none;
+}
+
+app-shared-progress-icon {
+  width: 48px;
+  height: 12px;
+}
+
+@media (min-width:420px) {
+
+
+  .rf__suggestion-cell--title {
+    max-width: 250px;
+  }
+}
+
+@media (min-width:500px) {
+
+  .rf__suggestion-cell--popularity {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 600px) {
+
+  .rf__suggestion-cell--status {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 900px) {
+
+  .rf__suggestion-cell--update {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .rf__suggestion-cell--update {
+    display: none;
+  }
+
+  .rf__suggestion-cell--title {
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .rf__suggestion-cell--update {
+    display: table-cell;
+  }
+
+  .rf__suggestion-cell--title {
+    max-width: 250px;
+  }
+}

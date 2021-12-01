@@ -1,0 +1,868 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.firstName || error.lastName || error.titleId ||
+      error.greetingId || error.languageId || error.zipCode || error.city || error.countryId || error.birthDate ||
+      error.nationalityId || error.companyName || error.profession || error.maritalStatusId ||
+      error.childrenId || error.bankReference"
+    >
+      <span>{{ 'label_profile'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_identity'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_photo'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <app-shared-avatar
+              uid="contact-form-profile-avatar"
+              [contact]="model"
+            ></app-shared-avatar>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_title'|translate }}"
+                formControlName="titleId"
+              >
+                <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.title"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.titleId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_firstname'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_firstname'|translate }}"
+                formControlName="firstName"
+              />
+              <mat-error>{{ error.firstName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_lastname'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_lastname'|translate }}"
+                formControlName="lastName"
+              />
+              <mat-error>{{ error.lastName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date_of_birth'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="birthDate"
+                [matDatepicker]="pickerBirthDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date_of_birth_format'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerBirthDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerBirthDate></mat-datepicker>
+              <mat-error>{{ error.birthDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_nationality'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_nationality'|translate }}"
+                formControlName="nationalityId"
+              >
+                <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.nationality"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.nationalityId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_details'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_family_status'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_family_status'|translate }}"
+                formControlName="maritalStatusId"
+              >
+                <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.maritalStatus"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.maritalStatusId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_children'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_children'|translate }}"
+                formControlName="childrenId"
+              >
+                <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.children"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.childrenId|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_company'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_company'|translate }}"
+                formControlName="companyName"
+              />
+              <mat-error>{{ error.companyName|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_employment'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_employment'|translate }}"
+                formControlName="profession"
+              />
+              <mat-error>{{ error.profession|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <label class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_banking_reference'|translate }}</label>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_banking_reference'|translate }}"
+                formControlName="bankReference"
+              />
+              <mat-error>{{ error.bankReference|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.mobiles || error.landlines || error.emails || error.addresses || error.socials"
+    >
+      <span>{{ 'label_communication'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_mobiles'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--contact-small"
+          formArrayName="mobiles"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div class="rf__table-cell rf__table-cell--contact-checkbox">
+              <div
+                matTooltip="{{ 'label_use_as_main_phone'|translate }}"
+                matTooltipPosition="above"
+              >
+                <mat-icon>grade</mat-icon>
+              </div>
+            </div>
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">{{ 'label_number'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-double">{{ 'label_notes'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_add_mobile'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('mobiles')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('mobiles').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.mobiles[i].isRemoved === true"
+            [formGroup]="getFormArray('mobiles').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--contact-checkbox">
+              <mat-checkbox formControlName="isMainNumber"></mat-checkbox>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_number'|translate }}"
+                  formControlName="number"
+                />
+                <mat-error>{{ getFormArrayError('mobiles', i, 'number')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-double">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_notes'|translate }}"
+                  formControlName="notes"
+                />
+                <mat-error>{{ getFormArrayError('mobiles', i, 'notes')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.mobiles[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_remove_mobile'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('mobiles', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.mobiles[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('mobiles', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <mat-error
+          *ngIf="error.mobiles && error.mobiles !== 'form_error_is_invalid'"
+          class="rf__table-information rf__table-information--error"
+        >{{ error.mobiles|translate }}</mat-error>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_landlines'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--contact-small"
+          formArrayName="landlines"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div
+              class="rf__table-cell rf__table-cell--contact-checkbox"
+              matTooltip="{{ 'label_use_as_main_phone'|translate }}"
+              matTooltipPosition="above"
+            >
+              <mat-icon>grade</mat-icon>
+            </div>
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">{{ 'label_number'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-double">{{ 'label_notes'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_add_landline'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('landlines')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('landlines').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.landlines[i].isRemoved === true"
+            [formGroup]="getFormArray('landlines').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--contact-checkbox">
+              <mat-checkbox formControlName="isMainNumber"></mat-checkbox>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_number'|translate }}"
+                  formControlName="number"
+                />
+                <mat-error>{{ getFormArrayError('landlines', i, 'number')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-double">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_notes'|translate }}"
+                  formControlName="notes"
+                />
+                <mat-error>{{ getFormArrayError('landlines', i, 'notes')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.landlines[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_remove_landline'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('landlines', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.landlines[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('landlines', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <mat-error
+          *ngIf="error.landlines && error.landlines !== 'form_error_is_invalid'"
+          class="rf__table-information rf__table-information--error"
+        >{{ error.landlines|translate }}</mat-error>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_emails'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--contact-medium"
+          formArrayName="emails"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div
+              class="rf__table-cell rf__table-cell--contact-checkbox"
+              matTooltip="{{ 'label_use_as_main_email'|translate }}"
+              matTooltipPosition="above"
+            >
+              <mat-icon>grade</mat-icon>
+            </div>
+            <div
+              class="rf__table-cell rf__table-cell--contact-checkbox"
+              matTooltip="{{ 'label_use_to_send_emails'|translate }}"
+              matTooltipPosition="above"
+            >
+              <mat-icon>mark_email_read</mat-icon>
+            </div>
+            <div class="rf__table-cell rf__table-cell--contact-double rf__table-cell--contact-responsive">{{ 'label_email'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-double">{{ 'label_notes'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_add_email'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('emails')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('emails').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.emails[i].isRemoved === true"
+            [formGroup]="getFormArray('emails').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--contact-checkbox">
+              <mat-checkbox formControlName="isMainEmail"></mat-checkbox>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-email-checkbox">
+              <mat-checkbox formControlName="isUsedMailing"></mat-checkbox>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-double rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_email'|translate }}"
+                  formControlName="emailId"
+                />
+                <mat-error>{{ getFormArrayError('emails', i, 'emailId')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-double">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_notes'|translate }}"
+                  formControlName="notes"
+                />
+                <mat-error>{{ getFormArrayError('emails', i, 'notes')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.emails[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_remove_email'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('emails', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.emails[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('emails', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <mat-error
+          *ngIf="error.emails && error.emails !== 'form_error_is_invalid'"
+          class="rf__table-information rf__table-information--error"
+        >{{ error.emails|translate }}</mat-error>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_addresses'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--contact-large"
+          formArrayName="addresses"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div
+              class="rf__table-cell rf__table-cell--contact-checkbox"
+              matTooltip="{{ 'label_use_as_main_address'|translate }}"
+              matTooltipPosition="above"
+            >
+              <mat-icon>grade</mat-icon>
+            </div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_line_count'|translate:{ count: 1 } }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_line_count'|translate:{ count: 2 } }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_line_count'|translate:{ count: 3 } }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_zip'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_city'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-single">{{ 'label_country'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                mat-icon-button
+                matTooltip="{{ 'tooltip_add_address'|translate }}"
+                matTooltipPosition="left"
+                [disabled]="isLoading === true"
+                (click)="onClickFormArrayAdd('addresses')"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('addresses').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.addresses[i].isRemoved === true"
+            [formGroup]="getFormArray('addresses').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--contact-checkbox">
+              <mat-checkbox formControlName="isMainAddress"></mat-checkbox>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_line_count'|translate:{ count: 1 } }}"
+                  formControlName="line1"
+                />
+                <mat-error>{{ getFormArrayError('addresses', i, 'line1')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_line_count'|translate:{ count: 2 } }}"
+                  formControlName="line2"
+                />
+                <mat-error>{{ getFormArrayError('addresses', i, 'line2')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_line_count'|translate:{ count: 3 } }}"
+                  formControlName="line3"
+                />
+                <mat-error>{{ getFormArrayError('addresses', i, 'line3')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_zip'|translate }}"
+                  formControlName="zipCode"
+                />
+                <mat-error>{{ getFormArrayError('addresses', i, 'zipCode')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_city'|translate }}"
+                  formControlName="city"
+                />
+                <mat-error>{{ getFormArrayError('addresses', i, 'city')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-single">
+              <mat-form-field floatLabel="never">
+                <mat-select
+                  placeholder="{{ 'label_country'|translate }}"
+                  formControlName="countryId"
+                >
+                  <mat-option
+                    *ngFor="let option of options.country"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-select>
+                <mat-error>{{ getFormArrayError('addresses', i, 'countryId')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+
+            <div class="rf__table-cell rf__table-cell--actions">
+
+              <button
+                *ngIf="!!model.addresses[i].isRemoved === false"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_remove_address'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('addresses', i, true)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+
+              <button
+                *ngIf="!!model.addresses[i].isRemoved == true"
+                mat-icon-button
+                matTooltip="{{ 'tooltip_undo'|translate }}"
+                matTooltipPosition="left"
+                (click)="onClickFormArrayToggle('addresses', i, false)"
+              >
+                <mat-icon>undo</mat-icon>
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <mat-error
+          *ngIf="error.addresses && error.addresses !== 'form_error_is_invalid'"
+          class="rf__table-information rf__table-information--error"
+        >{{ error.addresses|translate }}</mat-error>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_social'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          class="rf__table rf__table--contact-small"
+          formArrayName="socials"
+        >
+
+          <div class="rf__table-row rf__table-row--header">
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">{{ 'label_network'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-double">{{ 'label_url'|translate }}</div>
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+          </div>
+
+          <div
+            *ngFor="let i of getFormArray('socials').indexes;"
+            class="rf__table-row"
+            [class.rf__table-row--removed]="model.socials[i].isRemoved === true"
+            [formGroup]="getFormArray('socials').control.controls[i]"
+          >
+
+            <div class="rf__table-cell rf__table-cell--contact-single rf__table-cell--contact-responsive">
+              {{ getSocialMediaName(model.socials[i].network) }}
+              <input
+                formControlName="network"
+                type="hidden"
+              />
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-double rf__table-cell--contact-responsive">
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_placeholder_https'|translate }}"
+                  formControlName="url"
+                />
+                <mat-error>{{ getFormArrayError('socials', i, 'url')|translate }}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="rf__table-cell rf__table-cell--contact-spacer"></div>
+
+          </div>
+
+        </div>
+
+        <mat-error
+          *ngIf="error.socials && error.socials !== 'form_error_is_invalid'"
+          class="rf__table-information rf__table-information--error"
+        >{{ error.socials|translate }}</mat-error>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_settings'|translate }}</div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contact_greeting'|translate }}</div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+          <mat-form-field floatLabel="never">
+            <mat-select
+              placeholder="{{ 'label_contact_greeting'|translate }}"
+              formControlName="greetingId"
+            >
+              <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+              <mat-option
+                *ngFor="let option of options.greeting"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.greetingId|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rf__keyvalue-spacer"></div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contact_language'|translate }}</div>
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+          <mat-form-field floatLabel="never">
+            <mat-select
+              placeholder="{{ 'label_contact_language'|translate }}"
+              formControlName="languageId"
+            >
+              <mat-option value="">{{ 'label_not_defined'|translate }}</mat-option>
+              <mat-option
+                *ngFor="let option of options.language"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.languageId|translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

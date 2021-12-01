@@ -1,0 +1,208 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="title_broker_management"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+        <form [formGroup]="formGroup">
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_main_contact'|translate }}"
+              formControlName="brokerId"
+            >
+              <mat-option value="null">{{ 'label_select_broker'|translate }}</mat-option>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+                <mat-option
+                  *ngFor="let option of options.broker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </ng-container>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.brokerByAgency"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select
+                placeholder="{{ 'label_contact_sale_contact'|translate }}"
+                formControlName="saleBrokerId"
+            >
+              <mat-option value="null">{{ 'label_select_broker'|translate }}</mat-option>
+              <mat-option value="-1">{{ 'label_no_broker_sales'|translate }}</mat-option>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+                <mat-option
+                  *ngFor="let option of options.saleBroker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </ng-container>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.brokerSellByAgency"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select
+                placeholder="{{ 'label_rental_contact'|translate }}"
+                formControlName="rentalBrokerId"
+            >
+              <mat-option value="null">{{ 'label_select_broker'|translate }}</mat-option>
+              <mat-option value="-1">{{ 'label_no_broker_rental'|translate }}</mat-option>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+                <mat-option
+                  *ngFor="let option of options.rentalBroker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </ng-container>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.brokerRentByAgency"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_contact_search_mgr'|translate }}"
+              formControlName="searchManagerId"
+            >
+              <mat-option value="null">{{ 'label_select_manager'|translate }}</mat-option>
+              <mat-option value="-1">{{ 'label_no_manager'|translate }}</mat-option>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+                <mat-option
+                  *ngFor="let option of options.broker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </ng-container>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.brokerByAgency"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+
+            </mat-select>
+          </mat-form-field>
+
+          <div class="mat-form-field field-checkbox">
+            <mat-checkbox
+              class="mat-checkbox--multiline mat-checkbox--text-medium"
+              (change)="onChangeMatchContact($event)"
+              formControlName="isSpecificContact"
+            >{{ 'label_contact_modify_broker_checkbox'|translate }}</mat-checkbox>
+          </div>
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_broker_contact_manager'|translate }}"
+              formControlName="specificContactId"
+            >
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1">
+                <mat-option
+                  *ngFor="let option of options.broker"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </ng-container>
+
+              <ng-container *ngIf="permissions.indexOf(PERMISSION_AGENCY_GROUP_ADMIN) > -1">
+                <mat-optgroup
+                  *ngFor="let optionGroup of options.brokerByAgency"
+                  label="{{ optionGroup.label }}"
+                >
+                  <mat-option
+                    *ngFor="let option of optionGroup.options"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+                </mat-optgroup>
+              </ng-container>
+
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('specificContactId').hasError('required')">{{ 'label_field_required'|translate }}</mat-error>
+          </mat-form-field>
+
+          <input type="hidden" formControlName="contactIds" />
+
+        </form>
+
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_change"
+      [isDisabledValid]="!formGroup.valid"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>
+

@@ -1,0 +1,199 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group>
+
+    <mat-tab label="{{ 'label_data_backup'|translate }}">
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_informations'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div [innerHTML]="'label_backup_screen_intro'|translate"></div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_download'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__table">
+
+              <div class="rf__table-row">
+
+                <div class="rf__table-cell">{{ 'entity_contact_plural'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/contacts"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="rf__table-row">
+
+                <div class="rf__table-cell">{{ 'label_contact_searches'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/contact_searches"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="rf__table-row">
+
+                <div class="rf__table-cell">{{ 'entity_property_plural'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/properties"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="rf__table-row">
+
+                <div class="rf__table-cell">{{ 'label_production'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/properties_sell"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimeFeature$|async).task === true"
+                class="rf__table-row"
+              >
+
+                <div class="rf__table-cell">{{ 'label_tasks'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/tasks"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimeFeature$|async).emailing === true"
+                class="rf__table-row"
+              >
+
+                <div class="rf__table-cell">{{ 'label_emails'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/emails"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimeFeature$|async).lead === true"
+                class="rf__table-row"
+              >
+
+                <div class="rf__table-cell">{{ 'label_leads_manager'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/leads"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="(runtimeFeature$|async).marketingExpense === true"
+                class="rf__table-row"
+              >
+
+                <div class="rf__table-cell">{{ 'label_marketing_expenses'|translate }}</div>
+                <div class="rf__table-cell">
+                  <a
+                    href="/administration/generate-backup/marketing"
+                    mat-button
+                    color="primary"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-left"
+                  >
+                    <mat-icon>download</mat-icon>
+                    <span>{{ 'label_download'|translate }}</span>
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

@@ -1,0 +1,45 @@
+<div class="rf__searchlist rf__searchlist--portal">
+
+  <app-shared-selection-bar
+    entity="portal"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    [isActiveAction]="false"
+    [isActiveSelectionText]="false"
+    [isActiveSelectionAll]="false"
+  ></app-shared-selection-bar>
+
+  <app-portal-table
+    [loadingModelIds]="operationIds$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [models]="models$|async"
+    [sort]="sort$|async"
+    (changeSort)="onChangeSort($event)"
+    (clickModel)="onClickModel($event)"
+    (contextModel)="onContextModel($event)"
+  ></app-portal-table>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [length]="total$|async"
+    [pageIndex]="(pagination$|async).page - 1"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    [pageSize]="(pagination$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>

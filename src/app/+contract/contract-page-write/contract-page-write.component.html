@@ -1,0 +1,82 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_GENERAL] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_GENERAL] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_GENERAL] } }}"
+        >
+          <span>{{ 'label_general'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_GENERAL] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-contract-form-general
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-contract-form-general>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab *ngIf="tabUids.indexOf(PAGE_TAB_DEAL) > -1">
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_DEAL] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_DEAL] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_DEAL] } }}"
+        >
+          <span>{{ 'label_deal'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_DEAL] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-contract-form-deal
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-contract-form-deal>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

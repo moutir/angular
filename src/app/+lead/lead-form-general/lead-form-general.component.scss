@@ -1,0 +1,11 @@
+@import "../../../styles/variables";
+
+.rf__chip-list, .rf__card-list {
+  margin-top: 20px;
+}
+
+.validate-button {
+  margin-top: 15px;
+  background-color: $color-24;
+  color: $color-01;
+}

@@ -1,0 +1,38 @@
+<div class="rf__searchlist rf__searchlist--device">
+  <app-shared-selection-bar
+    entity="device"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    [isActiveSelectionAll]="false"
+    [isActiveAction]="false"
+    [isActiveSelectionText]="false"
+  ></app-shared-selection-bar>
+
+  <app-device-table
+    [sort]="sort$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [deviceType]="deviceType$|async"
+    [isClickable]="false"
+    (changeSort)="onChangeSort($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-device-table>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>

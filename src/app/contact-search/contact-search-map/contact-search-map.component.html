@@ -1,0 +1,8 @@
+<app-map
+  *ngIf="polygons && isLoading === false"
+  uid="contact-search-map"
+  [mapSettings]="mapSettings"
+  [polygonSettings]="polygonSettings"
+  [polygons]="polygons"
+  (changePolygons)="onChangePolygons($event)"
+></app-map>

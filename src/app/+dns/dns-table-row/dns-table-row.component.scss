@@ -1,0 +1,63 @@
+@import "../../../styles/variables";
+
+.rf__dns-table-row {
+  margin-bottom: 10px;
+}
+
+.rf__dns-table-row-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: $color-22;
+  transition: background 500ms ease-out;
+  padding: 10px 5px;
+}
+
+.rf__dns-table-row-title:hover {
+  background: $color-25;
+}
+
+.rf__dns-record--status-valid,
+.rf__dns-record--status-invalid {
+  display: flex;
+  align-items: center;
+}
+
+.rf__dns-record--status-valid .rf__info .rf__info-label,
+.rf__dns-record--status-valid .rf__info-icon.mat-icon {
+  color: $color-34;
+}
+
+.rf__dns-record--status-invalid .rf__info .rf__info-label,
+.rf__dns-record--status-invalid .rf__info-icon.mat-icon {
+  color: $color-24;
+}
+
+.rf__dns-cell--record-value {
+  width: auto;
+}
+
+.rf__dns-cell--record-value button,
+.rf__dns-cell--record-host button {
+  color: $color-19;
+}
+
+.rf__dns-cell--record-value button:hover,
+.rf__dns-cell--record-host button:hover {
+  color: $color-27;
+}
+
+.rf__dns-cell--cell-title {
+  display: flex;
+  flex: 0.4;
+  align-items: center;
+  font-weight: 700;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__dns-cell--cell-title {
+    display: none;
+  }
+
+}

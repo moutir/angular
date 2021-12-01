@@ -1,0 +1,82 @@
+@import "../../../styles/variables";
+
+:host {
+  cursor: pointer;
+}
+
+.user-switch {
+  display: block;
+}
+
+.user-switch__element {
+  width: 100%;
+  height: $layout-header-height;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: background 600ms ease, color 300ms ease-out;
+}
+
+.user-switch__element--active {
+  background-color: $color-22;
+  cursor: default;
+}
+
+.user-switch__element:not(.user-switch__element--active):hover {
+  color: $color-27;
+  background-color: $color-25;
+}
+
+.user-switch__list {
+  width: 100%;
+}
+
+.user-switch:hover .user-switch__list, .user-switch.active .user-switch__list {
+  display: block;
+}
+
+.user-switch__user {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: 0 10px 0 15px;
+  background: $color-21;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.user-switch__avatar {
+  color: $color-19;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  line-height: 36px;
+  font-size: 13px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.user-switch__profile {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 1;
+  width: 100%;
+}
+
+.user-switch__profile span {
+  width: 90%;
+  color: $color-09;
+  line-height: 13px;
+  font-size: 12px;
+}
+
+.user-switch__profile span.user-switch__header {
+  color: $color-02;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 16px;
+}

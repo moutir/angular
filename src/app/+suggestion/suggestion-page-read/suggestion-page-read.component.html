@@ -1,0 +1,384 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_INFORMATION) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_suggestion'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div
+              *ngIf="content.isComputerTranslated"
+              class="rf__keyvalue-row rf__keyvalue-row--is-computer-translated"
+            >
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_warning_word'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">{{ 'message_is_computer_translated'|translate }}</div>
+
+            </div>
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'title'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill suggestion-title">{{ content.title }}</div>
+
+            </div>
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_problem'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ content.problem }}</div>
+
+            </div>
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_solution'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ content.solution }}</div>
+
+            </div>
+
+            <div
+              *ngIf="images.length > 0"
+              class="rf__keyvalue-row"
+            >
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_mockups'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                <app-gallery [images]="images"></app-gallery>
+              </div>
+
+            </div>
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_tags'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                <mat-chip-list>
+                  <mat-chip *ngFor="let tag of model.tags">{{ tag.name|translate }}</mat-chip>
+                </mat-chip-list>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_feedback'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_status'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                <span *ngIf="model.statusId">{{ ('suggestion_status_' + model.statusId)|translate }}</span>
+              </div>
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_popularity'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                <app-shared-progress-icon
+                  [percentage]="model.getPopularityPercentage()"
+                ></app-shared-progress-icon>
+              </div>
+            </div>
+
+            <div class="rf__keyvalue-row">
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_votes'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                <span>{{ 'label_suggestion_vote_count'|translate:{ count: model.voteCount } }}</span>
+              </div>
+
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_score'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                <span>{{ 'label_suggestion_score_count'|translate:{ count: model.score } }}</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="rf__panel">
+
+          <div
+            class="rf__panel-header"
+            [class.rf__panel-header--has-badge]="model.voteId === null"
+          >
+            <span>{{ 'question_suggestion_opinion'|translate }}</span>
+            <span
+              *ngIf="model.voteId === null"
+              class="rf__badge"
+            >{{ 'click_a_button_to_vote'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="suggestion-votes">
+
+              <div
+                *ngFor="let option of (options$|async).suggestionVoteIds; let i = index;"
+                class="suggestion-vote"
+                [class.suggestion-vote--active]="option.value === model.voteId"
+                (click)="onClickVote(option.value)"
+              >
+                <div class="suggestion-vote-icon">
+                  <mat-icon>{{ VOTE_ICON[i] }}</mat-icon>
+                </div>
+                <div class="suggestion-vote-label">{{ option.text }}</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <ng-container *ngIf="(runtimePermissions$|async).indexOf(PERMISSION_SUGGESTION_WRITE) > -1">
+
+          <div class="rf__panel">
+
+            <div class="rf__panel-header rf__panel-header--has-badge">
+              <span>{{ 'label_private_information'|translate }}</span>
+              <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+            </div>
+
+            <div class="rf__panel-body">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_client_benefit'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.clientBenefit }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_realforce_benefit'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.realforceBenefit }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_complexity'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                  <app-shared-stars
+                    [total]="5"
+                    [current]="model.complexity"
+                  ></app-shared-stars>
+
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_is_marketable'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-yes-no [isYes]="model.isMarketable"></app-shared-yes-no>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="rf__panel">
+
+            <div class="rf__panel-header rf__panel-header--has-badge">
+              <span>{{ 'label_publication'|translate }}</span>
+              <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+            </div>
+
+            <div class="rf__panel-body">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_is_published_to_clients'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <span
+                    class="yes-no"
+                    [class.yes-no--yes]="model.isPublished"
+                    [class.yes-no--no]="!model.isPublished"
+                  >{{ (model.isPublished ? 'label_yes' : 'label_no')|translate }}</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <app-shared-history-panel
+            [isRealforceOnly]="true"
+            [isPlaceholder]="isLoading$|async"
+            [createContact]="model.createContact"
+            [createDate]="model.createDate"
+            [updateContact]="model.updateContact"
+            [updateDate]="model.updateDate"
+          ></app-shared-history-panel>
+
+        </ng-container>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_VOTE) > -1"
+      label="{{ 'label_suggestion_votes'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="suggestion-charts">
+
+          <div class="rf__panel rf__panel--suggestion-chart">
+
+            <div class="rf__panel-header rf__panel-header--has-badge">
+              <span>{{ 'suggestion_votes_by_agency'|translate }}</span>
+              <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+            </div>
+
+            <div class="rf__panel-body">
+
+              <div
+                class="suggestion-chart"
+                [chart]="charts[0] || null"
+              >
+                <mat-spinner
+                  *ngIf="!charts[0]"
+                  color="accent"
+                  diameter="64"
+                ></mat-spinner>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="rf__panel rf__panel--suggestion-chart">
+
+            <div class="rf__panel-header rf__panel-header--has-badge">
+              <span>{{ 'suggestion_votes_by_account'|translate }}</span>
+              <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+            </div>
+
+            <div class="rf__panel-body">
+
+              <div
+                class="suggestion-chart"
+                [chart]="charts[1] || null"
+              >
+                <mat-spinner
+                  *ngIf="!charts[1]"
+                  color="accent"
+                  diameter="64"
+                ></mat-spinner>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header rf__panel-header--has-badge">
+            <span>{{ 'suggestion_votes_by_user'|translate }}</span>
+            <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div
+              *ngIf="votes === null || votes.length > 0"
+              class="rf__table"
+            >
+
+              <div class="rf__table-row rf__table-row--header">
+                <div class="rf__table-cell">{{ 'label_date'|translate }}</div>
+                <div class="rf__table-cell">{{ 'label_agency'|translate }}</div>
+                <div class="rf__table-cell">{{ 'label_user'|translate }}</div>
+                <div class="rf__table-cell rf__spacer"></div>
+                <div class="rf__table-cell">{{ 'label_opinion'|translate }}</div>
+              </div>
+
+              <ng-container *ngIf="this.votes !== null">
+
+                <div
+                  *ngFor="let vote of votes"
+                  class="rf__table-row"
+                >
+                  <div class="rf__table-cell">{{ vote.createDate|smartDate }}</div>
+                  <div class="rf__table-cell">{{ vote.createContact.agency.name }}</div>
+                  <div class="rf__table-cell">{{ vote.createContact.getFullName() }}</div>
+                  <div class="rf__table-cell rf__spacer"></div>
+                  <div class="rf__table-cell">{{ ('suggestion_vote_' + vote.vote )|translate }}</div>
+                </div>
+
+              </ng-container>
+
+              <ng-container *ngIf="this.votes === null">
+
+                <div class="rf__table-row rf__table-row--placeholder">
+                  <div class="rf__table-cell">
+                    <span class="rf__table-txt"></span>
+                  </div>
+                  <div class="rf__table-cell">
+                    <span class="rf__table-txt"></span>
+                  </div>
+                  <div class="rf__table-cell">
+                    <span class="rf__table-txt"></span>
+                  </div>
+                  <div class="rf__table-cell rf__spacer"></div>
+                  <div class="rf__table-cell">
+                    <span class="rf__table-txt"></span>
+                  </div>
+                </div>
+
+              </ng-container>
+
+            </div>
+
+            <div
+              *ngIf="votes !== null && votes.length === 0"
+              class="rf__table-information rf__table-information--empty rf__table-information--center"
+            >{{ 'message_no_suggestion_vote_yet'|translate }}</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

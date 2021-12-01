@@ -1,0 +1,56 @@
+@import "../../../styles/variables";
+
+.restriction-rule {
+  width: 100%;
+}
+
+.restriction-rule-sentence {
+  line-height: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.rf__table-cell--restriction-rule-value,
+.rf__table-cell--restriction-rule-value .mat-form-field {
+  width: 100%;
+}
+
+.rf__table,
+.rf__table-row,
+.rf__table-cell {
+  display: block;
+}
+
+.rf__table-cell--restriction-rule-and,
+.rf__table-row--header .rf__table-cell--restriction-rule-attribute,
+.rf__table-row--header .rf__table-cell--restriction-rule-operator,
+.rf__table-row--header .rf__table-cell--restriction-rule-value {
+  display: none;
+}
+
+.rf__table-cell--restriction-rule-attribute {
+  float: left;
+}
+
+@media (min-width: 1200px) {
+
+  .rf__table {
+    display: table;
+  }
+
+  .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table-cell,
+  .rf__table-row--header .rf__table-cell--restriction-rule-and,
+  .rf__table-row--header .rf__table-cell--restriction-rule-attribute,
+  .rf__table-row--header .rf__table-cell--restriction-rule-operator,
+  .rf__table-row--header .rf__table-cell--restriction-rule-value {
+    display: table-cell;
+  }
+
+  .rf__table-cell--restriction-rule-attribute {
+    float: none;
+  }
+}

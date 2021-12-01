@@ -1,0 +1,38 @@
+<div
+  class="rf__table rf__email-template-table"
+>
+
+  <app-email-template-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    modelsSelectable="false"
+    (matSortChange)="onChangeSort($event)"
+  ></app-email-template-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-email-template-table-row
+      *ngFor="let emailTemplate of models; trackBy: trackById;"
+      [emailTemplate]="emailTemplate"
+      [currentLanguageLabel]="currentLanguageLabel"
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      (click)="onClickModel(emailTemplate)"
+    ></app-email-template-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-email-template-table-row
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+      class="rf__table-row rf__table-row--placeholder"
+    ></app-email-template-table-row>
+
+  </ng-container>
+
+</div>

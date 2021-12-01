@@ -1,0 +1,77 @@
+@import "../variables";
+
+.rf__form {
+  display: block;
+  width: 100%;
+}
+
+.rf__form-fieldgroup {
+  margin: -20px;
+  padding: 10px;
+}
+
+.rf__form-field {
+  padding: 0 10px;
+}
+
+.rf__form-autocomplete {
+  position: relative;
+  width: 100%;
+}
+
+.rf__form-error.mat-hint {
+  color: $color-39;
+}
+
+.rf__form-error.mat-error {
+  font-size: 75%;
+  line-height: 1.125;
+  position: absolute;
+  margin-top: .66667em; // Magic number taken from Material
+  top: calc(100% - 1.79167em); // Magic number taken from Material
+}
+
+.rf__form-field-prefix, .rf__form-field-suffix {
+  font-size: 90%;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 15px;
+  text-align: center;
+  color: $color-19;
+}
+
+.mat-form-field-invalid .rf__form-field-prefix .rf__form-field-suffix {
+  color: $color-17;
+}
+
+.rf__form-field-prefix {
+  margin-right: 10px;
+}
+
+.rf__form-datetime {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rf__form-datetime-date {
+  max-width: 65%;
+}
+
+.rf__form-datetime-time {
+  max-width: 35%;
+  padding-left: 15px;
+}
+
+.rf__form-datetime .rf__form-error.mat-error {
+  top: calc(100% - 0.5em);
+}
+
+.rf__form-field--textarea .mat-form-field-infix {
+  border-top: 0;
+}
+
+.rf__form-field--textarea .mat-form-field-subscript-wrapper {
+  margin-top: 0;
+}

@@ -1,0 +1,15 @@
+.properties-fake {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  margin-top: 40px;
+
+  &__cart {
+    background-color: #f3f5f9;
+    border-radius: 3px;
+    flex: 1 1 49%;
+    height: 360px;
+    max-width: 49%;
+    padding-top: 15px;
+  }
+}

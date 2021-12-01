@@ -1,0 +1,20 @@
+<div
+  *ngIf="error.length > 0"
+  class="rf__panel"
+>
+  <div
+    class="rf__panel-header rf__panel-header--has-error"
+  >
+    <span>{{ 'message_general_errors'|translate }}</span>
+  </div>
+  <div class="rf__panel-body">
+    <ul class="rf__list">
+      <li
+        *ngFor="let e of error"
+        class="rf__list-line"
+      >
+        <b *ngIf="!!e.code">{{ e.code|translate }}:</b> {{ e.message|translate }}
+      </li>
+    </ul>
+  </div>
+</div>

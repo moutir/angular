@@ -1,0 +1,26 @@
+@import "../../../styles/variables";
+
+.rf__restriction-cell--icon,
+.rf__spacer {
+  display: none;
+}
+
+.rf__restriction-cell--name {
+  padding-top: 2px;
+  background: $color-19;
+  color: $color-01;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__restriction-cell--icon,
+  .rf__spacer {
+    display: table-cell;
+  }
+
+  .rf__restriction-cell--name {
+    padding-top: 5px;
+    color: inherit;
+    background: none;
+  }
+}

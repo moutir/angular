@@ -1,0 +1,229 @@
+@import "../../../styles/variables";
+
+header {
+  background: $color-31;
+  box-shadow: 0 0 3px $color-23;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: $layout-header-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 10px;
+  z-index: ($zindex-max - 2);
+}
+
+.header--is-active-search .header__logo {
+  max-width: 0;
+}
+
+a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header__main {
+  height: $layout-header-height;
+  position: relative;
+  overflow: visible;
+  z-index: 51;
+}
+
+.header__link {
+  padding: 0 5px;
+  height: $layout-header-height;
+  white-space: nowrap;
+  color: $color-01;
+  background: transparent;
+  transition: background $layout-transition-duration $layout-transition-function, color $layout-transition-duration $layout-transition-function;
+}
+
+.header__link:hover {
+  background: $color-08;
+  color: $color-27;
+}
+
+.header__sublinks {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+
+.header__main:hover .header__sublinks,
+.header__sublinks:hover {
+  display: block;
+  z-index: $layout-header-z-index;
+}
+
+.header__sublink {
+  background: $color-08;
+  color: $color-01;
+  transition: background 600ms ease, color 300ms ease-out;
+  border-top: solid 1px $color-09;
+  white-space: nowrap;
+  padding: 0 15px;
+  width: 100%;
+  height: 35px;
+}
+
+.header__sublink:hover {
+  color: $color-27;
+  background: $color-08;
+}
+
+.header__collapsible--logo {
+  display: block;
+}
+
+.header__link--title {
+  display: none;
+}
+
+.header__logolink {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 190px;
+  height: 54px;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: height 300ms ease-out;
+  margin-left: 40px;
+}
+
+.header__user {
+  cursor: pointer;
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.header__user-photo {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+}
+
+.header__user-initials {
+  width: 100%;
+  height: 100%;
+  background-color: $color-19;
+  color: $color-01;
+  text-align: center;
+  font-size: 16px;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.header__user-initials:hover {
+  background-color: $color-27;
+}
+
+.header__logo {
+  max-width: 90%;
+  max-height: 60%;
+  transition: max-width 200ms ease-out;
+}
+
+.header__search {
+  margin-right: 10px;
+  position: relative;
+}
+
+.header__search--is-active .header__search-input {
+  width: 290px;
+  opacity: 1;
+}
+
+.header__search-input {
+  background-color: $color-01;
+  border: 1px solid $color-19;
+  border-radius: 2px;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: $color-02;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 33px;
+  padding: 8px 35px 8px 10px;
+  font-size: 13px;
+  max-width: none;
+  width: 0;
+  opacity: 0;
+  transition: width 250ms ease-out, opacity 300ms ease-out;
+  z-index: 0;
+}
+
+.header__search-button {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  z-index: 1;
+}
+
+.header__search-button .rf__badge {
+  position: absolute;
+  left: 14px;
+  top: -3px;
+  text-transform: lowercase;
+  transition: opacity 250ms ease-out;
+  z-index: 2;
+}
+
+.header__search-icon {
+  color: $color-19;
+  font-size: 30px;
+  margin-top: -10px;
+}
+
+.header__search-icon:hover {
+  color: $color-27;
+}
+
+.header__search--is-active .rf__badge {
+  opacity: 0;
+}
+
+@media (min-width: 550px) {
+
+  .header__search--is-active .header__search-input {
+    width: 321px;
+  }
+}
+
+@media (min-width: 650px) {
+
+  .header--is-active-search .header__logo {
+    max-width: 80%;
+    max-height: 60%;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .header__logolink {
+    margin-left: 0;
+  }
+
+  .header__link--title {
+    display: block;
+  }
+
+  .header__link {
+    padding: 0 20px;
+  }
+
+  .header__top {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+  }
+}

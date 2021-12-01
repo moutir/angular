@@ -1,0 +1,686 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    *ngIf="(runtimePermissions$|async) as permissions"
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_general'|translate }}"
+      [id]="PAGE_TAB_GENERAL"
+    >
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_informations'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <ng-container
+              *ngIf="permissions.indexOf(PERMISSION_WEBSITE_CONFIG_READ) > -1 || (isLoading$|async) === true"
+            >
+
+              <div class="rf__panel-subheader">{{ 'label_website'|translate }}</div>
+
+              <div class="rf__panel-section">
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                    <span>{{ 'label_url_generic'|translate }}</span>
+                    <mat-icon
+                      class="rf__keyvalue-icon rf__keyvalue-icon--action"
+                      matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                      matTooltipPosition="above"
+                      (click)="onClickButtonCopy(model.url)"
+                    >content_copy</mat-icon>
+                  </div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                    <a class="rf__href" href="{{ model.url|absoluteUrl }}" target="_blank">{{ model.url }}</a>
+                  </div>
+
+                  <div class="rf__keyvalue-spacer"></div>
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_status'|translate }}</div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                    <div *ngIf="(isLoading$|async) === true">-</div>
+                    <div
+                      *ngIf="(isLoading$|async) === false"
+                      [ngClass]="model.isActive ? 'website-status-active' : 'website-status-inactive'"
+                    >{{ (model.isActive ? 'label_active' : 'label_inactive')|translate }}</div>
+                  </div>
+
+                </div>
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_language_lang_available'|translate }}</div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+                    <div *ngIf="model.availableLanguageLabels.length === 0">-</div>
+
+                    <mat-chip-list *ngIf="model.availableLanguageLabels.length > 0">
+                      <mat-chip
+                        *ngFor="let label of model.availableLanguageLabels"
+                        class="rf__chip"
+                        [removable]="false"
+                      >
+                        <div class="rf__chip-text">{{ label }}</div>
+                      </mat-chip>
+                    </mat-chip-list>
+
+                  </div>
+
+                  <div class="rf__keyvalue-spacer"></div>
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_language_default_lang'|translate }}</div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                    <div>{{ model.defaultLanguageLabel || '-' }}</div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="rf__panel-subheader">{{ 'label_technical'|translate }}</div>
+
+              <div class="rf__panel-section">
+
+                <div class="rf__keyvalue-row">
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                    <span>{{ 'label_api_key_private'|translate }}</span>
+                    <mat-icon
+                      class="rf__keyvalue-icon rf__keyvalue-icon--action"
+                      matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                      matTooltipPosition="above"
+                      (click)="onClickButtonCopy(model.privateAPIKey)"
+                    >content_copy</mat-icon>
+                  </div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                    <span>{{ model.privateAPIKey }}</span>
+                  </div>
+
+                </div>
+
+                <div
+                  *ngIf="(runtimeFeature$|async).fisher === false"
+                  class="rf__keyvalue-row"
+                >
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_fisher_active'|translate }}</div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">{{ 'no_subscription_to_fisher'|translate }}</div>
+
+                </div>
+
+                <div
+                  *ngIf="(runtimeFeature$|async).fisher === true"
+                  class="rf__keyvalue-row"
+                >
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                    <span>{{ 'label_api_key_public'|translate }}</span>
+                    <mat-icon
+                      *ngIf="model.isActiveFisher === true"
+                      class="rf__keyvalue-icon rf__keyvalue-icon--action"
+                      matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                      matTooltipPosition="above"
+                      (click)="onClickButtonCopy(model.publicAPIKey)"
+                    >content_copy</mat-icon>
+                  </div>
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                    <div *ngIf="model.isActiveFisher === true">{{ model.publicAPIKey }}</div>
+                    <div *ngIf="model.isActiveFisher === false">{{ 'notification_feature_disabled'|translate }}</div>
+                  </div>
+
+                </div>
+
+                <ng-container *ngIf="model.isInternal && model.layoutId === 'iframe'">
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                      <span>{{ 'label_iframe_url_sale'|translate }}</span>
+                      <mat-icon
+                        class="rf__keyvalue-icon rf__keyvalue-icon--action"
+                        matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                        matTooltipPosition="above"
+                        (click)="onClickButtonCopy(model.iframeSaleURL)"
+                      >content_copy</mat-icon>
+                    </div>
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                      <a class="rf__href" href="{{ model.iframeSaleURL|absoluteUrl }}" target="_blank">{{ model.iframeSaleURL }}</a>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                      <span>{{ 'label_iframe_url_rent'|translate }}</span>
+                      <mat-icon
+                        class="rf__keyvalue-icon rf__keyvalue-icon--action"
+                        matTooltip="{{ 'label_copy_to_clipboard'|translate }}"
+                        matTooltipPosition="above"
+                        (click)="onClickButtonCopy(model.iframeRentURL)"
+                      >content_copy</mat-icon>
+                    </div>
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                      <a class="rf__href" href="{{ model.iframeRentURL|absoluteUrl }}" target="_blank">{{ model.iframeRentURL }}</a>
+                    </div>
+
+                  </div>
+
+                </ng-container>
+
+              </div>
+
+              <ng-container *ngIf="model.isInternal">
+
+                <div class="rf__panel-subheader">{{ 'label_is_internal'|translate }}</div>
+
+                <div class="rf__panel-section">
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_technology'|translate }}</div>
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.layoutLabel || '-' }}</div>
+
+                  </div>
+
+                  <ng-container *ngIf="model.layoutId !== WEBSITE_LAYOUT_WORDPRESS">
+
+                    <div class="rf__keyvalue-row">
+
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_template'|translate }}</div>
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.templateLabel || '-' }}</div>
+
+                    </div>
+
+                    <div class="rf__keyvalue-row">
+
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_facebook_appid'|translate }}</div>
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.facebookAppId || '-' }}</div>
+
+                      <div class="rf__keyvalue-spacer"></div>
+
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_google_analytics_appid'|translate }}</div>
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.googleAnalyticsAppId || '-' }}</div>
+
+                    </div>
+
+                    <div
+                      *ngIf="permissions.indexOf(PERMISSION_WEBSITE_CONTENT_READ) > -1 || (isLoading$|async) === true"
+                      class="rf__keyvalue-row"
+                    >
+
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                        <span>{{ 'label_team_members'|translate }}</span>
+                        <mat-icon
+                          class="rf__keyvalue-icon"
+                          matTooltip="{{ 'tooltip_website_field_team'|translate }}"
+                          matTooltipPosition="above"
+                        >info</mat-icon>
+                      </div>
+
+                      <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                        <div *ngIf="(isLoading$|async) === true">...</div>
+
+                        <div *ngIf="(isLoading$|async) === false && model.brokers.length === 0">{{ 'label_none'|translate }}</div>
+
+                        <mat-chip-list *ngIf="model.brokers.length > 0">
+                          <ng-container *ngFor="let broker of model.brokers">
+                            <mat-chip
+                              class="rf__chip"
+                              [removable]="false"
+                            >
+                              <div class="rf__chip-text">{{ broker.fullName || '...' }}</div>
+                            </mat-chip>
+                          </ng-container>
+                        </mat-chip-list>
+
+                      </div>
+
+                    </div>
+
+                  </ng-container>
+
+                </div>
+
+              </ng-container>
+
+            </ng-container>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="model.isInternal && tabUids.indexOf(PAGE_TAB_STYLE) > -1 && (runtimePermissions$|async).indexOf(PERMISSION_WEBSITE_CONFIG_READ) > -1"
+      label="{{ 'label_style'|translate }}"
+      [id]="PAGE_TAB_STYLE"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div
+            class="rf__panel-header"
+          >
+            <span>{{ 'label_colour'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_background'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.stylePrimaryBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.stylePrimaryBgColour"
+                    >{{ model.stylePrimaryBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_secondary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleSecondaryBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleSecondaryBgColour"
+                    >{{ model.styleSecondaryBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_site'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleSiteBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleSiteBgColour"
+                    >{{ model.styleSiteBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary_flat'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.stylePrimaryBgFlatColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.stylePrimaryBgFlatColour"
+                    >{{ model.stylePrimaryBgFlatColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_block'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleBlockBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleBlockBgColour"
+                    >{{ model.styleBlockBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_footer'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleFooterBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleFooterBgColour"
+                    >{{ model.styleFooterBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_title'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleDetailsTitleBgColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleDetailsTitleBgColour"
+                    >{{ model.styleDetailsTitleBgColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_title_shadow'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleDetailsTitleBgShadowColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleDetailsTitleBgShadowColour"
+                    >{{ model.styleDetailsTitleBgShadowColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_top_bar'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleDetailsTopBarColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleDetailsTopBarColour"
+                    >{{ model.styleDetailsTopBarColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_font'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_primary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.stylePrimaryFontColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.stylePrimaryFontColour"
+                    >{{ model.stylePrimaryFontColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_secondary'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleSecondaryFontColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleSecondaryFontColour"
+                    >{{ model.styleSecondaryFontColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_header_footer_font'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleHeaderFooterFontColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleHeaderFooterFontColour"
+                    >{{ model.styleHeaderFooterFontColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_details_amenities'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <div *ngIf="(isLoading$|async) === true">...</div>
+                  <div *ngIf="(isLoading$|async) === false" class="container-color">
+                    <span
+                      class="block-color"
+                      [style.background-color]="model.styleDetailsAmenitiesFontColour"
+                    ></span>
+                    <span
+                      [class.placeholder-text]="!model.styleDetailsAmenitiesFontColour"
+                    >{{ model.styleDetailsAmenitiesFontColour || ('label_not_set'|translate) }}</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="model.isInternal && tabUids.indexOf(PAGE_TAB_PHOTO) > -1 && (runtimePermissions$|async).indexOf(PERMISSION_WEBSITE_CONTENT_READ) > -1"
+      label="{{ 'label_photos'|translate }}"
+      [id]="PAGE_TAB_PHOTO"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">{{ 'label_photos'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <app-gallery
+              [images]="images"
+              [isLoading]="isLoadingPhotos$|async"
+            ></app-gallery>
+          </div>
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <ng-container
+      *ngIf="model.isInternal && (runtimePermissions$|async).indexOf(PERMISSION_WEBSITE_CONTENT_READ) > -1 && model.homePageContent as content"
+    >
+
+      <ng-container *ngFor="let language of availableLanguageIds$|async; let i = index">
+
+        <mat-tab
+          *ngIf="content[language]"
+          id="website-read-content-{{ language }}"
+        >
+
+          <ng-template mat-tab-label>
+            <div class="rf__tab-label">
+              <app-shared-svg-icon class="icon" icon="flag-{{ language }}"></app-shared-svg-icon>
+              <span>{{ (availableLanguages$|async)[language] || '' }}</span>
+            </div>
+          </ng-template>
+
+          <div class="rf__tab-body rf__tab-body--content-{{ language }}">
+
+            <div class="rf__panel">
+
+              <div class="rf__panel-header">{{ 'label_pages'|translate }}</div>
+
+              <div class="rf__panel-body">
+
+                <div class="rf__panel-subheader">{{ 'label_website_home_page'|translate }}</div>
+
+                <div class="rf__panel-section">
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                      <span>{{ 'title'|translate }}</span>
+                    </div>
+
+                    <div
+                      [class.placeholder-text]="!content[language].title"
+                      class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                    >
+                      <span>{{ content[language].title ||
+                        ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                      <span>{{ 'label_description'|translate }}</span>
+                    </div>
+
+                    <div
+                      [class.placeholder-text]="!content[language].description"
+                      class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--html"
+                    >
+                      <div
+                        *ngIf="!content[language].description"
+                      >{{ ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</div>
+                      <div
+                        *ngIf="content[language].description"
+                        [innerHTML]="content[language].description"
+                      ></div>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                      <span>{{ 'label_website_seo_description'|translate }}</span>
+                    </div>
+
+                    <div
+                      [class.placeholder-text]="!content[language].seoDescription"
+                      class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                    >
+                      <span>{{ content[language].seoDescription ||
+                        ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                    </div>
+
+                  </div>
+
+                  <div class="rf__keyvalue-row">
+
+                    <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                      <span>{{ 'label_website_seo_keywords'|translate }}</span>
+                    </div>
+
+                    <div
+                      [class.placeholder-text]="!content[language].seoKeyword"
+                      class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+                    >
+                      <span>{{ content[language].seoKeyword ||
+                        ('label_content_not_available_lang'|translate: { lang: (availableLanguages$|async)[language] }) }}</span>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </mat-tab>
+
+      </ng-container>
+
+    </ng-container>
+
+  </mat-tab-group>
+
+</div>

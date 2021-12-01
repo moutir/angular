@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col-sm-3">
+    <app-mailbox-search [needle]="state.searchQuery" (notify)="onSearch($event)"></app-mailbox-search>
+  </div>
+  <div class="col-sm-3 sync-result">
+    <span *ngIf="syncData && syncData.success && syncData.time">{{ 'inbox_emails_synced'|translate }} {{syncData.time}} {{ 'inbox_emails_seconds'|translate }}</span>
+    <span *ngIf="syncData && syncData.success && !syncData.time">{{ 'inbox_emails_sync_in_progress'|translate }}</span>
+    <span *ngIf="syncData && !syncData.success">{{ 'inbox_emails_sync_failed'|translate }}</span>
+  </div>
+  <div class="col-sm-6 text-right pagination-email-list">
+    <a *ngIf="emailSelected.length > 0 && !isLoadingDelete" (click)="onClickDelete()" class="imap-settings"><i class="fa fa-trash"
+                                                                                                               aria-hidden="true"></i></a>
+    <a *ngIf="isLoadingDelete" class="imap-settings sync-icon-progress"><i class="fa fa-spinner" aria-hidden="true"></i></a>
+    <button
+      *ngIf="emailSelected.length > 0 && !isLoadingUnread"
+      class="imap-settings btn back-btn"
+      title="{{'label_mark_email_as_unseen'|translate}}"
+      (click)="onClickMarkUnread()"
+    >
+      {{'label_mark_email_as_unseen'|translate}}
+    </button>
+    <button class="imap-settings btn back-btn" *ngIf="isLoadingUnread">
+      <mat-spinner
+        color="accent"
+        diameter="16"
+      ></mat-spinner>
+    </button>
+    <a (click)="onClickSync()" class="imap-settings sync-icon" [ngClass]="{'sync-icon-progress': isLoadingSync}"><i class="fa fa-refresh"
+                                                                                                                    aria-hidden="true"></i></a>
+    <a (click)="onClickSettings()" class="imap-settings"><i class="fa fa-cog" aria-hidden="true"></i></a>
+    <app-pagination
+      [totalPages]="emailList.totalPageCount"
+      [prev]="state.page > 1 && emailList.emails.length > 0"
+      [next]="state.page < emailList.totalPageCount && emailList.emails.length > 0"
+      [currentPage]="state.page"
+      (notify)="onChangePage($event)"
+    ></app-pagination>
+  </div>
+</div>
+<div
+  *ngIf="isLoading"
+  class="rf__spinner--fullpage"
+>
+  <mat-spinner
+    color="accent"
+    diameter="64"
+  ></mat-spinner>
+</div>
+<div class="row" id="inbox">
+  <div class="panel-group col-sm-2 folders" *ngIf="!isLoading">
+    <app-tree
+      [folders]="folders"
+      [folderId]="state.folderId"
+      (clickFolder)="onClickFolder($event)"
+    ></app-tree>
+  </div>
+  <div class="panel-group col-sm-10 emails" *ngIf="!isLoading">
+    <div
+      *ngFor="let email of emailList.emails; let i = index"
+      id="{{email.id}}"
+      class="panel panel-default deleted"
+      (mouseover)="onMouseOver(email)"
+      (mouseleave)="onMouseLeave(email)"
+    >
+      <hr *ngIf="email.isDeleted">
+      <div class="panel-heading" [class.read]="email.isRead" (click)="onClickEmail(email)">
+        <div class="row">
+          <div class="col-sm-3 users-info">
+            <div class="names">
+                  <span *ngIf="email">
+                    <input type="checkbox" (click)="onClickCheckbox($event)" (change)="onSelect(email)">
+                    <i *ngIf="email.folderType === 's'" class="fa fa-reply email-type"></i>
+                    <i *ngIf="email.folderType === 'i'" class="fa fa-share email-type"></i>
+                    {{email.sender.name? email.sender.name: email.sender.email}}
+                  </span>
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <div class="email-title">
+              <div class="subject">{{email.subject}}</div>
+            </div>
+            <div class="count"><strong *ngIf="email.children && email.children.count > 0">({{email.children.count + 1}})</strong></div>
+            <div class="categories-output"
+                 *ngIf="(email.properties && email.properties.length > 0) || (email.promotions && email.promotions.length > 0) || (email.contactsConnected && email.contactsConnected.length > 0)">
+              <div class="btn cat property" *ngFor="let property of email.properties">
+                {{property.reference ? property.reference : property.name}} <i class="fa fa-times" aria-hidden="true"
+                                                                               (click)="onClickUnlinkProperty($event, email, property)"></i>
+              </div>
+              <div class="btn cat promotion" *ngFor="let promotion of email.promotions">
+                {{promotion.name ? promotion.name : promotion.value}} <i class="fa fa-times" aria-hidden="true"
+                                                                         (click)="onClickUnlinkPromotion($event, email, promotion)"></i>
+              </div>
+              <div class="btn cat contact" *ngFor="let contact of email.contactsConnected">
+                {{contact.contact_firstname}} {{contact.contact_lastname}} <i class="fa fa-times" aria-hidden="true"
+                                                                              (click)="onClickUnlinkContact($event, email, contact)"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 text-right email-date">
+            <span *ngIf="!email.connectMode" class="message-date">{{ email.timestamp | smartTimestamp }}</span>
+            <span *ngIf="email.connectMode && !email.editMode" class="btn btn-violet open-edit" (click)="onClickLink($event, email)">{{ 'inbox_connect_to'|translate}}</span>
+            <app-connect-to-email
+              *ngIf="email.connectMode && email.editMode"
+              [email]="email"
+              [connected]="email.contactsConnected"
+              [currentEmailId]="email.id"
+            ></app-connect-to-email>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default" *ngIf="emailList.emails && emailList.emails.length === 0">
+      <div class="panel-heading ">
+        <div class="row">
+          <div class="col-sm-12 no-email email-title">
+            <strong>{{ 'inbox_no_emails'|translate }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-10">
+  </div>
+  <div class="col-sm-3 text-right pagination-email-list">
+    <app-pagination
+      [totalPages]="emailList.totalPageCount"
+      [prev]="state.page > 1 && emailList.emails.length > 0"
+      [next]="state.page < emailList.totalPageCount && emailList.emails.length > 0"
+      [currentPage]="state.page"
+      (notify)="onChangePage($event)"
+    ></app-pagination>
+  </div>
+</div>

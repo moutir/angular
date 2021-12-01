@@ -1,0 +1,134 @@
+@import "../../../../styles/variables";
+
+.mat-form-field {
+  width: 100%;
+}
+
+.rf__table-row,
+.rf__table-cell {
+  display: block;
+}
+
+.rf__table-cell--contact-spacer {
+  display: none;
+}
+
+.rf__table-cell--contact-checkbox {
+  color: $color-19;
+}
+
+.rf__table-cell {
+  display: none;
+}
+
+.rf__table-cell--contact-responsive {
+  display: block;
+}
+
+@media (min-width: 900px) {
+
+  .rf__table--contact-small .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--contact-small .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--contact-small .rf__table-cell--contact-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--contact-small .rf__table-cell--contact-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--contact-small .rf__table-cell--contact-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--contact-small .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--contact-small .rf__table-cell--contact-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__table--contact-medium .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--contact-medium .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--contact-medium .rf__table-cell--contact-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--contact-medium .rf__table-cell--contact-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--contact-medium .rf__table-cell--contact-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--contact-medium .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--contact-medium .rf__table-cell--contact-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__table--contact-large .rf__table-row {
+    display: table-row;
+  }
+
+  .rf__table--contact-large .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__table--contact-large .rf__table-cell--contact-single {
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__table--contact-large .rf__table-cell--contact-double {
+    min-width: 300px;
+    max-width: 300px;
+  }
+
+  .rf__table--contact-large .rf__table-cell--contact-checkbox {
+    padding: 0 10px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .rf__table--contact-large .rf__table-cell:first-child {
+    padding-left: 16px;
+  }
+
+  .rf__table--contact-large .rf__table-cell--contact-spacer {
+    display: table-cell;
+    width: 100%;
+  }
+}

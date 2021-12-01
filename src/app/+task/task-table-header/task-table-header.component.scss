@@ -1,0 +1,31 @@
+@import "../../../styles/variables";
+
+.rf__task-cell--finished,
+.rf__task-cell--important,
+.rf__task-cell--permission {
+  padding: 5px 0;
+}
+
+.rf__task-cell--permission {
+  padding-left: 10px;
+}
+
+.rf__task-cell--finished .mat-icon,
+.rf__task-cell--important .mat-icon,
+.rf__task-cell--permission .mat-icon {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.rf__task-cell--permission .mat-icon {
+  color: $color-19;
+}
+
+.rf__task-cell--finished .mat-icon {
+  color: $color-15;
+}
+
+.rf__task-cell--important .mat-icon {
+  color: $color-24;
+}

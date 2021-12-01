@@ -1,0 +1,128 @@
+@import "../variables";
+
+.rf__searchlist--device .rf__table.device-all .rf__device-cell--actions {
+  justify-content: flex-end;
+}
+
+.rf__device-cell--cell-title {
+  display: flex;
+  flex: 1;
+  font-weight: 700;
+}
+
+.rf__searchlist--device .rf__table-txt {
+  display: flex;
+  flex:  1;
+}
+
+.rf__searchlist--device .rf__table-cell,
+.rf__searchlist--device .rf__table-cell {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__searchlist--device .rf__device-cell--device-id {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  margin-bottom: 5px;
+  color: $color-01;
+  background-color: $color-19;
+  display: flex;
+  align-items: center;
+}
+
+.rf__searchlist--device .rf__table.rf__table.device-blacklist .rf__device-cell--blacklister {
+  flex-wrap: wrap;
+}
+
+.rf__searchlist--device .rf__table.rf__table.device-blacklist .rf__device-cell--blacklister .rf__device-cell--blacklister-divider {
+  width: 100%;
+  display: flex;
+}
+
+.rf__searchlist--device .rf__table.device-all .rf__device-cell--blacklister,
+.rf__searchlist--device .rf__table.device-all .rf__device-cell--blacklister .rf__info-icon {
+  display: none;
+}
+
+.rf__searchlist--device .rf__table.device-all .rf__device-cell--reset-date {
+  display: none;
+}
+
+.rf__searchlist-form--device .rf__searchlist-form-toggle {
+  display: none;
+}
+
+.rf__searchlist--device .rf__table.device-blacklist .rf__table-row {
+  padding-bottom: 10px;
+}
+
+.rf__searchlist--device .rf__table.device-blacklist .rf__device-cell--actions {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__device-cell--cell-title {
+    display: none;
+  }
+
+  .rf__searchlist--device .rf__table-txt {
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 20px;
+  }
+
+  .rf__searchlist--device .rf__table.device-all .rf__table-cell,
+  .rf__searchlist--device .rf__table.device-blacklist .rf__table-cell,
+  .rf__searchlist--device .rf__device-cell--device-id {
+    display: table-cell;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .rf__searchlist--device .rf__device-cell--device-id {
+    color: inherit;
+    background-color: inherit;
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+  }
+
+  .rf__table-cell.rf__device-cell--user,
+  .rf__table-cell.rf__device-cell--last-login,
+  .rf__table-cell.rf__device-cell--blacklister {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+  }
+
+  .rf__searchlist--device .rf__table.device-blacklist .rf__device-cell--actions {
+    display: none;
+  }
+
+  .rf__searchlist--device .rf__table.device-all .rf__device-cell--blacklister,
+  .rf__searchlist--device .rf__table.device-all .rf__device-cell--blacklister .rf__info-icon {
+    display: none;
+  }
+
+  .rf__searchlist--device .rf__table.device-all .rf__device-cell--reset-date {
+    display: none;
+  }
+
+  .rf__searchlist--device .rf__table.device-blacklist .rf__device-cell--reset-date {
+    display: none;
+  }
+}
+
+@media (min-width: 1170px) {
+
+  .rf__searchlist--device .rf__table.device-blacklist .rf__device-cell--reset-date {
+    display: table-cell;
+  }
+}

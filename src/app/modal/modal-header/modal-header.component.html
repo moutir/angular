@@ -1,0 +1,8 @@
+<div class="rf__modal-header">
+  <div class="rf__modal-header-title">{{ labelTitle|translate }}</div>
+  <mat-icon
+    *ngIf="hasCloseButton === true"
+    class="rf__modal-header-icon"
+    (click)="onClickCloseButton()"
+  >cancel</mat-icon>
+</div>

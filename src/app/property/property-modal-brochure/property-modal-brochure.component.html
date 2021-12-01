@@ -1,0 +1,116 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_brochure"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <form [formGroup]="formGroup">
+
+        <app-shared-card-property
+          [property]="property"
+        ></app-shared-card-property>
+
+        <div class="rf__modal-heading">{{ 'label_brochure_settings'|translate }}</div>
+
+        <div class="rf__proposal-row">
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_brochure_type'|translate }}"
+              formControlName="typeId"
+            >
+              <mat-option
+                *ngFor="let option of options.typeId"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_brochure_language'|translate }}"
+              formControlName="language"
+            >
+              <mat-option
+                *ngFor="let option of options.language"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="rf__proposal-row">
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_brochure_privacy'|translate }}"
+              formControlName="privacyId"
+            >
+              <mat-option
+                *ngFor="let option of options.privacyId"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_brochure_quality'|translate }}"
+              formControlName="quality"
+            >
+              <mat-option
+                *ngFor="let option of options.quality"
+                [value]="option.value"
+              >
+                {{ option.text }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="rf__modal-heading">{{ 'label_broker_settings'|translate }}</div>
+
+        <div class="rf__proposal-row">
+
+          <mat-form-field>
+            <mat-select
+              placeholder="{{ 'label_brochure_broker'|translate }}"
+              formControlName="brokerId"
+            >
+              <mat-option
+                *ngFor="let option of options.brokerId"
+                [value]="option.value"
+              >
+                {{ option.text|translate }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </form>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_download"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

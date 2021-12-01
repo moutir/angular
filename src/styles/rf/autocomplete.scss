@@ -1,0 +1,90 @@
+@import "../variables";
+
+.rf__autocomplete {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 0;
+  max-width: 300px;
+}
+
+.rf__autocomplete .mat-optgroup {
+  width: 300px;
+  padding: 4px 0;
+  flex-shrink: 0;
+}
+
+.rf__autocomplete .mat-optgroup-label {
+  color: $color-19;
+  font-weight: bold;
+  margin: 0;
+  font-size: inherit;
+  line-height: 24px;
+  height: auto;
+  padding: 0 0 0 15px;
+}
+
+.rf__autocomplete .mat-optgroup .mat-option:not(.mat-option-multiple) {
+  font-size: inherit;
+  line-height: 2em;
+  height: 2em;
+  padding: 0 10px 0 20px;
+}
+
+.rf__autocomplete-noresults {
+  font-weight: normal;
+  color: $color-09;
+  font-style: italic;
+  pointer-events: none;
+}
+
+.rf__autocomplete-suffix {
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  color: $color-05;
+  position: absolute;
+  bottom: -7px;
+  right: 1px;
+}
+
+.rf__autocomplete-suffix--is-clickable {
+  color: $color-19;
+}
+
+.rf__autocomplete-suffix--is-clickable:hover {
+  color: $color-27;
+  cursor: pointer;
+}
+
+@media (min-width: 600px) {
+
+  .rf__autocomplete {
+    max-width: 560px;
+  }
+
+  .rf__autocomplete .mat-optgroup {
+    width: 280px;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__autocomplete {
+    max-width: 750px;
+  }
+
+  .rf__autocomplete .mat-optgroup {
+    width: 250px;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .rf__autocomplete {
+    max-width: 1000px;
+  }
+
+  .rf__autocomplete .mat-optgroup {
+    width: 250px;
+  }
+}

@@ -1,0 +1,46 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field *ngIf="isLoading === true || options.suggestionStatusIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_suggestion_status'|translate }}"
+      formControlName="statusIds"
+      multiple
+    >
+      <mat-option
+        *ngFor="let option of options.suggestionStatusIds"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.suggestionTagIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_suggestion_tag'|translate }}"
+      formControlName="tagIds"
+      multiple
+    >
+      <mat-option
+        *ngFor="let option of options.suggestionTagIds"
+        [value]="option.value"
+      >
+        {{ option.text|translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+</form>

@@ -1,0 +1,39 @@
+<div
+  class="rf__upload-image"
+  [class.rf__upload-image--has-image]="imageDocument.photoSmallURL !== ''"
+  [style.width]="imageDocument.photoSmallURL === '' ? (width + 'px') : 'auto'"
+  [style.height]="imageDocument.photoSmallURL === '' ? (height + 'px') : 'auto'"
+>
+
+  <mat-icon class="rf__upload-image-placeholder">photo_camera</mat-icon>
+
+  <img
+    *ngIf="imageDocument.photoSmallURL"
+    class="rf__upload-image-thumbnail"
+    appAsyncImage="{{ imageDocument.photoSmallURL }}"
+    appAsyncImageStrategy="src"
+    [style.maxWidth.px]="width || 'auto'"
+    [style.maxHeight.px]="height || 'auto'"
+  />
+
+  <app-shared-upload
+    *ngIf="imageDocument.photoSmallURL === ''"
+    class="rf__upload-image-uploader"
+    [uid]="uid"
+    [strategy]="uploadStrategy"
+    [isDisabled]="isDisabled"
+    (uploadComplete)="onUploadComplete($event)"
+  ></app-shared-upload>
+
+</div>
+
+<button
+  *ngIf="imageDocument.photoSmallURL !== ''"
+  mat-icon-button
+  matTooltip="{{ 'label_remove'|translate }}"
+  matTooltipPosition="above"
+  class="rf__button-icon rf__button-icon--gray rf__button-icon--small rf__upload-image-remove"
+  (click)="onClickRemove()"
+>
+  <mat-icon>close</mat-icon>
+</button>

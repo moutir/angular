@@ -1,0 +1,114 @@
+@import "../variables";
+
+.rf__form-array {
+  position: relative;
+  width: 100%;
+}
+
+.rf__form-array-control {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  padding: 0 0 15px 0;
+}
+
+.rf__form-array-control--removed .mat-form-field {
+  opacity: 0.2;
+}
+
+.rf__form-array-toggle-button,
+.rf__form-array-toggle-button.mat-button {
+  margin-left: 10px;
+  background: $color-31;
+  color: $color-19;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0;
+  width: 23px;
+  height: 23px;
+  line-height: 22px;
+  min-width: auto;
+}
+
+.rf__form-array-toggle-button--remove.mat-button {
+  color: $color-17;
+}
+
+.rf__form-array-toggle-button--undo.mat-button {
+  color: $color-15;
+}
+
+.rf__form-array-toggle-button--add.mat-button {
+  background: $color-15;
+  color: $color-01;
+}
+
+.rf__form-array-toggle-button:not(:disabled):hover {
+  background-color: $color-27;
+  color: $color-01;
+}
+
+.rf__form-array-toggle-button-icon.mat-icon {
+  width: 22px;
+  height: 22px;
+  line-height: 21px;
+  font-size: 15px;
+}
+
+.rf__form-array-toggle-button:disabled {
+  color: $color-30;
+}
+
+.rf__form-array-footer {
+  position: relative;
+  margin-top: 10px;
+}
+
+.rf__form-array-footer-button.rf__button.mat-button {
+  background: $color-15;
+  color: $color-01;
+  font-size: 11px;
+  height: 26px;
+  min-width: 40px;
+  line-height: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rf__form-array-footer-button.rf__button.mat-button .mat-icon {
+  font-size: 18px;
+  line-height: 25px;
+  width: 20px;
+}
+
+.rf__form-array-footer-button:hover {
+  background: $color-27;
+}
+
+.rf__form-array-footer-button.rf__form-array-footer-button--link.rf__button:not([disabled]) {
+  background: $color-14;
+  color: $color-19;
+  font-size: 12px;
+  height: 28px;
+}
+
+.rf__form-array-footer-button.rf__form-array-footer-button--link.rf__button:not([disabled]):hover {
+  color: $color-27;
+}
+
+.rf__form-array-field {
+  margin-bottom: -8px;
+  width: 100%;
+}
+
+.rf__form-array-footer--in-table {
+  margin-top: 20px;
+}
+
+.rf__form-array-footer-error--in-table {
+  top: -24px;
+}

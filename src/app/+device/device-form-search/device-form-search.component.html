@@ -1,0 +1,33 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form [formGroup]="formGroup">
+    <mat-form-field *ngIf="(isLoading === true || options.userId.length > 0) && !isBlacklistForm()">
+      <mat-select
+        placeholder="{{ 'label_select_broker'|translate }}"
+        formControlName="userId"
+      >
+        <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+        <mat-option
+          *ngFor="let option of options.userId"
+          [value]="option.value"
+        >
+          {{ option.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Responsive spacers, do not remove -->
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+    <div class="mat-form-field"></div>
+
+    <input type="hidden" formControlName="deviceType" />
+    <input type="hidden" formControlName="userId" />
+
+</form>

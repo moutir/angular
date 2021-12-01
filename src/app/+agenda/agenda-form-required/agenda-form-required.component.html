@@ -1,0 +1,113 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_agenda'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div
+        class="rf__panel-subheader"
+        [class.rf__panel-header--has-error]="error.calendarId"
+      >{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_calendar'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                [placeholder]="(options.agenda.length > 0 ? 'label_calendar' : 'label_calendars_not_available')|translate"
+                formControlName="calendarId"
+              >
+                <mat-option
+                  *ngFor="let option of options.agenda"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.calendarId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="iframe-container">
+
+              <iframe
+                #iframe
+                id="iframe-calendar"
+                frameborder="0"
+                scrolling="no"
+                [src]="calendarIframeSrc"
+                (load)="onLoadIframe()"
+              ></iframe>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+	<div
+    *ngIf="isLoading || feature.calendarExport === true"
+    class="rf__panel"
+  >
+
+		<div class="rf__panel-header">
+		  <span>{{ 'label_header_agenda_calendar'|translate }}</span>
+		</div>
+
+		<div class="rf__panel-body">
+
+			<div
+        *ngIf="model.calendarExportLink"
+        class="calendar-export-container"
+      >
+        <button
+          mat-button
+          class="rf__button-icon rf__button-icon--secondary"
+          matTooltip="{{ 'label_copy_link_to_clipboard'|translate }}"
+          matTooltipPosition="above"
+          (click)="onClickButtonCopy()"
+        >
+          <mat-icon>file_copy</mat-icon>
+        </button>
+				<div>
+					<div class="export-description">{{ 'label_description_agenda_calendar'|translate }}</div>
+					<div>
+            <a href="{{ model.calendarExportLink }}" class="rf__info--link" download>{{ model.calendarExportLink }}</a>
+          </div>
+				</div>
+			</div>
+
+      <div
+        *ngIf="!model.calendarExportLink"
+        class="placeholder-message"
+      >{{ 'label_cal_export_link_not_available'|translate }}</div>
+
+		</div>
+
+	</div>
+
+</form>

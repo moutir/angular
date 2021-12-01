@@ -1,0 +1,94 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.ftpDataFolder || error.ftpImagesFolder ||
+        error.ftpMoviesFolder || error.ftpDocsFolder"
+    >
+      <span>{{ 'label_ftp'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_paths'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_ftp_data_folder'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_ftp_data_folder'|translate }}"
+                formControlName="ftpDataFolder"
+              />
+              <mat-error>{{ error.ftpDataFolder|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_images'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_images'|translate }}"
+                formControlName="ftpImagesFolder"
+              />
+              <mat-error>{{ error.ftpImagesFolder|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_movies'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_movies'|translate }}"
+                formControlName="ftpMoviesFolder"
+              />
+              <mat-error>{{ error.ftpMoviesFolder|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_documents'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_documents'|translate }}"
+                formControlName="ftpDocsFolder"
+              />
+              <mat-error>{{ error.ftpDocsFolder|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

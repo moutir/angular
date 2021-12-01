@@ -1,0 +1,65 @@
+<div
+  class="rf__modal rf__modal--emailing-preview"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header
+      labelTitle="label_email_preview"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <div class="container-preview">
+
+        <div
+          *ngIf="previews.length === 0"
+          class="rf__spinner"
+        >
+
+          <mat-spinner
+            color="accent"
+            diameter="36"
+          ></mat-spinner>
+
+        </div>
+
+        <mat-tab-group *ngIf="previews.length > 0">
+
+          <mat-tab *ngFor="let preview of previews">
+
+            <ng-template matTabLabel>
+              <app-shared-svg-icon class="icon icon--preview-flag" icon="flag-{{ preview.language }}"></app-shared-svg-icon>
+              <div class="rf__tab-label">
+                <span>{{ ('label_' + preview.language)|translate }}</span>
+              </div>
+            </ng-template>
+
+            <div class="rf__tab-body">
+
+              <div [innerHtml]="preview.html"></div>
+
+            </div>
+
+          </mat-tab>
+
+        </mat-tab-group>
+
+      </div>
+
+    </div>
+
+    <app-shared-modal-footer
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+
+</div>
+

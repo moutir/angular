@@ -1,0 +1,117 @@
+@import "../variables";
+
+.rf__tab-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rf__tab-label .rf__badge--error {
+  display: none;
+}
+
+.rf__tab-label--has-error .rf__badge--error {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+}
+
+.rf__tab-label .icon {
+  margin-right: 8px;
+}
+
+.rf__tab-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: $color-16;
+  flex-wrap: wrap;
+}
+
+.rf__tab-bar.rf__tab-bar--page,
+.rf__tab-bar .mat-tab-header {
+  border-bottom: none;
+  background: transparent;
+}
+
+.rf__tab-bar,
+.rf__tab-bar.rf__tab-bar--page .mat-tab-header {
+  border-bottom: solid 1px $color-22;
+  background: $color-16;
+}
+
+.rf__tab-bar.rf__tab-bar--page .mat-tab-group .mat-tab-group .mat-tab-header {
+  background: none;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .mat-ink-bar {
+  display: none;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .rf__tab-label {
+  padding: 0 16px;
+  height: 50px;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .mat-tab-label {
+  padding: 0;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .rf__tab-label.has-error {
+  color: $color-17;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .mat-tab-label-active .rf__tab-label {
+  border-bottom: 2px solid $color-19;
+  padding-top: 2px;
+}
+
+.rf__tab-bar .mat-tab-group .mat-tab-group .mat-tab-label-active .rf__tab-label.has-error {
+  border-bottom: 2px solid $color-17;
+  padding-top: 2px;
+}
+
+.rf__tab-bar .mat-tab-labels .mat-tab-label {
+  color: $color-37;
+  height: 50px;
+  transition: background 300ms ease-out, color 300ms ease-out;
+}
+
+.rf__tab-bar .mat-tab-labels .mat-tab-label.mat-tab-disabled {
+  filter: grayscale(1);
+  opacity: 0.2;
+}
+
+.rf__tab-bar .mat-tab-labels .mat-tab-label.mat-tab-label-active {
+  color: $color-19;
+}
+
+.rf__tab-bar .mat-tab-labels .mat-tab-label:hover {
+  color: $color-27;
+  background: $color-22;
+}
+
+.rf__tab-bar .rf__badge {
+  margin-left: 5px;
+}
+
+.rf__tab-bar--page .mat-tab-group {
+  width: 100%;
+}
+
+.rf__tab-body {
+  padding: 20px;
+}
+
+.rf__tab-spinner {
+  display: inline-block;
+  margin-bottom: -3px;
+  padding-left: 7px;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__tab-bar--page .rf__tab-body {
+    min-height: 300px;
+  }
+}

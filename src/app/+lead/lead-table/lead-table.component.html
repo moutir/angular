@@ -1,0 +1,43 @@
+<div class="rf__table">
+
+  <app-lead-table-header
+    class="rf__table-row rf__table-row--header"
+    matSort
+    [matSortActive]="sort.id"
+    [matSortDirection]="sort.order"
+    matSortDisableClear="true"
+    [isSelected]="isSelectedHeader"
+    [isLoadingSelection]="selection.isLoading"
+    [isDisabledSelection]="models === null"
+    [isUsingActions]="isUsingActions"
+    (changeSelection)="onChangeSelectionHeader($event)"
+    (matSortChange)="onChangeSort($event)"
+  ></app-lead-table-header>
+
+  <ng-container *ngIf="models !== null">
+
+    <app-lead-table-row
+      class="rf__table-row"
+      [class.rf__table-row--is-clickable]="isClickable === true"
+      *ngFor="let lead of models; trackBy: trackById;"
+      [lead]="lead"
+      [modelsSelectable]="modelsSelectable"
+      [isSelected]="selection.ids.indexOf(lead.id) > -1"
+      [isLoading]="loadingModelIds.indexOf(lead.id) > -1"
+      (contextmenu)="onContextMenu($event, lead)"
+      (changeSelection)="onChangeSelectionModel($event, lead)"
+      (click)="onClickModel(lead)"
+    ></app-lead-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="models === null">
+
+    <app-lead-table-row
+      class="rf__table-row rf__table-row--placeholder"
+      *ngFor="let i of placeholderCount|forLoop"
+      [isPlaceholder]="true"
+    ></app-lead-table-row>
+
+  </ng-container>
+</div>

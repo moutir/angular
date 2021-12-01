@@ -1,0 +1,139 @@
+<form
+  class="rf__document"
+  [class.rf__document--placeholder]="isPlaceholder === true"
+  [formGroup]="formGroup"
+>
+
+  <div class="rf__document-preview">
+
+    <a
+      href="{{ model.fileUrl }}"
+      target="_blank"
+      class="rf__document-link"
+    >
+
+      <div class="rf__document-icon">
+        <mat-icon>description</mat-icon>
+        <span class="rf__document-icon-txt">{{ getExtension(model) }}</span>
+      </div>
+
+      <div
+        *ngIf="model.photoSmallURL"
+        appAsyncImage="{{ model.photoSmallURL }}"
+        class="rf__document-image"
+      ></div>
+
+      <div class="rf__document-image rf__document-image--download">
+        <mat-icon>cloud_download</mat-icon>
+      </div>
+    </a>
+
+    <div class="rf__document-info">
+      <a
+        href="{{ model.fileUrl }}"
+        target="_blank"
+        class="rf__document-name"
+      >{{ model.name }}</a>
+      <div *ngIf="isPlaceholder === true" class="rf__document-size"></div>
+      <div
+        *ngIf="isPlaceholder === false"
+        class="rf__document-size"
+      >{{ getSize(model) }} &bull; {{ model.updateDate | smartDate }}</div>
+    </div>
+
+  </div>
+
+  <div class="rf__document-inputs">
+
+    <div
+      *ngFor="let input of inputs"
+      class="rf__document-input rf__document-input--{{ input.type }}"
+    >
+
+      <div *ngIf="input.type === 'text'">
+
+        <div
+          *ngIf="isReadOnly === true && (isPlaceholder === true || model.data[input.name])"
+          class="rf__info"
+        >
+          <mat-icon
+            matTooltip="{{ input.label|translate }}"
+            matTooltipPosition="left"
+            class="rf__info-icon"
+          >{{ input.icon }}</mat-icon>
+          <span class="rf__info-label">{{ model.data[input.name] }}</span>
+        </div>
+
+        <mat-form-field
+          *ngIf="isReadOnly === false"
+          floatLabel="always"
+        >
+          <input
+            [formControlName]="input.name"
+            autocomplete="off"
+            placeholder="{{ input.label|translate }}"
+            matInput
+          />
+        </mat-form-field>
+
+      </div>
+
+      <div *ngIf="input.type === 'checkbox'">
+        <mat-checkbox
+          [formControlName]="input.name"
+        >{{ input.label|translate }}</mat-checkbox>
+      </div>
+
+      <div *ngIf="input.type === 'select' || input.type === 'checkboxes'">
+        <mat-form-field floatLabel="always">
+          <mat-select
+            [formControlName]="input.name"
+            placeholder="{{ input.label|translate }}"
+            [multiple]="input.type === 'checkboxes'"
+          >
+            <mat-option
+              *ngFor="let option of options[input.options]"
+              [value]="option.value"
+            >{{ option.text }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isReadOnly === false">
+
+      <div
+        class="rf__document-button-wrapper rf__document-button-wrapper--copy"
+        matTooltip="{{ 'label_copy_link_to_clipboard'|translate }}"
+        matTooltipPosition="left"
+      >
+        <button
+          (click)="onClickButtonCopy(model.photoLargeURL)"
+          mat-icon-button
+          class="rf__document-button--copy"
+          [disabled]="isPlaceholder === true || !model.photoLargeURL"
+        >
+          <mat-icon>file_copy</mat-icon>
+        </button>
+      </div>
+
+      <div
+        class="rf__document-button-wrapper rf__document-button-wrapper--remove"
+        matTooltip="{{ 'label_remove'|translate }}"
+        matTooltipPosition="left"
+      >
+        <button
+          *ngIf="isDisabled === false"
+          class="rf__document-button--remove"
+          mat-icon-button
+          (click)="onClickButtonDelete(model)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</form>

@@ -1,0 +1,76 @@
+@import "../../../../styles/variables";
+
+.selection-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.text {
+  line-height: 30px;
+  font-size: 12px;
+  flex-shrink: 0;
+  padding: 0 10px;
+}
+
+.text--loading {
+  background: $color-22;
+  min-width: 150px;
+  line-height: 16px;
+  height: 16px;
+  margin: 7px 0;
+}
+
+.text--total {
+  animation: fade 300ms ease-out;
+}
+
+.text--select-all {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 3px;
+  color: $color-19;
+}
+
+.text--select-all:hover {
+  color: $color-27;
+}
+
+.text--no-selection-sentence {
+  display: none;
+}
+
+.label {
+  display: none;
+}
+
+.rf__button {
+  min-width: 40px;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .text--no-selection-sentence {
+    display: block;
+    width: 100%;
+    flex-shrink: 1;
+    white-space: normal;
+    font-style: italic;
+    color: $color-27;
+  }
+
+  .rf__button-icon {
+    margin-left: 12px;
+  }
+
+  .mat-icon {
+    width: 20px;
+    line-height: 22px;
+  }
+
+  .label {
+    display: inline;
+    color: inherit;
+  }
+}

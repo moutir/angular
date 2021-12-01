@@ -1,0 +1,70 @@
+<div
+  *ngIf="isLoading === true || (documents.length > 0 || messageEmptyState)"
+  cdkDropList
+  class="rf__document-manager"
+  (cdkDropListDropped)="onDropDocument($event)"
+>
+
+  <div
+    *ngIf="isLoading === false && documents.length === 0"
+    class="rf__document-manager-document-noresults"
+  >{{ messageEmptyState|translate }}</div>
+
+  <ng-container *ngIf="isLoading === true">
+
+    <div
+      *ngFor="let i of placeholderCount|forLoop"
+      class="rf__document-manager-document"
+      [class.rf__document-manager-document--is-sortable]="isSortable === true"
+    >
+
+      <div
+        *ngIf="isSortable === true"
+        class="rf__document-manager-dnd"
+        cdkDragHandle
+      >
+        <mat-icon>drag_indicator</mat-icon>
+      </div>
+
+      <app-document
+        [inputs]="strategy.inputs"
+        [isPlaceholder]="true"
+        [isReadOnly]="isReadOnly"
+      ></app-document>
+
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="isLoading === false && documents.length > 0">
+
+    <div
+      *ngFor="let document of documents"
+      class="rf__document-manager-document"
+      cdkDrag
+    >
+
+      <div
+        *ngIf="isSortable === true"
+        class="rf__document-manager-dnd"
+        [class.rf__document-manager-dnd--readonly]="isReadOnly === true"
+        cdkDragHandle
+      >
+        <mat-icon>drag_indicator</mat-icon>
+      </div>
+
+      <app-document
+        [model]="document"
+        [options]="strategy.options"
+        [inputs]="strategy.inputs"
+        [isLoading]="isLoading"
+        [isDisabled]="isDisabled"
+        [isReadOnly]="isReadOnly"
+        (changeForm)="onChangeDocument($event)"
+      ></app-document>
+
+    </div>
+
+  </ng-container>
+
+</div>

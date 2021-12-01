@@ -1,0 +1,523 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.name || error.module || error.conditionRules || error.validationRules"
+    >
+      <span>{{ 'label_restriction'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_name_as_a_word'|translate }}"
+                formControlName="name"
+              />
+              <mat-error>{{ error.name|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_module'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                placeholder="{{ 'label_module'|translate }}"
+                formControlName="module"
+              >
+                <mat-option
+                  *ngFor="let option of options.module"
+                  [value]="option.value"
+                >
+                  {{ option.text|translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.module|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_rules'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div
+          *ngFor="let rule of RULES"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ ('label_restriction_' + rule.type + '_plural')|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="restriction-rule">
+
+              <div class="restriction-rule-sentence">
+                {{ ('label_restriction_' + rule.type + '_' + model.module)|translate }}
+              </div>
+
+              <div
+                class="rf__table rf__table--restriction-rule"
+                [formArrayName]="rule.formArrayName"
+              >
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-and"></div>
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-attribute">{{ 'label_restriction_attribute'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-operator">{{ 'label_restriction_operator'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-value">{{ 'label_restriction_value'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_add_restriction_rule'|translate }}"
+                      matTooltipPosition="left"
+                      [disabled]="isLoading === true"
+                      (click)="onClickFormArrayAdd(rule.formArrayName)"
+                    >
+                      <mat-icon>add</mat-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div
+                  *ngFor="let i of getFormArray(rule.formArrayName).indexes;"
+                  class="rf__table-row"
+                  [class.rf__table-row--removed]="model[rule.formArrayName][i].isRemoved === true"
+                  [formGroup]="getFormArray(rule.formArrayName).control.controls[i]"
+                >
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-and">
+                    {{ 'label_restriction_and'|translate }}
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-attribute">
+
+                    <mat-form-field floatLabel="never">
+                      <mat-select
+                        placeholder="{{ 'label_restriction_attribute'|translate }}"
+                        formControlName="attribute"
+                      >
+                        <mat-option
+                          *ngFor="let option of getRuleAttributeOptions()"
+                          [value]="option.value"
+                        >
+                          {{ option.text|translate }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'attribute')|translate }}</mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-operator">
+
+                    <mat-form-field floatLabel="never">
+                      <mat-select
+                        placeholder="{{ 'label_restriction_operator'|translate }}"
+                        formControlName="operator"
+                      >
+                        <mat-option
+                          *ngFor="let option of getRuleOperatorOptions(model[rule.formArrayName][i])"
+                          [value]="option.value"
+                        >
+                          {{ option.text|translate }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'operator')|translate }}</mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--restriction-rule-value">
+
+                    <!-- {Location}Formatter -->
+                    <div *ngIf="AUTOCOMPLETE_ENTITIES_LOCATION[getRuleInputOption(model[rule.formArrayName][i]).value]">
+                      <app-shared-autocomplete
+                        class="mat-form-field"
+                        floatLabel="never"
+                        [uid]="'restriction-rule-location-' + i"
+                        [entities]="[AUTOCOMPLETE_ENTITIES_LOCATION[getRuleInputOption(model[rule.formArrayName][i]).value]]"
+                        limit="10"
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        [isDisplayedSelectionText]="false"
+                        [isDisabled]="isLoading === true"
+                        [error]="getFormArrayError(rule.formArrayName, i, 'value')"
+                        (changeSelection)="onChangeSelectionLocation($event, rule.formArrayName, i)"
+                      ></app-shared-autocomplete>
+
+                      <div *ngIf="model[rule.formArrayName][i].value">
+                        <mat-chip-list>
+                          <mat-chip
+                            *ngFor="let locationId of model[rule.formArrayName][i].value; let j = index;"
+                            (removed)="onClickRemoveLocation(rule.formArrayName, i, j)"
+                          >
+                            <span>{{ model[rule.formArrayName][i].format[locationId] || locationId }}</span>
+                            <mat-icon matChipRemove>cancel</mat-icon>
+                          </mat-chip>
+                        </mat-chip-list>
+                      </div>
+                    </div>
+
+                    <!-- SectorFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'SectorFormatter'"
+                      floatLabel="never"
+                    >
+                      <mat-select
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        multiple
+                        formControlName="value"
+                      >
+                        <mat-option
+                          *ngFor="let option of options.sectorIds"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- CustomAttributeFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'CustomAttributeFormatter'"
+                      floatLabel="never"
+                    >
+                      <mat-select
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        multiple
+                        formControlName="value"
+                      >
+                          <ng-container *ngFor="let optionGroup of options.customAttributeIds">
+
+                            <ng-container *ngIf="optionGroup.label === ''">
+                              <mat-option
+                                *ngFor="let option of optionGroup.options"
+                                [value]="option.value"
+                              >
+                                {{ option.text }}
+                              </mat-option>
+                            </ng-container>
+
+                            <ng-container *ngIf="optionGroup.label !== ''">
+                              <mat-optgroup
+                                label="{{ optionGroup.label|translate }}"
+                              >
+                                <mat-option
+                                  *ngFor="let option of optionGroup.options"
+                                  [value]="option.value"
+                                >
+                                  {{ option.text }}
+                                </mat-option>
+                              </mat-optgroup>
+                            </ng-container>
+
+                          </ng-container>
+                        </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- CategoryFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'CategoryFormatter'"
+                      floatLabel="never"
+                    >
+                      <mat-select
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        multiple
+                        formControlName="value"
+                      >
+                        <mat-option
+                          *ngFor="let option of options.categoryIds"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- TransactionTypeFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'TransactionTypeFormatter'"
+                      floatLabel="never"
+                    >
+                      <mat-select
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        multiple
+                        formControlName="value"
+                      >
+                        <mat-option
+                          *ngFor="let option of options.transactionTypeIds"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- ContactSearchTransactionTypeFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'ContactSearchTransactionTypeFormatter'"
+                      floatLabel="never"
+                    >
+                      <mat-select
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        multiple
+                        formControlName="value"
+                      >
+                        <mat-option
+                          *ngFor="let option of options.contactSearchTransactionTypeIds"
+                          [value]="option.value"
+                        >
+                          {{ option.text }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- NumberFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'NumberFormatter'"
+                      floatLabel="never"
+                    >
+                      <input
+                        matInput
+                        type="number"
+                        autocomplete="off"
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        formControlName="value"
+                      />
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- PriceFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'PriceFormatter'"
+                      floatLabel="never"
+                    >
+                      <input
+                        matInput
+                        type="number"
+                        autocomplete="off"
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        formControlName="value"
+                      />
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                    <!-- StringFormatter -->
+                    <mat-form-field
+                      *ngIf="getRuleInputOption(model[rule.formArrayName][i]).value === 'StringFormatter'"
+                      floatLabel="never"
+                    >
+                      <input
+                        matInput
+                        autocomplete="off"
+                        placeholder="{{ getRuleInputOption(model[rule.formArrayName][i]).text|translate }}"
+                        formControlName="value"
+                      />
+                      <mat-error>{{ getFormArrayError(rule.formArrayName, i, 'value')|translate }}</mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      *ngIf="!!model[rule.formArrayName][i].isRemoved === false"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_remove_restriction_rule'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle(rule.formArrayName, i, true)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button
+                      *ngIf="!!model[rule.formArrayName][i].isRemoved == true"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_undo'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle(rule.formArrayName, i, false)"
+                    >
+                      <mat-icon>undo</mat-icon>
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model[rule.formArrayName].length === 0"
+                class="rf__table-information rf__table-information--empty rf__table-information--center"
+              >{{ 'message_no_restriction_rule_added_yet'|translate }}</div>
+
+              <mat-error
+                *ngIf="error[rule.formArrayName] && error[rule.formArrayName] !== 'form_error_is_invalid'"
+                class="rf__table-information rf__table-information--error"
+              >{{ error[rule.formArrayName]|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.brokerTargets || error.agencyTargets || error.groupTargets"
+    >
+      <span>{{ 'label_applies_to'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-section">
+
+        <div
+          *ngIf="isLoading === true || options.groupTargets.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency_groups'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_restriction_input_placeholder_group'|translate }}"
+                formControlName="groupTargets"
+              >
+                <mat-option
+                  *ngFor="let option of options.groupTargets"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.groupTargets|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agencies'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_restriction_input_placeholder_agency'|translate }}"
+                formControlName="agencyTargets"
+              >
+                <mat-option
+                  *ngFor="let option of options.agencyTargets"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.agencyTargets|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_brokers'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_restriction_input_placeholder_broker'|translate }}"
+                formControlName="brokerTargets"
+              >
+                <ng-container *ngIf="options.brokerByAgencyTargets.length > 0">
+
+                  <mat-optgroup
+                    *ngFor="let optionGroup of options.brokerByAgencyTargets"
+                    label="{{ optionGroup.label }}"
+                  >
+                    <mat-option
+                      *ngFor="let option of optionGroup.options"
+                      [value]="option.value"
+                    >
+                      {{ option.text }}
+                    </mat-option>
+                  </mat-optgroup>
+
+                </ng-container>
+                <ng-container *ngIf="options.brokerByAgencyTargets.length === 0">
+
+                  <mat-option
+                    *ngFor="let option of options.brokerTargets"
+                    [value]="option.value"
+                  >
+                    {{ option.text }}
+                  </mat-option>
+
+                </ng-container>
+
+              </mat-select>
+              <mat-error>{{ error.brokerTargets|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</form>

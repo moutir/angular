@@ -1,0 +1,78 @@
+<div class="rf__table-cell rf__custom-attribute-cell--name">
+
+  <span class="rf__table-txt">
+    <div class="rf__info">
+      <span class="rf__info-label">{{ customAttribute.name }}</span>
+    </div>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__custom-attribute-cell--value-count">
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+      matTooltip="{{ 'label_custom_attribute_value_count'|translate }}"
+      matTooltipPosition="left"
+    >
+      <mat-icon class="rf__info-icon">functions</mat-icon>
+      <span class="rf__info-label">{{ customAttribute.values.length }}</span>
+    </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__custom-attribute-cell--property">
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+      matTooltip="{{ 'label_one_property'|translate }}"
+      matTooltipPosition="left"
+    >
+      <mat-icon class="rf__info-icon">home</mat-icon>
+      <span class="rf__info-label">
+        <app-shared-yes-no [isYes]="customAttribute.usable.indexOf(TYPE_PROPERTY) > -1"></app-shared-yes-no>
+      </span>
+    </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__custom-attribute-cell--promotion">
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+      matTooltip="{{ 'label_promotion'|translate }}"
+      matTooltipPosition="left"
+    >
+      <mat-icon class="rf__info-icon">location_city</mat-icon>
+      <span class="rf__info-label">
+        <app-shared-yes-no [isYes]="customAttribute.usable.indexOf(TYPE_PROMOTION) > -1"></app-shared-yes-no>
+      </span>
+    </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__custom-attribute-cell--contact">
+
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+      matTooltip="{{ 'label_contact_singular'|translate }}"
+      matTooltipPosition="left"
+    >
+      <mat-icon class="rf__info-icon">person</mat-icon>
+      <span class="rf__info-label">
+        <app-shared-yes-no [isYes]="customAttribute.usable.indexOf(TYPE_CONTACT) > -1"></app-shared-yes-no>
+      </span>
+    </div>
+  </span>
+
+</div>

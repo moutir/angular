@@ -1,0 +1,48 @@
+.submenu {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.mainmenu {
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mainmenu span {
+  transition: color ease-out 150ms;
+}
+
+.mainmenu span:hover {
+  color: #5E6FD3;
+}
+
+.submenu .mainmenu.singleFolder {
+  padding-left: 0;
+}
+
+.hidden-menu {
+  display: none;
+}
+
+.activeFolder {
+  & > span:first-child {
+    color: #5E6FD3;
+    font-weight: 700;
+  }
+}
+
+.bolder {
+  font-weight: 700;
+}
+
+.expandable {
+  margin-left: -13px;
+}

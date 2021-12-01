@@ -1,0 +1,217 @@
+@import "../variables";
+
+.rf__keyvalue-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.rf__keyvalue-row--hidden {
+  display: none;
+}
+
+.rf__keyvalue-spacer {
+  display: none;
+}
+
+.rf__keyvalue-cell {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.rf__keyvalue-cell--key,
+.rf__keyvalue-cell--key-fill,
+.rf__keyvalue-cell--key-full {
+  width: 100%;
+  background: $color-16;
+  align-items: center;
+  font-weight: 500;
+}
+
+.rf__keyvalue-cell--key-fill {
+  align-items: stretch;
+  height: auto;
+}
+
+.rf__keyvalue-cell--value,
+.rf__keyvalue-cell--value-fill,
+.rf__keyvalue-cell--value-full {
+  width: 100%;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.rf__keyvalue-cell--value-fill {
+  flex-shrink: 1;
+  height: auto;
+}
+
+.rf__keyvalue-cell--html ul > li {
+  list-style: initial;
+  margin-left: 32px;
+}
+
+.rf__keyvalue-cell--html ol > li {
+  list-style: decimal;
+  margin-left: 32px;
+}
+
+.rf__keyvalue-cell--html a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $color-19;
+}
+
+.rf__keyvalue-cell--html a:hover {
+  color: $color-27;
+}
+
+.rf__keyvalue-icon.mat-icon {
+  cursor: default;
+  font-size: 14px;
+  width: 16px;
+  height: 17px;
+  color: $color-19;
+  line-height: 16px;
+  margin-left: 5px;
+}
+
+.rf__keyvalue-cell > app-shared-autocomplete,
+.rf__keyvalue-cell > app-shared-autocomplete > .mat-form-field,
+.rf__keyvalue-cell > .rf__form-datetime,
+.rf__keyvalue-cell > .rf__form-datetime > .mat-form-field,
+.rf__keyvalue-cell > .mat-form-field,
+.rf__keyvalue-cell > .mat-slider,
+.rf__keyvalue-cell > app-month-year-picker,
+.rf__keyvalue-cell > app-month-year-picker > .mat-form-field,
+.rf__keyvalue-cell > app-year-picker,
+.rf__keyvalue-cell > app-year-picker > .mat-form-field {
+  width: 100%;
+  height: 22px;
+}
+
+.rf__keyvalue-cell > app-shared-input-chip-list,
+.rf__keyvalue-cell > app-shared-wysiwyg {
+  width: 100%;
+}
+
+.rf__keyvalue-cell > .mat-form-field.rf__form-field--textarea {
+  height: auto;
+}
+
+.rf__keyvalue-cell .rf__form-field--textarea textarea {
+  min-height: 80px;
+}
+
+.rf__keyvalue-cell > app-shared-autocomplete > .mat-form-field > .mat-form-field-wrapper,
+.rf__keyvalue-cell > .rf__form-datetime > .mat-form-field > .mat-form-field-wrapper,
+.rf__keyvalue-cell > .mat-form-field > .mat-form-field-wrapper,
+.rf__keyvalue-cell > app-month-year-picker > .mat-form-field > .mat-form-field-wrapper,
+.rf__keyvalue-cell > app-year-picker > .mat-form-field > .mat-form-field-wrapper {
+  margin-top: -1.25em;
+}
+
+.rf__keyvalue-cell > .mat-form-field.rf__form-field--textarea > .mat-form-field-wrapper {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.rf__keyvalue-subtext {
+  color: $color-30;
+  font-weight: 400;
+  width: 100%;
+}
+
+.rf__keyvalue-cell--nl2br {
+  white-space: pre-wrap;
+}
+
+.rf__keyvalue-autocomplete-chiplist {
+  width: 100%;
+  margin-top: -16px;
+}
+
+.rf__keyvalue-key-count {
+  color: $color-19;
+  padding-left: 5px;
+}
+
+@media (min-width: 900px) {
+
+  .rf__keyvalue-cell {
+    margin-bottom: 2px;
+  }
+
+  .rf__keyvalue-cell--value,
+  .rf__keyvalue-cell--value-fill,
+  .rf__keyvalue-cell--value-full {
+    margin-bottom: 0;
+  }
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--value {
+    min-height: 54px;
+  }
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--key-fill {
+    width: 30%;
+  }
+
+  .rf__keyvalue-cell--value,
+  .rf__keyvalue-cell--value-fill {
+    width: 70%;
+  }
+
+  .rf__keyvalue-cell--key-full {
+    margin: 16px 0 0 0;
+  }
+
+  .rf__keyvalue-cell--value-full {
+    margin: 0 0 16px 0;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--key-fill {
+    width: 25%;
+  }
+
+  .rf__keyvalue-cell--value,
+  .rf__keyvalue-cell--value-fill {
+    width: 75%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--value {
+    min-height: 54px;
+  }
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--key-fill {
+    width: 20%;
+  }
+
+  .rf__keyvalue-cell--value {
+    width: 27%;
+  }
+
+  .rf__keyvalue-cell--value-fill {
+    width: 80%;
+  }
+
+  .rf__keyvalue-spacer {
+    display: block;
+    width: 6%;
+  }
+}

@@ -1,0 +1,39 @@
+@import "../../../../styles/variables";
+
+.restriction-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: $color-19;
+}
+
+.restriction-link:hover {
+  color: $color-27;
+}
+
+.restriction-link--icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+}
+
+.restriction-link--name {
+  justify-content: flex-start;
+}
+
+.restriction-link--name .restriction-link__icon {
+  color: inherit;
+  cursor: default;
+  font-size: 14px;
+  width: 16px;
+  height: 17px;
+  margin-right: 1px;
+}
+
+.restriction-link--name .restriction-link__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+}

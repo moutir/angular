@@ -1,0 +1,102 @@
+<div class="rf__searchlist rf__searchlist--matching-group">
+
+  <div class="rf__searchlist-header">
+
+    <app-shared-selection-bar
+      [isUsingOnlyMoreIcon]="false"
+      [isActiveSelectionAll]="false"
+      [isActiveSelectionText]="false"
+      buttonLabel="label_process_actions"
+      buttonIcon="done"
+      [entity]="entity"
+      [selection]="selection$|async"
+      [models]="modelsSelectable$|async"
+      [total]="total$|async"
+      [isLoading]="(models$|async) === null"
+      (clickSelectAction)="onClickSelectAction($event)"
+    ></app-shared-selection-bar>
+
+    <div class="rf__matching-group-action">
+      <button
+        class="rf__button rf__button--with-icon-right rf__button--secondary"
+        mat-button
+        [disabled]="(models$|async) === null"
+        (click)="onClickActionPage($event)"
+      >
+            <span class="rf__matching-label--main">
+              {{ 'label_apply_to_page'|translate }}
+            </span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <ng-container *ngIf="(models$|async) !== null">
+
+    <app-matching-group-table-row
+      *ngFor="let matchingGroup of models$|async; trackBy: trackById;"
+      [matchingGroup]="matchingGroup"
+      [modelsSelectable]="modelsSelectable$|async"
+      [isLoading]="(operationIds$|async).indexOf(matchingGroup.id) > -1"
+      [isUnfold]="(toggle$|async)[matchingGroup.id] || false"
+      [actionLabel]="actionLabel$|async"
+      [feature]="runtimeFeature$|async"
+      (clickAction)="onClickActionRow($event)"
+      (clickToggle)="onClickToggle($event, matchingGroup)"
+    ></app-matching-group-table-row>
+
+  </ng-container>
+
+  <ng-container *ngIf="(models$|async) === null">
+
+    <app-matching-group-table-row
+      class="rf__table-row--placeholder"
+      *ngFor="let i of (pagination$|async).perPage|forLoop"
+      [matchingGroupEntity]="matchingGroupEntity"
+      [isPlaceholder]="true"
+      [actionLabel]="actionLabel$|async"
+      [feature]="runtimeFeature$|async"
+    ></app-matching-group-table-row>
+
+  </ng-container>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === 'matching-group-action-menu'"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="actionMenuItems$|async"
+  (clickMenuItem)="onClickMenuItemAction($event)"
+></app-shared-menu>
+
+<app-matching-group-modal-proposal
+  [isVisible]="(operation$|async) === 'matching-group-proposal'"
+  [proposal]="proposal$|async"
+  [options]="proposalOptions$|async"
+  [feature]="runtimeFeature$|async"
+  [permissions]="runtimePermissions$|async"
+  (changeInput)="onChangeInputProposal($event)"
+  (submitModal)="onSubmitModalProposal($event)"
+></app-matching-group-modal-proposal>
+
+<app-matching-group-modal-confirm
+  [isVisible]="(operation$|async) === 'matching-group-confirm'"
+  [actionSelection]="actionSelection$|async"
+  (submitModal)="onSubmitModalConfirm($event)"
+></app-matching-group-modal-confirm>
+

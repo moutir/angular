@@ -1,0 +1,66 @@
+@import "../variables";
+
+.rf__sector-cell--name {
+  background-color: $color-38;
+  color: $color-01;
+}
+
+.rf__searchlist--sector .rf__table-row--placeholder .rf__sector-cell--name .rf__table-txt {
+  background: inherit;
+}
+
+.rf__table-row--placeholder .rf__sector-cell--location-count .rf__table-txt .rf__table-cell-label {
+  display: none;
+}
+
+.rf__table-row--placeholder .rf__sector-cell--location-count .rf__table-txt {
+  width: 80%;
+  min-width: auto;
+  margin: 0;
+}
+
+.rf__searchlist--sector .rf__table-row {
+  height: 75px;
+}
+
+.rf__searchlist--sector .rf__sector-cell--location-count .rf__table-txt {
+  text-align: left;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--sector .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist--sector .rf__table-cell-label {
+    display: none;
+  }
+
+  .rf__searchlist--sector .rf__sector-cell--location-count .rf__table-txt {
+    text-align: center;
+  }
+
+  .rf__table-row--placeholder .rf__sector-cell--location-count .rf__table-txt {
+    width: 30px;
+    margin: auto auto;
+  }
+
+  .rf__searchlist--sector .rf__table-row--placeholder .rf__sector-cell--name .rf__table-txt {
+    background: $color-22;
+  }
+
+  .rf__sector-cell--name {
+    background-color: inherit;
+    color: inherit;
+    min-width: 450px;
+    max-width: 450px;
+    width: 450px;
+  }
+
+  .rf__sector-cell--location-count {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+}

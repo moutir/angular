@@ -1,0 +1,127 @@
+.search-table-outer {
+  margin-left: 203px;
+  margin-right: 125px;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 5px;
+}
+
+.table_total {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+  tr {
+    border-bottom: 1px solid #e3e4e8;
+  }
+  tr.active td {
+    background-color: #f4f5fa;
+  }
+  td {
+    text-align: right;
+    color: #323641;
+    font-size: 0.875rem;
+    padding: 12px 12px 12px 0;
+    min-width: 120px;
+    &.success {
+      color: #1eac56;
+      font-weight: 700;
+    }
+    &.danger {
+      color: #eb535d;
+      font-weight: 700;
+    }
+    &.total {
+      color: #5e71d8 !important;
+      font-weight: 700 !important;
+      &:after {
+        display: none;
+      }
+    }
+    &:first-child {
+      text-align: left;
+      padding-left: 15px;
+      padding-right: 0;
+    }
+    &:last-child {
+      right: 2.5%;
+      @media (max-width: 1400px) {
+        padding-right: 15px;
+      }
+    }
+  }
+  .small {
+    th:first-child {
+      text-align: left;
+    }
+  }
+  .headcol {
+    left: 0;
+    position: absolute;
+    top: auto;
+    width: 239px;
+    border-bottom: 1px solid #e3e4e8;
+    span {
+      padding-left: 10px;
+    }
+  }
+  .lastcol {
+    right: 3.5%;
+    position: absolute;
+    top: auto;
+    width: 150px;
+    border-bottom: 1px solid #e3e4e8;
+    span {
+      padding-right: 10px;
+    }
+  }
+  &__icon {
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    background: url('/dist/assets/realforce/dashboard/image/icon_cup.png') no-repeat;
+  }
+
+  &--custom {
+    & thead {
+      font-size: 0.875rem;
+      color: #7B7F89;
+      line-height: 2.5rem;
+      font-weight: normal;
+      padding: 0 8px;
+    }
+    & th {
+      font-size: 0.875rem;
+      padding: 12px 8px;
+    }
+    th:nth-child(2) {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 16px;
+      background: url('/dist/assets/realforce/dashboard/image/icon_cup.png') no-repeat;
+      position: relative;
+      top: 3px;
+      margin-left: 5px;
+    }
+    & tr.active {
+      & td {
+        background-color: #fff;
+        color: #323641;
+        font-weight: normal;
+      }
+    }
+    & tbody {
+      & td:first-child {
+        font-weight: bold;
+      }
+    }
+    & tr th:first-child,
+    & tr td:first-child {
+      width: 20%;
+    }
+    & th,
+    & td {
+      padding: 12px 0 12px 0;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@import "../../../styles/variables";
+
+.rf__website-cell--icon,
+.rf__spacer {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__website-cell--icon,
+  .rf__spacer {
+    display: table-cell;
+  }
+}

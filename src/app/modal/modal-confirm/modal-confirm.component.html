@@ -1,0 +1,24 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="label_confirm"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <div class="rf__modal-confirm-warning">!</div>
+      <div class="rf__modal-confirm-title">{{ 'label_confirm_deactivate_popup_title'|translate }}</div>
+      <div class="rf__modal-confirm-message">{{ confirm.message|translate }}</div>
+    </div>
+
+    <app-shared-modal-footer
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

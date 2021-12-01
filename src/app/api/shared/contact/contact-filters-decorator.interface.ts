@@ -1,0 +1,32 @@
+export interface ContactFiltersDecoratorInterface {
+  contact?: string;
+  property?: string[];
+  location?: string[];
+  direct_client?: string;
+  contact_type?: string[];
+  contact_in_charge?: string[];
+  language?: string;
+  ranking?: string[];
+  visibility?: string;
+  contact_origin?: string[];
+  transaction_type?: string;
+  vip?: string;
+  main_category?: string[];
+  price?: string[];
+  bedroom?: string;
+  room?: string;
+  area?: string[];
+  position?: string[];
+  view?: string[];
+  contact_search_count?: string[];
+  contact_search_type?: string;
+  last_contact?: string;
+  invalid_email?: string;
+  search_manager_id?: string[];
+  contact_free_search?: string;
+  property_free_search?: string;
+  special_filters?: string[];
+  custom_attribute?: string[];
+  restrict_agency_location?: string;
+  ids?: string[];
+}

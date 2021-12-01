@@ -1,0 +1,115 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.websiteId || error.author || error.creationDate"
+    >
+      <span>{{ 'label_article'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_agency_website'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_agency_website'|translate }}"
+                formControlName="websiteId"
+              >
+                <mat-option
+                  *ngFor="let option of options.website"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.websiteId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_author'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_author'|translate }}"
+                formControlName="author"
+              />
+              <mat-error>{{ error.author|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_creation_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="creationDate"
+                [matDatepicker]="pickerCreationDate"
+                autocomplete="off"
+                placeholder="{{ 'label_creation_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerCreationDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerCreationDate></mat-datepicker>
+              <mat-error>{{ error.creationDate|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_published'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isPublished">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-website-article-document-list
+    [uid]="PAGE_TAB_GENERAL"
+    [documents]="documents"
+    [model]="model"
+    [isDisabled]="!model.id"
+    [isReadOnly]="false"
+    [isSortable]="false"
+  ></app-website-article-document-list>
+
+</form>

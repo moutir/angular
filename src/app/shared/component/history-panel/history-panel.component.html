@@ -1,0 +1,52 @@
+<div class="rf__panel">
+  <div
+    class="rf__panel-header"
+    [class.rf__panel-header--has-badge]="isRealforceOnly"
+  >
+    <span>{{ 'label_history'|translate }}</span>
+    <span
+      *ngIf="isRealforceOnly"
+      class="rf__badge"
+      >{{ 'for_realforce_eyes_only'|translate }}</span>
+  </div>
+  <div class="rf__panel-body">
+
+    <div class="history-summary">
+
+      <div
+        *ngIf="createDate"
+        class="history-contact-datetime"
+      >
+        <app-shared-contact-link
+          *ngIf="createContact"
+          [contact]="createContact"
+          [layout]="'broker'"
+          [hasTooltip]="false"
+          [hasLabel]="false"
+        ></app-shared-contact-link>
+        <div class="history-text">
+          <div class="history-type">{{ 'label_created'|translate }}</div>
+          {{ createDate|smartDate }}
+        </div>
+      </div>
+
+      <div
+        *ngIf="updateDate"
+        class="history-contact-datetime"
+      >
+        <app-shared-contact-link
+          *ngIf="updateContact"
+          [contact]="updateContact"
+          [layout]="'broker'"
+          [hasTooltip]="false"
+          [hasLabel]="false"
+        ></app-shared-contact-link>
+        <div class="history-text">
+          <div class="history-type">{{ 'label_updated'|translate }}</div>
+          {{ updateDate|smartDate }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_INFORMATION) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_restriction'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div
+                *ngIf="
+                  (isLoading$|async) === false &&
+                  (permissions$|async).indexOf(PERMISSION_AGENCY_GROUP_ADMIN) === -1 &&
+                  (
+                    model.affectedAgencyIds.indexOf((authentication$|async).agencyId) === -1 ||
+                    model.affectedAgencyIds.length > 1 ||
+                    model.acl > 0
+                  )
+                "
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_task_permission'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <div class="info-permission">
+
+                    <div
+                      *ngIf="model.affectedAgencyIds.indexOf((authentication$|async).agencyId) === -1"
+                    >{{ 'restriction_no_edit_agency_not_affected'|translate }}</div>
+
+                    <div
+                      *ngIf="model.affectedAgencyIds.length > 1"
+                    >{{ 'restriction_no_edit_multiple_agencies_affected'|translate }}</div>
+
+                    <div
+                      *ngIf="model.acl > 0"
+                    >{{ 'restriction_no_edit_agency_group_admin'|translate }}</div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">{{ model.name }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_module'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <mat-chip-list>
+                    <mat-chip>
+                      <span>{{ ('label_restriction_module_' + model.module)|translate }}</span>
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_rules'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div
+                *ngFor="let ruleType of RULE_TYPES"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ ('label_restriction_' + ruleType + '_plural')|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-restriction-rule
+                    [restriction]="model"
+                    [ruleType]="ruleType"
+                  ></app-shared-restriction-rule>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_applies_to'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <ng-container *ngIf="model.groupTargets.length > 0 || (isLoading$|async) === true">
+
+              <div class="rf__panel-subheader">{{ 'label_agency_groups'|translate }}</div>
+              <div class="rf__panel-section">
+                <div *ngIf="model.groupTargets.length === 0 && (isLoading$|async) === true">...</div>
+                <mat-chip-list *ngIf="model.groupTargets.length > 0">
+                  <mat-chip *ngFor="let target of model.groupTargets">
+                    <span>{{ target.name }}</span>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="model.agencyTargets.length > 0 || (isLoading$|async) === true">
+
+              <div class="rf__panel-subheader">{{ 'label_agencies'|translate }}</div>
+              <div class="rf__panel-section">
+                <div *ngIf="model.agencyTargets.length === 0 && (isLoading$|async) === true">...</div>
+                <mat-chip-list *ngIf="model.agencyTargets.length > 0">
+                  <mat-chip *ngFor="let target of model.agencyTargets">
+                    <span>{{ target.name }}</span>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+
+            </ng-container>
+
+            <ng-container *ngIf="model.brokerTargets.length > 0 || (isLoading$|async) === true">
+
+              <div class="rf__panel-subheader">{{ 'label_brokers'|translate }}</div>
+              <div class="rf__panel-section">
+                <div *ngIf="model.brokerTargets.length === 0 && (isLoading$|async) === true">...</div>
+                <mat-chip-list *ngIf="model.brokerTargets.length > 0">
+                  <mat-chip *ngFor="let target of model.brokerTargets">
+                    <span>{{ target.name }}</span>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+
+            </ng-container>
+
+            <div
+              *ngIf="(isLoading$|async) === false && model.groupTargets.length + model.agencyTargets.length + model.brokerTargets.length === 0"
+            >
+              {{ 'restriction_applies_to_no_one_yet'|translate }}
+            </div>
+
+          </div>
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+          [updateContact]="model.updateContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+</div>

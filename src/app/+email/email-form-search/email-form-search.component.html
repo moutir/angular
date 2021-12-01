@@ -1,0 +1,120 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <mat-form-field>
+    <input
+      matInput
+      autocomplete="off"
+      placeholder="{{ 'label_subject'|translate }}"
+      formControlName="subject"
+    >
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="dateFrom"
+      [matDatepicker]="pickerDateFrom"
+      autocomplete="off"
+      placeholder="{{ 'label_date_from_format'|translate }}"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="pickerDateFrom"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #pickerDateFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      formControlName="dateTo"
+      [matDatepicker]="pickerDateTo"
+      autocomplete="off"
+      placeholder="{{ 'label_date_to_format'|translate }}"
+    >
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="pickerDateTo"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #pickerDateTo></mat-datepicker>
+  </mat-form-field>
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="email-form-search-contact"
+    [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+    [placeholder]="'label_recipient'|translate"
+    (changeSelection)="onChangeSelectionContact($event)"
+  ></app-shared-autocomplete>
+
+  <app-shared-autocomplete
+    class="mat-form-field"
+    uid="email-form-search-property-promotion"
+    [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY_PROMOTION"
+    [placeholder]="'autocomplete_property_promotion'|translate"
+    (changeSelection)="onChangeSelectionPropertyPromotion($event)"
+  ></app-shared-autocomplete>
+
+  <mat-form-field *ngIf="isLoading === true || options.attachmentTypeId.length > 0">
+    <mat-select
+      placeholder="{{ 'label_attachments'|translate }}"
+      formControlName="attachmentTypeId"
+    >
+      <mat-option value="">{{ 'label_select_all'|translate }}</mat-option>
+      <mat-option
+        *ngFor="let option of options.attachmentTypeId"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.statusIds.length > 0">
+    <mat-select
+      multiple
+      placeholder="{{ 'label_delivery_status'|translate }}"
+      formControlName="statusIds"
+    >
+      <mat-option
+        *ngFor="let option of options.statusIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="isLoading === true || options.brokerIds.length > 0">
+    <mat-select
+      placeholder="{{ 'label_sender'|translate }}"
+      multiple
+      formControlName="brokerIds"
+    >
+      <mat-option
+        *ngFor="let option of options.brokerIds"
+        [value]="option.value"
+      >
+        {{ option.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Responsive spacers, do not remove -->
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+  <div class="mat-form-field"></div>
+
+  <input type="hidden" formControlName="propertyIds" />
+
+</form>

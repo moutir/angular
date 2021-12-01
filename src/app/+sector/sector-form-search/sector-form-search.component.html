@@ -1,0 +1,23 @@
+<mat-progress-bar
+  class="rf__opacity"
+  [class.rf__opacity--visible]="isLoading === true"
+  mode="indeterminate"
+></mat-progress-bar>
+
+<form
+  class="rf__form"
+  [formGroup]="formGroup"
+>
+
+  <div class="rf__form-field">
+    <mat-form-field>
+      <input
+        matInput
+        autocomplete="off"
+        placeholder="{{ 'label_sector_name'|translate }}"
+        formControlName="name"
+      >
+    </mat-form-field>
+  </div>
+
+</form>

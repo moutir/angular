@@ -1,0 +1,23 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 130px;
+}
+
+@media (min-width: 600px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 130px;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 63px;
+  }
+
+  .rf__searchlist-form-footer .rf__searchlist-form-toggle {
+    display: none;
+  }
+}

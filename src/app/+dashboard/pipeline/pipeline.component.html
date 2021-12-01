@@ -1,0 +1,155 @@
+<div class="panel__header">
+  <div class="panel__title">{{ 'title_client_pipeline'|translate }} <span
+    class="badge badge--lg">{{pipesCount}}</span></div>
+</div>
+<div class="panel__body">
+  <div
+    cdkDropListGroup
+    [cdkDropListGroupDisabled]="readonly"
+    class='wrapper_pipe_line'
+    *ngIf="contacts && pipeLineShow"
+    [class.wrapper_pipe_line--unfold]="shouldToggle"
+  >
+    <div class="drag_container" *ngFor="let col of pipeLineCol">
+      <div class="drag_container__head">{{col.name | translate}}</div>
+      <div
+        cdkDropList
+        [cdkDropListData]="col"
+        (cdkDropListDropped)="onDrop($event)"
+        class='drag_container__body'
+      >
+        <div
+          cdkDrag
+          [cdkDragData]="contact"
+          class="drag_container__item qs"
+          *ngFor="let contact of contacts | stage: col.id"
+        >
+          <div class="drag_container__row" (mouseleave)="hidePopover($event)">
+            <div class="expanding-table contact-popover" style="display:none;">
+              <div *ngIf="!popoverDataLoading && popoverData">
+                <div class="row global-match">
+                  <div *ngIf="popoverData.name" class="col-sm-12">
+                    <strong><span class='glyphicon glyphicon-user icon-info'></span>{{popoverData.name}} </strong> <span
+                    *ngIf="popoverData.agency">| {{popoverData.agency}}</span>
+                  </div>
+
+                  <div
+                    *ngIf="popoverData.phones && popoverData.phones.length > 0"
+                    class="col-sm-12"
+                  >
+                    <div *ngFor="let p of popoverData.phones">
+                      <span *ngIf="p && p.type === '1'" class='glyphicon glyphicon-phone icon-info'></span>
+                      <span *ngIf="p && p.type === '2'" class='glyphicon glyphicon-earphone icon-info'></span>
+                      <span *ngIf="p && p.number">{{p.number}}</span><br>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="popoverData && popoverData.email"
+                    class="col-sm-12"
+                  >
+                    <span class='glyphicon glyphicon-envelope icon-info'></span>{{popoverData.email}}
+                  </div>
+                  <div
+                    *ngIf="popoverData.emails && popoverData.emails.length > 0"
+                    class="col-sm-12 no-margin"
+                  >
+                    <span
+                      class='glyphicon glyphicon-envelope icon-info'
+                      *ngFor="let email of popoverData.emails"
+                    ></span>
+                    <span *ngFor="let email of popoverData.emails">{{email}}</span>
+                  </div>
+
+                  <hr class="col-sm-12 no-padding">
+
+                  <div
+                    *ngIf="popoverData.searches && popoverData.searches.length > 0"
+                    class="col-sm-12 no-margin"
+                  >
+                    <div class="col-sm-12 no-padding no-margin v-space">
+                      <strong>{{"label_searches" | translate }}:</strong>
+                    </div>
+                    <div
+                      *ngIf="popoverData.searches && popoverData.searches.length > 0"
+                      class="col-sm-12"
+                    >
+                      <ul>
+                        <li
+                          *ngFor="let search of popoverData.searches; let last = last;"
+                          class="sub-section"
+                        >
+                          <div *ngIf="search.label" class="sub-section-header">
+                            <div><strong>{{ 'label_search_criteria'|translate}}:</strong></div>
+                            <div>{{ search.label }}</div>
+                          </div>
+                          <div *ngIf="search.note">
+                            <div><strong>{{ 'label_notes'|translate}}:</strong></div>
+                            <div>{{ search.note }}</div>
+                          </div>
+                          <mat-divider *ngIf="!last"></mat-divider>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div *ngIf="popoverData.notes" class="col-sm-12 no-margin">
+                    <div class="col-sm-12 no-padding">
+                      <strong>{{ "label_notes" | translate }}:</strong>
+                    </div>
+                    <div class="col-sm-12">
+                      {{popoverData.notes}}
+                    </div>
+                  </div>
+                  <div *ngIf="popoverData.brokers && popoverData.brokers.length > 0">
+                    <div class="col-sm-12 no-margin v-space"><strong>{{ "label_brokers" | translate
+                      }}:</strong><br></div>
+                    <div class="col-sm-12">
+                      <ul>
+                        <li class="popover-broker" *ngFor="let broker of popoverData.brokers">
+                          <span class='glyphicon glyphicon-user'></span>&nbsp;
+                          {{broker.contact.firstname}}&nbsp;{{broker.contact.lastname}}<br>
+                          <div *ngIf="broker.phones && broker.phones.length > 0">
+                            <div [hidden]="!p" *ngFor="let p of broker.phones">
+                                                        <span *ngIf="p && p.type === 1"
+                                                              class='glyphicon glyphicon-phone'></span>
+                              <span *ngIf="p && p.type === 2"
+                                    class='glyphicon glyphicon-earphone'></span>
+                              <span *ngIf="p && p.number">{{p.number}}</span><br>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="popoverDataLoading"><i class="fa fa-spinner icon-progress" aria-hidden="true"></i></div>
+            </div>
+            <span class="drag_container__row__name" container="body" (click)="openContactDetails(contact.id)">
+              <i class="fa fa-close" (click)="onClickClose(contact.id)"></i>
+              <label class="drag_container__row__name__label">{{contact.client_name}}</label>
+              <i (mouseenter)="showPopover(contact, $event)" class="fa fa-info-circle info-popover"></i>
+            </span>
+          </div>
+          <div class="drag_container__row" (mouseleave)="hidePopover($event)">
+                        <span class="badge"
+                              [ngClass]="getDayStatus(contact.days)">{{contact.days}} d.</span>
+            <span class="drag_container__row__text" container="body"
+                  (click)="openContactDetails(contact.main_broker_id)">
+                            {{contact.manager_name}}
+                        </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="button_toggle" (click)="togglePipeLine()">
+      <span [hidden]="shouldToggle">{{ 'label_see_all_pipelines'|translate }}</span>
+      <span class="arrow arrow--down" [hidden]="shouldToggle"></span>
+
+      <span [hidden]="!shouldToggle">{{ 'label_see_less'|translate }}</span>
+      <span class="arrow arrow--top" [hidden]="!shouldToggle"></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab label="{{ 'label_overview'|translate }}">
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_partnership'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <app-mls-table
+              [models]="[model]"
+              [isClickable]="false"
+            ></app-mls-table>
+
+          </div>
+
+        </div>
+
+        <app-mls-agency-panel
+          [agency]="model.partnerAgency"
+          [isPlaceholder]="isLoading$|async"
+        ></app-mls-agency-panel>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

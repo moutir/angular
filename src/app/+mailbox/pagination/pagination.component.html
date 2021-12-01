@@ -1,0 +1,5 @@
+<span class="pagination-data" *ngIf="totalPages">
+  <strong>{{currentPage}}</strong> {{'label_of' |  translate }} <strong>{{totalPages}}</strong>
+</span>
+<button class="btn pagination-btn {{!prev?'disabled':''}}" (click)="prevPage()"></button>
+<button class="btn pagination-btn {{!next?'disabled':''}}" (click)="nextPage()"></button>

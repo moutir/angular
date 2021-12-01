@@ -1,0 +1,101 @@
+<app-shared-page-header
+  [header]="header$|async"
+></app-shared-page-header>
+
+<div class="rf__tab-bar">
+  <mat-tab-group
+    (selectedIndexChange)="onChangeTab($event, 'reportType')"
+    [selectedIndex]="typeTabIndex$|async"
+  >
+    <mat-tab
+      *ngFor="let option of (formOptions$|async).reportType"
+      [label]="option.text"
+    ></mat-tab>
+  </mat-tab-group>
+</div>
+
+<div class="rf__tab-body">
+  <div class="rf__panel">
+
+    <div
+      [class.rf__searchlist-form--advanced]="(isFormAdvanced$|async) === true"
+      [class.rf__searchlist-form--simple]="(isFormAdvanced$|async) === false"
+      [ngClass]="'rf__searchlist-form--' + (form$|async).reportType"
+      class="rf__searchlist-form rf__searchlist-form--report"
+    >
+
+      <div class="rf__searchlist-form-body">
+        <app-report-form-search
+          [isLoading]="isLoading$|async"
+          [model]="form$|async"
+          [options]="formOptions$|async"
+          (changeForm)="onChangeForm($event)"
+        ></app-report-form-search>
+      </div>
+
+      <div class="rf__searchlist-form-footer">
+
+        <div class="rf__searchlist-form-keywords">
+          <app-shared-keywords
+            (removeKeyword)="onRemoveKeyword($event)"
+            [keywords]="keywords$|async"
+          ></app-shared-keywords>
+        </div>
+
+        <span
+          (click)="onClickSaveParams()"
+          class="rf__searchlist-form-save"
+          matTooltip="{{ 'tooltip_list_save_default_params'|translate }}"
+          matTooltipPosition="left"
+        >
+          {{ 'label_save'|translate }}
+        </span>
+
+        <span
+          (click)="onClickReset()"
+          class="rf__searchlist-form-reset"
+        >
+          {{ 'label_reset_filter'|translate }}
+        </span>
+
+        <button
+          (click)="onClickSearch()"
+          [disabled]="(isLoading$|async) === true"
+          class="rf__button rf__button--with-icon rf__button--with-icon-left rf__searchlist-form-button"
+          color="primary"
+          mat-raised-button
+        >
+          <mat-icon>search</mat-icon>
+          {{ 'label_search_for'|translate }}
+        </button>
+
+        <span
+          (click)="onClickFormToggle()"
+          class="rf__searchlist-form-toggle"
+        >
+          <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--more">
+            <mat-icon class="rf__info-icon">add</mat-icon>
+            <span class="rf__icon-label">{{ 'label_more_options'|translate }}</span>
+          </span>
+          <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--less">
+            <mat-icon class="rf__info-icon">remove</mat-icon>
+            <span class="rf__icon-label">{{ 'label_less_options'|translate }}</span>
+          </span>
+        </span>
+
+      </div>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <app-report-searchlist
+        [dateFrom]="(form$|async).dateFrom"
+        [dateTo]="(form$|async).dateTo"
+        [reportType]="(form$|async).reportType"
+        [uid]="uid"
+      ></app-report-searchlist>
+
+    </div>
+
+  </div>
+</div>

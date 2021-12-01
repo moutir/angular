@@ -1,0 +1,125 @@
+<div class="panel-body padding-b10 transaction-filter">
+  <div class="container no-padding">
+    <div class="contents">
+      <form id="form-filter" name="form-filter">
+        <div class="col-md-12 no-padding no-margin margin-b05">
+          <div class="col-md-11 no-margin">
+            <ul id="filter_autosearch_list" class="location-search location-search-filter">
+              <li [hidden]="!contact.value" class="search-result contact" *ngFor="let contact of selectedContacts">
+                <div class="search-result-element"><span>{{contact.value}}</span>
+                  <a (click)="removeContact(contact)">
+                    <span class="fa fa-times-circle fa-lg"></span>
+                  </a>
+                </div>
+              </li>
+              <li [hidden]="!property.reference" class="search-result property" *ngFor="let property of selectedProperties">
+                <div class="search-result-element"><span>{{property.reference}}</span>
+                  <a (click)="removeProperty(property)">
+                    <span class="fa fa-times-circle fa-lg"></span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <section class="row no-bottom-padding">
+          <div class="col-sm-12 margin-b10">
+            <div class="col-sm-6 no-margin no-right-padding">
+              <mat-form-field class="mat-form-field--box">
+                <input
+                  type="text"
+                  matInput
+                  [formControl]="contactFormCtrl"
+                  [matAutocomplete]="contacts"
+                  placeholder="{{searchContactText}}"
+                >
+                <mat-autocomplete
+                  #contacts="matAutocomplete"
+                  (optionSelected)="onContactSelected($event)"
+                >
+                  <mat-option
+                    *ngFor="let option of contactOptions"
+                    [value]="option.data"
+                  >{{option.value}}</mat-option>
+                  <mat-option disabled
+                    *ngIf="contactOptions.length === 0"
+                  >{{ 'label_no_results_found'|translate }}</mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+
+            <div class="col-sm-6 no-margin">
+              <mat-form-field class="mat-form-field--box">
+                <input
+                  type="text"
+                  matInput
+                  [formControl]="propertyFormCtrl"
+                  [matAutocomplete]="properties"
+                  placeholder="{{searchPropetyText}}"
+                >
+                <mat-autocomplete
+                  #properties="matAutocomplete"
+                  (optionSelected)="onPropertySelected($event)"
+                >
+                  <mat-option
+                    *ngFor="let option of propertyOptions"
+                    [value]="option.ref"
+                  >{{option.reference}}</mat-option>
+                  <mat-option disabled
+                    *ngIf="propertyOptions.length === 0"
+                  >{{ 'label_no_results_found'|translate }}</mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <div class="col-sm-4 margin-b10">
+              <mat-form-field class="mat-form-field--box">
+                <input
+                  matInput
+                  [matDatepicker]="datePickerFrom"
+                  autocomplete="off"
+                  placeholder="{{placeHolderFromDate}}"
+                  [(ngModel)]="selectedFromDate"
+                  name="date_from"
+                >
+                <mat-datepicker-toggle matSuffix [for]="datePickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #datePickerFrom></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4 margin-b10">
+              <mat-form-field class="mat-form-field--box">
+                <input
+                  matInput
+                  [matDatepicker]="datePickerTo"
+                  autocomplete="off"
+                  placeholder="{{placeHolderToDate}}"
+                  [(ngModel)]="selectedToDate"
+                  name="date_to"
+                >
+                <mat-datepicker-toggle matSuffix [for]="datePickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #datePickerTo></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4 no-left-padding margin-b10" id="promotion-filter-button-block">
+              <button
+                class="btn btn-primary style3 no-margin col-sm-7 promotion-filter-btns btn-debounce btn-debounce--initialized"
+                type="button"
+                style="border-radius: 0px 5px 5px 0px;"
+                data-debounce="loader"
+                [class.btn-debounce--loading]="isLoading === true"
+                (click)="submitFilter(false)"
+              >
+                {{ 'label_filter'|translate }}
+                <div class="lds-rolling"><div></div></div>
+              </button>
+              <button class="btn btn-default style3 no-margin col-sm-4 pull-right promotion-filter-btns"
+                      type="button" id="btnResetFilter" (click)="resetFilter()">{{ 'label_reset_filter'|translate }}
+              </button>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+</div>

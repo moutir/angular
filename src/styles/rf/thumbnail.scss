@@ -1,0 +1,16 @@
+@import "../variables";
+
+.rf__thumbnail {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: $color-31;
+  height: 100%;
+  width: 100%;
+  display:  flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

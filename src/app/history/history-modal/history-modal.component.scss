@@ -1,0 +1,26 @@
+@import "../../../styles/variables.scss";
+
+.rf__modal-body {
+  max-height: 600px;
+}
+
+.rf__table {
+  border: 1px solid $color-21;
+}
+
+.rf__modal-body .rf__table .rf__table-row {
+  cursor: auto;
+}
+
+.list-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.list-header .title {
+  flex-grow: 1;
+  font-size: 17px;
+  font-weight: 700;
+}

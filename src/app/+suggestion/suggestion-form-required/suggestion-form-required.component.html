@@ -1,0 +1,463 @@
+<form [formGroup]="formGroup">
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.contents"
+    >
+      <span>{{ 'label_suggestion'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <mat-tab-group formArrayName="contents">
+
+        <mat-tab
+          *ngFor="let i of getFormArray('contents').indexes;"
+          [formGroup]="getFormArray('contents').control.controls[i]"
+          label="{{ model.contents[i].language|translate }}"
+        >
+
+          <ng-template mat-tab-label>
+            <app-shared-svg-icon class="icon" icon="flag-{{ model.contents[i].language }}"></app-shared-svg-icon>
+            <div
+              class="rf__tab-label"
+              [class.rf__tab-label--has-error]="getFormArrayErrorCount('contents', i) > 0"
+            >
+              <span>{{ ('label_' + model.contents[i].language)|translate }}</span>
+              <span class="rf__badge rf__badge--error">{{ getFormArrayErrorCount('contents', i) }}</span>
+            </div>
+          </ng-template>
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'title'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+              <mat-form-field floatLabel="never">
+                <input
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'title'|translate }}"
+                  formControlName="title"
+                />
+                <mat-error>{{ getFormArrayError('contents', i, 'title')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_problem'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+              <mat-form-field
+                appearance="outline"
+                floatLabel="never"
+                class="rf__form-field--textarea mat-form-field--outline"
+              >
+                <textarea
+                  class="textarea--long"
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_problem'|translate }}"
+                  formControlName="problem"
+                ></textarea>
+                <mat-error>{{ getFormArrayError('contents', i, 'problem')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_solution'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+              <mat-form-field
+                appearance="outline"
+                floatLabel="never"
+                class="rf__form-field--textarea mat-form-field--outline"
+              >
+                <textarea
+                  class="textarea--long"
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_solution'|translate }}"
+                  formControlName="solution"
+                ></textarea>
+                <mat-error>{{ getFormArrayError('contents', i, 'solution')|translate }}</mat-error>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+          <div class="rf__keyvalue-row">
+
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_is_computer_translated'|translate }}</div>
+            <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+              <mat-radio-group formControlName="isComputerTranslated">
+                <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+
+            </div>
+
+          </div>
+
+        </mat-tab>
+
+      </mat-tab-group>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.statusId || error.tags || error.images"
+    >
+      <span>{{ 'label_public_information'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_mockups'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+          <div class="suggestion-image">
+            <div
+              class="rf__table rf__table--suggestion-images"
+              formArrayName="images"
+            >
+
+              <div class="rf__table-row rf__table-row--header">
+                <div class="rf__table-cell rf__table-cell--suggestion-image-thumbnail">{{ 'label_thumbnail'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--suggestion-image-url">{{ 'label_url_generic'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--suggestion-image-label">{{ 'label_label'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--actions">
+
+                  <button
+                    mat-icon-button
+                    matTooltip="{{ 'tooltip_add_suggestion_image'|translate }}"
+                    matTooltipPosition="left"
+                    [disabled]="isLoading === true"
+                    (click)="onClickFormArrayAdd('images')"
+                  >
+                    <mat-icon>add</mat-icon>
+                  </button>
+
+                </div>
+              </div>
+
+              <div
+                *ngFor="let i of getFormArray('images').indexes;"
+                class="rf__table-row"
+                [class.rf__table-row--removed]="model['images'][i].isRemoved === true"
+                [formGroup]="getFormArray('images').control.controls[i]"
+              >
+
+                <div class="rf__table-cell rf__table-cell--suggestion-image-thumbnail">
+                  <div
+                    *ngIf="model['images'][i].url"
+                    [style.background-image]="'url(' + model['images'][i].url + ')'"
+                    class="suggestion-image-thumbnail"
+                  ></div>
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--suggestion-image-url">
+
+                  <mat-form-field floatLabel="never">
+                    <input
+                      matInput
+                      autocomplete="off"
+                      placeholder="{{ 'label_placeholder_https'|translate }}"
+                      formControlName="url"
+                    />
+                    <mat-error>{{ getFormArrayError('images', i, 'url')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--suggestion-image-label">
+
+                  <mat-form-field floatLabel="never">
+                    <input
+                      matInput
+                      autocomplete="off"
+                      placeholder="{{ 'label_label'|translate }}"
+                      formControlName="label"
+                    />
+                    <mat-error>{{ getFormArrayError('images', i, 'label')|translate }}</mat-error>
+                  </mat-form-field>
+
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--actions">
+
+                  <button
+                    *ngIf="!!model['images'][i].isRemoved === false"
+                    mat-icon-button
+                    matTooltip="{{ 'tooltip_remove_suggestion_image'|translate }}"
+                    matTooltipPosition="left"
+                    (click)="onClickFormArrayToggle('images', i, true)"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+
+                  <button
+                    *ngIf="!!model['images'][i].isRemoved == true"
+                    mat-icon-button
+                    matTooltip="{{ 'tooltip_undo'|translate }}"
+                    matTooltipPosition="left"
+                    (click)="onClickFormArrayToggle('images', i, false)"
+                  >
+                    <mat-icon>undo</mat-icon>
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              *ngIf="model['images'].length === 0"
+              class="rf__table-information rf__table-information--empty rf__table-information--center"
+            >{{ 'message_no_suggestion_image_added_yet'|translate }}</div>
+
+            <mat-error
+              *ngIf="error['images'] && error['images'] !== 'form_error_is_invalid'"
+              class="rf__table-information rf__table-information--error"
+            >{{ error['images']|translate }}</mat-error>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_suggestion_tags'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+          <app-shared-input-chip-list
+            [options]="options.suggestionTagIds"
+            [selection]="tagsSelection"
+            [placeholder]="'placeholder_suggestion_tag'"
+            [translationFormat]="'suggestion_tag_{text}'"
+            [error]="error.tags"
+            (changeSelection)="onChangeSelectionTags($event)"
+          ></app-shared-input-chip-list>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_suggestion_status'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+          <mat-form-field floatLabel="never">
+            <mat-select
+              placeholder="{{ 'label_suggestion_status'|translate }}"
+              formControlName="statusId"
+            >
+              <mat-option
+                *ngFor="let option of options.suggestionStatusIds"
+                [value]="option.value"
+              >
+                {{ option.text|translate }}
+              </mat-option>
+            </mat-select>
+            <mat-error>{{ error.statusId|translate }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header rf__panel-header--has-badge"
+      [class.rf__panel-header--has-error]="error.clientBenefit || error.realforceBenefit || error.complexity"
+    >
+      <span>{{ 'label_private_information'|translate }}</span>
+      <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_client_benefit'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="rf__form-field--textarea mat-form-field--outline"
+          >
+            <textarea
+              matInput
+              autocomplete="off"
+              placeholder="{{ 'label_client_benefit'|translate }}"
+              formControlName="clientBenefit"
+            ></textarea>
+            <mat-error>{{ error.clientBenefit | translate }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_realforce_benefit'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="rf__form-field--textarea mat-form-field--outline"
+          >
+            <textarea
+              matInput
+              autocomplete="off"
+              placeholder="{{ 'label_realforce_benefit'|translate }}"
+              formControlName="realforceBenefit"
+            ></textarea>
+            <mat-error>{{ error.realforceBenefit | translate }}</mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_complexity'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+          <div
+            class="rf__star-list rf__star-list--editable"
+            (click)="onClickButtonComplexity($event, 1)"
+          >
+
+            <mat-icon
+              class="rf__star"
+              [class.rf__star--on]="model.complexity >= 1"
+            >star</mat-icon>
+
+            <div
+              class="rf__star-list rf__star-list--editable"
+              (click)="onClickButtonComplexity($event, 2)"
+            >
+
+              <mat-icon
+                class="rf__star"
+                [class.rf__star--on]="model.complexity >= 2"
+              >star</mat-icon>
+
+              <div
+                class="rf__star-list rf__star-list--editable"
+                (click)="onClickButtonComplexity($event, 3)"
+              >
+
+                <mat-icon
+                  class="rf__star"
+                  [class.rf__star--on]="model.complexity >= 3"
+                >star</mat-icon>
+
+                <div
+                  class="rf__star-list rf__star-list--editable"
+                  (click)="onClickButtonComplexity($event, 4)"
+                >
+
+                  <mat-icon
+                    class="rf__star"
+                    [class.rf__star--on]="model.complexity >= 4"
+                  >star</mat-icon>
+
+                  <div
+                    class="rf__star-list rf__star-list--editable"
+                    (click)="onClickButtonComplexity($event, 5)"
+                  >
+
+                    <mat-icon
+                      class="rf__star"
+                      [class.rf__star--on]="model.complexity >= 5"
+                    >star</mat-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_is_marketable'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+          <mat-radio-group formControlName="isMarketable">
+            <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+            <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+          </mat-radio-group>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header rf__panel-header--has-badge">
+      <span>{{ 'label_publication'|translate }}</span>
+      <span class="rf__badge">{{ 'for_realforce_eyes_only'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_is_published_to_clients'|translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+          <mat-radio-group formControlName="isPublished">
+            <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+            <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+          </mat-radio-group>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

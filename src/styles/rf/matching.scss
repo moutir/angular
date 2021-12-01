@@ -1,0 +1,280 @@
+@import "../variables";
+
+
+// Processed
+.rf__matching-status--230 {
+  color: $color-15;
+}
+
+// Refused permanently
+.rf__matching-status--231 {
+  color: $color-17;
+}
+
+// Refused temporarily
+.rf__matching-status--261 {
+  color: $color-24;
+}
+
+// Transfered
+.rf__matching-status--232 {
+  color: $color-05;
+}
+
+// Waiting
+.rf__matching-status--229 {
+  color: $color-26;
+}
+
+.matching-score-status--high {
+  color: $color-15;
+}
+
+.matching-score-status--medium {
+  color: $color-40;
+}
+
+.matching-score-status--low {
+  color: $color-17;
+}
+
+.rf__table-row--placeholder .matching-score-status {
+  color: $color-21;
+}
+
+.rf__matching-group-action {
+  flex-shrink: 0;
+  text-align: right;
+  padding: 0 10px;
+}
+
+.rf__matching-group-action .mat-raised-button {
+  max-width: 100%;
+  text-align: right;
+}
+
+.rf__matching-group-action .mat-button-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rf__matching-group-action .mat-icon {
+  flex-shrink: 0;
+}
+
+.rf__matching-group-action .rf__matching-label--main,
+.rf__matching-group-action .rf__matching-label--secondary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 25%;
+}
+
+.rf__matching-group-action .rf__matching-label--secondary {
+  color: $color-37;
+  padding: 0 0 0 5px;
+}
+
+.rf__matching-confirmation span {
+  color: $color-24;
+  font-weight: bold;
+}
+
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__card--promotion .sale-status {
+  display: none;
+}
+
+.rf__searchlist--matching-group .rf__matching-group-group .contact-link.contact-link--icon.contact-link--placeholder .contact-link__initials {
+  background-color: $color-31;
+}
+
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__matching-group-group .rf__star {
+  color: $color-31;
+}
+
+.rf__modal--matching-proposal .mat-tab-body {
+  padding-top: 10px;
+}
+
+.rf__modal--matching-proposal .tab-group-container .mat-tab-header {
+  padding-left: 50px;
+}
+
+.rf__modal--matching-form-edit .mat-input-element:disabled,
+.rf__modal--matching-form-edit .mat-select-disabled .mat-select-value {
+  color: $color-23;
+}
+
+.rf__searchlist--matching .rf__table-thumbnail {
+  width: 100%;
+  height: 150px;
+}
+
+.rf__searchlist--matching .rf__table-cell--actions:after {
+  display: none;
+}
+
+.rf__searchlist--matching .rf__table-row {
+  padding-top: 36px;
+}
+
+.rf__searchlist--matching .rf__matching-cell--photo {
+  padding: 0;
+  margin-bottom: 3px;
+}
+
+.rf__searchlist--matching .rf__matching-cell--date {
+  display: flex;
+}
+
+.rf__searchlist--matching .rf__table-row .rf__matching-cell--date .rf__table-txt {
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.rf__searchlist--matching .rf__table-row {
+  height: 210px;
+  padding-bottom: 0;
+}
+
+.rf__searchlist--matching .rf__table-row--placeholder .rf__table-txt {
+  margin: 2px 0;
+}
+
+.rf__searchlist.rf__searchlist--matching-group .rf__card--contact .rf__card-row--search .rf__card-text {
+  width: 100%;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--matching .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist .rf__table-cell.rf__matching-cell--duration {
+    display: none;
+  }
+
+  .rf__searchlist--matching .rf__table-row--placeholder .rf__table-txt {
+    margin: 5px 0;
+  }
+
+  .rf__searchlist--matching .rf__matching-cell--photo {
+    padding: 2px 10px;
+    margin-bottom: 0;
+  }
+
+  .rf__searchlist--matching .rf__table-thumbnail {
+    width: 90px;
+    height: 60px;
+  }
+
+  .rf__searchlist--matching .rf__matching-cell--date {
+    display: table-cell;
+  }
+
+  .rf__searchlist--matching .rf__table-row .rf__matching-cell--date .rf__table-txt {
+    margin-right: auto;
+  }
+
+  .rf__matching-cell--photo {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .rf__matching-cell--property {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .rf__matching-cell--status {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+
+  .rf__matching-cell--date {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+  }
+
+  .rf__matching-cell--contact {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+  }
+}
+
+@media (min-width: 1060px) {
+
+  .rf__matching-cell--status,
+  .rf__matching-cell--date,
+  .rf__matching-cell--contact {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+}
+
+@media (min-width: 1220px) {
+
+  .rf__searchlist .rf__table-cell.rf__matching-cell--duration {
+    display: table-cell;
+  }
+
+  .rf__matching-cell--duration {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .rf__matching-cell--date {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+  }
+
+  .rf__matching-cell--contact {
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+  }
+}
+
+@media (min-width: 1450px) {
+
+  .rf__matching-cell--status {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+  }
+
+  .rf__matching-cell--date,
+  .rf__matching-cell--contact,
+  .rf__matching-cell--duration {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 1700px) {
+
+  .rf__matching-cell--date,
+  .rf__matching-cell--contact,
+  .rf__matching-cell--property,
+  .rf__matching-cell--duration {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+  }
+}
+

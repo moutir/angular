@@ -1,0 +1,35 @@
+<div
+  *ngFor="let c of folders | keys" id="{{folders[c].id}}"
+  class="mainmenu"
+  [class.activeFolder]="folderId === folders[c].id"
+  [class.singleFolder]="!folders[c].hasSubFolder"
+  (click)="onClickFolder(folders[c].id, $event);"
+>
+  <span
+    *ngIf="folders[c].name && !folders[c].hasSubFolder"
+    [class.bolder]="folders[c].unseen > 0"
+    matTooltip="{{ folders[c].name.length > 30 ? folders[c].name : '' }}"
+    matTooltipPosition="above"
+  >
+    {{folders[c].name}} <span *ngIf="folders[c].unseen > 0">({{folders[c].unseen}})</span>
+  </span>
+  <span
+    *ngIf="folders[c].name && folders[c].hasSubFolder"
+    [class.bolder]="folders[c].unseen > 0"
+    matTooltip="{{ folders[c].name.length > 30 ? folders[c].name : '' }}"
+    matTooltipPosition="above"
+  >
+    <i (click)="onClickExpand($event)" class="fa fa-chevron-right expandable"></i>
+    {{folders[c].name}} <span *ngIf="folders[c].unseen > 0">({{folders[c].unseen}})</span>
+  </span>
+  <div
+    *ngIf="folders[c].hasSubFolder"
+    class="submenu hidden-menu"
+  >
+    <app-tree
+      [folders]="folders[c]"
+      [folderId]="folderId"
+      (clickFolder)="onClickSubFolder($event)"
+    ></app-tree>
+  </div>
+</div>

@@ -1,0 +1,209 @@
+<div class="fade fade--delay">
+  <div class="panel panel--off">
+    <div class="tab_content__head">
+      <div class="panel__title">
+        {{ 'label_property'|translate }}
+      </div>
+    </div>
+    <div class="panel__body">
+      <app-properties *ngIf="!isLoadingPropertyChart" [data]="propertyChart"></app-properties>
+      <div class="properties-fake" *ngIf="isLoadingPropertyChart">
+        <div class="properties-fake__cart">
+          <app-preloader></app-preloader>
+        </div>
+        <div class="properties-fake__cart">
+          <app-preloader></app-preloader>
+        </div>
+      </div>
+      <div class="mandates-prop" *ngIf="isLoadingPropertyChart">
+        <div class="mandates-prop__item">
+          <div class="mandates-prop__inner">
+            <div class="mandates-prop__photo">
+              <i class="mandates-prop__icon"></i>
+            </div>
+            <div class="mandates-prop__info">
+              <div class="mandates-prop__title">
+                {{ 'label_mandates_to_be_renewed'|translate }}
+              </div>
+              <div class="mandates-prop__count"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mandates-prop__item">
+          <div class="mandates-prop__inner">
+            <div class="mandates-prop__photo">
+              <i class="mandates-prop__icon"></i>
+            </div>
+            <div class="mandates-prop__info">
+              <div class="mandates-prop__title">
+                {{ 'label_owners'|translate }} 3*,
+                {{ 'label_not_contacted'|translate }}
+                > 30 {{ 'label_days'|translate }}
+              </div>
+              <div class="mandates-prop__count"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mandates-prop__item">
+          <div class="mandates-prop__inner">
+            <div class="mandates-prop__photo">
+              <i class="mandates-prop__icon"></i>
+            </div>
+            <div class="mandates-prop__info">
+              <div class="mandates-prop__title">
+                {{ 'label_days_on_market_average'|translate }}(DOM)
+              </div>
+              <div class="mandates-prop__count"> days
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel--off">
+    <div class="panel__header">
+      <div class="panel__title" *ngIf="transactionTypeId === '2'">{{ 'label_buyers'|translate }}</div>
+      <div class="panel__title" *ngIf="transactionTypeId === '1'">{{ 'label_tenants'|translate }}</div>
+    </div>
+    <div class="panel__body">
+      <div class="buyer">
+        <div class="cart_chart_flex" *ngIf="isLoadingBuyerChart">
+          <div class="cart_chart">
+            <app-preloader></app-preloader>
+          </div>
+          <div class="buyers__properties">
+            <div class="mandates-prop mandates-prop--buyers">
+              <div class="mandates-prop__item">
+                <div class="mandates-prop__inner">
+                  <div class="mandates-prop__photo">
+                    <i class="mandates-prop__icon"></i>
+                  </div>
+                  <div class="mandates-prop__info">
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+                      {{ 'label_buyers'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 30
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+                      {{ 'label_tenants'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 30
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__count"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mandates-prop__item">
+                <div class="mandates-prop__inner">
+                  <div class="mandates-prop__photo">
+                    <i class="mandates-prop__icon"></i>
+                  </div>
+                  <div class="mandates-prop__info">
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+                      {{ 'label_buyers'|translate }}
+                      3*, <br>{{ 'label_not_contacted'|translate }} >
+                      20
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+                      {{ 'label_tenants'|translate }}
+                      3*, <br>{{ 'label_not_contacted'|translate }} >
+                      20
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__count"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mandates-prop__item">
+                <div class="mandates-prop__inner">
+                  <div class="mandates-prop__photo">
+                    <i class="mandates-prop__icon"></i>
+                  </div>
+                  <div class="mandates-prop__info">
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+                      {{ 'label_buyers'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 15
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+                      {{ 'label_tenants'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 15
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__count"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mandates-prop__item">
+                <div class="mandates-prop__inner">
+                  <div class="mandates-prop__photo">
+                    <i class="mandates-prop__icon"></i>
+                  </div>
+                  <div class="mandates-prop__info">
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '2'">
+                      {{ 'label_buyers'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 10
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__title" *ngIf="transactionTypeId === '1'">
+                      {{ 'label_tenants'|translate }} 3*,
+                      <br>{{ 'label_not_contacted'|translate }} > 10
+                      {{ 'label_days'|translate }}
+                    </div>
+                    <div class="mandates-prop__count"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-buyers *ngIf="!isLoadingBuyerChart" [data]="buyerChart"></app-buyers>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel panel--off">
+    <div class="tab_content__head">
+      <div class="panel__title">
+        {{ 'label_leads_portfolio'|translate }}
+      </div>
+    </div>
+    <div class="panel__body">
+      <div class="leads_flex" *ngIf="isLoadingPropertyTypeChart || isLoadingBudgetChart">
+        <div class="leads_flex__box">
+          <div class="cart_box">
+            <div class="chart_title">
+              {{ 'label_property_type'|translate }}
+            </div>
+            <div class="cart_chart cart_chart--full">
+              <app-preloader></app-preloader>
+            </div>
+          </div>
+          <div class="cart_box">
+            <div class="chart_title">
+              {{ 'label_budget'|translate }}
+            </div>
+            <div class="cart_chart cart_chart--full">
+              <app-preloader></app-preloader>
+            </div>
+          </div>
+        </div>
+        <div class="leads_flex__box">
+          <div class="chart_title">
+            {{ 'label_locations'|translate }}
+          </div>
+          <div class="map">
+            <app-preloader></app-preloader>
+          </div>
+        </div>
+      </div>
+      <app-leads-portfolio *ngIf="!isLoadingPropertyTypeChart && !isLoadingBudgetChart"
+                           [property]="propertyTypeChart"
+                           [budget]="budgetChart"></app-leads-portfolio>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+@import "../variables";
+
+.rf__page {
+  position: relative;
+}
+
+.rf__page-header {
+  border-bottom: solid 1px $color-22;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: $color-01;
+  padding: 10px 15px 10px 10px;
+  white-space: nowrap;
+  height: $page-header-height;
+  position: relative;
+  z-index: ($zindex-max - 4);
+}
+
+.rf__page-header--sticky {
+  position: fixed;
+  top: $page-header-height;
+  left: 0;
+}
+
+.rf__page-header-content {
+  width: 100%;
+  overflow: hidden;
+  max-width: 80%;
+}
+
+.rf__page-header-buttons {
+  width: 100%;
+  text-align: right;
+}
+
+.rf__page-header-icon.material-icons {
+  margin-right: 8px;
+  color: $color-19;
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.rf__page-header-title {
+  color: $color-03;
+  font-size: 15px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rf__page-header-subtitles {
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+
+.rf__page-header-subtitle-separator {
+  padding: 0 2px;
+}
+
+.rf__page-header-subtitle-separator:last-child {
+  display: none;
+}
+
+.rf__page-header .rf__button,
+.rf__page-header .rf__button-icon {
+  margin-left: 10px;
+}
+
+.rf__page-body {
+  padding: 20px;
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__page-header--sticky {
+    padding-left: ($layout-menu-width-unfold + 10px);
+  }
+}
+
+@media (min-width: $desktop-breakpoint) {
+
+  .rf__page-header-content {
+    max-width: 40%;
+  }
+}

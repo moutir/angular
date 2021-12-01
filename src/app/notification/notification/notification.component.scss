@@ -1,0 +1,46 @@
+@import "../../../styles/variables";
+
+ul { // TODO[legacy] Remove once CRM is on Angular only (clash with legacy CSS)
+  margin: 0;
+  padding: 0;
+}
+
+.notification {
+  position: fixed;
+  z-index: 10000;
+  right: 100px;
+  top: 100%;
+  padding: 0 20px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: default;
+  user-select: none;
+  width: 320px;
+  min-height: 70px;
+  max-height: 100px;
+  line-height: 18px;
+  overflow: hidden;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  animation: appear 4000ms ease-out;
+  color: $color-01;
+}
+
+.notification--failure {
+  background: $color-33;
+  animation: appearError 8000ms ease-out;
+}
+
+.notification--success {
+  background: $color-34;
+}
+
+.notification--warning {
+  background: $color-24;
+}
+
+.notification--info {
+  background: $color-19;
+}

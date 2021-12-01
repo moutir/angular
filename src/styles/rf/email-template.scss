@@ -1,0 +1,115 @@
+@import "../variables";
+
+// Shared
+.rf__email-template-status--shared {
+  color: $color-11;
+}
+
+// Not shared
+.rf__email-template-status--not-shared {
+  color: $color-17;
+}
+
+.rf__email-template-cell-title {
+  display: flex;
+  flex: 1;
+  font-weight: bold;
+}
+
+.rf__searchlist--email-template .rf__table-txt,
+.rf__searchlist--email-template .rf__table-cell-box {
+  display: flex;
+  flex: 2;
+}
+
+.rf__searchlist--email-template .rf__table-row {
+  padding: 10px;
+}
+
+.rf__searchlist--email-template .rf__table-row:not(.rf__table-row--header) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 130px;
+}
+
+.rf__searchlist--email-template .rf__email-template-cell--creator {
+  order: 5;
+}
+
+.rf__searchlist--email-template .placeholder-text {
+  margin-top: -3px;
+}
+
+.rf__searchlist--email-template .rf__table-cell {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rf__searchlist--email-template .rf__table-row {
+  padding-bottom: 10px;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--email-template .rf__table-row:not(.rf__table-row--header) {
+    display: table-row;
+    height: auto;
+  }
+
+  .rf__email-template-cell-title  {
+    display: none;
+  }
+
+  .rf__searchlist--email-template .placeholder-text {
+    margin-top: auto;
+  }
+
+  .rf__searchlist--email-template .rf__table-txt {
+    display: block;
+  }
+
+  .rf__searchlist--email-template .rf__email-template-cell--shared .rf__table-txt {
+    max-width: 80px;
+    margin: auto;
+  }
+
+  .rf__searchlist--email-template .rf__table-cell {
+    display: table-cell;
+    width: auto;
+  }
+
+  .rf__searchlist--email-template .rf__table-cell.rf__email-template-cell--label {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .rf__searchlist--email-template .rf__table-cell.rf__email-template-cell--creator,
+  .rf__searchlist--email-template .rf__table-cell.rf__email-template-cell--shared {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__searchlist--email-template .rf__table-cell.rf__email-template-cell--label {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__searchlist--email-template .rf__table-cell.rf__email-template-cell--label {
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+  }
+}

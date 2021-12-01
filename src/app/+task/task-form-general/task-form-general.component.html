@@ -1,0 +1,683 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.typeId || error.title || error.startDate || error.endDate ||
+        error.startTime || error.endTime || error.brokers || error.contacts ||
+        error.properties || error.promotions"
+    >
+      <span>{{ 'label_informations'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_task'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_single_type'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_single_type'|translate }}"
+                formControlName="typeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.type"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.typeId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'title'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'title'|translate }}"
+                formControlName="title"
+              />
+              <mat-error>{{ error.title|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_date'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__form-datetime">
+
+              <mat-form-field
+                class="rf__form-datetime-date"
+                floatLabel="never"
+              >
+                <input
+                  matInput
+                  formControlName="startDate"
+                  [matDatepicker]="pickerStartDate"
+                  autocomplete="off"
+                  placeholder="{{ 'label_date_from_format'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerStartDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerStartDate></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field
+                class="rf__form-datetime-time"
+                floatLabel="never"
+              >
+                <input
+                  placeholder="hh:mm"
+                  matInput
+                  appInputTime
+                  autocomplete="off"
+                  formControlName="startTime"
+                />
+              </mat-form-field>
+
+              <mat-error class="rf__form-error">{{ error.startDate|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.startTime"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_duration'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="rf__form-datetime">
+
+              <mat-form-field
+                floatLabel="never"
+                class="form-field-short"
+              >
+                <input
+                  matInput
+                  type="number"
+                  maxlength="2"
+                  min="0"
+                  formControlName="durationHours"
+                  autocomplete="off"
+                  placeholder="hh"
+                >
+              </mat-form-field>
+
+              <span class="field-spacer">{{ 'label_hours'|translate }}</span>
+
+              <mat-form-field
+                floatLabel="never"
+                class="form-field-short"
+              >
+                <input
+                  placeholder="mm"
+                  matInput
+                  type="number"
+                  maxlength="2"
+                  min="0"
+                  autocomplete="off"
+                  formControlName="durationMinutes"
+                />
+              </mat-form-field>
+
+              <span>{{ 'label_minutes'|translate }}</span>
+
+              <mat-error class="rf__form-error">{{ (error.durationHours || error.durationMinutes)|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_personal_notes'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+                <textarea
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_placeholder_note'|translate }}"
+                  formControlName="brokerNotes"
+                ></textarea>
+              <mat-error>{{ error.brokerNotes|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'entity_contact_plural'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_brokers_and_intermediates'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__keyvalue-autocomplete-chiplist">
+
+              <app-shared-autocomplete
+                uid="task-form-general-broker"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_BROKER_INTERMEDIATE"
+                [placeholder]="'label_search_for_brokers_or_intermediates'|translate"
+                [error]="error.brokers"
+                [isDisabled]="isDisabled || isLoading"
+                (changeSelection)="onChangeSelectionContact($event, 'brokers')"
+              ></app-shared-autocomplete>
+
+              <mat-chip-list
+                *ngIf="model.brokers.length > 0"
+                class="rf__chip-list"
+              >
+                <mat-chip
+                  *ngFor="let broker of model.brokers; let i = index;"
+                  class="rf__chip"
+                  (removed)="onClickRemoveEntity(i, 'brokers')"
+                >
+                  <div class="rf__chip-text">{{ broker.fullName || (broker.firstName + ' ' + broker.lastName) }}</div>
+                  <mat-icon matChipRemove *ngIf="!isDisabled">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_clients'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__keyvalue-autocomplete-chiplist">
+
+              <app-shared-autocomplete
+                uid="task-form-general-contact"
+                limit="10"
+                floatLabel="never"
+                [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+                [placeholder]="'label_search_for_contacts'|translate"
+                [error]="error.contacts"
+                [isDisabled]="isDisabled || isLoading"
+                (changeSelection)="onChangeSelectionContact($event, 'contacts')"
+              ></app-shared-autocomplete>
+
+              <mat-chip-list
+                *ngIf="model.contacts.length > 0"
+                class="rf__chip-list"
+              >
+                <mat-chip
+                  *ngFor="let contact of model.contacts; let i = index;"
+                  class="rf__chip"
+                  (removed)="onClickRemoveEntity(i, 'contacts')"
+                >
+                  <div class="rf__chip-text">{{ contact.fullName || (contact.firstName + ' ' + contact.lastName) }}</div>
+                  <mat-icon matChipRemove *ngIf="!isDisabled">cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_objects'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'label_objects'|translate }}</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <app-shared-autocomplete
+              uid="emailing-form-attachment-property-promotion"
+              limit="10"
+              floatLabel="never"
+              [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY_PROMOTION"
+              [placeholder]="'autocomplete_add_property_promotion'|translate"
+              [error]="error.properties || error.promotions"
+              [isDisabled]="isDisabled || isLoading"
+              (changeSelection)="onChangeSelectionObject($event)"
+            ></app-shared-autocomplete>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.properties.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'entity_property_plural'|translate }}</span>
+              <span class="rf__keyvalue-key-count">({{ model.properties.length }})</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__card-list">
+              <ng-container *ngFor="let property of model.properties; let i = index;">
+                <app-shared-card-property
+                  *ngIf="property.id"
+                  class="rf__card-list-item"
+                  [property]="property"
+                  [isDeletable]="true"
+                  [isPlaceholder]="property.isLoading === true"
+                  (clickDelete)="onClickRemoveEntity(i, 'properties')"
+                ></app-shared-card-property>
+              </ng-container>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.promotions.length > 0"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <div>
+              <span>{{ 'entity_promotion_plural'|translate }}</span>
+              <span class="rf__keyvalue-key-count">({{ model.promotions.length }})</span>
+            </div>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <div class="rf__card-list">
+              <ng-container *ngFor="let promotion of model.promotions; let i = index;">
+                <app-shared-card-promotion
+                  *ngIf="promotion.id"
+                  class="rf__card-list-item"
+                  [promotion]="promotion"
+                  [isDeletable]="true"
+                  [isPlaceholder]="promotion.isLoading === true"
+                  (clickDelete)="onClickRemoveEntity(i, 'promotions')"
+                ></app-shared-card-promotion>
+              </ng-container>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_notes'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_clients'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_task_send_to_clients'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isSendMessageToContact">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.isSendMessageToContact === true"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_client_notes'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+                <textarea
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_placeholder_note'|translate }}"
+                  formControlName="contactNotes"
+                ></textarea>
+              <mat-error>{{ error.contactNotes|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_reports'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_show_in_reports'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isShownInReports">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="model.isShownInReports === true"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_report_notes'|translate }}</span>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <mat-form-field
+              appearance="outline"
+              floatLabel="never"
+              class="rf__form-field--textarea mat-form-field--outline"
+            >
+                <textarea
+                  matInput
+                  autocomplete="off"
+                  placeholder="{{ 'label_placeholder_note'|translate }}"
+                  formControlName="publicReport"
+                ></textarea>
+              <mat-error>{{ error.publicReport|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.reminderAtId"
+    >
+      <span>{{ 'label_options'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_settings'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_task_editable_by_others'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_editable_by_others'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isEditableByOthers">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row rf__keyvalue-row--hidden">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_task_send_to_owner'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_send_notes_to_property_owner'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-radio-group formControlName="isSendMessageToOwner">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_google_agenda'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_google_agenda_my_calendars'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_sync_with_google_agenda_time'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            *ngIf="permissions.indexOf(PERMISSION_AGENDA_READ) === -1 || featureTask.isAgendaEnabled === false"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+          >
+            {{ 'label_google_agenda_no_available'|translate }}
+          </div>
+
+          <div
+            *ngIf="permissions.indexOf(PERMISSION_AGENDA_READ) > -1 && featureTask.isAgendaEnabled === true"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+          >
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                [multiple]="options.agenda.length > 0"
+                placeholder="{{ 'label_google_agenda_my_calendars'|translate }}"
+                formControlName="agendaIds"
+              >
+                <mat-option
+                  *ngIf="options.agenda.length === 0"
+                >{{ 'label_not_available'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.agenda"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.agendaIds|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div
+          *ngIf="permissions.indexOf(PERMISSION_AGENDA_READ) > -1 && featureTask.isAgendaEnabled === true"
+          class="rf__keyvalue-row"
+        >
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+            <span>{{ 'label_google_agenda_notification'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'tooltip_google_agenda_notification'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_google_agenda_notification'|translate }}"
+                formControlName="reminderAtId"
+              >
+                <mat-option value="">{{ 'label_no_google_agenda_reminder'|translate }}</mat-option>
+                <mat-option
+                  *ngFor="let option of options.reminderAt"
+                  [value]="option.value"
+                >
+                  {{ option.text }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.reminderAtId|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_other_agendas'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_task_sync_device_calendar'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_sync_with_other_agenda_time'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div
+            *ngIf="feature.calendarExport === false"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value-fill"
+          >
+            {{ 'label_other_agenda_no_available'|translate }}
+          </div>
+
+          <div
+            *ngIf="feature.calendarExport === true"
+            class="rf__keyvalue-cell rf__keyvalue-cell--value"
+          >
+
+            <mat-radio-group
+              formControlName="isCalendarTask">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,211 @@
+<div
+  class="rf__modal rf__modal--property-mortgage"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+    <app-shared-modal-header
+      *ngIf="mortgage.step === 1"
+      labelTitle="label_mortgage_modal_title_calculation"
+    ></app-shared-modal-header>
+
+    <app-shared-modal-header
+      *ngIf="mortgage.step === 2 || mortgage.step === 3"
+      labelTitle="label_mortgage_modal_title_request"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body modal-step-{{mortgage.step}}">
+
+      <app-shared-card-property
+        [property]="property"
+      ></app-shared-card-property>
+
+      <form
+        *ngIf="isVisible"
+        [formGroup]="formGroup"
+      >
+
+        <div *ngIf="mortgage.step === 1">
+          <div class="details-container">
+            <div class="list__header">
+              <div>
+                <span>{{ 'label_mortgage_indicative_tender'|translate }}</span>
+                <sup>*</sup>
+              </div>
+              <app-shared-svg-icon class="logo-epotek" icon="logo-epotek"></app-shared-svg-icon>
+            </div>
+            <div clacc="rf__table">
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">{{ 'label_mortgage_purchase_price'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.labelPrice | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div class="rf__table-cell rf__table-cell--period"></div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">
+                  <span *ngIf="property.mortgageCalculation">{{ 'label_mortgage_loan_value'|translate: { percentage: (property.mortgageCalculation.loanPercentage + '%') } }}</span>
+                  <span *ngIf="property.mortgageCalculation === null">{{ 'label_mortage_loading_rates'|translate }}</span>
+                </div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.loanValue | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div class="rf__table-cell rf__table-cell--period"></div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">{{ 'label_mortgage_personal_contribution'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.personalContribution | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div class="rf__table-cell rf__table-cell--period"></div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">{{ 'label_mortgage_amortization'|translate: { percentage: '1%' } }}</div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.amortization | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div *ngIf="property.mortgageCalculation" class="rf__table-cell rf__table-cell--period">{{ property.mortgageCalculation.amortizationPeriod | translate }}</div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">
+                  <span *ngIf="property.mortgageCalculation">{{ 'label_mortgage_year_interest5'|translate: { percentage: (property.mortgageCalculation.yearInterestPercentage5 + '%') } }}</span>
+                  <span *ngIf="property.mortgageCalculation === null">{{ 'label_mortage_loading_rates'|translate }}</span>
+                </div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.yearInterest5 | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div *ngIf="property.mortgageCalculation" class="rf__table-cell rf__table-cell--period">{{ property.mortgageCalculation.yearInterestPeriod | translate }}</div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">
+                  <span *ngIf="property.mortgageCalculation">{{ 'label_mortgage_year_interest10'|translate: { percentage: (property.mortgageCalculation.yearInterestPercentage10 + '%') } }}</span>
+                  <span *ngIf="property.mortgageCalculation === null">{{ 'label_mortage_loading_rates'|translate }}</span>
+                </div><div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.yearInterest10 | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div *ngIf="property.mortgageCalculation" class="rf__table-cell rf__table-cell--period">{{ property.mortgageCalculation.yearInterestPeriod | translate }}</div>
+              </div>
+              <div class="rf__table-row">
+                <div class="rf__table-cell rf__table-cell--key">
+                  <span *ngIf="property.mortgageCalculation">{{ 'label_mortgage_year_interest15'|translate: { percentage: (property.mortgageCalculation.yearInterestPercentage15 + '%') } }}</span>
+                  <span *ngIf="property.mortgageCalculation === null">{{ 'label_mortage_loading_rates'|translate }}</span>
+                </div>
+                <div class="rf__table-cell rf__table-cell--value">
+                  <span *ngIf="property.mortgageCalculation">{{ property.mortgageCalculation.currency }} {{ property.mortgageCalculation.yearInterest15 | formatNumber }}</span>
+                  <mat-spinner
+                    *ngIf="property.mortgageCalculation === null"
+                    color="accent"
+                    diameter="16"
+                  ></mat-spinner>
+                </div>
+                <div *ngIf="property.mortgageCalculation" class="rf__table-cell rf__table-cell--period">{{ property.mortgageCalculation.yearInterestPeriod | translate }}</div>
+              </div>
+            </div>
+            <div class="list__footer">
+              <sup>*</sup>
+              <span>{{ 'label_mortgage_non_contractual_info'|translate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="mortgage.step === 2">
+          <div class="request-form">
+
+            <app-shared-autocomplete
+              class="mat-form-field"
+              uid="property-mortgage-contact"
+              [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+              [selectionId]="formGroup.get('contactId').value || ''"
+              [selectionText]="formGroup.get('query').value || ''"
+              [placeholder]="'label_mortgage_select_contact'|translate"
+              [isDisplayedSelectionText]="true"
+              (changeSelection)="onChangeSelectionContact($event)"
+            ></app-shared-autocomplete>
+
+            <mat-checkbox
+              class="mat-checkbox--multiline"
+              formControlName="isAgreed"
+            >{{ 'label_mortgage_agreement'|translate: { user: (sessionUser$|async).account.contact.getFullName() } }}</mat-checkbox>
+          </div>
+        </div>
+
+        <div *ngIf="mortgage.step === 3">
+          <div class="sentence sentence--center">
+            <mat-spinner
+              color="accent"
+              diameter="16"
+            ></mat-spinner>
+            <span>{{ 'label_mortgage_sending_request'|translate }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="mortgage.step === 4">
+          <div class="sentence">
+            <mat-icon class="success">check_circle</mat-icon>
+            <span
+              [innerHTML]="'label_mortgage_result_description'|translate: { user: mortgage.query || 'Favaron Nicolas' }"
+            ></span>
+          </div>
+        </div>
+
+        <input type="hidden" formControlName="propertyId" />
+        <input type="hidden" formControlName="contactId" />
+      </form>
+    </div>
+
+    <app-shared-modal-footer
+      *ngIf="mortgage.step === 1"
+      labelValid="label_mortgage_button_details"
+      [isDisabledValid]="property.mortgageCalculation === null || permissions.indexOf(PERMISSION_MORTGAGE_WRITE) === -1"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+    <app-shared-modal-footer
+      *ngIf="mortgage.step === 2 || mortgage.step === 3"
+      labelValid="label_mortgage_button_send_request"
+      [isDisabledValid]="mortgage.step === 3 || formGroup.invalid"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+    <app-shared-modal-footer
+      *ngIf="mortgage.step === 4"
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

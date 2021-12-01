@@ -1,0 +1,61 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  max-width: 350px;
+  max-width: 580px;
+  position: relative;
+}
+
+.mat-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.container-entity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 30px;
+}
+
+.container-entity .mat-icon {
+  color: $color-09;
+  margin: 10px;
+}
+
+.container-date {
+  margin: -5px 0 15px;
+  text-align: center;
+}
+
+.container-date span {
+  margin-right: 8px;
+}
+
+.container-date strong {
+  color: $color-37;
+  margin-left: 8px;
+}
+
+.card-placeholder {
+  justify-content: center;
+}
+
+app-shared-card-property, app-shared-card-contact, .card-placeholder {
+  box-shadow: 0 1px 4px $color-13;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  width: 45%;
+  height: 60px;
+  overflow: hidden;
+}
+
+@media (min-width: $tablet-breakpoint) {
+
+  .rf__modal-body {
+    max-width: 700px;
+  }
+}

@@ -1,0 +1,46 @@
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 700px;
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  p {
+    color: #7B7F89;
+    font-size: 14px;
+  }
+  & > span {
+    font-size: 90px;
+    height: 76px;
+    color: #5E6FD3;
+  }
+  .form-group {
+    min-width: 500px;
+  }
+  .btn-connect {
+    height: 41px;
+    width: 214px;
+    border-radius: 3px;
+    background-color: #5E6FD3;
+    color: white;
+    font-weight: bold;
+    margin: 30px 30%;
+  }
+}
+
+.back-row {
+  height: 58px;
+  .back-btn {
+    color: #323641;
+    font-size: 14px;
+    font-weight: 700;
+    height: 41px;
+    width: 183px;
+    border: 1px solid #cecfd7;
+    background-color: #f4f5fa;
+    margin-right: 20px;
+  }
+}

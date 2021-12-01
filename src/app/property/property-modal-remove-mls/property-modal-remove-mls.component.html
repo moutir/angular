@@ -1,0 +1,40 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="label_mls_remove"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <div class="modal__description">{{ 'label_mls_property_remove_warning'|translate }}</div>
+      <div class="list">
+        <div class="list__header">
+            <div class="list__cell">{{ 'label_reference'|translate }}</div>
+            <div class="list__cell">{{ 'label_agency'|translate }}</div>
+        </div>
+        <div class="list__body">
+          <div class="list__row" *ngFor="let property of properties">
+            <div class="list__cell">
+              <strong>{{ property.reference }}</strong>
+            </div>
+            <div class="list__cell">
+              <strong>{{ property.agency.name }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal__notes" *ngIf="hasInvalidProperties">{{ 'label_mls_property_part_of_promotion_warning'|translate }}</div>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_mls_property_remove_confirm"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

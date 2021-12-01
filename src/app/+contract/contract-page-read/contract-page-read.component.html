@@ -1,0 +1,490 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_informations'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_contract'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_reference'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.reference || '-' }}</div>
+                <div class="rf__keyvalue-spacer"></div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_step'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.labelStep || '-' }}</div>
+              </div>
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sell_type'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.labelSellType || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'entity_property_singular'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'entity_property_singular'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+                  <app-shared-card-property
+                    class="rf__card-container"
+                    [property]="model.property"
+                    [isPlaceholder]="!model.property.id"
+                  ></app-shared-card-property>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_dates'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_project'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.projectDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_offer'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.offerDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_preliminary_agreement'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.agreementDate|smartDate) || '-' }}</div>
+                <div class="rf__keyvalue-spacer"></div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date_cooling_off_end'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.coolingOffEndDate|smartDate) || '-' }}</div>
+              </div>
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_condition_precedent'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.conditionPrecedentDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_forecast_deed_sale'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_scheduled_at'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.scheduleDate|smartDate) || '-' }}</div>
+                <div class="rf__keyvalue-spacer"></div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contract_at'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.contractDate|smartDate) || '-' }}</div>
+              </div>
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_collected_at'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.collectionDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_bill'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.billingDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_cancelled'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.cancelDate|smartDate) || '-' }}</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'entity_contact_plural'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__table rf__table--contract-contact">
+
+              <div class="rf__table-row rf__table-row--header">
+                <div class="rf__table-cell rf__table-cell--contract-contact-type">{{ 'label_single_type'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--contract-contact-contact">{{ 'entity_contact_singular'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--contract-contact-comment">{{ 'label_comment_singular'|translate }}</div>
+              </div>
+
+              <div
+                *ngFor="let contractContact of model.contractContacts;"
+                class="rf__table-row"
+              >
+
+                <div class="rf__table-cell rf__table-cell--contract-contact-type">{{ contractContact.typeLabel }}</div>
+
+                <div class="rf__table-cell rf__table-cell--contract-contact-contact">
+                  <app-shared-contact-link
+                    [contact]="contractContact.contact"
+                  ></app-shared-contact-link>
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--contract-contact-comment">
+                    {{ contractContact.comment }}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div
+              *ngIf="model.contractContacts.length === 0"
+              class="rf__table-information rf__table-information--empty rf__table-information--center"
+            >{{ 'message_no_contact_added_yet'|translate }}</div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel rf__panel--comment">
+          <div class="rf__panel-header">
+            <span>{{ 'label_comment_singular'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__keyvalue-row">
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_comment_singular'|translate }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill" *ngIf="model.comment">{{ model.comment }}</div>
+              <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill" *ngIf="!model.comment">{{ 'label_no_comments'|translate }}</div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <app-shared-history-panel
+          [isPlaceholder]="isLoading$|async"
+          [createContact]="model.createContact"
+          [createDate]="model.createDate"
+          [updateContact]="model.updateContact"
+          [updateDate]="model.updateDate"
+        ></app-shared-history-panel>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_DEAL) > -1"
+      label="{{ 'label_deal'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel rf__panel--contract-price">
+
+          <div class="rf__panel-header">{{ 'label_price'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_price_asking'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value rf__keyvalue-cell--value-highlight">{{ (model.askingPrice|formatNumber) || '-' }} {{ model.currencyLabel }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <div>
+                    <div>{{ 'label_price_negotiated'|translate }}</div>
+                    <div class="rf__keyvalue-subtext">
+                      <ng-container *ngIf="model.isActivePricePercentage">{{ model.negotiatedPrice|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                      <ng-container *ngIf="!model.isActivePricePercentage">{{ model.negotiatedPricePercentage }}%</ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <ng-container *ngIf="!model.isActivePricePercentage">{{ model.negotiatedPrice|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                  <ng-container *ngIf="model.isActivePricePercentage">{{ model.negotiatedPricePercentage }}%</ng-container>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <div>
+                    <div>{{ 'label_deposit_amount'|translate }}</div>
+                    <div class="rf__keyvalue-subtext">
+                      <ng-container *ngIf="model.isActivePricePercentage">{{ model.depositAmount|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                      <ng-container *ngIf="!model.isActivePricePercentage">{{ model.depositAmountPercentage }}%</ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <ng-container *ngIf="!model.isActivePricePercentage">{{ model.depositAmount|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                  <ng-container *ngIf="model.isActivePricePercentage">{{ model.depositAmountPercentage }}%</ng-container>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel rf__panel--contract-fees">
+
+          <div class="rf__panel-header">{{ 'label_fees'|translate }}</div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key rf__keyvalue-cell--key-fee">
+                  <div>
+                    <div>{{ 'label_our_fees'|translate }}</div>
+                    <div class="rf__keyvalue-subtext">
+                      <ng-container *ngIf="model.isActiveAgencyFeePercentage">{{ model.agencyFee|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                      <ng-container *ngIf="!model.isActiveAgencyFeePercentage">{{ model.agencyFeePercentage }}%</ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <ng-container *ngIf="!model.isActiveAgencyFeePercentage">{{ model.agencyFee|formatNumber }} {{ model.currencyLabel }}</ng-container>
+                  <ng-container *ngIf="model.isActiveAgencyFeePercentage">{{ model.agencyFeePercentage }}%</ng-container>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+                  <div>
+                    <div>{{ 'label_amount'|translate }}</div>
+                    <div
+                      class="rf__keyvalue-subtext"
+                    >{{ 'label_vat_excluded_value'|translate: { value: (model.agencyVat + '%') } }}</div>
+                  </div>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value rf__keyvalue-cell--value-highlight">
+                  <span>{{ model.agencyFeeVatExcluded|formatNumber }} {{ model.currencyLabel }}</span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_commissions'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__table rf__table--contract-commission">
+
+              <div class="rf__table-row rf__table-row--header">
+                <div class="rf__table-cell rf__table-cell--contract-commission-operator"></div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-type">{{ 'label_single_type'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-contact">{{ 'entity_contact_singular'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-amount">
+                  <div>{{ 'label_amount'|translate }}</div>
+                  <div>{{ 'label_vat_exclude'|translate }}</div>
+                </div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-invoice">{{ 'label_invoice'|translate }}</div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-comment">{{ 'label_comment_singular'|translate }}</div>
+              </div>
+
+              <div
+                *ngFor="let contractCommission of model.contractCommissions"
+                class="rf__table-row"
+                [class.rf__table-row--gradient]="!!contractCommission.parentContractCommissionId === false"
+                [class.rf__table-row--no-bg]="!!contractCommission.parentContractCommissionId === true"
+              >
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-operator">
+                  <mat-icon *ngIf="contractCommission.parentContractCommissionId">remove_circle</mat-icon>
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-type">{{ contractCommission.typeLabel }}</div>
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-contact">
+                  <app-shared-contact-link
+                    [contact]="contractCommission.contact"
+                  ></app-shared-contact-link>
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-amount">
+                  {{ contractCommission.amount|formatNumber }} {{ model.currencyLabel }}
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-invoice">
+                  {{ contractCommission.invoice }}
+                </div>
+
+                <div class="rf__table-cell rf__table-cell--contract-commission-comment">
+                  {{ contractCommission.comment }}
+                </div>
+
+              </div>
+
+              <div
+                *ngIf="model.contractCommissions.length > 0"
+                class="rf__table-row"
+              >
+                <div class="rf__table-cell rf__table-cell--contract-commission-operator"></div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-type"></div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-contact"></div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-amount total">
+                  {{ model.totalCommission|formatNumber }} {{ model.currencyLabel }}
+                </div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-invoice"></div>
+                <div class="rf__table-cell rf__table-cell--contract-commission-comment"></div>
+              </div>
+            </div>
+
+            <div
+              *ngIf="model.contractCommissions.length === 0"
+              class="rf__table-information rf__table-information--empty rf__table-information--center"
+            >{{ 'message_no_commission_added_yet'|translate }}</div>
+
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_funding'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_personal_contribution'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <span *ngIf="!model.fundAmountPersonal">-</span>
+                  <span *ngIf="model.fundAmountPersonal">{{ model.fundAmountPersonal|formatNumber }} {{ model.currencyLabel }}</span>
+                </div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_mortgage_amount'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <span *ngIf="!model.fundAmountMortgage">-</span>
+                  <span *ngIf="model.fundAmountMortgage">{{ model.fundAmountMortgage|formatNumber }} {{ model.currencyLabel }}</span>
+                </div>
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_condition_precedent'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.fundConditionPrecedentDate|smartDate) || '-' }}</div>
+
+                <div class="rf__keyvalue-spacer"></div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date_accepted'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.fundAcceptDate|smartDate) || '-' }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

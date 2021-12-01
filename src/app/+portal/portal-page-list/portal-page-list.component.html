@@ -1,0 +1,20 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+></app-shared-page-header>
+
+<div class="rf__page-body">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-body">
+
+      <app-portal-searchlist
+        [uid]="uid"
+      ></app-portal-searchlist>
+
+      </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,20 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+app-shared-selection-bar {
+  width: 100%;
+}
+
+.rf__matching-group-action {
+  width: auto;
+}
+
+app-matching-group-table-row {
+  display: block;
+  margin-bottom: 16px;
+}

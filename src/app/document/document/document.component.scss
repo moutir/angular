@@ -1,0 +1,275 @@
+@import "../../../styles/variables";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.rf__document {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.rf__document--placeholder {
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.rf__document-preview {
+  display: flex;
+  align-items: center;
+  background: $color-18;
+  box-shadow: 0 0 5px $color-30;
+  padding-right: 40px;
+  position: relative;
+}
+
+.rf__document-name {
+  color: $color-19;
+  transition: color 300ms ease-out;
+  text-decoration: none;
+}
+
+.rf__document-name:hover {
+  color: $color-27;
+}
+
+.rf__document-link {
+  width: 70px;
+  min-width: 70px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $color-22 no-repeat center center;
+  position: relative;
+  cursor: pointer;
+}
+
+.rf__document-image {
+  background-color: $color-01;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+  z-index: 1;
+}
+
+.rf__async-image--failure {
+  display: none;
+}
+
+.rf__document-image--download {
+  opacity: 0;
+  background: $color-19;
+  color: $color-01;
+  transition: opacity 300ms ease-out, background 300ms ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.rf__document-link:hover .rf__document-image--download {
+  opacity: 1;
+  background: $color-27;
+}
+
+.rf__document-icon {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.rf__document-icon-txt {
+  font-size: 8px;
+  background: $color-19;
+  color: $color-01;
+  padding: 0 4px;
+  height: 12px;
+  min-width: 20px;
+  line-height: 13px;
+  margin-top: -4px;
+}
+
+.rf__document-info {
+  white-space: nowrap;
+  padding: 0 10px;
+  color: $color-09;
+  line-height: 14px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  font-size: 11px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rf__document-name {
+  font-size: 13px;
+  color: $color-19;
+  font-weight: bold;
+  padding: 2px 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rf__document--placeholder .rf__document-name,
+.rf__document--placeholder .rf__document-size {
+  background: $color-22;
+  height: 10px;
+}
+
+.rf__document--placeholder .rf__document-name {
+  width: 80%;
+  margin-bottom: 5px;
+}
+
+.rf__document--placeholder .rf__document-size {
+  width: 40%;
+}
+
+.rf__document--placeholder .rf__info-label {
+  width: 100%;
+  height: 12px;
+  background-color: $color-22;
+}
+
+.rf__document-button-wrapper {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.rf__document-button-wrapper--remove {
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+
+.rf__document-button-wrapper--copy {
+  display: none;
+}
+
+.rf__document-button--copy,
+.rf__document-button--remove {
+  color: $color-19;
+}
+
+.rf__document-button--remove:not([disabled]):hover {
+  color: $color-27;
+}
+
+.rf__document-inputs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 10px 5px;
+  border: solid 1px $color-18;
+  border-top: none;
+  background: $color-01;
+}
+
+.rf__document-input {
+  padding: 0 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.rf__document-input > div {
+  width: 100%;
+}
+
+.rf__document-input .mat-form-field {
+  margin-top: 1.25em;
+  width: 100%;
+}
+
+@media (min-width: 500px) {
+
+  .rf__document-input {
+    width: 50%;
+  }
+}
+
+@media (min-width: 650px) {
+
+  .rf__document-input {
+    width: 33%;
+  }
+}
+
+@media (min-width: 750px) {
+
+  .rf__document-input {
+    width: 25%;
+  }
+}
+
+@media (min-width: 850px) {
+
+  .rf__document-input {
+    width: 33%;
+  }
+}
+
+@media (min-width: 950px) {
+
+  .rf__document-input {
+    width: 33%;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__document-input {
+    width: 25%;
+    max-width: 200px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__document {
+    display: flex;
+    align-items: center;
+    height: 56px;
+  }
+
+  .rf__document-preview {
+    background: $color-14;
+    box-shadow: none;
+    padding-right: 0;
+    overflow: hidden;
+    width: 100%;
+    min-width: 300px;
+  }
+
+  .rf__document-inputs {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    padding: 0;
+    border: none;
+    background: $color-14;
+  }
+
+  .rf__document-input {
+    width: auto;
+    max-width: 150px;
+  }
+
+  .rf__document-button-wrapper {
+    position: initial;
+    padding: 0 10px;
+    height: 100%;
+  }
+}

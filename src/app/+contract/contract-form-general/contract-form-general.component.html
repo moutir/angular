@@ -1,0 +1,597 @@
+<form
+  [formGroup]="formGroup"
+  class="rf__form"
+>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.reference || error.stepId || error.sellTypeId || error.propertyId"
+    >
+      <span>{{ 'label_informations'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_contract'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_reference'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_reference'|translate }}"
+                formControlName="reference"
+              />
+              <mat-error>{{ error.reference | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_step'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_step'|translate }}"
+                formControlName="stepId"
+              >
+                <mat-option
+                  *ngFor="let option of options.step"
+                  [value]="option.value"
+                >
+                  {{ option.text | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.stepId | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sell_type'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_sell_type'|translate }}"
+                formControlName="sellTypeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.sellType"
+                  [value]="option.value"
+                >
+                  {{ option.text | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.sellTypeId | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'entity_property_singular'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_reference'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <app-shared-autocomplete
+                uid="contract-form-general-property"
+                limit="10"
+                [entities]="AUTOCOMPLETE_ENTITIES_PROPERTY"
+                [placeholder]="'entity_property_singular'|translate"
+                [error]="error.propertyId"
+                [isDisabled]="isDisabled || isLoading"
+                [isDisplayedSelectionText]="true"
+                [selectionId]="model.property.id"
+                [selectionText]="model.property.reference"
+                (changeSelection)="onChangeSelectionProperty($event)"
+              ></app-shared-autocomplete>
+            <input type="hidden" formControlName="propertyId" />
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+            <app-shared-card-property
+              class="rf__card-container"
+              [property]="model.property"
+              [isPlaceholder]="!model.property.id"
+            ></app-shared-card-property>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.projectDate || error.offerDate || error.agreementDate ||
+        error.coolingOffEndDate || error.conditionPrecedentDate || error.scheduleDate || error.contractDate ||
+        error.collectionDate || error.billingDate"
+    >
+      <span>{{ 'label_dates'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_project'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="projectDate"
+                [matDatepicker]="pickerProjectDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerProjectDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerProjectDate></mat-datepicker>
+              <mat-error>{{ error.projectDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_offer'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="offerDate"
+                [matDatepicker]="pickerOfferDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerOfferDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerOfferDate></mat-datepicker>
+              <mat-error>{{ error.offerDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_preliminary_agreement'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="agreementDate"
+                [matDatepicker]="pickerAgreementDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerAgreementDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerAgreementDate></mat-datepicker>
+              <mat-error>{{ error.agreementDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date_cooling_off_end'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="coolingOffEndDate"
+                [matDatepicker]="pickerCoolingOffEndDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date_cooling_off_end'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerCoolingOffEndDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerCoolingOffEndDate></mat-datepicker>
+              <mat-error>{{ error.coolingOffEndDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_condition_precedent'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="conditionPrecedentDate"
+                [matDatepicker]="pickerConditionPrecedentDate"
+                autocomplete="off"
+                placeholder="{{ 'label_condition_precedent'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerConditionPrecedentDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerConditionPrecedentDate></mat-datepicker>
+              <mat-error>{{ error.conditionPrecedentDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_forecast_deed_sale'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_scheduled_at'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="scheduleDate"
+                [matDatepicker]="pickerScheduleDate"
+                autocomplete="off"
+                placeholder="{{ 'label_scheduled_at'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerScheduleDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerScheduleDate></mat-datepicker>
+              <mat-error>{{ error.scheduleDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="rf__keyvalue-spacer"></div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_contract_at'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="contractDate"
+                [matDatepicker]="pickerContractDate"
+                autocomplete="off"
+                placeholder="{{ 'label_contract_at'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerContractDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerContractDate></mat-datepicker>
+              <mat-error>{{ error.contractDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_collected_at'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="collectionDate"
+                [matDatepicker]="pickerCollectionDate"
+                autocomplete="off"
+                placeholder="{{ 'label_collected_at'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerCollectionDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerCollectionDate></mat-datepicker>
+              <mat-error>{{ error.collectionDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_billing'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="billingDate"
+                [matDatepicker]="pickerBillingDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerBillingDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerBillingDate></mat-datepicker>
+              <mat-error>{{ error.billingDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="rf__panel-subheader">{{ 'label_cancelled'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                formControlName="cancelDate"
+                [matDatepicker]="pickerCancelDate"
+                autocomplete="off"
+                placeholder="{{ 'label_date'|translate }}"
+              >
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="pickerCancelDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerCancelDate></mat-datepicker>
+              <mat-error>{{ error.cancelDate | translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.contractContacts"
+    >
+      <span>{{ 'entity_contact_plural'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div
+        class="rf__table rf__table--contract-contact"
+        formArrayName="contractContacts"
+      >
+
+        <div class="rf__table-row rf__table-row--header">
+          <div class="rf__table-cell rf__table-cell--contract-contact-type">{{ 'label_single_type'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--contract-contact-contact">{{ 'entity_contact_singular'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--contract-contact-comment">{{ 'label_comment_singular'|translate }}</div>
+          <div class="rf__table-cell rf__table-cell--actions">
+
+            <button
+              mat-icon-button
+              matTooltip="{{ 'tooltip_add_contact'|translate }}"
+              matTooltipPosition="left"
+              [disabled]="isLoading === true"
+              (click)="onClickFormArrayAdd('contractContacts')"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+
+          </div>
+        </div>
+
+
+        <div
+          *ngFor="let i of getFormArray('contractContacts').indexes;"
+          class="rf__table-row"
+          [class.rf__table-row--removed]="model.contractContacts[i].isRemoved === true"
+          [formGroup]="getFormArray('contractContacts').control.controls[i]"
+        >
+
+          <div class="rf__table-cell rf__table-cell--contract-contact-type">
+
+            <mat-form-field floatLabel="never">
+              <mat-select
+                placeholder="{{ 'label_single_type'|translate }}"
+                formControlName="typeId"
+              >
+                <mat-option
+                  *ngFor="let option of options.contactType"
+                  [value]="option.value"
+                >
+                  {{ option.text|translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ getFormArrayError('contractContacts', i, 'typeId')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-contact-contact">
+
+            <app-shared-autocomplete
+              class="mat-form-field"
+              floatLabel="never"
+              [uid]="'contract-form-general-contact-' + i"
+              [entities]="AUTOCOMPLETE_ENTITIES_CONTACT"
+              limit="10"
+              [placeholder]="'entity_contact_singular'|translate"
+              [isDisplayedSelectionText]="true"
+              [isDisabled]="isLoading === true"
+              [selectionId]="model.contractContacts[i].contact.id"
+              [selectionText]="model.contractContacts[i].contact.getFullName()"
+              [error]="getFormArrayError('contractContacts', i, 'contact')"
+              (changeSelection)="onChangeSelectionContact($event, i)"
+            ></app-shared-autocomplete>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--contract-contact-comment">
+
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_comment_singular'|translate }}"
+                formControlName="comment"
+              />
+              <mat-error>{{ getFormArrayError('contractContacts', i, 'comment')|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="rf__table-cell rf__table-cell--actions">
+
+            <button
+              *ngIf="!!model.contractContacts[i].isRemoved === false"
+              mat-icon-button
+              matTooltip="{{ 'tooltip_remove_contact'|translate }}"
+              matTooltipPosition="left"
+              (click)="onClickFormArrayToggle('contractContacts', i, true)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button
+              *ngIf="!!model.contractContacts[i].isRemoved == true"
+              mat-icon-button
+              matTooltip="{{ 'tooltip_undo'|translate }}"
+              matTooltipPosition="left"
+              (click)="onClickFormArrayToggle('contractContacts', i, false)"
+            >
+              <mat-icon>undo</mat-icon>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        *ngIf="model.contractContacts.length === 0"
+        class="rf__table-information rf__table-information--empty rf__table-information--center"
+      >{{ 'message_no_contact_added_yet'|translate }}</div>
+
+      <mat-error
+        *ngIf="error.contractContacts && error.contractContacts !== 'form_error_is_invalid' && error.contractContacts !== 'form_error_arrayMinLength_3'"
+        class="rf__table-information rf__table-information--error"
+      >{{ error.contractContacts|translate }}</mat-error>
+
+      <mat-error
+        *ngIf="error.contractContacts && error.contractContacts === 'form_error_arrayMinLength_3'"
+        class="rf__table-information rf__table-information--error"
+      >{{ 'message_add_contact_min_3'|translate }}</mat-error>
+
+    </div>
+
+  </div>
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'label_comment_singular'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__keyvalue-row">
+
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_comment_singular' | translate }}</div>
+        <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+          <mat-form-field
+            appearance="outline"
+            floatLabel="never"
+            class="rf__form-field--textarea mat-form-field--outline"
+          >
+            <textarea
+              matInput
+              autocomplete="off"
+              placeholder="{{ 'label_placeholder_comment'|translate }}"
+              formControlName="comment"
+            ></textarea>
+            <mat-error>{{ error.comment | translate }}</mat-error>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

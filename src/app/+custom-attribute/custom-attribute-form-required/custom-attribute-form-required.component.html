@@ -1,0 +1,157 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.name || error.usable || error.values"
+    >
+      <span>{{ 'label_custom_attribute'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_title_name'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+            <mat-form-field floatLabel="never">
+              <input
+                matInput
+                autocomplete="off"
+                placeholder="{{ 'label_custom_attribute_name'|translate }}"
+                formControlName="name"
+              />
+              <mat-error>{{ error.name|translate }}</mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_usable_in'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <mat-form-field
+              floatLabel="never"
+            >
+              <mat-select
+                multiple
+                placeholder="{{ 'label_usable_in'|translate }}"
+                formControlName="usable"
+              >
+                <mat-option
+                  *ngFor="let option of options.usable"
+                  [value]="option.value"
+                >
+                  {{ option.text|translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error>{{ error.usable|translate }}</mat-error>
+            </mat-form-field>
+
+          </div>
+
+        </div>
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_values'|translate }}</div>
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+            <div class="values-container">
+
+              <div
+                class="rf__table"
+                formArrayName="values"
+              >
+
+                <div class="rf__table-row rf__table-row--header">
+                  <div class="rf__table-cell rf__table-cell--value-label">{{ 'label_value'|translate }}</div>
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_add_value'|translate }}"
+                      matTooltipPosition="left"
+                      [disabled]="isLoading === true"
+                      (click)="onClickFormArrayAdd('values')"
+                    >
+                      <mat-icon>add</mat-icon>
+                    </button>
+
+                  </div>
+                </div>
+
+                <div
+                  *ngFor="let i of getFormArray('values').indexes;"
+                  class="rf__table-row"
+                  [class.rf__table-row--removed]="model.values[i].isRemoved === true"
+                  [formGroup]="getFormArray('values').control.controls[i]"
+                >
+
+                  <div class="rf__table-cell rf__table-cell--value-label">
+
+                    <mat-form-field floatLabel="never">
+                      <input
+                        matInput
+                        autocomplete="off"
+                        placeholder="{{ 'label_label'|translate }}"
+                        formControlName="label"
+                      />
+                      <mat-error>{{ getFormArrayError('values', i, 'label')|translate }}</mat-error>
+                    </mat-form-field>
+
+                  </div>
+
+                  <div class="rf__table-cell rf__table-cell--actions">
+
+                    <button
+                      *ngIf="!!model.values[i].isRemoved === false"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_remove_custom_attribute'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle('values', i, true)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button
+                      *ngIf="!!model.values[i].isRemoved == true"
+                      mat-icon-button
+                      matTooltip="{{ 'tooltip_undo'|translate }}"
+                      matTooltipPosition="left"
+                      (click)="onClickFormArrayToggle('values', i, false)"
+                    >
+                      <mat-icon>undo</mat-icon>
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <mat-error
+                *ngIf="error.values && error.values !== 'form_error_is_invalid'"
+                class="rf__table-information rf__table-information--error"
+              >{{ error.values|translate }}</mat-error>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

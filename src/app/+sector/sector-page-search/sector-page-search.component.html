@@ -1,0 +1,25 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__page-body">
+
+  <div class="rf__panel">
+
+    <div class="rf__panel-header">
+      <span>{{ 'search_panel_title_sector'|translate }}</span>
+    </div>
+    <div class="rf__panel-body">
+
+      <app-sector-form-search
+        [model]="form$|async"
+        [options]="formOptions$|async"
+        [isLoading]="isLoading$|async"
+      ></app-sector-form-search>
+
+    </div>
+  </div>
+
+</div>

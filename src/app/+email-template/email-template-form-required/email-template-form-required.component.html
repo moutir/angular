@@ -1,0 +1,44 @@
+<form [formGroup]="formGroup">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__panel-header"
+      [class.rf__panel-header--has-error]="error.isShared"
+    >
+      <span>{{ 'label_template'|translate }}</span>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <div class="rf__panel-subheader">{{ 'label_sharing'|translate }}</div>
+
+      <div class="rf__panel-section">
+
+        <div class="rf__keyvalue-row">
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--key">
+            <span>{{ 'label_share_template'|translate }}</span>
+            <mat-icon
+              class="rf__keyvalue-icon"
+              matTooltip="{{ 'label_email_template_shared'|translate }}"
+              matTooltipPosition="above"
+            >info</mat-icon>
+          </div>
+
+          <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+            <mat-radio-group formControlName="isShared">
+              <mat-radio-button [value]="true">{{ 'label_yes'|translate }}</mat-radio-button>
+              <mat-radio-button [value]="false">{{ 'label_no'|translate }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

@@ -1,0 +1,87 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-body">
+
+  <div class="rf__panel">
+
+    <div
+      class="rf__searchlist-form"
+      [class.rf__searchlist-form--simple]="(isFormAdvanced$|async) === false"
+      [class.rf__searchlist-form--advanced]="(isFormAdvanced$|async) === true"
+    >
+
+      <div class="rf__searchlist-form-body">
+        <app-website-form-search
+          [model]="form$|async"
+          [options]="formOptions$|async"
+          [isLoading]="isLoading$|async"
+          (changeForm)="onChangeForm($event)"
+        ></app-website-form-search>
+      </div>
+
+      <div class="rf__searchlist-form-footer">
+
+        <div class="rf__searchlist-form-keywords">
+          <app-shared-keywords
+            [keywords]="keywords$|async"
+            (removeKeyword)="onRemoveKeyword($event)"
+          ></app-shared-keywords>
+        </div>
+
+        <span
+          class="rf__searchlist-form-save"
+          matTooltip="{{ 'tooltip_list_save_default_params'|translate }}"
+          matTooltipPosition="left"
+          (click)="onClickSaveParams()"
+        >
+          {{ 'label_save'|translate }}
+        </span>
+
+        <span
+          class="rf__searchlist-form-reset"
+          (click)="onClickReset()"
+        >
+          {{ 'label_reset_filter'|translate }}
+        </span>
+
+        <button
+          class="rf__button rf__button--with-icon rf__button--with-icon-left rf__searchlist-form-button"
+          mat-raised-button
+          color="primary"
+          [disabled]="(isLoading$|async) === true"
+          (click)="onClickSearch()"
+        >
+          <mat-icon>search</mat-icon> {{ 'label_search_for'|translate }}
+        </button>
+
+        <span
+          class="rf__searchlist-form-toggle"
+          (click)="onClickFormToggle()"
+        >
+          <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--more">
+            <mat-icon class="rf__info-icon">add</mat-icon>
+            <span class="rf__icon-label">{{ 'label_more_options'|translate }}</span>
+          </span>
+          <span class="rf__info rf__searchlist-form-text rf__searchlist-form-text--less">
+            <mat-icon class="rf__info-icon">remove</mat-icon>
+            <span class="rf__icon-label">{{ 'label_less_options'|translate }}</span>
+          </span>
+        </span>
+
+      </div>
+    </div>
+
+    <div class="rf__panel-body">
+
+      <app-website-searchlist
+        [uid]="uid"
+      ></app-website-searchlist>
+
+    </div>
+
+  </div>
+
+</div>

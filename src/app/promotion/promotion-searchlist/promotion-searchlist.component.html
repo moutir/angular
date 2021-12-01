@@ -1,0 +1,75 @@
+<div class="rf__searchlist rf__searchlist--promotion">
+
+  <app-shared-selection-bar
+    *ngIf="isUsingActions === true"
+    entity="promotion"
+    [selection]="selection$|async"
+    [models]="modelsSelectable$|async"
+    [total]="total$|async"
+    [isLoading]="(models$|async) === null"
+    (clickSelectAction)="onClickSelectAction($event)"
+    (clickSelectAll)="onClickSelectAll()"
+    (clickSelectNone)="onClickSelectNone()"
+  ></app-shared-selection-bar>
+
+  <app-promotion-table
+    [isUsingActions]="isUsingActions"
+    [loadingModelIds]="operationIds$|async"
+    [isSelectedHeader]="isSelectedPage$|async"
+    [sort]="sort$|async"
+    [selection]="selection$|async"
+    [models]="models$|async"
+    [modelsSelectable]="modelsSelectable$|async"
+    [modelsSelected]="modelsSelected$|async"
+    [feature]="runtimeFeature$|async"
+    [permissions]="runtimePermissions$|async"
+    (changeSort)="onChangeSort($event)"
+    (changeSelectionHeader)="onChangeSelectionHeader($event)"
+    (changeSelectionModel)="onChangeSelectionModel($event)"
+    (contextModel)="onContextModel($event)"
+    (clickModel)="onClickModel($event)"
+  ></app-promotion-table>
+
+  <div
+    *ngIf="(models$|async) !== null && (models$|async).length === 0"
+    class="rf__table-noresults"
+  >{{ 'label_no_results_found'|translate }}</div>
+
+  <mat-paginator
+    [pageIndex]="(pagination$|async).page - 1"
+    [length]="total$|async"
+    [pageSize]="(pagination$|async).perPage"
+    [pageSizeOptions]="(runtimeSettings$|async).perPage"
+    showFirstLastButtons="true"
+    (page)="onChangePagination($event)"
+  ></mat-paginator>
+
+</div>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === uidContextualMenuOperation"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="menuOperation$|async"
+  (clickMenuItem)="onClickMenuItemOperation($event)"
+></app-shared-menu>
+
+<app-shared-menu
+  *ngIf="(runtimeContextual$|async).uid === 'promotion-brochure-menu'"
+  [appContextual]="runtimeContextual$|async"
+  [menu]="brochureMenuItems$|async"
+  (clickMenuItem)="onClickMenuItemBrochure($event)"
+></app-shared-menu>
+
+<app-promotion-modal-remove-mls
+  [isVisible]="(operation$|async) === operationNameRemoveMls"
+  [promotions]="modelsSelected$|async"
+  (submitModal)="onSubmitModalOperationRemoveMls($event)"
+></app-promotion-modal-remove-mls>
+
+<app-history-modal
+  [isVisible]="(promotionHistory$|async).entity !== null"
+  [history]="promotionHistory$|async"
+  [histories]="historyModels$|async"
+  labelTitle="title_promotion_history"
+  (submitModal)="onSubmitModalHistory($event)"
+></app-history-modal>

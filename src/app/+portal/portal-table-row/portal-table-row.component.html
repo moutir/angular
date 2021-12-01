@@ -1,0 +1,105 @@
+<div class="rf__table-cell rf__portal-cell-header">
+  <div class="rf__portal-cell-header--column rf__portal-cell-header--column-language">
+      <span class="rf__table-txt">
+        <app-shared-svg-icon class="icon" icon="{{ 'flag-' + portal.languageCode }}"></app-shared-svg-icon>
+      </span>
+  </div>
+
+  <div class="rf__portal-cell-header--column rf__portal-cell-header--column-portal">
+        <span class="rf__table-txt rf__portal-cell-header--column-portal-title">
+          <span class="rf__info-label">{{ portal.name }}</span>
+        </span>
+    <span
+      *ngIf="portal.name !== portal.label"
+      class="rf__table-txt rf__portal-cell-header--column-portal-subtitle"
+    >
+          {{ portal.label }}
+        </span>
+  </div>
+  <div class="rf__portal-cell-header--column rf__portal-cell-header--column-status">
+      <span
+        [ngClass]="portal.isActivePortal ? 'portal-status-active' : 'portal-status-inactive'"
+        class="rf__table-txt"
+      >
+        <div class="rf__info">
+          <div *ngIf="isPlaceholder === false" class="rf__info-label">
+              {{ (portal.isActivePortal ? 'label_active' : 'label_inactive')|translate }}
+          </div>
+        </div>
+      </span>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__portal-cell--language">
+  <span class="rf__table-txt text-center">
+      <app-shared-svg-icon class="icon" icon="{{'flag-' + portal.languageCode }}"></app-shared-svg-icon>
+  </span>
+</div>
+
+<div class="rf__table-cell rf__portal-cell--gateway">
+  <span class="rf__table-txt accent">
+      <span class="rf__info-label">{{ portal.name }}</span>
+  </span>
+  <span class="rf__table-txt">{{ portal.label }}</span>
+</div>
+
+<div class="rf__table-cell rf__portal-cell--status">
+    <span
+      [ngClass]="portal.isActivePortal ? 'portal-status-active' : 'portal-status-inactive'"
+      class="rf__table-txt text-center"
+    >{{ (portal.isActivePortal ? 'label_active' : 'label_inactive')|translate }}</span>
+</div>
+
+<div class="rf__table-cell rf__portal-cell--last-status">
+  <div class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__portal-last-status rf__info"
+      [ngClass]="portal.lastStatus === 1 ? 'rf__portal-last-status--on' : 'rf__portal-last-status--off'"
+    >
+      <span
+        matTooltip="{{ (portal.lastStatus === 1 ? 'label_portal_last_status_green' : 'label_portal_last_status_red') | translate }}"
+        class="rf__info-icon"
+      ></span>
+      <span
+        class="rf__info-label"
+      >{{ (portal.lastStatus === 1 ? 'label_portal_last_status_green' : 'label_portal_last_status_red') | translate }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="rf__table-cell rf__portal-cell--execution-date">
+  <span class="rf__table-txt">
+      <div
+        *ngIf="isPlaceholder === false && portal.lastExecutionStartDate !== null"
+        class="rf__info"
+      >
+      <mat-icon
+        class="rf__info-icon"
+        matTooltip="{{ portal.lastExecutionStartDate|datetime }}"
+        matTooltipPosition="left"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ portal.lastExecutionStartDate|smartDate }}</span>
+    </div>
+  </span>
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false && portal.lastExecutionStartDate !== null"
+      class="rf__info"
+    >
+    <mat-icon
+      class="rf__info-icon"
+      matTooltip="{{ portal.lastExecutionEndDate|datetime }}"
+      matTooltipPosition="left"
+    >access_time</mat-icon>
+    <span class="rf__info-label">{{ portal.lastExecutionEndDate|smartDate }}</span>
+  </div>
+  </span>
+
+</div>
+
+<div class="rf__table-cell rf__portal-cell--message">
+    <span class="rf__table-txt">
+       {{ portal.lastMessage }}
+    </span>
+</div>

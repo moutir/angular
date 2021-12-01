@@ -1,0 +1,36 @@
+<div class="user-switch" *ngIf="user" (click)="onClickMenu()" [class.active]="isMenuActive">
+  <div class="user-switch__element user-switch__element--active">
+    <div class="user-switch__user">
+      <div
+        *ngIf="user.account.contact.photoURL"
+        class="user-switch__avatar"
+        [style.background-image]="'url(' + user.account.contact.photoURL + ')'"
+      ></div>
+      <div *ngIf="!user.account.contact.photoURL" class="user-switch__avatar">{{ user.account.contact.getFullName()|initials }}</div>
+    </div>
+    <div class="user-switch__profile">
+      <span class="user-switch__header">{{ user.account.contact.getFullName() }}
+        <span class="user-switch__header" *ngIf="user.account.contact.fullName">&nbsp;({{ user.account.contact.fullName }})</span>
+      </span>
+      <span>{{ user.account.contact.agency.name }}</span>
+    </div>
+  </div>
+  <div *ngIf="accounts.length > 0" class="user-switch__list">
+    <ng-container *ngFor="let account of accounts">
+      <div class="user-switch__element" (click)="onClickAccount(account)">
+        <div class="user-switch__user">
+          <div
+            *ngIf="account.contact.photoURL"
+            class="user-switch__avatar"
+            [style.background-image]="'url(' + account.contact.photoURL + ')'"
+          ></div>
+          <div *ngIf="!account.contact.photoURL" class="user-switch__avatar">{{ account.contact.getFullName()|initials }}</div>
+        </div>
+        <div class="user-switch__profile">
+          <span class="user-switch__header">{{ account.contact.getFullName() }}</span>
+          <span>{{ account.contact.agency.name }} <span *ngIf="account.contact.agency.city">({{ account.contact.agency.city }})</span></span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

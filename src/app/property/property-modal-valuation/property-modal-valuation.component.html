@@ -1,0 +1,55 @@
+<div
+  class="rf__modal rf__modal--property-valuation"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+    <app-shared-modal-header
+      labelTitle="label_valuation_modal_title"
+    ></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <div class="container-description">
+        <div
+          *ngIf="valuation.step === 1"
+          class="rf__spinner"
+        >
+          <mat-spinner
+            color="accent"
+            diameter="35"
+          ></mat-spinner>
+        </div>
+        <mat-icon
+          *ngIf="valuation.step === 2"
+          class="icon-done"
+        >check_circle</mat-icon>
+        <div
+          *ngIf="valuation.step === 1"
+          class="description"
+        >{{'label_property_valuation_description_wait'|translate }}</div>
+        <div
+          *ngIf="valuation.step === 2"
+          class="description"
+        >{{'label_property_valuation_description_success'|translate }}</div>
+      </div>
+
+      <div class="footer">
+        <button
+          *ngIf="valuation.step === 2"
+          mat-raised-button
+          color="primary"
+          class="rf__button rf__button--with-icon rf__button--with-icon-left"
+          [disabled]="valuation.step === 1"
+          (click)="onClickButton(true)"
+        >
+          <mat-icon>get_app</mat-icon>
+          {{ 'label_download'|translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

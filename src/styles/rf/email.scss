@@ -1,0 +1,183 @@
+@import "../variables";
+
+.email-status--delivered {
+  color: $color-24;
+}
+
+.email-status--opened {
+  color: $color-11;
+}
+
+.email-status--bounced {
+  color: $color-17;
+}
+
+.rf__modal--email-summary .rf__card--property,
+.rf__modal--email-summary .rf__card--promotion {
+  box-shadow: 0 1px 3px $color-13;
+  margin-bottom: 10px;
+}
+
+.rf__searchlist--email .rf__table-row {
+  padding-top: 10px;
+  height: 175px;
+}
+
+.rf__searchlist--email .rf__email-cell--property,
+.rf__searchlist--email .rf__email-cell--promotion,
+.rf__searchlist--email .rf__email-cell--attachment,
+.rf__searchlist--email .rf__email-cell--delivered,
+.rf__searchlist--email .rf__email-cell--bounced,
+.rf__searchlist--email .rf__email-cell--opened,
+.rf__searchlist--email .rf__email-cell--downloaded {
+  display: inline-block;
+  margin-right: -10px;
+}
+
+.rf__searchlist--email .rf__table-row--placeholder .rf__email-cell--recipient .rf__table-txt {
+  width: 210px;
+}
+
+.rf__searchlist--email .rf__table-row--placeholder .rf__table-cell--center .rf__table-txt {
+  min-width: 20px;
+  width: 30px;
+}
+
+.rf__searchlist--email .rf__table-cell--center .rf__info {
+  justify-content: center;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--email .rf__table-cell--actions {
+    display: none;
+  }
+
+  .rf__searchlist--email .rf__email-cell--property,
+  .rf__searchlist--email .rf__email-cell--promotion,
+  .rf__searchlist--email .rf__email-cell--attachment,
+  .rf__searchlist--email .rf__email-cell--delivered,
+  .rf__searchlist--email .rf__email-cell--bounced,
+  .rf__searchlist--email .rf__email-cell--opened,
+  .rf__searchlist--email .rf__email-cell--downloaded {
+    display: none;
+    margin-right: auto;
+  }
+
+  .rf__searchlist--email .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist--email .rf__table-cell:not(.rf__email-cell--date) .rf__info-icon {
+    display: none;
+  }
+
+  .rf__searchlist--email .rf__table-cell.rf__email-cell--sender {
+    position: static;
+  }
+
+  .rf__email-cell--subject {
+    min-width: 210px;
+    max-width: 210px;
+    width: 210px;
+  }
+
+  .rf__email-cell--date {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+
+  .rf__email-cell--sender {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+
+  .rf__email-cell--recipient {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+
+  .rf__email-cell--property,
+  .rf__email-cell--delivered,
+  .rf__email-cell--bounced,
+  .rf__email-cell--opened {
+    min-width: 100px;
+    max-width: 100px;
+    width: 100px;
+  }
+
+  .rf__email-cell--promotion,
+  .rf__email-cell--attachment,
+  .rf__email-cell--downloaded {
+    min-width: 110px;
+    max-width: 110px;
+    width: 110px;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__searchlist--email .rf__email-cell--delivered {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__searchlist--email .rf__email-cell--bounced {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1290px) {
+
+  .rf__searchlist--email .rf__email-cell--opened {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1390px) {
+
+  .rf__searchlist--email .rf__email-cell--property {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1450px) {
+
+  .rf__searchlist--email .rf__email-cell--promotion {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1560px) {
+
+  .rf__searchlist--email .rf__email-cell--attachment {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1670px) {
+
+  .rf__searchlist--email .rf__email-cell--downloaded {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1770px) {
+
+  .rf__email-cell--subject {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+  }
+
+  .rf__email-cell--recipient {
+    min-width: 230px;
+    max-width: 230px;
+    width: 230px;
+  }
+}

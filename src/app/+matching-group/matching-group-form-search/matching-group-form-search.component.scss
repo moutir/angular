@@ -1,0 +1,43 @@
+@import "../../../styles/variables";
+
+form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.mat-form-field {
+  display: block;
+  width: 48.5%;
+  height: 53px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 700px) {
+
+  .mat-form-field {
+    width: 23%;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .mat-form-field {
+    width: 32%;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .mat-form-field {
+    width: 23%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .mat-form-field {
+    width: 18%;
+  }
+}

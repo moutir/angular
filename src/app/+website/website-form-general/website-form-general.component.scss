@@ -1,0 +1,16 @@
+@import "../../../styles/variables";
+
+.radio-container {
+  position: relative;
+  width: 100%;
+}
+
+.radio-container .rf__form-error {
+  top: 15px;
+}
+
+.fisher-notice {
+  padding: 10px 0;
+  color: $color-27;
+  font-weight: bold;
+}

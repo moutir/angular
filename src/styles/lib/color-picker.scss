@@ -1,0 +1,18 @@
+@import "../variables";
+
+color-picker .color-picker {
+  border: none;
+  box-shadow: rgba(0,0,0,.25) 0 0 10px;
+}
+
+color-picker .color-picker .box {
+  height: auto;
+  padding: 0;
+  overflow: auto;
+  border: none;
+  background-color: $color-01;
+}
+
+color-picker .color-picker .button-area {
+  text-align: center;
+}

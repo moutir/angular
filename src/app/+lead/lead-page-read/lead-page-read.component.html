@@ -1,0 +1,309 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_GENERAL) > -1"
+      label="{{ 'label_general'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_lead'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="rf__panel-subheader">{{ 'entity_contact_plural'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">
+                  <span>{{ 'label_requester'|translate }}</span>
+                  <mat-icon
+                    *ngIf="autoAssignExplanations"
+                    class="rf__keyvalue-icon"
+                    [matTooltip]="autoAssignExplanations"
+                    matTooltipPosition="above"
+                  >info</mat-icon>
+                </div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value rf__keyvalue-cell--multiline">
+
+                  <span *ngIf="(isLoading$|async) === true || !model.contact.fullName">-</span>
+
+                  <app-shared-contact-link
+                    *ngIf="(isLoading$|async) === false && model.contact.fullName"
+                    tooltipPosition="above"
+                    [isPlaceholder]="(isLoading$|async) === true"
+                    [contact]="model.contact"
+                    [hasWarning]="model.isNeedValidation === true"
+                    warningLabel="label_required_contact_validation"
+                    (click)="onClickRequesterContact()"
+                  ></app-shared-contact-link>
+
+                  <button
+                    *ngIf="model.isNeedValidation === true"
+                    class="rf__button rf__button--with-icon rf__button--with-icon-right validate-button"
+                    mat-button
+                    (click)="onClickValidate()"
+                  >
+                    {{ 'label_contact_validate'|translate }} <mat-icon>arrow_forward_ios</mat-icon>
+                  </button>
+
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_lead_broker'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+
+                  <span *ngIf="(isLoading$|async) === true || !model.broker.fullName">-</span>
+
+                  <app-shared-contact-link
+                    *ngIf="(isLoading$|async) === false && model.broker.id"
+                    [isPlaceholder]="(isLoading$|async) === true"
+                    [contact]="model.broker"
+                  ></app-shared-contact-link>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_informations'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_status'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">
+                  <span *ngIf="model.statusLabel" class="rf__lead-status--{{ model.statusId }}">{{ model.statusLabel }}</span>
+                  <span *ngIf="!model.statusLabel">{{ '-' }}</span>
+                </div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_date'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.contactDate|datetime) || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_single_type'|translate }}</div>
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.typeLabel || '-' }}</div>
+
+              </div>
+
+            </div>
+
+            <div class="rf__panel-subheader">{{ 'label_communication'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_source'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.sourceLabel || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_sub_source'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ subSourceLabel || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_mean_of_communication'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.mediaLabel || '-' }}</div>
+
+              </div>
+
+              <div
+                *ngIf="model.contactMessage"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_message'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.contactMessage }}</div>
+
+              </div>
+
+            </div>
+
+            <ng-container *ngIf="model.properties.length > 0 || model.promotions.length > 0">
+
+              <div class="rf__panel-subheader">{{ 'label_objects'|translate }}</div>
+
+              <div class="rf__panel-section">
+
+                <div
+                  *ngIf="model.properties.length > 0"
+                  class="rf__keyvalue-row"
+                >
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'entity_property_singular'|translate }}</div>
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                    <div class="rf__card-list">
+                      <app-shared-card-property
+                        [property]="model.getProperty()"
+                        [isPlaceholder]="model.getProperty().isLoading === true || !model.getProperty().id"
+                      ></app-shared-card-property>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div
+                  *ngIf="model.promotions.length > 0"
+                  class="rf__keyvalue-row"
+                >
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'entity_promotion_singular'|translate }}</div>
+
+                  <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill">
+
+                    <div class="rf__card-list">
+                      <app-shared-card-promotion
+                        [promotion]="model.getPromotion()"
+                        [isPlaceholder]="model.getPromotion().isLoading === true || !model.getPromotion().id"
+                      ></app-shared-card-promotion>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </ng-container>
+
+            <div class="rf__panel-subheader">{{ 'label_title_lead_treatment'|translate }}</div>
+
+            <div class="rf__panel-section">
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_lead_management_date'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ (model.manageDate|datetime) || '-' }}</div>
+
+              </div>
+
+              <div class="rf__keyvalue-row">
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key">{{ 'label_management_mean_of_communication'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value">{{ model.managementMediaLabel || '-' }}</div>
+
+              </div>
+
+              <div
+                *ngIf="model.brokerNotes"
+                class="rf__keyvalue-row"
+              >
+
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--key-fill">{{ 'label_personal_notes'|translate }}</div>
+                <div class="rf__keyvalue-cell rf__keyvalue-cell--value-fill rf__keyvalue-cell--nl2br">{{ model.brokerNotes }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_EMAIL) > -1"
+      label="{{ 'label_original_email'|translate }}"
+    >
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="model.leadParserErrorCode"
+        >
+          <span>{{ 'label_original_email'|translate }}</span>
+          <span *ngIf="model.leadParserErrorCode" class="rf__badge rf__badge--error">1</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <div
+          *ngIf="model.leadParserErrorCode"
+          class="rf__panel"
+        >
+
+          <div class="rf__panel-header rf__panel-header--has-error">
+            <span>{{ 'label_lead_parser_error_title'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+            <ul class="rf__list">
+              <li class="rf__list-line">{{ ('label_lead_parser_error_code_' + model.leadParserErrorCode)|translate:{ data: model.leadParserErrorData } }}</li>
+            </ul>
+            <div class="lead-parser-intro">{{ 'label_lead_parser_error_intro'|translate }}</div>
+          </div>
+
+        </div>
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_portal_email_received'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <iframe
+              *ngIf="iframeUrl"
+              [src]="iframeUrl"
+            ></iframe>
+
+            <div *ngIf="!iframeUrl">{{ 'label_lead_parser_error_empty_original_message'|translate }}</div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

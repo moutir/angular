@@ -1,0 +1,136 @@
+<div class="rf__matching-group-table-row">
+
+  <div class="rf__matching-group-group">
+
+    <div class="rf__matching-group-entity">
+
+      <app-shared-card-contact
+        *ngIf="matchingGroup.contact !== null"
+        [contact]="matchingGroup.contact"
+        [personInCharge]="matchingGroup.contact.mainContact"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-card-contact>
+
+      <app-shared-card-property
+        *ngIf="matchingGroup.property !== null"
+        [property]="matchingGroup.property"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-card-property>
+
+      <app-shared-card-promotion
+        *ngIf="matchingGroup.promotion !== null"
+        [promotion]="matchingGroup.promotion"
+        [isPlaceholder]="isPlaceholder"
+      ></app-shared-card-promotion>
+
+    </div>
+
+    <div class="rf__matching-group-action">
+      <button
+        class="rf__button rf__button--with-icon-right rf__button--secondary"
+        mat-button
+        [disabled]="isPlaceholder === true"
+        (click)="onClickButtonAction($event, matchingGroup, null)"
+      >
+        <span class="rf__matching-label--main">
+          {{ (actionLabel[matchingGroup.id] ? actionLabel[matchingGroup.id].main : 'label_waiting')|translate }}
+        </span>
+        <span
+          *ngIf="actionLabel[matchingGroup.id] && actionLabel[matchingGroup.id].secondary"
+          class="rf__matching-label--secondary"
+        >{{ actionLabel[matchingGroup.id].secondary|translate }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+  <div
+    class="rf__matching-group-matchings"
+    [ngStyle]="{
+      height: matchingListHeight + 'px',
+      transition: 'height ' + (50 * matchingGroup.matchings.length) + 'ms ease-out'
+    }"
+  >
+    <div
+      *ngFor="let matching of matchingGroup.matchings; let i = index; trackBy: trackById;"
+      class="rf__matching-group-matching"
+    >
+
+      <ng-container *ngIf="isUnfoldOnce === true || i < matchingCountMin">
+
+        <div class="rf__matching-group-entity">
+
+          <app-shared-card-contact
+            *ngIf="matchingGroup.property !== null || matchingGroup.promotion !== null"
+            [contact]="matching.contact"
+            [personInCharge]="matching.contact && matching.contact.mainContact"
+            [isPlaceholder]="isPlaceholder"
+          ></app-shared-card-contact>
+
+          <app-shared-card-property
+            *ngIf="matchingGroup.contact !== null"
+            [property]="matching.property"
+            [isPlaceholder]="isPlaceholder"
+          ></app-shared-card-property>
+
+        </div>
+
+        <div
+          *ngIf="feature.matchingMargin === true && isPlaceholder === true"
+          class="matching-score-status"
+        >0%</div>
+
+        <ng-container
+          *ngIf="feature.matchingMargin === true && (isPlaceholder === false && matching.score)"
+        >
+          <div
+            class="matching-score-status matching-score-status--{{ getMatchingScoreStatus(matching.score.total) }}"
+          >{{ matching.score.total || 0 }}%</div>
+        </ng-container>
+
+        <div class="rf__matching-group-action">
+
+          <button
+            class="rf__button rf__button--with-icon-right rf__button--secondary"
+            mat-button
+            [disabled]="isPlaceholder === true"
+            (click)="onClickButtonAction($event, matchingGroup, matching)"
+            [matTooltip]="(matching.duplicateMatchingIds.length === 1 ? 'label_global_matching_multi_match_singular' : 'label_global_matching_multi_match_plural')|translate:{ count: matching.duplicateMatchingIds.length}"
+            matTooltipPosition="left"
+            [matTooltipDisabled]="matching.duplicateMatchingIds.length === 0"
+          >
+          <span class="rf__matching-label--main">
+            {{ (actionLabel[matching.id] ? actionLabel[matching.id].main : 'label_waiting')|translate }}
+          </span>
+            <span
+              *ngIf="actionLabel[matching.id] && actionLabel[matching.id].secondary"
+              class="rf__matching-label--secondary"
+            >{{ actionLabel[matching.id].secondary|translate }}</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+
+        </div>
+
+      </ng-container>
+
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="matchingGroup.matchings.length > matchingCountMin"
+  class="rf__table-row-toggle"
+  [class.rf__table-row-toggle--unfold]="isUnfold === true"
+>
+  <button
+    class="rf__button--secondary rf__button--toggle"
+    mat-raised-button
+    [disabled]="isPlaceholder === true"
+    (click)="onClickToggle($event)"
+  >
+    <mat-icon class="rf__icon--more">expand_more</mat-icon>
+    <mat-icon class="rf__icon--less">expand_less</mat-icon>
+    <span class="text-more">{{ 'label_count_more'|translate:{ count: matchingGroup.matchings.length - matchingCountMin } }}</span>
+    <span class="text-less">{{ 'label_count_less'|translate:{ count: matchingGroup.matchings.length - matchingCountMin } }}</span>
+  </button>
+</div>

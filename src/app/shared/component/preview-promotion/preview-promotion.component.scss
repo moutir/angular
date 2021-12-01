@@ -1,0 +1,56 @@
+@import "../../../../styles/variables";
+
+.rf__spinner {
+  width: 200px;
+  height: 200px;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  padding-bottom: 3px;
+}
+
+.list-row .mat-icon {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+}
+
+.mat-divider {
+  margin: 15px 0;
+}
+
+.mat-icon {
+  color: $color-27;
+}
+
+.preview-promotion {
+  padding: 15px;
+  min-width: 250px;
+  max-width: 330px;
+}
+
+.preview-header {
+  font-size: 15px;
+  color: $color-19;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.subheader {
+  color: $color-19;
+  font-size: 14px;
+  padding: 8px 0 5px;
+}
+
+.sub-section {
+  padding-left: 6px;
+}
+
+.label-key {
+  font-weight: 700;
+  margin-right: 10px;
+}

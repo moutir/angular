@@ -1,0 +1,23 @@
+@import "../variables";
+
+@media (min-width: 500px) {
+
+  .rf__document-list--user .rf__document-manager-document .rf__document-input {
+    width: 100%;
+  }
+}
+
+@media (min-width: 650px) {
+
+  .rf__document-list--user .rf__document-manager-document .rf__document-input {
+    width: 50%;
+    max-width: 320px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__document-list--user .rf__document-manager-document .rf__upload--document {
+    height: 350px;
+  }
+}

@@ -1,0 +1,105 @@
+<div (scroll)="checkScroll($event)" class="fade fade--delay">
+  <div class="container">
+    <div class="transactions-summary-row">
+      <div class="transactions-summary" *ngFor="let column of rowsTotal">
+        <span>CHF {{column.value}}</span>
+        <div>{{column.name.toUpperCase()}}</div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table dataTable expanding-table" ngClass="{{config.className || ''}}"
+         role="grid">
+    <thead>
+    <tr role="row">
+      <th *ngIf="expandable"></th>
+      <th *ngFor="let column of columns"
+          (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}" [innerHtml]="column.title">
+        <i *ngIf="config && column.sort" class="pull-right fa"
+           [ngClass]="{'fa-caret-down': column.sort === 'desc', 'fa-caret-up': column.sort === 'asc'}"></i>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let row of rows; let i=index;">
+      <tr (click)="toggleRowExpansion(row, i)" *ngIf="expandable" (click)="cellClick(row, 'expand', i)">
+        <td style="text-align:center"><a style="width:100%; text-align:center;padding: 2px;">
+          <i [ngClass]="{'fa': true, 'fa-plus-circle': i !== expandedRowIndex, 'fa-minus-circle' : i === expandedRowIndex}"
+             style="font-size:1.5em; cursor:pointer"></i></a>
+        </td>
+        <td (click)="cellClick(row, column.name, i)" *ngFor="let column of columns"
+            [innerHtml]="sanitize(getData(row, column.name))"></td>
+        <td><a href="/property/index/{{row.property_archive}}/{{transactionType}}?property_id={{row.property_id}}&from_transaction=true"
+               target="_blank"><i class="fa fa-share-square-o"></i></a></td>
+      </tr>
+      <tr *ngIf="showExpandedRow && (i === expandedRowIndex) && expandable" class="table-info expanded-content">
+        <td [attr.colspan]="columns.length + 2">
+          <div>
+            <div class="transactions-expand row">
+              <div class="col col-16">
+                <img src="{{row.photo}}" class="thumbnail" height="69" width="107">
+              </div>
+              <div class="col col-25">
+                <div class="item">
+                  <div class="ref-name">{{'label_reference'|translate}}</div>
+                  <div class="value property-details">
+                    {{row.reference}}
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="ref-name">{{'label_sell_date'|translate}}</div>
+                  <div class="value">{{row.sale_date}}</div>
+                </div>
+                <div class="item">
+                  <div class="ref-name">{{'label_signature_date'|translate}}</div>
+                  <div class="value">{{row.signature_date}}</div>
+                </div>
+              </div>
+              <div *ngIf="row.intermediatesArray.length > 1" class="col col-20">
+                <div class="item">
+                  <div class="name">{{'property_sale_intermediaries'|translate}}</div>
+                  <div class="name interm-price">{{'label_comm'|translate}}</div>
+                </div>
+                <div class="item" *ngFor="let intermediate of row.intermediatesArray">
+                  <div class="name interm-price contact-details">{{intermediate.name}}</div>
+                  <div class="value interm-price-value">{{intermediate.commission | formatNumber}}</div>
+                </div>
+              </div>
+
+              <div class="col col-36" *ngIf="row.brokersArray.length > 1">
+                <div class="item">
+                  <div class="name price">{{'label_brokers'|translate}}</div>
+                  <div class="price-val-1">{{'label_production'|translate}}</div>
+                  <div class="price-val-2">{{'label_comm'|translate}}</div>
+                </div>
+                <div class="item" *ngFor="let broker of row.brokersArray">
+                  <div class="name price contact-details">{{broker.name}}</div>
+                  <div class="value price-val-1">{{broker.production | formatNumber}}</div>
+                  <div class="value price-val-2">{{broker.commission | formatNumber}}</div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+    <tr class="no_data" *ngIf="rows.length ==0">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{"label_no_data" | translate}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <mat-paginator
+    [pageIndex]="(page - 1)"
+    [length]="totalsRecords"
+    [pageSize]="20"
+    (page)="onChangePage($event)"
+  ></mat-paginator>
+</div>

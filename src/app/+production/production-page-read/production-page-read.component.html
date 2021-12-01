@@ -1,0 +1,649 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_SALE_YEARLY) > -1"
+      label="{{ 'label_sale_yearly'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_sale_year_broker'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="production-container">
+
+              <div class="stepper-container">
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === true || options.saleYearly.length === 0"
+                  class="mat-stepper--no-step-icon mat-stepper--placeholder"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let i of 3|forLoop">
+                    <ng-template matStepLabel></ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === false"
+                  class="mat-stepper--no-step-icon"
+                  (selectionChange)="onSelectionChangeStep($event, 'saleYearly')"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let option of options.saleYearly">
+                    <ng-template matStepLabel>{{ option.text }}</ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+              </div>
+
+              <div class="table-container">
+
+                <div class="rf__table">
+
+                  <div class="rf__table-row rf__table-row--header">
+
+                    <div class="rf__table-cell"></div>
+                    <div class="rf__table-cell">{{ 'label_production_target'|translate }}</div>
+                    <div class="rf__table-cell rf__spacer"></div>
+
+                  </div>
+
+                  <ng-container *ngIf="(isLoading$|async) === true">
+
+                  <div
+                    *ngFor="let i of 10|forLoop"
+                    class="rf__table-row rf__table-row--placeholder"
+                  >
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt"></div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt"></div>
+                    </div>
+
+                    <div class="rf__table-cell rf__spacer"></div>
+
+                  </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="(isLoading$|async) === false && options.saleYearly.length > 0">
+
+                  <div
+                    *ngFor="let contact of model.contacts"
+                    class="rf__table-row"
+                  >
+
+                    <div class="rf__table-cell">
+                      <span class="rf__table-txt">
+                        <app-shared-contact-link [contact]="contact.contact"></app-shared-contact-link>
+                      </span>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleYearly[contact.id]?.targetSales"
+                        >
+                          <span>{{ values.saleYearly[contact.id]?.targetSales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleYearly[contact.id]?.targetSales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell rf__spacer"></div>
+
+                  </div>
+
+                  </ng-container>
+
+                </div>
+
+                <div
+                  *ngIf="(isLoading$|async) === false && options.saleYearly.length === 0"
+                  class="rf__table-noresults"
+                >{{ 'label_no_results_found'|translate }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_SALE_MONTHLY) > -1"
+      label="{{ 'label_sale_monthly'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_sale_month_broker'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="production-container">
+
+              <div class="stepper-container">
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === true || options.saleMonthly.length === 0"
+                  class="mat-stepper--no-step-icon mat-stepper--placeholder"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let i of 3|forLoop">
+                    <ng-template matStepLabel></ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === false"
+                  class="mat-stepper--no-step-icon"
+                  (selectionChange)="onSelectionChangeStep($event, 'saleMonthly')"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let option of options.saleMonthly">
+                    <ng-template matStepLabel>{{ option.text }}</ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+              </div>
+
+              <div class="table-container">
+
+                <div class="rf__table">
+
+                  <div class="rf__table-row rf__table-row--header">
+
+                    <div class="rf__table-cell"></div>
+                    <div class="rf__table-cell">{{ 'label_production'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_commissions'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_deals'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_production_salary'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_production_expenses'|translate }}</div>
+
+                  </div>
+
+                  <ng-container *ngIf="(isLoading$|async) === true">
+
+                    <div
+                      *ngFor="let i of 10|forLoop"
+                      class="rf__table-row rf__table-row--placeholder"
+                    >
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell rf__spacer"></div>
+
+                    </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="(isLoading$|async) === false && options.saleMonthly.length > 0">
+
+                  <div
+                    *ngFor="let contact of model.contacts"
+                    class="rf__table-row"
+                  >
+
+                    <div class="rf__table-cell">
+                      <span class="rf__table-txt">
+                        <app-shared-contact-link [contact]="contact.contact"></app-shared-contact-link>
+                      </span>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleMonthly[contact.id]?.productionSales"
+                        >
+                          <span>{{ values.saleMonthly[contact.id]?.productionSales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleMonthly[contact.id]?.productionSales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleMonthly[contact.id]?.commissionSales"
+                        >
+                          <span>{{ values.saleMonthly[contact.id]?.commissionSales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleMonthly[contact.id]?.commissionSales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleMonthly[contact.id]?.dealSales"
+                        >
+                          <span>{{ values.saleMonthly[contact.id]?.dealSales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleMonthly[contact.id]?.dealSales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleMonthly[contact.id]?.salarySales"
+                        >
+                          <span>{{ values.saleMonthly[contact.id]?.salarySales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleMonthly[contact.id]?.salarySales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.saleMonthly[contact.id]?.expenseSales"
+                        >
+                          <span>{{ values.saleMonthly[contact.id]?.expenseSales|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.saleMonthly[contact.id]?.expenseSales"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  </ng-container>
+
+                </div>
+
+                <div
+                  *ngIf="(isLoading$|async) === false && options.saleMonthly.length === 0"
+                  class="rf__table-noresults"
+                >{{ 'label_no_results_found'|translate }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_RENTAL_YEARLY) > -1"
+      label="{{ 'label_rental_yearly'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_rental_year_broker'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="production-container">
+
+              <div class="stepper-container">
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === true || options.rentalYearly.length === 0"
+                  class="mat-stepper--no-step-icon mat-stepper--placeholder"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let i of 3|forLoop">
+                    <ng-template matStepLabel></ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === false"
+                  class="mat-stepper--no-step-icon"
+                  (selectionChange)="onSelectionChangeStep($event, 'rentalYearly')"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let option of options.rentalYearly">
+                    <ng-template matStepLabel>{{ option.text }}</ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+              </div>
+
+              <div class="table-container">
+
+                <div class="rf__table">
+
+                  <div class="rf__table-row rf__table-row--header">
+
+                    <div class="rf__table-cell"></div>
+                    <div class="rf__table-cell">{{ 'label_production_target'|translate }}</div>
+                    <div class="rf__table-cell rf__spacer"></div>
+
+                  </div>
+
+                  <ng-container *ngIf="(isLoading$|async) === true">
+
+                    <div
+                      *ngFor="let i of 10|forLoop"
+                      class="rf__table-row rf__table-row--placeholder"
+                    >
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell rf__spacer"></div>
+
+                    </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="(isLoading$|async) === false && options.rentalYearly.length > 0">
+
+                  <div
+                    *ngFor="let contact of model.contacts"
+                    class="rf__table-row"
+                  >
+
+                    <div class="rf__table-cell">
+                      <span class="rf__table-txt">
+                        <app-shared-contact-link [contact]="contact.contact"></app-shared-contact-link>
+                      </span>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalYearly[contact.id]?.targetRental"
+                        >
+                          <span>{{ values.rentalYearly[contact.id]?.targetRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalYearly[contact.id]?.targetRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell rf__spacer"></div>
+
+                  </div>
+
+                  </ng-container>
+
+                </div>
+
+                <div
+                  *ngIf="(isLoading$|async) === false && options.rentalYearly.length === 0"
+                  class="rf__table-noresults"
+                >{{ 'label_no_results_found'|translate }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_RENTAL_MONTHLY) > -1"
+      label="{{ 'label_rental_monthly'|translate }}"
+    >
+
+      <div class="rf__tab-body">
+
+        <div class="rf__panel">
+
+          <div class="rf__panel-header">
+            <span>{{ 'label_rental_month_broker'|translate }}</span>
+          </div>
+
+          <div class="rf__panel-body">
+
+            <div class="production-container">
+
+              <div class="stepper-container">
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === true || options.rentalMonthly.length === 0"
+                  class="mat-stepper--no-step-icon mat-stepper--placeholder"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let i of 3|forLoop">
+                    <ng-template matStepLabel></ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+                <mat-vertical-stepper
+                  *ngIf="(isLoading$|async) === false"
+                  class="mat-stepper--no-step-icon"
+                  (selectionChange)="onSelectionChangeStep($event, 'rentalMonthly')"
+                >
+                  <ng-template matStepperIcon="number"></ng-template>
+                  <mat-step *ngFor="let option of options.rentalMonthly">
+                    <ng-template matStepLabel>{{ option.text }}</ng-template>
+                  </mat-step>
+                </mat-vertical-stepper>
+
+              </div>
+
+              <div class="table-container">
+
+                <div class="rf__table">
+
+                  <div class="rf__table-row rf__table-row--header">
+
+                    <div class="rf__table-cell"></div>
+                    <div class="rf__table-cell">{{ 'label_production'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_commissions'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_deals'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_production_salary'|translate }}</div>
+                    <div class="rf__table-cell">{{ 'label_production_expenses'|translate }}</div>
+
+                  </div>
+
+                  <ng-container *ngIf="(isLoading$|async) === true">
+
+                    <div
+                      *ngFor="let i of 10|forLoop"
+                      class="rf__table-row rf__table-row--placeholder"
+                    >
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell">
+                        <div class="rf__table-txt"></div>
+                      </div>
+
+                      <div class="rf__table-cell rf__spacer"></div>
+
+                    </div>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="(isLoading$|async) === false && options.rentalMonthly.length > 0">
+
+                  <div
+                    *ngFor="let contact of model.contacts"
+                    class="rf__table-row"
+                  >
+
+                    <div class="rf__table-cell">
+                      <span class="rf__table-txt">
+                        <app-shared-contact-link [contact]="contact.contact"></app-shared-contact-link>
+                      </span>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalMonthly[contact.id]?.productionRental"
+                        >
+                          <span>{{ values.rentalMonthly[contact.id]?.productionRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalMonthly[contact.id]?.productionRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalMonthly[contact.id]?.commissionRental"
+                        >
+                          <span>{{ values.rentalMonthly[contact.id]?.commissionRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalMonthly[contact.id]?.commissionRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalMonthly[contact.id]?.dealRental"
+                        >
+                          <span>{{ values.rentalMonthly[contact.id]?.dealRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalMonthly[contact.id]?.dealRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalMonthly[contact.id]?.salaryRental"
+                        >
+                          <span>{{ values.rentalMonthly[contact.id]?.salaryRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalMonthly[contact.id]?.salaryRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rf__table-cell">
+                      <div class="rf__table-txt">
+                        <div
+                          *ngIf="values.rentalMonthly[contact.id]?.expenseRental"
+                        >
+                          <span>{{ values.rentalMonthly[contact.id]?.expenseRental|formatNumber }}</span>
+                          <span class="currency-label">{{ (settings$|async).currency }}</span>
+                        </div>
+                        <span
+                          *ngIf="!values.rentalMonthly[contact.id]?.expenseRental"
+                          class="placeholder-text"
+                        >{{ 'label_not_set'|translate }}</span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  </ng-container>
+
+                </div>
+
+                <div
+                  *ngIf="(isLoading$|async) === false && options.rentalMonthly.length === 0"
+                  class="rf__table-noresults"
+                >{{ 'label_no_results_found'|translate }}</div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>

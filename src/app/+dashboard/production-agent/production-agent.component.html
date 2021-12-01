@@ -1,0 +1,122 @@
+<div class="fade fade--delay prod-agent__content">
+  <div class="table-fake" *ngIf="isLoadingAgentProductionTable">
+    <app-preloader></app-preloader>
+  </div>
+  <app-total-table *ngIf="!isLoadingAgentProductionTable" [dataTable]="agentProductionTable">
+    <tr class="small">
+      <th></th>
+      <th *ngFor="let th of agentProductionTable[1].data" [class.show-icon]="!!th.top">
+        {{th.name}}
+      </th>
+      <th class="lastcol">{{ 'label_total'|translate }}</th>
+    </tr>
+  </app-total-table>
+
+  <div class="cart_chart_flex">
+    <div class="cart_chart cart_chart--md">
+      <app-preloader *ngIf="isLoadingAgentProductionChart"></app-preloader>
+
+      <div *ngIf="!isLoadingAgentProductionChart">
+        <div class="cart_chart__header">
+          <div class="cart_chart__title">
+            {{ 'label_production_per_agent'|translate }}
+          </div>
+
+          <mat-form-field class="mat-form-field--box select_custom">
+            <mat-label>{{ 'label_piechart'|translate }}</mat-label>
+            <mat-select
+              [(ngModel)]="selectedProdVal"
+            >
+              <mat-option
+                *ngFor="let data of dropdownData"
+                [value]="data.id"
+              >
+                {{data.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <app-bar-leads *ngIf="selectedProdVal === 'chart'"
+                       [height]="260"
+                       [categories]="barCategoryProd"
+                       [legend]="true"
+                       [data]="barDataProd"></app-bar-leads>
+        <app-doughnut-chart *ngIf="selectedProdVal === 'piechart'"
+                            [allDataChart]="doughnutDataProd"
+                            [amounts]="doughnutDataProdAmount"
+                            [chartLegendTitleLeft]="labelAgents"
+                            [chartLegendTitleRight]="''"
+                            [showCartValue]="false"
+                            [seriesName]="seriesNameProd"
+                            [chartLegendItemClass]="'chart_item_lg'">
+        </app-doughnut-chart>
+      </div>
+    </div>
+
+    <div class="cart_chart cart_chart--md">
+      <app-preloader *ngIf="isLoadingAgentDirectMarginChart"></app-preloader>
+      <div *ngIf="!isLoadingAgentDirectMarginChart">
+        <div class="cart_chart__header">
+          <div class="cart_chart__title">
+            {{ 'label_direct_margin_per_agent'|translate }}
+          </div>
+            <mat-form-field class="mat-form-field--box select_custom">
+              <mat-label>{{ 'label_piechart'|translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="selectedDirectVal"
+              >
+                <mat-option
+                  *ngFor="let data of dropdownData"
+                  [value]="data.id"
+                >
+                  {{data.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+        <app-bar-leads *ngIf="selectedDirectVal === 'chart'"
+                       [height]="260"
+                       [categories]="barCategoryDirect"
+                       [legend]="true"
+                       [data]="barDataDirect"></app-bar-leads>
+        <app-doughnut-chart *ngIf="selectedDirectVal === 'piechart'"
+                            [allDataChart]="doughnutDataDirect"
+                            [amounts]="doughnutDataDirectAmount"
+                            [chartLegendTitleLeft]="labelAgents"
+                            [chartLegendTitleRight]="''"
+                            [showCartValue]="false"
+                            [seriesName]="seriesNameDirectMargin"
+                            [chartLegendItemClass]="'chart_item_lg'">
+        </app-doughnut-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel--off">
+    <div class="panel__header">
+      <div class="panel__title">
+        <span [hidden]="roleId !== 2">
+          {{ 'label_efforts_per_agent'|translate }}
+        </span>
+        <span [hidden]="roleId !== 3">
+          {{ 'label_office_effort'|translate }}
+        </span>
+      </div>
+    </div>
+    <div class="panel__body">
+      <div class="table-fake" *ngIf="isLoadingAgentEffortTable">
+        <app-preloader></app-preloader>
+      </div>
+      <app-total-table *ngIf="!isLoadingAgentEffortTable"
+                       [dataTable]="agentEffortTable"
+                       [customClass]="'table_total--custom'"
+                       [typeTable]="'efforts'">
+        <tr class="small">
+          <th></th>
+          <th *ngFor="let th of agentEffortTable[0].data">{{th.name}}</th>
+          <th class="lastcol">{{ 'label_total'|translate }}</th>
+        </tr>
+      </app-total-table>
+    </div>
+  </div>
+</div>

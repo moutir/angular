@@ -1,0 +1,205 @@
+@import "../../../styles/variables";
+
+.rf__info {
+  font-size: 12px;
+}
+
+.rf__info .mat-icon {
+  color: $color-27;
+  line-height: 17px;
+  margin-right: 8px;
+}
+
+.rf__info--address {
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 25px;
+  position: relative;
+}
+
+.rf__info--address .mat-icon {
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+.container-agency-profile {
+  padding: 20px;
+}
+
+.main-header {
+  font-size: 18px;
+  color: $color-19;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.is-placeholder .main-header,
+.is-placeholder .subheader,
+.is-placeholder .rf__info,
+.is-placeholder .rf__keyvalue-cell,
+.is-placeholder .contact-title,
+.is-placeholder .contact-photo,
+.is-placeholder .agency-description {
+  color: $color-14;
+  background-color: $color-22;
+}
+
+.is-placeholder .main-header {
+  width: 250px;
+  height: 18px;
+  margin-bottom: 10px;
+}
+
+.subheader {
+  color: $color-19;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 25px 0 25px;
+}
+
+.is-placeholder .mat-icon {
+  display: none;
+}
+
+.is-placeholder .subheader {
+  width: 150px;
+  height: 16px;
+}
+
+.is-placeholder .rf__keyvalue-cell {
+  max-width: 22%;
+  margin: 2px 20px 5px 0;
+  height: 11px;
+}
+
+.is-placeholder .agency-description {
+  width: 100%;
+  height: 11px;
+  margin-bottom: 8px;
+}
+
+.is-placeholder .agency-description:last-child {
+  margin-bottom: 30px;
+}
+
+.is-placeholder .rf__info {
+  width: 150px;
+  height: 11px;
+  margin-bottom: 8px;
+}
+
+.contact-title {
+  font-size: 12px;
+  color: $color-19;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.social-icon {
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.agency-logo {
+  max-width: 280px;
+  max-height: 200px;
+  height: auto;
+  align-self: center;
+}
+
+.agency-logo.rf__async-image--failure,
+.agency-logo-placeholder,
+.agency-logo:not(.rf__async-image--success) {
+  background-color: $color-22;
+  width: 280px;
+  height: 200px;
+}
+
+.container-summary {
+  border-bottom: 1px solid $color-22;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-bottom: 30px;
+  margin-bottom: 25px;
+}
+
+.social-container {
+  margin-top: 5px;
+}
+
+.summary-info {
+  padding: 5px 0 5px 25px;
+}
+
+.agency-description {
+  margin-bottom: 30px;
+}
+
+.rf__keyvalue-cell--key,
+.rf__keyvalue-cell--value {
+  background: none;
+  padding: 3px;
+}
+
+.team-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-contact {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 47%;
+  margin-bottom: 20px;
+}
+
+.card-contact .rf__info {
+  font-size: 11px;
+}
+
+.card-contact .rf__info-icon.mat-icon {
+  margin-right: 0;
+  font-size: 11px;
+}
+
+.contact-photo {
+  background-color: $color-31;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: default;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-photo .mat-icon {
+  color: $color-01;
+  font-size: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+.contact-photo.rf__async-image--success .mat-icon {
+  display: none;
+}
+
+.contact-summary-info {
+  padding: 5px 0 5px 15px;
+  line-height: 15px;
+}
+
+@media (min-width: 900px) {
+
+  .rf__keyvalue-cell--key,
+  .rf__keyvalue-cell--value {
+    min-height: 0;
+  }
+}

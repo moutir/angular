@@ -1,0 +1,29 @@
+@import "../../../styles/variables";
+
+.rf__website-cell--icon,
+.rf__spacer {
+  display: none;
+}
+
+.website-link {
+  color: $color-19;
+  width: 24px;
+  height: 24px;
+}
+
+.website-link:hover {
+  color: $color-27;
+  cursor: pointer;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__website-cell--icon,
+  .rf__spacer {
+    display: table-cell;
+  }
+
+  .rf__website-cell--icon {
+    padding-right: 0;
+  }
+}

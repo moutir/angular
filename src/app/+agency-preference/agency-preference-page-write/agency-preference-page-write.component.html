@@ -1,0 +1,18 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__page-body">
+
+  <app-agency-preference-form-required
+    [model]="model$|async"
+    [options]="options$|async"
+    [content]="content$|async"
+    [isLoading]="isLoading$|async"
+    (changeForm)="onChangeForm($event)"
+    (pristineForm)="onPristineForm($event)"
+  ></app-agency-preference-form-required>
+
+</div>

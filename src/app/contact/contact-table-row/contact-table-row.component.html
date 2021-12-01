@@ -1,0 +1,275 @@
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--checkbox"
+  (click)="onClickCheckboxCell($event)"
+>
+
+  <mat-checkbox
+    *ngIf="isLoading === false"
+    [(ngModel)]="isSelected"
+    [disabled]="isSelectable() === false"
+    (change)="onChangeCheckbox()"
+    (click)="onClickCheckbox($event)"
+  ></mat-checkbox>
+
+  <mat-spinner
+    *ngIf="isLoading === true"
+    color="accent"
+    diameter="16"
+  ></mat-spinner>
+</div>
+
+<div
+  class="rf__table-cell rf__contact-cell--name"
+  [class.rf__contact-cell--name-performance]="isBetaPerformance === true"
+  [class.rf__contact-cell--name-confidential]="contact.isConfidential === true"
+>
+  <div
+    class="rf__table-cell-box"
+    [class.rf__table-cell-box--confidential]="contact.isConfidential === true"
+    matTooltipPosition="above"
+    matTooltip="{{ 'confidential_contact_tooltip'|translate }}"
+    [matTooltipDisabled]="contact.isConfidential === false"
+    (click)="onClickConfidential(contact.reference)"
+  >
+    <app-shared-contact-link
+      [contact]="contact"
+      [hash]="hash"
+      [layout]="contact.isConfidential ? 'confidential' : 'broker'"
+      [isPlaceholder]="isPlaceholder === true"
+      [hasLabel]="false"
+      [hasTooltip]="false"
+      [isStopPropagation]="contact.isConfidential === false"
+    ></app-shared-contact-link>
+    <div>
+      <span
+        class="rf__table-txt"
+        [class.rf__table-txt--slim]="contact.isConfidential === true"
+      >{{ contact.isConfidential ? ('confidential_information'|translate) : contact.fullName }}</span>
+      <span
+        *ngIf="contact.isConfidential"
+        class="rf__table-txt rf__table-txt--slim rf__table-txt--contact-subinfo"
+      >{{ 'label_reference_abbreviation'|translate }}: {{ contact.reference }}</span>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--contacts rf__contact-cell--contacts-performance"
+>
+  <div class="rf__table-cell-box contacts">
+
+    <ng-container *ngIf="isPlaceholder === true">
+
+      <app-shared-contact-link
+        *ngFor="let i of 3|forLoop"
+        [isPlaceholder]="true"
+        [layout]="'broker'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+
+    <ng-container *ngIf="isPlaceholder === false">
+
+      <app-shared-contact-link
+        *ngIf="contact.mainContact"
+        [contact]="contact.mainContact"
+        [layout]="'broker'"
+        [tooltip]="'label_main_contact'"
+      ></app-shared-contact-link>
+
+      <app-shared-contact-link
+        *ngIf="contact.saleContact"
+        [contact]="contact.saleContact"
+        [layout]="'broker'"
+        [tooltip]="'label_contact_sale_contact'"
+      ></app-shared-contact-link>
+
+      <app-shared-contact-link
+        *ngIf="contact.rentalContact"
+        [contact]="contact.rentalContact"
+        [layout]="'broker'"
+        [tooltip]="'label_rental_contact'"
+      ></app-shared-contact-link>
+
+    </ng-container>
+  </div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--date"
+>
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ contact.createDate|datetime }}"
+        matTooltipPosition="left"
+        class="rf__info-icon"
+      >add</mat-icon>
+      <span class="rf__info-label">{{ contact.createDate|smartDate }}</span>
+    </div>
+  </span>
+  <span class="rf__table-txt">
+    <div
+      *ngIf="isPlaceholder === false"
+      class="rf__info"
+    >
+      <mat-icon
+        matTooltip="{{ contact.lastContactDate|datetime:'date' }}"
+        matTooltipPosition="left"
+        [matTooltipDisabled]="contact.lastContactDate === null"
+        class="rf__info-icon"
+      >chat_bubble_outline</mat-icon>
+      <span
+        *ngIf="contact.lastContactDate !== null"
+        class="rf__info-label"
+      >{{ contact.lastContactDate|smartDate }}</span>
+      <span
+        *ngIf="contact.lastContactDate === null"
+        class="rf__info-label"
+      >{{ 'label_never_contacted'|translate }}</span>
+    </div>
+  </span>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__contact-cell--ranking"
+  [class.rf__contact-cell--ranking-blacklisted]="isUsingActions === false || contact.isBlacklisted === true || contact.isConfidential === true"
+>
+  <div (click)="onClickButtonRank($event, 1)">
+
+    <mat-icon
+      class="rf__star"
+      [class.rf__star--on]="contact.ranking > 0"
+    >star</mat-icon>
+
+    <div (click)="onClickButtonRank($event, 2)">
+
+      <mat-icon
+        class="rf__star"
+        [class.rf__star--on]="contact.ranking > 1"
+      >star</mat-icon>
+
+      <div (click)="onClickButtonRank($event, 3)">
+
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="contact.ranking > 2"
+        >star</mat-icon>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__contact-cell--agency"
+>
+  <div class="rf__table-cell-box">
+    <app-shared-contact-link
+      *ngIf="contact.mainContact"
+      [contact]="contact.mainContact"
+      [layout]="'broker'"
+      [tooltip]="'label_main_contact'"
+    ></app-shared-contact-link>
+    <div>
+      <span class="rf__table-txt rf__table-txt--slim">{{ contact.mainContact ? contact.mainContact.fullName : (isPlaceholder ? '' : 'label_no_manager'|translate) }}</span>
+      <span class="rf__table-txt rf__table-txt--slim rf__table-txt--contact-subinfo">{{ contact.mainContact ? contact.mainContact.agency.name : '' }}</span>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === true"
+  class="rf__table-cell rf__table-cell--spacer"
+></div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--search"
+  (click)="onClickSearchCell($event, contact)"
+>
+  <div class="rf__table-txt">
+    <div class="rf__info">
+      <mat-icon class="rf__info-icon">search</mat-icon>
+      <span
+        *ngIf="contact.searches.length === 0"
+        class="rf__info-label"
+      >{{ 'label_contacts_without_searches'|translate }}</span>
+      <span
+        *ngIf="contact.searches.length === 1"
+        class="rf__info-label"
+      >{{ contact.searches.length }} {{ 'label_search'|translate }}</span>
+      <span
+        *ngIf="contact.searches.length > 1"
+        class="rf__info-label"
+      >{{ contact.searches.length }} {{ ('label_searches'|translate) }}</span>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="isBetaPerformance === false"
+  class="rf__table-cell rf__contact-cell--ranking"
+  [class.rf__contact-cell--ranking-blacklisted]="isUsingActions === false || contact.isBlacklisted === true || contact.isConfidential === true"
+>
+  <div (click)="onClickButtonRank($event, 1)">
+
+    <mat-icon
+      class="rf__star"
+      [class.rf__star--on]="contact.ranking > 0"
+    >star</mat-icon>
+
+    <div (click)="onClickButtonRank($event, 2)">
+
+      <mat-icon
+        class="rf__star"
+        [class.rf__star--on]="contact.ranking > 1"
+      >star</mat-icon>
+
+      <div (click)="onClickButtonRank($event, 3)">
+
+        <mat-icon
+          class="rf__star"
+          [class.rf__star--on]="contact.ranking > 2"
+        >star</mat-icon>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div
+  *ngIf="isUsingActions === true"
+  class="rf__table-cell rf__table-cell--actions"
+>
+
+  <button
+    *ngIf="contact.searches.length > 0"
+    mat-icon-button
+    matTooltip="{{ 'label_matches_properties'|translate }}"
+    matTooltipPosition="left"
+    (click)="onClickButtonMatchingProperty($event)"
+  >
+    <mat-icon>home_work</mat-icon>
+  </button>
+
+  <button
+    *ngIf="feature.history === true"
+    mat-icon-button
+    matTooltip="{{ 'title_contact_history'|translate }}"
+    matTooltipPosition="left"
+    [disabled]="contact.isBlacklisted === true || contact.isConfidential === true"
+    (click)="onClickButtonHistory($event)"
+  >
+    <mat-icon>event_note</mat-icon>
+  </button>
+
+</div>

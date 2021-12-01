@@ -1,0 +1,13 @@
+@import "../../../../styles/variables";
+
+.rf__color-picker {
+  border: 1px solid $color-30;
+  cursor: pointer;
+  width: 18px;
+  height: 17px;
+}
+
+.rf__color-picker--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

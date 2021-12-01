@@ -1,0 +1,118 @@
+@import "../variables";
+
+.rf__lead-duration--1 {
+  color: $color-15;
+}
+
+.rf__lead-duration--2 {
+  color: $color-36;
+}
+
+.rf__lead-duration--3 {
+  color: $color-24;
+}
+
+.rf__lead-duration--4 {
+  color: $color-17;
+}
+
+// New
+.rf__lead-status--209 {
+  color: $color-26;
+}
+
+// Processed
+.rf__lead-status--211 {
+  color: $color-11;
+}
+
+// Affected
+.rf__lead-status--210 {
+  color: $color-09;
+}
+
+// Cancelled
+.rf__lead-status--212 {
+  color: $color-17;
+}
+
+.rf__searchlist--lead .rf__table-row--placeholder .rf__card--property .rf__card-text:nth-child(2) {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist--lead .rf__lead-cell--source,
+  .rf__searchlist--lead .rf__lead-cell--client-broker,
+  .rf__searchlist--lead .rf__table-cell.rf__lead-cell--property {
+    display: none;
+  }
+
+  .rf__lead-cell--lead-broker .mat-sort-header-container {
+    justify-content: center;
+  }
+
+  .rf__lead-cell--lead-broker,
+  .rf__lead-cell--client-broker {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+
+  .rf__lead-cell--date {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__lead-cell--type-status {
+    min-width: 130px;
+    max-width: 130px;
+    width: 130px;
+  }
+
+  .rf__lead-cell--client {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  .rf__lead-cell--source {
+    min-width: 190px;
+    max-width: 190px;
+    width: 190px;
+  }
+
+  .rf__lead-cell--property {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+  }
+
+  .rf__lead-cell--lead-broker .contact-link,
+  .rf__lead-cell--client-broker .contact-link {
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1250px) {
+
+  .rf__searchlist--lead .rf__table-cell.rf__lead-cell--property {
+    height: auto;
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__searchlist--lead .rf__lead-cell--client-broker {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1580px) {
+
+  .rf__searchlist--lead .rf__lead-cell--source {
+    display: table-cell;
+  }
+}

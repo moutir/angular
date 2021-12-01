@@ -1,0 +1,81 @@
+<div class="selection-bar">
+
+  <button
+    *ngIf="isActiveAction === true && isUsingOnlyMoreIcon === false && selection"
+    mat-raised-button
+    color="accent"
+    class="rf__button"
+    [disabled]="selection.ids.length === 0"
+    (click)="onClickSelectAction($event)"
+  >
+    <mat-icon>{{ buttonIcon }}</mat-icon> <span class="label">{{ buttonLabel|translate }}</span>
+  </button>
+
+  <button
+    *ngIf="isActiveAction === true && isUsingOnlyMoreIcon === true && selection"
+    mat-raised-button
+    class="rf__button-icon rf__button-icon--blue"
+    [disabled]="selection.ids.length === 0"
+    (click)="onClickSelectAction($event)"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+
+  <ng-container *ngIf="noSelectionSentence">
+
+    <span
+      *ngIf="selection === null || selection.ids.length === 0"
+      class="text text--no-selection-sentence"
+    >{{ noSelectionSentence|translate }}</span>
+
+  </ng-container>
+
+  <ng-container *ngIf="!noSelectionSentence">
+
+    <span
+      *ngIf="selection"
+      class="text"
+    >
+
+      <span *ngIf="isActiveSelectionText === true">
+        <ng-container *ngIf="selection.ids.length === 0">{{ 'label_selected_none'|translate }}</ng-container>
+        <ng-container *ngIf="selection.ids.length > 0 && (selection.isSelectedAll === false || models === null)">
+          {{ (selection.ids.length === 1 ? 'label_selected_some_singular' : 'label_selected_some_plural')|translate:{ count: selection.ids.length } }}
+        </ng-container>
+        <ng-container *ngIf="selection.ids.length > 0 && selection.isSelectedAll === true">
+          {{ (selection.ids.length === 1 ? 'label_selected_all_singular' : 'label_selected_all_plural')|translate:{ count: total||0 } }}
+        </ng-container>
+      </span>
+
+      <ng-container *ngIf="isActiveSelectionAll === true && selection.isSelectedAll === false && total > 1 && selection.ids.length > 0">
+        <span
+          class="text text--select-all"
+          (click)="onClickSelectAll()"
+        >{{ 'label_select_all_items'|translate:{ count: total } }}</span>
+        <span>{{ 'label_or'|translate }}</span>
+      </ng-container>
+
+      <span
+        class="text text--select-all"
+        *ngIf="isActiveSelectionAll === true && selection.ids.length > 0"
+        (click)="onClickSelectNone()"
+        >{{ 'label_empty_selection'|translate }}</span>
+    </span>
+
+    <div class="rf__spacer"></div>
+
+  </ng-container>
+
+  <span
+    *ngIf="isLoading === false"
+    class="text text--total"
+  >
+    {{ countFoundTranslationKey|translate:{ count: total||0 } }}
+  </span>
+
+  <span
+    *ngIf="isLoading === true"
+    class="text text--loading"
+  >&nbsp;</span>
+
+</div>

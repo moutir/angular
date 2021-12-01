@@ -1,0 +1,101 @@
+<app-shared-page-header
+  [header]="header$|async"
+  (clickButton)="onClickButton($event)"
+  (clickMenuItem)="onClickMenuItem($event)"
+></app-shared-page-header>
+
+<div class="rf__tab-bar rf__tab-bar--page">
+
+  <mat-tab-group
+    (selectedTabChange)="onChangeTab($event)"
+  >
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_PROFILE) > -1"
+      [id]="PAGE_TAB_PROFILE"
+    >
+
+      <ng-template matTabLabel>
+        <div
+          class="rf__tab-label"
+          [class.rf__tab-label--has-error]="tabErrorCount[PAGE_TAB_PROFILE] > 0"
+          matTooltipPosition="above"
+          matTooltip="{{ (tabErrorCount[PAGE_TAB_PROFILE] > 0 ?
+            'tooltip_tab_error' : '')|translate: { count: tabErrorCount[PAGE_TAB_PROFILE] } }}"
+        >
+          <span>{{ 'label_profile'|translate }}</span>
+          <span class="rf__badge rf__badge--error">{{ tabErrorCount[PAGE_TAB_PROFILE] }}</span>
+        </div>
+      </ng-template>
+
+      <div class="rf__tab-body">
+
+        <app-shared-general-error
+          [error]="generalError$|async"
+        ></app-shared-general-error>
+
+        <app-agency-profile-form-profile
+          [isLoading]="isLoading$|async"
+          [model]="model$|async"
+          [options]="options$|async"
+          [error]="modelError$|async"
+          (changeForm)="onChangeForm($event)"
+          (errorForm)="onErrorForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-agency-profile-form-profile>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_IMAGE) > -1"
+      label="{{ 'label_images'|translate }}"
+      [id]="PAGE_TAB_IMAGE"
+    >
+
+      <div class="rf__tab-body">
+
+        <app-agency-profile-image-document-list
+          [uid]="PAGE_TAB_IMAGE"
+          [documents]="imageDocuments"
+          [model]="model$|async"
+          [isReadOnly]="false"
+          [isSortable]="false"
+          (changeForm)="onChangeForm($event)"
+          (pristineForm)="onPristineForm($event)"
+        ></app-agency-profile-image-document-list>
+
+      </div>
+
+    </mat-tab>
+
+    <mat-tab
+      *ngIf="tabUids.indexOf(PAGE_TAB_DOCUMENT) > -1"
+      label="{{ 'label_documents'|translate }}"
+      [id]="PAGE_TAB_DOCUMENT"
+    >
+
+      <div class="rf__tab-body">
+
+        <app-agency-profile-general-document-list
+          [uid]="PAGE_TAB_DOCUMENT"
+          [documents]="generalDocuments"
+          [model]="model$|async"
+          [isReadOnly]="false"
+          [isSortable]="false"
+        ></app-agency-profile-general-document-list>
+
+      </div>
+
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
+
+<app-agency-profile-modal-preview
+  [isVisible]="(emailPreview$|async).isOpen === true"
+  [emailPreview]="emailPreview$|async"
+  (submitModal)="onSubmitModalPreview()"
+></app-agency-profile-modal-preview>

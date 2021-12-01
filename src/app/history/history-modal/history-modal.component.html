@@ -1,0 +1,70 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+
+    <app-shared-modal-header labelTitle="{{ labelTitle }}"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+
+      <div class="list-header">
+
+        <div class="title">{{ history.entityLabel }}</div>
+
+        <button
+          mat-raised-button
+          color="accent"
+          class="rf__button rf__button--with-icon rf__button--with-icon-left"
+          [matMenuTriggerFor]="exportMenu"
+        >
+          <mat-icon>save_alt</mat-icon> <span class="label">{{ 'label_export'|translate }}</span>
+        </button>
+        <mat-menu #exportMenu="matMenu" xPosition="before">
+          <button mat-menu-item (click)="onClickExport(exportActionSummary)">{{ 'label_export_summary'|translate }}</button>
+          <button mat-menu-item (click)="onClickExport(exportActionFull)">{{ 'label_export_all'|translate }}</button>
+        </mat-menu>
+      </div>
+
+      <div class="rf__table">
+
+          <app-history-table-header class="rf__table-row rf__table-row--header"></app-history-table-header>
+
+          <ng-container *ngIf="histories !== null">
+
+            <ng-container *ngFor="let history of histories; trackBy: trackById;">
+
+              <app-history-table-row
+                *ngIf="history.comment !== ''"
+                class="rf__table-row"
+                [history]="history"
+              ></app-history-table-row>
+
+            </ng-container>
+
+          </ng-container>
+
+          <ng-container *ngIf="histories === null">
+
+            <app-history-table-row
+              class="rf__table-row rf__table-row--placeholder"
+              *ngFor="let i of 10|forLoop"
+              [isPlaceholder]="true"
+            ></app-history-table-row>
+
+          </ng-container>
+        </div>
+    </div>
+
+    <app-shared-modal-footer
+      (clickButton)="onClickButton($event)"
+      [isVisibleValid]="false"
+      labelInvalid="label_close"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

@@ -1,0 +1,85 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form-toggle {
+  display: none;
+}
+
+.search-field {
+  width: 50%;
+}
+
+.rf__panel-body--agencies {
+  min-height: 250px;
+}
+
+.rf__card {
+  cursor: pointer;
+  width: 100%;
+  height: 55px;
+  padding: 8px;
+  transition: background-color 300ms ease-out;
+}
+
+.rf__card:hover {
+  background-color: $color-25;
+}
+
+.rf__card-image {
+  min-width: 35px;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
+
+.rf__card-body {
+  min-width: 70%;
+}
+
+.rf__card-text {
+  font-size: 12px;
+  color: $color-02;
+}
+
+.rf__card--placeholder {
+  pointer-events: none;
+}
+
+.rf__card--placeholder .rf__card-text {
+  width: 70%;
+  height: 12px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.noresults {
+  width: 100%;
+  padding: 120px;
+  text-align: center;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__card {
+    width: 50%;
+  }
+
+  .search-field {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__card {
+    width: 33.3%;
+  }
+
+  .search-field {
+    width: 20%;
+  }
+}

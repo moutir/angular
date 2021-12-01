@@ -1,0 +1,104 @@
+@import "../../../styles/variables";
+
+.rf__searchlist-form--live app-contact-form-search-beta-performance,
+.rf__searchlist-form--beta-performance app-contact-form-search {
+  display: none;
+}
+
+.rf__searchlist-form--beta-performance.rf__searchlist-form .rf__searchlist-form-body {
+  padding-top: 0;
+}
+
+.rf__searchlist-form--beta-performance.rf__searchlist-form--simple .rf__searchlist-form-body {
+  height: 90px;
+}
+
+.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 650px;
+}
+
+.rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+  height: 760px;
+}
+
+.beta-checkbox-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  background: transparent;
+  transition: background 300ms ease-out;
+  height: 40px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.beta-checkbox-label:hover {
+  background: $color-25;
+}
+
+.beta-checkbox-label__label {
+  padding: 0 5px;
+}
+
+.beta-checkbox-label__checkbox {
+  color: $color-27;
+}
+
+@media (min-width: 600px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 435px;
+  }
+
+  .rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 540px;
+  }
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 330px;
+  }
+
+  .rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 430px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 275px;
+  }
+
+  .rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 380px;
+  }
+}
+
+@media (min-width: 1400px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 225px;
+  }
+
+  .rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 330px;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .rf__searchlist-form--beta-performance.rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 270px;
+  }
+}
+
+@media (min-width: 1670px) {
+
+  .rf__searchlist-form--advanced .rf__searchlist-form-body {
+    height: 175px;
+  }
+}

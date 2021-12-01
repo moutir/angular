@@ -1,0 +1,121 @@
+.rf__table-row--placeholder .rf__card--promotion .rf__card-text {
+  min-width: 80px;
+}
+
+.rf__card.rf__card--promotion .contact-link.contact-link--icon {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
+
+.rf__card.rf__card--promotion .contact-link.contact-link--icon .contact-link__initials {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  line-height: 17px;
+  letter-spacing: 0;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__promotion-cell--photo {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--name {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  .rf__promotion-cell--date,
+  .rf__promotion-cell--contact {
+    min-width: 160px;
+    max-width: 160px;
+    width: 160px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--price,
+  .rf__promotion-cell--location {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--status {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+}
+
+@media (min-width: 1270px) {
+
+  .rf__searchlist--promotion .rf__promotion-cell--name {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__promotion-cell--date,
+  .rf__promotion-cell--contact {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--price,
+  .rf__promotion-cell--location {
+    min-width: 140px;
+    max-width: 140px;
+    width: 140px;
+  }
+}
+
+@media (min-width: 1350px) {
+
+  .rf__searchlist--promotion .rf__promotion-cell--name,
+  .rf__searchlist--promotion .rf__promotion-cell--contact,
+  .rf__promotion-cell--location {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+}
+
+@media (min-width: 1450px) {
+
+  .rf__searchlist--promotion .rf__promotion-cell--name,
+  .rf__promotion-cell--location,
+  .rf__promotion-cell--contact {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--status {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+}
+
+@media (min-width: 1650px) {
+
+  .rf__searchlist--promotion .rf__promotion-cell--name {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  .rf__searchlist--promotion .rf__promotion-cell--price,
+  .rf__promotion-cell--date,
+  .rf__promotion-cell--location,
+  .rf__promotion-cell--contact {
+    min-width: 180px;
+    max-width: 180px;
+    width: 180px;
+  }
+}

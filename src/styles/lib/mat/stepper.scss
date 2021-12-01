@@ -1,0 +1,40 @@
+@import "../../variables";
+
+.mat-stepper-horizontal.mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+  padding: 18px;
+}
+
+.mat-stepper--label-hidden .mat-step-label {
+  display: none;
+}
+
+.mat-stepper--no-step-icon .mat-vertical-content {
+  padding: 0;
+}
+
+.mat-stepper--no-step-icon .mat-step-icon {
+  width: 13px;
+  height: 13px;
+  margin: 7px;
+}
+
+.mat-stepper--no-step-icon .mat-step-icon-content {
+  display: none;
+}
+
+.mat-stepper--no-step-icon .mat-vertical-stepper-header .mat-step-icon-state-edit {
+  background-color: $color-23;
+}
+
+.mat-stepper--no-step-icon .mat-step {
+  margin-left: -10px;
+}
+
+.mat-stepper--placeholder {
+  pointer-events: none;
+}
+
+.mat-stepper--placeholder .mat-step-label {
+  height: 13px;
+  background-color: $color-22;
+}

@@ -1,0 +1,72 @@
+@import "../../../../styles/variables";
+
+.rf__card {
+  height: 55px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 5px 10px;
+}
+
+.rf__card--placeholder .rf__card-text.rf__card-col--name {
+  width: 130px;
+}
+
+.rf__card--placeholder .rf__card-row--search .rf__card-text--search {
+  width: 70%;
+  height: 8px;
+  margin-left: 0;
+}
+
+.svg-icon {
+  position: absolute;
+  left: 2px;
+  top: 4px;
+}
+
+.rf__card-row {
+  width: 100%;
+}
+
+.rf__card-col--star {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.rf__card-row--name {
+  justify-content: space-between;
+}
+
+.rf__card-row--search {
+  margin-top: -10px;
+}
+
+.rf__card-row--search .rf__card-text {
+  color: $color-30;
+  margin-left: 2px;
+  width: 80%;
+  font-size: 10px;
+}
+
+.icon-search {
+  color: $color-21;
+  width: 16px;
+  height: 14px;
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.icon-search--active {
+  color: $color-19;
+}
+
+.rf__card-row--search-with-note .rf__card-text {
+  transition: color 300ms ease-out;
+}
+
+.rf__card-row--search-with-note:hover .rf__card-text {
+  color: $color-38;
+}

@@ -1,0 +1,957 @@
+@import "../variables";
+
+.rf__searchlist {
+  width: 100%;
+  position: relative;
+}
+
+.rf__searchlist-form {
+  padding-top: 10px;
+}
+
+.rf__searchlist-form,
+.rf__searchlist-list {
+  background: $color-01;
+}
+
+.rf__searchlist-form-body,
+.rf__searchlist-list {
+  padding: 10px 15px;
+}
+
+.rf__searchlist-form-body {
+  padding: 10px 15px 0 15px;
+  height: 63px;
+  overflow: hidden;
+  transition: height 500ms ease-out;
+}
+
+.rf__searchlist-form-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  background: $color-25;
+  justify-content: flex-end;
+  margin: 0 10px;
+  width: auto;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.rf__searchlist-form-keywords {
+  display: none;
+}
+
+.rf__searchlist-form-button.mat-raised-button {
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.rf__searchlist-form-text {
+  display: none;
+}
+
+.rf__searchlist-form--simple .rf__searchlist-form-text--more,
+.rf__searchlist-form--advanced .rf__searchlist-form-text--less {
+  display: flex;
+}
+
+.rf__searchlist .rf__table {
+  width: 100%;
+}
+
+.rf__searchlist .rf__table,
+.rf__searchlist .rf__table-row,
+.rf__searchlist .rf__table-cell {
+  display: block;
+}
+
+.rf__searchlist .rf__table-row {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.rf__searchlist .rf__table-row:not(:hover):nth-child(even),
+.rf__searchlist .rf__table-row.rf__table-row--disabled:hover:nth-child(even),
+.rf__searchlist .rf__table-row:not(:hover):nth-child(odd),
+.rf__searchlist .rf__table-row.rf__table-row--disabled:hover:nth-child(odd) {
+  background: $color-18;
+}
+
+.rf__searchlist .rf__table-row--header {
+  display: none;
+}
+
+.rf__searchlist--promotion .rf__table-row {
+  height: 330px;
+}
+
+.rf__searchlist--property .rf__table-row,
+.rf__searchlist--promotion .rf__table-row {
+  padding-top: 36px;
+}
+
+.rf__searchlist--property .rf__property-cell--photo,
+.rf__searchlist--promotion .rf__promotion-cell--photo {
+  padding: 0;
+  margin-bottom: 3px;
+}
+
+.rf__searchlist--property .rf__table-thumbnail,
+.rf__searchlist--promotion .rf__table-thumbnail {
+  width: 100%;
+  height: 150px;
+}
+
+.rf__property-cell--ranking .mat-icon,
+.rf__contact-cell--ranking .mat-icon {
+  font-size: 18px;
+  width: 16px;
+  height: 20px;
+  line-height: 21px;
+}
+
+.rf__searchlist--property .rf__property-cell--ranking,
+.rf__searchlist--property .rf__property-cell--reference,
+.rf__searchlist .rf__table-cell--checkbox,
+.rf__searchlist--property .rf__property-cell--price:after,
+.rf__searchlist--property .rf__property-cell--price,
+.rf__searchlist--property .rf__property-cell--price .rf__table-txt,
+.rf__searchlist--property .rf__property-cell--contacts,
+.rf__searchlist--reporting .property__price,
+.rf__searchlist--reporting .property__reference,
+.rf__searchlist--report .property__price,
+.rf__searchlist--report .property__reference,
+.rf__searchlist--report .promotion__price,
+.rf__searchlist--report .promotion__reference,
+.rf__searchlist--promotion .rf__promotion-cell--name,
+.rf__searchlist--promotion .rf__promotion-cell--price,
+.rf__searchlist--promotion .rf__promotion-cell--price:after,
+.rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt {
+  position: absolute;
+}
+
+.rf__searchlist--reporting .rf__reporting-cell--property .rf__card--property {
+  max-width: 530px;
+}
+
+.rf__searchlist--property .rf__property-cell--reference,
+.rf__searchlist--reporting .property__reference,
+.rf__searchlist--report .property__reference,
+.rf__searchlist--report .promotion__reference,
+.rf__searchlist--promotion .rf__promotion-cell--name {
+  right: 0;
+  top: 6px;
+  text-align: right;
+  max-width: 50%;
+}
+
+.rf__searchlist--property .rf__property-cell--reference .rf__table-txt:first-child,
+.rf__searchlist--contract .rf__contract-cell--reference .rf__table-txt,
+.rf__searchlist--website .rf__website-cell--url .rf__table-txt:first-child {
+  font-weight: bold;
+  color: $color-29;
+}
+
+.rf__searchlist--property .rf__property-cell--reference .rf__table-txt:last-child {
+  position: absolute;
+  right: 10px;
+  top: 184px;
+}
+
+.rf__searchlist--property .rf__property-cell--category .rf__table-txt:last-child {
+  max-width: 50%;
+}
+
+.rf__searchlist .rf__table-cell--checkbox {
+  left: -10px;
+  top: 5px;
+}
+
+.rf__searchlist--lead .rf__table-cell--checkbox {
+  left: -10px;
+  top: 9px;
+}
+
+.rf__searchlist--property .rf__property-cell--ranking {
+  top: 6px;
+  left: 25px;
+}
+
+.rf__searchlist--property .rf__property-cell--price:after,
+.rf__searchlist--reporting .property__price:after,
+.rf__searchlist--report .property__price:after,
+.rf__searchlist--report .promotion__price:after,
+.rf__searchlist--promotion .rf__promotion-cell--price:after {
+  display: block;
+  z-index: 1;
+  content: ' ';
+  background: $color-23;
+  width: 100%;
+  height: 26px;
+  left: 0;
+  top: 0;
+}
+
+.rf__searchlist--property .rf__property-cell--price,
+.rf__searchlist--reporting .property__price,
+.rf__searchlist--report .property__price,
+.rf__searchlist--report .promotion__price,
+.rf__searchlist--promotion .rf__promotion-cell--price {
+  width: 100%;
+  height: 26px;
+  top: 160px;
+  left: 0;
+}
+
+.rf__searchlist--property .rf__property-cell--price .rf__table-txt,
+.rf__searchlist--reporting .property__price .rf__table-txt,
+.rf__searchlist--report .property__price .rf__table-txt,
+.rf__searchlist--report .promotion__price .rf__table-txt,
+.rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt {
+  color: $color-01;
+  z-index: 2;
+  line-height: 26px;
+}
+
+.rf__searchlist--property .rf__property-cell--price .rf__table-txt:last-child {
+  right: 10px;
+  top: 0;
+}
+
+.rf__searchlist--property .rf__property-cell--price .rf__table-txt:first-child,
+.rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt {
+  left: 10px;
+  top: 0;
+}
+
+.rf__searchlist--property .rf__property-cell--dimensions > div > div {
+  display: flex;
+}
+
+.rf__searchlist--property .rf__property-cell--dimensions .rf__info {
+  margin-right: 10px;
+}
+
+.rf__searchlist--property .rf__property-cell--date {
+  display: flex;
+  margin-bottom: 3px;
+}
+
+.rf__searchlist--promotion .rf__promotion-cell--date {
+  display: flex;
+}
+
+.rf__searchlist--property .rf__property-cell--date .rf__table-txt,
+.rf__searchlist--promotion .rf__promotion-cell--date .rf__table-txt {
+  margin-right: 10px;
+}
+
+.rf__searchlist .rf__table-cell--spacer {
+  width: 100%;
+}
+
+.rf__searchlist .rf__table-cell--actions button {
+  position: relative;
+}
+
+.rf__searchlist .rf__table-cell--actions {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.rf__searchlist .rf__table-cell--actions:after {
+  display: block;
+  z-index: 1;
+  content: ' ';
+  background: $color-22;
+  width: 100%;
+  height: 44px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.rf__searchlist .rf__table-cell--actions button {
+  z-index: 2;
+}
+
+.rf__searchlist .rf__table-row {
+  padding-bottom: 45px;
+}
+
+.rf__searchlist--account .rf__table-row {
+  padding-bottom: 10px;
+}
+
+.rf__searchlist--property .rf__property-cell--contacts,
+.rf__searchlist--reporting .rf__reporting-cell--contacts {
+  left: 0;
+  top: 286px;
+  z-index: 2;
+}
+
+.rf__searchlist--property .rf__property-cell--contacts {
+  max-width: 132px;
+}
+
+.rf__searchlist--reporting .rf__table-row--placeholder .rf__card-text--title,
+.rf__searchlist--reporting .rf__table-row--placeholder .rf__card-text--description,
+.rf__searchlist--reporting .rf__table-row--placeholder .rf__card-text--name,
+.rf__searchlist--report .rf__table-row--placeholder .rf__card-text--title,
+.rf__searchlist--report .rf__table-row--placeholder .rf__card-text--description,
+.rf__searchlist--report .rf__table-row--placeholder .rf__card-text--name {
+  min-height: 14px;
+  margin: 3px 0;
+  background: $color-22;
+}
+
+.rf__searchlist--property .rf__property-cell--contacts {
+  max-width: 132px;
+}
+
+.rf__searchlist--property .rf__property-cell--category,
+.rf__searchlist--property .rf__property-cell--dimensions,
+.rf__searchlist--property .rf__property-cell--date {
+  height: 22px;
+  line-height: 22px;
+  padding: 0 10px;
+}
+
+.rf__searchlist--property .rf__property-cell--category {
+  height: 44px;
+}
+
+.rf__searchlist--property .rf__table-thumbnail-image--small,
+.rf__searchlist--promotion .rf__table-thumbnail-image--small,
+.rf__searchlist--property .rf__table-thumbnail-label,
+.rf__searchlist--promotion .rf__table-thumbnail-label {
+  display: none;
+}
+
+.rf__searchlist--property .rf__table-thumbnail-image--large,
+.rf__searchlist--promotion .rf__table-thumbnail-image--large {
+  display: flex;
+}
+
+.rf__searchlist-form-reset,
+.rf__searchlist-form-save,
+.rf__searchlist-form-toggle {
+  color: $color-19;
+  cursor: pointer;
+  user-select: none;
+  padding: 0 5px;
+  line-height: 30px;
+  text-transform: lowercase;
+  margin-left: 10px;
+  white-space: nowrap;;
+}
+
+.rf__searchlist-form-reset:hover,
+.rf__searchlist-form-save:hover,
+.rf__searchlist-form-toggle:hover,
+.rf__searchlist-form-toggle:hover .mat-icon {
+  color: $color-27;
+}
+
+.rf__searchlist-form-toggle {
+  min-width: 100px;
+}
+
+.rf__searchlist-form-toggle .mat-icon {
+  padding-top: 1px;
+}
+
+.rf__searchlist-form-save {
+  border-right: 1px solid $color-28;
+  padding-right: 15px;
+}
+
+.rf__searchlist .rf_initials {
+  margin: 0 3px;
+}
+
+.rf__searchlist-footer {
+  display: flex;
+  flex-flow: column;
+}
+
+.rf__searchlist--matching-group .rf__tab-bar {
+  flex-flow: column;
+}
+
+.rf__searchlist--matching-group .rf__card--contact .rf__card-col--name {
+  width: 80%;
+}
+
+.rf__searchlist--matching-group .rf__matching-group-action {
+  width: 130px;
+}
+
+.rf__searchlist--matching-group .selection-bar .text--total {
+  display: none;
+}
+
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__card-text--title,
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__card-text--description,
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__card-text--name {
+  min-height: 14px;
+  margin: 3px 0;
+  background: $color-22;
+}
+
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__card-text--name {
+  margin: 0;
+}
+
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__matching-group-group .rf__card-text--title,
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__matching-group-group .rf__card-text--description,
+.rf__searchlist--matching-group .rf__table-row--placeholder .rf__matching-group-group .rf__card-text--name {
+  background: $color-31;
+}
+
+.rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+  overflow: hidden;
+}
+
+.rf__searchlist--lead .rf__lead-cell--date .rf__table-txt:last-child {
+  background: $color-22;
+  height: 24px;
+}
+
+.rf__searchlist--promotion .rf__table-row--placeholder .rf__table-txt {
+  max-width: 280px;
+}
+
+.rf__searchlist .text--select-all,
+.rf__searchlist .selection-bar .rf__spacer {
+  display: none;
+}
+
+.rf__searchlist .selection-bar {
+  flex-wrap: wrap;
+}
+
+.rf__searchlist--reporting .rf__table-row,
+.rf__searchlist--report .rf__table-row {
+  padding-top: 36px;
+}
+
+@media (min-width: 400px) {
+
+  .rf__searchlist--matching-group .rf__matching-group-action {
+    width: 170px;
+  }
+
+  .rf__searchlist--matching-group .selection-bar .text--total {
+    display: block;
+  }
+}
+
+@media (min-width: 450px) {
+
+  .rf__searchlist--matching-group .rf__matching-group-action {
+    width: 230px;
+  }
+}
+
+@media (min-width: 500px) {
+
+  .rf__searchlist--matching-group .rf__matching-group-action {
+    width: 250px;
+  }
+
+  .rf__searchlist .selection-bar {
+    flex-wrap: nowrap;
+  }
+
+  .rf__searchlist .selection-bar .rf__spacer {
+    display: block;
+  }
+}
+
+@media (min-width: 600px) {
+
+  .rf__searchlist-footer {
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .rf__searchlist .rf__table-row {
+    width: 49%;
+    float: left;
+  }
+
+  .rf__searchlist .rf__table-row:nth-child(odd) {
+    float: right;
+  }
+
+  .rf__searchlist .mat-paginator {
+    clear: both;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    display: block;
+    max-width: 220px;
+  }
+}
+
+@media (min-width: 700px) {
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    display: block;
+    max-width: 230px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 320px;
+  }
+}
+
+@media (min-width: $layout-breakpoint) {
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 320px;
+  }
+
+  .rf__searchlist .text--select-all {
+    display: inline;
+  }
+}
+
+@media (min-width: 900px) {
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    display: block;
+    max-width: 200px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 300px;
+  }
+}
+
+.rf__searchlist--suggestion .rf__suggestion-cell--vote {
+  float: left;
+}
+
+.rf__searchlist--suggestion .rf__suggestion-cell--counts,
+.rf__searchlist--suggestion .rf__suggestion-cell--popularity,
+.rf__searchlist--suggestion .rf__suggestion-cell--status,
+.rf__searchlist--suggestion .rf__suggestion-cell--date {
+  display: none;
+}
+
+@media (min-width: $searchlist-breakpoint) {
+
+  .rf__searchlist .rf__table-row {
+    padding-bottom: 0;
+  }
+
+  .rf__searchlist--promotion .rf__table-row {
+    height: auto;
+  }
+
+  .rf__searchlist--property .rf__property-cell--reference .rf__table-txt:last-child {
+    position: initial;
+    right: initial;
+    top: initial;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-image-label,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-image-label {
+    display: none;
+  }
+
+  .rf__searchlist--property .rf__table-thumbnail-image--small,
+  .rf__searchlist--promotion .rf__table-thumbnail-image--small {
+    display: flex;
+  }
+
+  .rf__searchlist--property .rf__table-thumbnail-image--large,
+  .rf__searchlist--promotion .rf__table-thumbnail-image--large {
+    display: none;
+  }
+
+  .rf__table-thumbnail:hover .rf__table-thumbnail-overlay {
+    opacity: 1;
+  }
+
+  .rf__searchlist--property .rf__property-cell--reference {
+    text-align: left;
+  }
+
+  .rf__searchlist--property .rf__property-cell--reference .rf__table-txt,
+  .rf__searchlist--property .rf__property-cell--category .rf__table-txt,
+  .rf__searchlist--property .rf__property-cell--dimensions > div,
+  .rf__searchlist--property .rf__property-cell--date .rf__table-txt,
+  .rf__searchlist--property .rf__property-cell--contacts,
+  .rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt,
+  .rf__searchlist--promotion .rf__promotion-cell--date .rf__table-txt {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+  }
+
+  .rf__searchlist--property .rf__property-cell--contacts {
+    max-width: 190px;
+  }
+
+  .rf__searchlist .rf__table-cell--actions,
+  .rf__searchlist--property .rf__property-cell--ranking,
+  .rf__searchlist--property .rf__property-cell--reference,
+  .rf__searchlist .rf__table-cell--checkbox,
+  .rf__searchlist--property .rf__property-cell--price,
+  .rf__searchlist--property .rf__property-cell--price .rf__table-txt,
+  .rf__searchlist--property .rf__property-cell--contacts,
+  .rf__searchlist--promotion .rf__promotion-cell--price,
+  .rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt,
+  .rf__searchlist--promotion .rf__promotion-cell--name {
+    position: initial;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    right: auto;
+  }
+
+  .rf__searchlist .rf__table {
+    display: table;
+  }
+
+  .rf__searchlist,
+  .rf__searchlist .rf__table-row {
+    position: initial;
+  }
+
+  .rf__searchlist .rf__table-row,
+  .rf__searchlist .rf__table-row:nth-child(odd) {
+    display: table-row;
+    margin: 0;
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .rf__searchlist .rf__table-row,
+  .rf__searchlist .rf__table-row:nth-child(odd) {
+    float: none;
+  }
+
+  .rf__searchlist .rf__table-cell {
+    display: table-cell;
+  }
+
+  .rf__searchlist-list {
+    padding: 20px 30px 10px 30px;
+  }
+
+  .rf__searchlist-form-body {
+    padding: 10px 30px 0 30px;
+  }
+
+  .rf__searchlist-form-keywords {
+    width: 100%;
+    display: block;
+  }
+
+  .rf__searchlist-form-footer {
+    justify-content: flex-start;
+    margin: 0 20px;
+    padding: 10px 15px;
+  }
+
+  .rf__searchlist--property .rf__property-cell--photo,
+  .rf__searchlist--promotion .rf__promotion-cell--photo {
+    padding: 2px 10px;
+    margin-bottom: 0;
+  }
+
+  .rf__searchlist--property .rf__table-thumbnail,
+  .rf__searchlist--promotion .rf__table-thumbnail {
+    width: 90px;
+    height: 60px;
+  }
+
+  .rf__searchlist--property .rf__property-cell--category .rf__table-txt {
+    text-align: inherit;
+    max-width: none;
+  }
+
+  .rf__searchlist .rf__table-cell--actions,
+  .rf__searchlist--property .rf__property-cell--price,
+  .rf__searchlist--promotion .rf__promotion-cell--price {
+    width: auto;
+    height: auto;
+  }
+
+  .rf__searchlist--property .rf__property-cell--price:after,
+  .rf__searchlist--property .rf__table-cell--actions:after,
+  .rf__searchlist--reporting .rf__property-cell--price:after,
+  .rf__searchlist--reporting .rf__table-cell--actions:after,
+  .rf__searchlist--report .rf__table-cell--price:after,
+  .rf__searchlist--report .rf__table-cell--actions:after,
+  .rf__searchlist--lead .rf__table-cell--actions:after,
+  .rf__searchlist--promotion .rf__table-cell--actions:after,
+  .rf__searchlist--promotion .rf__promotion-cell--price:after,
+  .rf__searchlist--task .rf__table-cell--actions:after,
+  .rf__searchlist--report .rf__table-cell--actions:after,
+  .rf__searchlist--email .rf__table-cell--actions:after,
+  .rf__searchlist--contact .rf__table-cell--actions:after,
+  .rf__searchlist--portal .rf__table-cell--actions:after,
+  .rf__searchlist--device .rf__table-cell--actions:after {
+    display: none;
+  }
+
+  .rf__searchlist--property .rf__property-cell--price .rf__table-txt,
+  .rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt {
+    color: inherit;
+  }
+
+  .rf__searchlist--property .rf__property-cell--price .rf__table-txt,
+  .rf__searchlist--reporting .property__price .rf__table-txt,
+  .rf__searchlist--report .property__price .rf__table-txt,
+  .rf__searchlist--report .promotion__price .rf__table-txt,
+  .rf__searchlist--promotion .rf__promotion-cell--price .rf__table-txt {
+    line-height: 20px;
+  }
+
+  .rf__searchlist--property  .rf__property-cell--dimensions > div > div {
+    display: block;
+  }
+
+  .rf__searchlist--property  .rf__property-cell--dimensions .rf__info {
+    margin-right: 0;
+  }
+
+  .rf__searchlist--property .rf__property-cell--date .rf__info,
+  .rf__searchlist--promotion .rf__promotion-cell--date .rf__info {
+    justify-content: flex-start;
+  }
+
+  .rf__searchlist--property .rf__property-cell--date,
+  .rf__searchlist--promotion .rf__promotion-cell--date {
+    display: table-cell;
+  }
+
+  .rf__searchlist--property .rf__property-cell--date .rf__table-txt,
+  .rf__searchlist--promotion .rf__promotion-cell--date .rf__table-txt {
+    margin-right: 0;
+  }
+
+  .rf__searchlist .rf__table-row:not(:hover):nth-child(even),
+  .rf__searchlist .rf__table-row.rf__table-row--disabled:hover:nth-child(even) {
+    background: $color-01;
+  }
+
+  .rf__searchlist .rf__table-row:not(:hover):nth-child(odd),
+  .rf__searchlist .rf__table-row.rf__table-row--disabled:hover:nth-child(odd) {
+    background: $color-18;
+  }
+
+  .rf__searchlist--property .rf__property-cell--category,
+  .rf__searchlist--property .rf__property-cell--dimensions,
+  .rf__searchlist--property .rf__property-cell--date,
+  .rf__searchlist--promotion .rf__promotion-cell--date {
+    height: auto;
+    line-height: inherit;
+    padding: 2px 10px;
+    margin: 0;
+  }
+
+  .rf__searchlist .rf__table-txt {
+    margin: 3px 0;
+  }
+
+  .rf__searchlist--property .rf__property-cell--dimensions,
+  .rf__searchlist--property .rf__property-cell--contacts,
+  .rf__searchlist--property .rf__property-cell--ranking,
+  .rf__searchlist--property .rf__property-cell--date,
+  .rf__searchlist--promotion .rf__promotion-cell--location,
+  .rf__searchlist--promotion .rf__promotion-cell--date,
+  .rf__searchlist--promotion .rf__promotion-cell--contact {
+    display: none;
+  }
+
+  .rf__searchlist--property .rf__table-thumbnail-label,
+  .rf__searchlist--promotion .rf__table-thumbnail-label {
+    display: block;
+  }
+
+  .rf__searchlist--reporting .rf__card {
+    width: 360px;
+  }
+
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--contacts,
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--date-range,
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--frequency {
+    display: none;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 300px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 380px;
+  }
+
+  .rf__searchlist--lead .rf__lead-cell--date .rf__table-txt:last-child {
+    background: $color-14;
+    height: 20px;
+  }
+
+  .rf__searchlist--lead .rf__table-row--placeholder .rf__lead-cell--date .rf__table-txt:last-child {
+    background: $color-22;
+    height: 16px;
+  }
+
+  .rf__searchlist--lead .rf__card.rf__card--property {
+    height: 49px;
+  }
+
+  .rf__searchlist--lead .rf__card.rf__card--property .rf__card-image {
+    width: 75px;
+  }
+
+  .rf__searchlist--suggestion .rf__suggestion-cell--vote {
+    float: none;
+  }
+
+  .rf__searchlist--suggestion .rf__suggestion-cell--popularity,
+  .rf__searchlist--suggestion .rf__suggestion-cell--status,
+  .rf__searchlist--suggestion .rf__suggestion-cell--date {
+    display: table-cell;
+  }
+
+  .rf__searchlist--suggestion .rf__suggestion-cell--counts,
+  .rf__searchlist--suggestion .rf__suggestion-cell--tags {
+    display: none;
+  }
+
+  .rf__searchlist--suggestion .rf__suggestion-cell--title {
+    min-width: 150px;
+    max-width: 250px;
+  }
+}
+
+@media (min-width: 1100px) {
+
+  .rf__searchlist--suggestion .rf__suggestion-cell--counts {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1180px) {
+
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--date-range,
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--contacts,
+  .rf__searchlist--promotion .rf__promotion-cell--location {
+    display: table-cell;
+  }
+
+  .rf__searchlist--reporting .rf__card {
+    width: 320px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 400px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 530px;
+  }
+}
+
+@media (min-width: 1270px) {
+
+  .rf__searchlist--lead .rf__lead-cell--property,
+  .rf__searchlist--promotion .rf__promotion-cell--contact,
+  .rf__searchlist--suggestion .rf__suggestion-cell--tags {
+    display: table-cell;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .rf__searchlist--property .rf__property-cell--dimensions {
+    display: table-cell;
+  }
+
+  .rf__searchlist--reporting .rf__table-row .rf__table-cell.rf__reporting-cell--frequency {
+    display: table-cell;
+  }
+
+  .rf__searchlist--matching-group .rf__tab-bar {
+    flex-flow: row;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 500px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 650px;
+  }
+}
+
+@media (min-width: 1450px) {
+
+  .rf__searchlist--property .rf__property-cell--contacts,
+  .rf__searchlist--promotion .rf__promotion-cell--date {
+    display: table-cell;
+  }
+
+  .rf__searchlist--reporting .rf__card {
+    width: auto;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 600px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 800px;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .rf__searchlist--property .rf__property-cell--date {
+    display: table-cell;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 700px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 950px;
+  }
+}
+
+@media (min-width: 1720px) {
+
+  .rf__searchlist--property .rf__property-cell--ranking {
+    display: table-cell;
+  }
+
+  .rf__searchlist--matching-group .rf__card--contact .rf__card-col--text {
+    max-width: 800px;
+  }
+
+  .rf__searchlist--matching-group .rf__card--property .rf__card-body,
+  .rf__searchlist--matching-group .rf__card--promotion .rf__card-body {
+    max-width: 1250px;
+  }
+}

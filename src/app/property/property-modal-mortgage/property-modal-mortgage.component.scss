@@ -1,0 +1,90 @@
+@import "../../../styles/variables";
+
+.rf__modal-body {
+  min-width: 390px;
+  max-width: 600px;
+  overflow-y: scroll;
+}
+
+.rf__table-cell {
+  cursor: auto;
+  width: 100%;
+  font-size: 14px;
+}
+
+.rf__table-cell--key {
+  text-align: left;
+}
+
+.rf__table-cell--value {
+  text-align: right;
+  padding-right: 4px;
+}
+
+.rf__table-cell--period {
+  padding-left: 4px;
+  text-align: left;
+  text-transform: lowercase;
+}
+
+.list__header {
+  margin-bottom: 10px;
+  color: $color-19;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 13px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list__footer {
+  color: $color-09;
+  padding: 10px 0;
+  font-size: 9px;
+}
+
+.logo-epotek {
+  width: 28px;
+  height: 28px;
+}
+
+.details__value {
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin: 0 0 15px 0;
+}
+
+.sentence {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 0;
+}
+
+.sentence--center {
+  justify-content: center;
+}
+
+.sentence span {
+  margin-left: 10px;
+}
+
+app-shared-card-property {
+  box-shadow: 0 1px 4px $color-13;
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mat-icon.success {
+  color: $color-15;
+}

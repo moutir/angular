@@ -1,0 +1,21 @@
+<div class="rf__modal-footer">
+  <button
+    *ngIf="isVisibleInvalid"
+    mat-raised-button
+    color="default"
+    class="rf__button rf__modal-button rf__modal-button--invalid"
+    [disabled]="isDisabledInvalid"
+    (click)="onClickInvalid()"
+  >
+    {{ labelInvalid|translate }}
+  </button>
+  <button
+    *ngIf="isVisibleValid"
+    mat-raised-button
+    class="rf__button rf__modal-button rf__modal-button--valid"
+    [disabled]="isDisabledValid"
+    (click)="onClickValid()"
+  >
+    {{ labelValid|translate }}
+  </button>
+</div>

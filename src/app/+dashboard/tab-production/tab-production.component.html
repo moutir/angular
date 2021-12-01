@@ -1,0 +1,57 @@
+<div class="fade fade--delay">
+  <div class="tab_content__head">
+    <div class="panel__title">
+      <span [hidden]="roleId !== 2">{{ 'label_production'|translate }} {{year}}</span>
+      <span [hidden]="roleId !== 3">{{ 'label_office_production'|translate }}</span>
+      <div class="panel__navigation">
+        <ul class="panel__button panel__filter panel__period">
+          <li *ngIf="periodSelectorType === 'all' || periodSelectorType === 'month'">
+            <button (click)="onClickPeriodType('monthly')"
+                    [class.active]="periodType === 'monthly'"> {{ 'label_monthly'|translate }}
+            </button>
+          </li>
+          <li *ngIf="periodSelectorType === 'all'">
+            <button (click)="onClickPeriodType('yearly')"
+                    [class.active]="periodType === 'yearly'">{{ 'label_yearly'|translate }}
+            </button>
+          </li>
+          <li>
+            <mat-form-field class="mat-form-field--box select_custom">
+              <mat-label>{{ 'label_years'|translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="year"
+                (selectionChange)="onSelectYear($event)"
+              >
+                <mat-option
+                  *ngFor="let year of years"
+                  [value]="year.id"
+                >
+                  {{year.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </li>
+        </ul>
+        <ul class="panel__button panel__production" *ngIf="isAdmin">
+          <li>
+            <button [hidden]="roleId !== 2" (click)="onClickProductionType('my')" [class.active]="productionType === 'my'">
+              {{ 'label_my_production'|translate }}
+            </button>
+            <button [hidden]="roleId !== 3" (click)="onClickProductionType('my')" [class.active]="productionType === 'my'">
+              {{ 'label_office_production'|translate }}
+            </button>
+          </li>
+          <li>
+            <button [disabled]="brokerCount === 1" (click)="onClickProductionType('agent')" [class.active]="productionType === 'agent'">
+              {{ 'label_production_by_agent'|translate }}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="tab_content__body">
+    <app-production-my *ngIf="productionType === 'my'"></app-production-my>
+    <app-production-agent *ngIf="productionType === 'agent'"></app-production-agent>
+  </div>
+</div>

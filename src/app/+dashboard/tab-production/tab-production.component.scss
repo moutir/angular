@@ -1,0 +1,27 @@
+@import "../../../styles/variables.scss";
+
+.panel__title {
+  white-space: nowrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.panel__title span {
+  padding: 5px 0;
+}
+
+.panel__navigation {
+  width: auto;
+  display: flex;
+  padding: 5px 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.panel__button {
+  padding: 5px 0;
+}
+
+.panel__production {
+  padding-left: 20px;
+}

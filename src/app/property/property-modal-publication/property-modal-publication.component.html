@@ -1,0 +1,177 @@
+<div
+  class="rf__modal"
+  [class.rf__modal--is-visible]="isVisible"
+  [class.rf__modal--is-active]="isActive"
+>
+  <div
+    class="rf__modal-content"
+    [class.rf__modal-content--is-visible]="isVisible"
+  >
+    <app-shared-modal-header labelTitle="label_manage_publication"></app-shared-modal-header>
+
+    <div class="rf__modal-body">
+      <form
+        *ngIf="isVisible"
+        [formGroup]="formGroup"
+      >
+        <div
+          formGroupName="websites"
+          class="form-group form-group--websites"
+        >
+
+          <div class="rf__modal-heading">{{ 'label_publication_on_website'|translate }}</div>
+          <div
+            formGroupName="changes"
+            class="sub-section"
+          >
+
+            <div *ngFor="let option of options.websites">
+              <div class="channel">{{ option.text }}</div>
+              <mat-radio-group
+                formControlName="{{ option.value }}"
+                class="publication-radio-group"
+              >
+                <mat-radio-button value="-1">{{ 'label_unchange'|translate }}</mat-radio-button>
+                <mat-radio-button value="1">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button value="0">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+          </div>
+
+          <div class="rf__modal-heading">{{ 'label_manage_publication_period'|translate }}</div>
+          <div
+            formGroupName="dates"
+            class="sub-section"
+          >
+
+            <mat-radio-group
+              formControlName="period"
+              (change)="onChangeDatePeriod('websites.dates', $event)"
+              class="publication-radio-group"
+            >
+              <mat-radio-button value="0">{{ 'label_manage_publication_unchange_date'|translate }}</mat-radio-button>
+              <mat-radio-button value="1">{{ 'label_manage_publication_new_period'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+            <div>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="from"
+                  [matDatepicker]="pickerWebsiteFrom"
+                  autocomplete="off"
+                  placeholder="{{ 'label_from'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerWebsiteFrom"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerWebsiteFrom></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="to"
+                  [matDatepicker]="pickerWebsiteTo"
+                  autocomplete="off"
+                  placeholder="{{ 'label_to'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerWebsiteTo"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerWebsiteTo></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+          </div>
+
+        </div>
+        <div
+          formGroupName="portals"
+          class="form-group form-group--portals"
+        >
+
+          <div class="rf__modal-heading">{{ 'label_publication_on_portals'|translate }}</div>
+          <div
+            formGroupName="changes"
+            class="sub-section"
+          >
+
+            <div *ngFor="let option of options.portals">
+              <div class="channel">{{ option.text }}</div>
+              <mat-radio-group
+                formControlName="{{ option.value }}"
+                class="publication-radio-group"
+              >
+                <mat-radio-button value="-1">{{ 'label_unchange'|translate }}</mat-radio-button>
+                <mat-radio-button value="1">{{ 'label_yes'|translate }}</mat-radio-button>
+                <mat-radio-button value="0">{{ 'label_no'|translate }}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+          </div>
+
+          <div class="rf__modal-heading">{{ 'label_manage_publication_period'|translate }}</div>
+          <div
+            formGroupName="dates"
+            class="sub-section"
+          >
+
+            <mat-radio-group
+              formControlName="period"
+              (change)="onChangeDatePeriod('portals.dates', $event)"
+              class="publication-radio-group"
+            >
+              <mat-radio-button value="0">{{ 'label_manage_publication_unchange_date'|translate }}</mat-radio-button>
+              <mat-radio-button value="1">{{ 'label_manage_publication_new_period'|translate }}</mat-radio-button>
+            </mat-radio-group>
+
+            <div>
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="from"
+                  [matDatepicker]="pickerPortalFrom"
+                  autocomplete="off"
+                  placeholder="{{ 'label_from'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerPortalFrom"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerPortalFrom></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field>
+                <input
+                  matInput
+                  formControlName="to"
+                  [matDatepicker]="pickerPortalTo"
+                  autocomplete="off"
+                  placeholder="{{ 'label_to'|translate }}"
+                >
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="pickerPortalTo"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #pickerPortalTo></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+        <input type="hidden" formControlName="propertyIds" />
+      </form>
+    </div>
+
+    <app-shared-modal-footer
+      labelValid="label_save"
+      (clickButton)="onClickButton($event)"
+    ></app-shared-modal-footer>
+
+  </div>
+</div>

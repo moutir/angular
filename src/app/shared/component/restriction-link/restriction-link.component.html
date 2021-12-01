@@ -1,0 +1,16 @@
+<div
+  class="restriction-link"
+  [class.restriction-link--icon]="layout === 'icon'"
+  [class.restriction-link--name]="layout !== 'name'"
+  [class.restriction-link--placeholder]="isPlaceholder === true"
+  (click)="onClick($event)"
+>
+
+  <mat-icon *ngIf="layout === 'icon'">gavel</mat-icon>
+
+  <ng-container *ngIf="layout === 'name'">
+    <mat-icon class="restriction-link__icon">gavel</mat-icon>
+    <span class="restriction-link__label">{{ restriction.name }}</span>
+  </ng-container>
+
+</div>
